@@ -9,8 +9,8 @@ import MainContent from "./views/Main/MainContent";
 function App() {
   return (
     <>
-      <MainHead />
       <NavigationBar />
+      <MainHead />
       <MainContent />
       <Footer />
     </>
