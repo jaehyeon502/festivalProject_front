@@ -1,13 +1,23 @@
 import React from 'react'
 import Box from '@mui/material/Box';
+import MainLeftContent from './MainLeftContent';
+import MainRightContent from './MainRightContent';
+import FestivalBoard from './FestivalBoard';
 
-export default function index() {
+export default function MainContent() {
   return (
-    <Box sx={{ width: '100%', height: '900px', display:'flex', justifyContent: 'center'}}>
-        <Box sx={{ width:'80vw', height:'100%', backgroundColor:'#dedede', display: 'flex' }}>
-            <Box sx={{ width: '55%', height: '100%', mr:'5%', backgroundColor:'beige' }}></Box>
-            <Box sx={{ width: '40%', height: '100%', backgroundColor:'beige' }}></Box>
-        </Box>
-    </Box>
+    <>
+      <Box sx={{ width: '100%', height: '500px', display:'flex', justifyContent: 'center'}}>
+          <Box sx={{ width:'80vw', height:'500px', display: 'flex' }}>
+              <MainLeftContent />
+              <MainRightContent />
+          </Box>
+      </Box>
+      <Box sx={{ width: '100%', height: '400px', display:'flex', justifyContent: 'center'}}>
+          <Box sx={{width: '80vw', height:'400px', dsiplay:'flex'}}>
+              <FestivalBoard />
+          </Box>
+      </Box>
+    </>
   )
 }
