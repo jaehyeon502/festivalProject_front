@@ -3,10 +3,10 @@ import { Avatar, Box, Card, CardActionArea, Divider, Typography } from '@mui/mat
 import { IPfestivalReviewBoard } from 'src/interfaces';
 
 interface Props{
-    festivalList:IPfestivalReviewBoard
+    festivalBoardList:IPfestivalReviewBoard
 }
 
-export default function FestivalRivewBoardList({ festivalList }: Props) {
+export default function FestivalRivewBoardList({ festivalBoardList }: Props) {
 
     
     return (
@@ -14,7 +14,7 @@ export default function FestivalRivewBoardList({ festivalList }: Props) {
             <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} >
                 <Box>
                     <Box >
-                        <Typography sx={{fontWeight:900,fontSize:'25px',m:'10px'}}>{festivalList.festivalName}</Typography>
+                        <Typography sx={{fontWeight:900,fontSize:'25px',m:'10px'}}>{festivalBoardList.boardTitle}</Typography>
                         <Box>
                             <Divider />
                         </Box>
