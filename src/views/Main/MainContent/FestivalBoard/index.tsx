@@ -8,7 +8,7 @@ import { getpagecount } from 'src/utils';
 
 
 export default function FestivalBoard() {
-  const{festivalList, viewlist, pagenumber, onpageHandler, COUNT, setFestivalList}=usePagingHook(2);
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
@@ -22,13 +22,13 @@ export default function FestivalBoard() {
         <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
-            {viewlist.map((festivalItem) => (<FestivalListItem festivalList={festivalItem} />))}
+            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem} />))}
             </Stack>
           </Grid>
         </Grid>
         </Box>
         <Box sx={{display:'flex',justifyContent:'center'}} >
-          <Pagination  sx={{mt:'20px',ml:'20px',mr:'20px'}} page={pagenumber} count={getpagecount(festivalList,COUNT)} onChange={(event, value) => onpageHandler(value)} />
+          <Pagination  sx={{mt:'20px',ml:'20px',mr:'20px'}} page={pageNumber} count={getpagecount(festivalList,COUNT)} onChange={(event, value) => onPageHandler(value)} />
         </Box>
       </Box>
     </Box>
