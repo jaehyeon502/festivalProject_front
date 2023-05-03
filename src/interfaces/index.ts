@@ -4,23 +4,13 @@ export interface IPreviewFestivalItem{
     festivalName:string;
     festivalType:string;
     festivalDurationStart: string;
-<<<<<<< HEAD
-    festivalDurationEnd: string;
-    festivalTime: string | null;
-    festivalArea: string;
-    festivalCost: string | null;
-    onelineReviewAverage: number | null;
-    festivalInformationUrl : string,
-    festivalInformation : string
-=======
     festivalDurationEnd:string;
     festivalTime:string | null;
     festivalArea:string;
     festivalCost:string;
     onelineReviewAverage: number | null; 
     festivalInformation:string |null;
-    festivalImformationUrl:string|null;
->>>>>>> c7f05a1ebbcd2db250af8c4851406d8e4f19e1ee
+    festivalInformationUrl:string|null;
 }
 
 export interface IUser {
