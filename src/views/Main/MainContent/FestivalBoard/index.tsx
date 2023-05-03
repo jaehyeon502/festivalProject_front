@@ -1,7 +1,7 @@
 import { Box, Card, Grid, Pagination, Stack } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import FestivalListItem from 'src/compnents/FestivalListItem';
-import FestivalRivewBoardList from 'src/compnents/FestivalRivewBoardList';
+import FestivalListItem from 'src/components/FestivalListItem';
+import FestivalRiviewBoardList from 'src/components/FestivalRiviewBoardList';
 import { usePagingHook } from 'src/hooks';
 import { IPfestivalReviewBoard, IPreviewFestivalItem } from 'src/interfaces';
 import { FESTIVALLIST, FESTIVALREVIEWBOARDLIST } from 'src/mock';
@@ -9,7 +9,7 @@ import { getpagecount } from 'src/utils';
 
 
 export default function FestivalBoard() {
-  const{festivalList, viewlist, pagenumber, onpageHandler, COUNT, setFestivalList}=usePagingHook(1);
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
@@ -23,15 +23,15 @@ export default function FestivalBoard() {
         <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
-            {viewlist.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as IPreviewFestivalItem} />))}
-            {viewlist.map((festivalBoardListItem) => (<FestivalRivewBoardList festivalBoardList={festivalBoardListItem as IPfestivalReviewBoard} />))}
+            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as IPreviewFestivalItem} />))}
+            {viewList.map((festivalBoardListItem) => (<FestivalRiviewBoardList festivalBoardList={festivalBoardListItem as IPfestivalReviewBoard} />))}
      
             </Stack>
           </Grid>
         </Grid>
         </Box>
         <Box sx={{display:'flex',justifyContent:'center'}} >
-          <Pagination  sx={{mt:'20px',ml:'20px',mr:'20px'}} page={pagenumber} count={getpagecount(festivalList,COUNT)} onChange={(event, value) => onpageHandler(value)} />
+          <Pagination  sx={{mt:'20px',ml:'20px',mr:'20px'}} page={pageNumber} count={getpagecount(festivalList,COUNT)} onChange={(event, value) => onPageHandler(value)} />
         </Box>
       </Box>
     </Box>

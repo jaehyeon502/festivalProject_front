@@ -8,7 +8,7 @@ interface Props{
 
 export default function FestivalListItem({ festivalList }: Props) {
 
-    
+
     return (
         <Card variant='outlined' >
             <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} >
@@ -31,7 +31,7 @@ export default function FestivalListItem({ festivalList }: Props) {
                     </Box>
                 </Box>
                 <Box>
-                    <Box component={'img'} src={festivalList.festivalImformationUrl as string} sx={{ ml: '10px',height: '200px', width: '200px', borderRadius: '5%' }}></Box>
+                    <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px',height: '200px', width: '200px', borderRadius: '5%' }}></Box>
                 </Box>
             </CardActionArea>
         </Card>
