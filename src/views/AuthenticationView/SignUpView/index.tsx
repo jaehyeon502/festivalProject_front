@@ -1,8 +1,11 @@
 import { Avatar, Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import SignUpCheckboxListItem from 'src/component/SignUpCheckboxListItem';
+import { IPreviewFestivalItem } from 'src/interfaces';
+import { usePagingHook } from 'src/hooks';
+import { SIGN_UP_CHECKBOX_LIST } from 'src/mock';
 
 
 function FirstPage() {
@@ -55,12 +58,20 @@ function FirstPage() {
 }
 
 function SecondPage() {
+
+  const [festivalCheckboxList, setFestivalCheckboxList] = useState<IPreviewFestivalItem[]>([]);
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(100);
+  // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
+
+  useEffect(() => {
+    setFestivalList(SIGN_UP_CHECKBOX_LIST);
+  }, []);
   return(
   <Box sx={{ width : '100%', height: '100%' }}>
     <Box>
       <Typography sx={{ mt:'40px' }}>회원님이 관심있는 축제</Typography>
     </Box>
-    <SignUpCheckboxListItem />
+    {viewList.map( (festivalCheckboxList) => (<SignUpCheckboxListItem festivalCheckboxList={festivalCheckboxList} />))}
   </Box>
   )
 }

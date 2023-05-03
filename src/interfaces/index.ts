@@ -1,14 +1,16 @@
 
-export interface IPreviewFestivalItem {
-    festivalNumber: number;
-    festivalName: string;
-    festivalType: string;
+export interface IPreviewFestivalItem{
+    festivalNumber:number;
+    festivalName:string;
+    festivalType:string;
     festivalDurationStart: string;
-    festivalDurationEnd: string;
-    festivalTime: string | null;
-    festivalArea: string;
-    festivalCost: boolean | null;
-    onelineReviewAverage: number | null;
+    festivalDurationEnd:string;
+    festivalTime:string | null;
+    festivalArea:string;
+    festivalCost:string;
+    onelineReviewAverage: number | null; 
+    festivalInformation:string |null;
+    festivalImformationUrl:string|null;
 }
 
 export interface IUser {
@@ -74,3 +76,21 @@ export interface ISearchwordLog {
     sequence: number;
     searchWord: string;
 }
+
+export interface IPfestivalReviewBoard{
+      boardNumber:number;
+      boardTitle:string;
+      boardContent:string;
+      boardImgUrl:string;
+      boardWriteDatetime:string;
+      viewCount:number;
+      recommendCount:number;
+      commentCount:number;
+      writerId:string;
+      writerProfileUrl:number;
+      writerNickname:number;
+      festivalNumber:number;
+    
+
+}
+

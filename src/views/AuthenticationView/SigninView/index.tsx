@@ -10,10 +10,10 @@ interface Props {
 export default function SigninView({setAuthenticationView}: Props) {
   return (
     <Box display="flex" sx={{ height: "100%", flexDirection: "column", justifyContent: "space-between" }}>
-        <Box>
+        <Box sx={{ display:'flex', flexDirection:'column' }}>
             <Typography variant='h6' fontWeight={900} >로그인</Typography>
-            <TextField fullWidth label="아이디" variant="standard" />
-            <TextField fullWidth sx={{ mt:'40px' }} label="비밀번호" variant="standard" />
+            <TextField sx={{ width:'50%', mt:'40px' }} label="아이디" variant="standard" />
+            <TextField sx={{ width:'50%', mt:'40px' }} label="비밀번호" variant="standard" />
         </Box>
 
         <Box sx={{ display:'flex', flexDirection: 'column', justifyContent: 'center',alignItems: 'center' }}>
