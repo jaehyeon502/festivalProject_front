@@ -13,8 +13,8 @@ export default function MainContent() {
               <MainRightContent />
           </Box>
       </Box>
-      <Box sx={{ width: '100%', height: '400px', display:'flex', justifyContent: 'center'}}>
-          <Box sx={{width: '80vw', height:'400px', dsiplay:'flex'}}>
+      <Box sx={{ width: '100%', height: '800px', display:'flex', justifyContent: 'center'}}>
+          <Box sx={{width: '80vw', height:'800px', dsiplay:'flex'}}>
               <FestivalBoard />
           </Box>
       </Box>

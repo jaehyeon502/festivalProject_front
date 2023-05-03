@@ -7,8 +7,10 @@ export interface IPreviewFestivalItem{
     festivalDurationEnd:string;
     festivalTime:string | null;
     festivalArea:string;
-    festivalCost:boolean | null;
+    festivalCost:string;
     onelineReviewAverage: number | null; 
+    festivalInformation:string |null;
+    festivalImformationUrl:string|null;
 }
 
 export interface IUser{
@@ -21,3 +23,21 @@ export interface IUser{
     reportUser:boolean | null;
     interestedFestival: string | null;
 }
+
+export interface IPfestivalReviewBoard{
+      boardNumber:number;
+      boardTitle:string;
+      boardContent:string;
+      boardImgUrl:string;
+      boardWriteDatetime:string;
+      viewCount:number;
+      recommendCount:number;
+      commentCount:number;
+      writerId:string;
+      writerProfileUrl:number;
+      writerNickname:number;
+      festivalNumber:number;
+    
+
+}
+
