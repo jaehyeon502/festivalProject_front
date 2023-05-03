@@ -1,1 +1,2 @@
-export const tmp = "";
+import usePagingHook from "./pagingHook";
+export{usePagingHook};
