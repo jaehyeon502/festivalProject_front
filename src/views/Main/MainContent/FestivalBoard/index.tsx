@@ -1,6 +1,6 @@
 import { Box, Card, Grid, Pagination, Stack } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import FestivalListItem from 'src/compnents/FestivalListItem';
+import FestivalListItem from 'src/components/FestivalListItem';
 import { usePagingHook } from 'src/hooks';
 import { IPreviewFestivalItem } from 'src/interfaces';
 import { FESTIVALLIST } from 'src/mock';

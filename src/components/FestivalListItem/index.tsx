@@ -1,12 +1,12 @@
 import React from 'react'
 import { Avatar, Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
-import { IPfestivalReviewBoard } from 'src/interfaces';
+import { IPreviewFestivalItem } from 'src/interfaces';
 
 interface Props{
-    festivalBoardList:IPfestivalReviewBoard
+    festivalList:IPreviewFestivalItem
 }
 
-export default function FestivalRivewBoardList({ festivalBoardList }: Props) {
+export default function FestivalListItem({ festivalList }: Props) {
 
     
     return (
@@ -14,7 +14,7 @@ export default function FestivalRivewBoardList({ festivalBoardList }: Props) {
             <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} >
                 <Box>
                     <Box >
-                        <Typography sx={{fontWeight:900,fontSize:'25px',m:'10px'}}>{festivalBoardList.boardTitle}</Typography>
+                        <Typography sx={{fontWeight:900,fontSize:'25px',m:'10px'}}>{festivalList.festivalName}</Typography>
                         <Box>
                             <Divider />
                         </Box>
@@ -31,7 +31,7 @@ export default function FestivalRivewBoardList({ festivalBoardList }: Props) {
                     </Box>
                 </Box>
                 <Box>
-                    <Box component={'img'} src={festivalList.festivalImformationUrl as string} sx={{ ml: '10px',height: '200px', width: '200px', borderRadius: '5%' }}></Box>
+                    {/* <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px',height: '200px', width: '200px', borderRadius: '5%' }}></Box> */}
                 </Box>
             </CardActionArea>
         </Card>
