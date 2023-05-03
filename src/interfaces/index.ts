@@ -1,4 +1,3 @@
-
 export interface IPreviewFestivalItem {
     festivalNumber: number;
     festivalName: string;
