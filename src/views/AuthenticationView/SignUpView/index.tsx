@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup
 import React, { useState, useEffect } from 'react'
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
-import SignUpCheckboxListItem from 'src/component/SignUpCheckboxListItem';
+import SignUpCheckboxListItem from 'src/components/SignUpCheckboxListItem';
 import { IPreviewFestivalItem } from 'src/interfaces';
 import { usePagingHook } from 'src/hooks';
 import { SIGN_UP_CHECKBOX_LIST } from 'src/mock';

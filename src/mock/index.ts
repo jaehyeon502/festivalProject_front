@@ -69,7 +69,7 @@ export const SIGN_UP_CHECKBOX_LIST: IPreviewFestivalItem[] = [
         festivalCost: '무료',
         onelineReviewAverage: null,
         festivalInformation:null,
-        festivalImformationUrl:null
+        festivalInformationUrl:null
     },{
         festivalNumber: 1,
         festivalName: '테스트축제이름',
@@ -81,7 +81,7 @@ export const SIGN_UP_CHECKBOX_LIST: IPreviewFestivalItem[] = [
         festivalCost: '무료',
         onelineReviewAverage: null,
         festivalInformation:null,
-        festivalImformationUrl:null
+        festivalInformationUrl:null
     },{
         festivalNumber: 1,
         festivalName: '테스트축제이름',
@@ -93,7 +93,7 @@ export const SIGN_UP_CHECKBOX_LIST: IPreviewFestivalItem[] = [
         festivalCost: '무료',
         onelineReviewAverage: null,
         festivalInformation:null,
-        festivalImformationUrl:null
+        festivalInformationUrl:null
     },{
         festivalNumber: 1,
         festivalName: '테스트축제이름',
@@ -105,7 +105,7 @@ export const SIGN_UP_CHECKBOX_LIST: IPreviewFestivalItem[] = [
         festivalCost: '무료',
         onelineReviewAverage: null,
         festivalInformation:null,
-        festivalImformationUrl:null
+        festivalInformationUrl:null
     },{
         festivalNumber: 1,
         festivalName: '테스트축제이름',
@@ -117,7 +117,7 @@ export const SIGN_UP_CHECKBOX_LIST: IPreviewFestivalItem[] = [
         festivalCost: '무료',
         onelineReviewAverage: null,
         festivalInformation:null,
-        festivalImformationUrl:null
+        festivalInformationUrl:null
     },
     
 ];

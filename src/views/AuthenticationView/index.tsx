@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import SigninView from './SigninView'
 import SignUpView from './SignUpView'
 import { FESTIVALLIST } from 'src/mock';
-import FestivalListItem from 'src/compnents/FestivalListItem';
+import FestivalListItem from 'src/components/FestivalListItem';
 import { usePagingHook } from 'src/hooks';
 
 export default function AuthenticationView() {
