@@ -1,14 +1,15 @@
 import { Box, Card, Grid, Pagination, Stack } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import FestivalListItem from 'src/compnents/FestivalListItem';
+import FestivalRivewBoardList from 'src/compnents/FestivalRivewBoardList';
 import { usePagingHook } from 'src/hooks';
-import { IPreviewFestivalItem } from 'src/interfaces';
-import { FESTIVALLIST } from 'src/mock';
+import { IPfestivalReviewBoard, IPreviewFestivalItem } from 'src/interfaces';
+import { FESTIVALLIST, FESTIVALREVIEWBOARDLIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
 
 
 export default function FestivalBoard() {
-  const{festivalList, viewlist, pagenumber, onpageHandler, COUNT, setFestivalList}=usePagingHook(2);
+  const{festivalList, viewlist, pagenumber, onpageHandler, COUNT, setFestivalList}=usePagingHook(1);
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
@@ -22,7 +23,9 @@ export default function FestivalBoard() {
         <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
-            {viewlist.map((festivalItem) => (<FestivalListItem festivalList={festivalItem} />))}
+            {viewlist.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as IPreviewFestivalItem} />))}
+            {viewlist.map((festivalBoardListItem) => (<FestivalRivewBoardList festivalBoardList={festivalBoardListItem as IPfestivalReviewBoard} />))}
+     
             </Stack>
           </Grid>
         </Grid>

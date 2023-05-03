@@ -87,8 +87,8 @@ export interface IPfestivalReviewBoard{
       recommendCount:number;
       commentCount:number;
       writerId:string;
-      writerProfileUrl:number;
-      writerNickname:number;
+      writerProfileUrl:string;
+      writerNickname:string;
       festivalNumber:number;
     
 

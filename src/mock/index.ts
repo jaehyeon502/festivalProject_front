@@ -1,4 +1,4 @@
-import { IPreviewFestivalItem } from "src/interfaces";
+import { IPfestivalReviewBoard, IPreviewFestivalItem } from "src/interfaces";
 
 export const FESTIVALLIST:IPreviewFestivalItem[]=
 [
@@ -31,4 +31,23 @@ export const FESTIVALLIST:IPreviewFestivalItem[]=
     }
     ,
     
+]
+
+export const FESTIVALREVIEWBOARDLIST:IPfestivalReviewBoard[]=
+[
+    {
+        boardNumber:1,
+        boardTitle:"제목",
+        boardContent:"내용",
+        boardImgUrl:"",
+        boardWriteDatetime:"2023-05-11",
+        viewCount:11,
+        recommendCount:11,
+        commentCount:11,
+        writerId:"a",
+        writerProfileUrl:"",
+        writerNickname:"jonh",
+        festivalNumber:1,
+        
+    }
 ]
