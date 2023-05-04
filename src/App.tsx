@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={(<Main />)} />
         <Route path="/auth" element={(<AuthenticationView />)} />
-        <Route path = "/board">
+        <Route path = "/Reviewboard">
           <Route path = 'write' element = {(<ReviewBoardWriteView/>)}/>
           <Route path = 'detail/:boardNumber' element = {(<ReviewBoardDetailView/>)}/>
           <Route path = 'update/:boardNumber' element = {(<ReviewBoardUpdateView/>)}/>
