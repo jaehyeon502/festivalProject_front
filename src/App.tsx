@@ -1,18 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import { Route, Routes, useLocation } from 'react-router-dom';
+
 import NavigationBar from "./views/NavigationBar";
-import MainHead from "./views/Main/MainHead";
 import Footer from "./views/Footer";
-import MainContent from "./views/Main/MainContent";
+import Main from './views/Main'
+import AuthenticationView from './views/AuthenticationView'
+import ReviewBoardWriteView from './views/ReviewBoard/ReviewBoardWriteView';
+import ReviewBoardDetailView from './views/ReviewBoard/ReviewBoardDetailView';
+import ReviewBoardUpdateView from './views/ReviewBoard/ReviewBoardUpdateView';
 
 function App() {
+
+  const path = useLocation();
+
   return (
     <>
       <NavigationBar />
-      <MainHead />
-      <MainContent />
-      <Footer />
+      <Routes>
+        <Route path="/" element={(<Main />)} />
+        <Route path="/auth" element={(<AuthenticationView />)} />
+        <Route path = "/Reviewboard">
+          <Route path = 'write' element = {(<ReviewBoardWriteView/>)}/>
+          <Route path = 'detail/:boardNumber' element = {(<ReviewBoardDetailView/>)}/>
+          <Route path = 'update/:boardNumber' element = {(<ReviewBoardUpdateView/>)}/>
+        </Route>
+      </Routes>
+      {path.pathname !== "/auth" && <Footer />}
     </>
   );
 }

@@ -9,7 +9,7 @@ export interface IPreviewFestivalItem{
     festivalCost:string;
     onelineReviewAverage: number | null; 
     festivalInformation:string |null;
-    festivalImformationUrl:string|null;
+    festivalInformationUrl:string|null;
 }
 
 export interface IPreviewFestivalSimpleListItem{
@@ -23,7 +23,7 @@ export interface IPreviewFestivalSimpleListItem{
     festivalCost:string;
     onelineReviewAverage: number | null; 
     festivalInformation:string |null;
-    festivalImformationUrl:string|null;
+    festivalInformationUrl:string|null;
 }
 
 export interface IUser {
@@ -41,13 +41,13 @@ export interface IBoard {
     boardNumber: number;
     boardTitle: string;
     boardContent: string;
-    boardImgUrl: string;
+    boardImgUrl: string | null;
     boardWriteDatetime: string;
     viewCount: number;
     recommendCount: number;
     commentCount: number;
     writerId: string;
-    writerProfileUrl: string;
+    writerProfileUrl: string | null;
     writerNickname: string;
     festivalNumber: number;
 }
@@ -58,7 +58,7 @@ export interface IComment {
     numberboardNumber: number;
     writerId: string;
     writeDatetime: string;
-    writerProfileUrl: string;
+    writerProfileUrl: string | null;
     writerNickname: string;
 }
 
@@ -73,7 +73,7 @@ export interface IOneLineReview {
     userId: string;
     average: number;
     oneLineReviewContent: string;
-    userProfileUrl: string;
+    userProfileUrl: string | null;
     userNickname: string;
     writeDatetime: string;
 }
@@ -81,7 +81,7 @@ export interface IOneLineReview {
 export interface IRecommend {
     userId: string;
     boardNumber: number;
-    userProfileUrl: string;
+    userProfileUrl: string | null;
     userNickname: string;
 }
 

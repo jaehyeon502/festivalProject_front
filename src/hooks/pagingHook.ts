@@ -3,28 +3,28 @@ import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem } from "src/interf
 
 const usePagingHook = (COUNT: number) => {
     const [festivalList, setFestivalList] = useState<(IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[]>([]);
-    const [viewlist, setViewList] = useState<(IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[]>([]);
-    const [pagenumber, setPageNumber] = useState<number>(1);
+    const [viewList, setViewList] = useState<(IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[]>([]);
+    const [pageNumber, setPageNumber] = useState<number>(1);
 
 
-    const onpageHandler = (page: number) => {
+    const onPageHandler = (page: number) => {
         setPageNumber(page);
-        const temlist: (IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[] = [];
+        const templist: (IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[] = [];
         const startindex = COUNT * (page - 1);
         const endindex = COUNT * page - 1;
         for (let i = startindex; i <= endindex; i++) {
             if (festivalList.length < i + 1) break;
-            temlist.push(festivalList[i]);
+            templist.push(festivalList[i]);
             console.log(page)
         }
-        setViewList(temlist);
+        setViewList(templist);
     }
 
     useEffect(() => {
-        onpageHandler(pagenumber);
+        onPageHandler(pageNumber);
     }, [festivalList])
 
-    return { festivalList, viewlist, pagenumber, onpageHandler, COUNT, setFestivalList }
+    return { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList }
 }
 
 export default usePagingHook;
