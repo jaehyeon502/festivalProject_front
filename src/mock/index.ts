@@ -1,4 +1,102 @@
-import { IOneLineReview, IPreviewFestivalItem } from "../interfaces";
+import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem, IOneLineReview } from "src/interfaces";
+
+export const SIMPLELIST: IPreviewFestivalSimpleListItem[] = [
+    {
+        festivalNumber: 1,
+        festivalName: '나고야 눈 축제',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-04-05',
+        festivalDurationEnd: '2023-05-05',
+        festivalArea: '일본',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"무료",
+        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용'
+    },
+    {
+        festivalNumber: 1,
+        festivalName: '나고야 눈 축제',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-04-05',
+        festivalDurationEnd: '2023-05-05',
+        festivalArea: '일본',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"무료",
+        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용'
+    },
+    {
+        festivalNumber: 1,
+        festivalName: '나고야 눈 축제',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-04-05',
+        festivalDurationEnd: '2023-05-05',
+        festivalArea: '일본',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"무료",
+        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용'
+    },
+    {
+        festivalNumber: 1,
+        festivalName: '나고야 눈 축제',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-04-05',
+        festivalDurationEnd: '2023-05-05',
+        festivalArea: '일본',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"무료",
+        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용'
+    },
+    {
+        festivalNumber: 1,
+        festivalName: '나고야 눈 축제',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-04-05',
+        festivalDurationEnd: '2023-05-05',
+        festivalArea: '일본',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"무료",
+        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용'
+    },
+
+    {
+        festivalNumber: 1,
+        festivalName: '나고야 눈 축제',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-04-05',
+        festivalDurationEnd: '2023-05-05',
+        festivalArea: '일본',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"무료",
+        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용'
+    },
+
+    {
+        festivalNumber: 1,
+        festivalName: '나고야 눈 축제',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-04-05',
+        festivalDurationEnd: '2023-05-05',
+        festivalArea: '일본',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"무료",
+        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용'
+    },
+]
+
+
 
 export const ONELINEREVIEW_LIST: IOneLineReview[] = [
     {

@@ -26,7 +26,7 @@ export default function FestivalBoard() {
         <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
-            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem} />))}
+            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as IPreviewFestivalItem} />))}
             </Stack>
           </Grid>
         </Grid>
