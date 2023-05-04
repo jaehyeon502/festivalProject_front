@@ -35,7 +35,7 @@ export default function FestivalRiviewBoardList({ festivalBoardList }: Props) {
                     </Box>
                     <Divider  />
                     <Box>
-                        <Typography sx={{ fontSize: '17px', fontWeight: 700 }}>{festivalBoardList.boardContent}</Typography>
+                        <Typography sx={{ fontSize: '17px', fontWeight: 700 ,overflow:'hidden', display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical', color: '#444'}}>{festivalBoardList.boardContent}</Typography>
                     </Box>
                 </Box>
                 <Box>

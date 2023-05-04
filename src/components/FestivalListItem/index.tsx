@@ -12,8 +12,8 @@ export default function FestivalListItem({ festivalList }: Props) {
     return (
         <Card variant='outlined' >
             <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} >
-                <Box>
-                    <Box >
+                <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
+                    <Box  >
                         <Typography sx={{fontWeight:900,fontSize:'14px',m:'10px'}}>{festivalList.festivalName}</Typography>
                         <Box>
                             <Divider />
@@ -31,7 +31,7 @@ export default function FestivalListItem({ festivalList }: Props) {
                     </Box>
                 </Box>
                 <Box>
-                    <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px',height: '200px', width: '200px', borderRadius: '5%' }}></Box>
+                    <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px',height: '150px', width: '150px', borderRadius: '5%' }}></Box>
                 </Box>
             </CardActionArea>
         </Card>
