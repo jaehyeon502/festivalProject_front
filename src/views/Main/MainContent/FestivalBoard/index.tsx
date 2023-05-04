@@ -26,8 +26,6 @@ export default function FestivalBoard() {
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
             {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as IPreviewFestivalItem} />))}
-        {festivalReviewBoardList.map((festivalBoardListItem) => (<FestivalRiviewBoardList festivalBoardList={festivalBoardListItem as IPfestivalReviewBoard} />))} 
-     
             </Stack>
           </Grid>
         </Grid>
