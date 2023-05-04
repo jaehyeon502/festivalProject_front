@@ -1,9 +1,10 @@
 import { Box, FormControl, Grid, InputLabel, MenuItem, Pagination, Select, SelectChangeEvent, Stack, Typography } from '@mui/material'
-import { useState } from 'react'
-import { GetFestivalListResponseDto } from 'src/apis/response/festival';
-import FestivalListItem from 'src/components/FestivalListItem';
-import usePagingHook from 'src/hooks/paging.hook';
-import { getPageCount } from 'src/utils';
+import { useEffect, useState } from 'react'
+import FestivalSimpleListItem from 'src/compnents/FestivalSimpleListItem';
+import { usePagingHook } from 'src/hooks';
+import { IPreviewFestivalSimpleListItem } from 'src/interfaces';
+import { SIMPLELIST } from 'src/mock';
+import { getpagecount } from 'src/utils';
 
 
 export default function MainLeftContent() {
@@ -11,7 +12,7 @@ export default function MainLeftContent() {
   const [month, setMonth] = useState<string>('');
 
   
-  const { viewList, pageNumber, festivalList, setFestivalList, onPageHandler, COUNT } = usePagingHook(5);
+  const { festivalList, viewlist, pagenumber, onpageHandler, COUNT, setFestivalList } = usePagingHook(3);
 
   
   const areaAndMonthChange = (event: SelectChangeEvent) => {
@@ -22,11 +23,17 @@ export default function MainLeftContent() {
     setMonth(event.target.value as string);
   };
 
+  useEffect(() => {
+    setFestivalList(SIMPLELIST);
+  })
+
   return (
-    <Box sx={{ width: '55%', height: '100%', mr:'5%', backgroundColor:'beige' }}>
-      <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
+    //? 전체 테이블
+    <Box sx={{ width: '55%', height: '100%', mr:'5%', backgroundColor:'#FFFFFF' }}>
+      <Box sx={{ pt: '10px', pl: '20px', display: 'flex'}}>
         <Box>
-          <FormControl sx={{ width: '150px', height: '80px'}}>
+          {/* //? 월별 & 지역별 */}
+          <FormControl sx={{ width: '150px', height: '70px'}}>
             <InputLabel>월별 & 지역별</InputLabel>
             <Select
               value={areaAndMonth}
@@ -38,11 +45,10 @@ export default function MainLeftContent() {
             </Select>
           </FormControl>
         </Box>
-        <FormControl sx={{ width: '100px', height: '80px', ml: '20px'}}>
-          <InputLabel id="demo-simple-select-label">월별</InputLabel>
+        {/* //?월별  */}
+        <FormControl sx={{ width: '100px', height: '70px', ml: '20px'}}>
+          <InputLabel >월별</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={month}
             label="Month"
             onChange={monthChange}
@@ -62,22 +68,19 @@ export default function MainLeftContent() {
           </Select>
         </FormControl>
       </Box>
-      <Box sx = {{ p: '40px 120px', backgroundColor: 'white'}}>
-        <Box>
-          <Typography sx={{ fontSize: '24px', fontWeight: 500 }}>최신 게시물</Typography>
-        </Box>
-        <Box sx={{ pt: '20px', pb: '20px' }}>
-          <Grid container spacing={3}>
-            <Grid item sm={12} md={8}>
-              <Stack spacing={2}>
-                {viewList.map((festivalItem) => (<FestivalListItem item={festivalItem as GetFestivalListResponseDto} />))}
+      <Box sx = {{ backgroundColor: '#FFFFFF'}}>
+        <Box sx={{ pt: '1px', pb: '10px' }}>
+          <Grid container spacing={4}>
+            <Grid item sm={10} md={12}>
+              <Stack spacing={1}>
+                {viewlist.map((item) => (<FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} />))}
               </Stack>
             </Grid>
           </Grid>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Pagination page={pageNumber} count={getPageCount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
+        <Pagination page={pagenumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onpageHandler(value)} />
       </Box>
   </Box>
   )

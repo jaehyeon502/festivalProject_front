@@ -1,4 +1,3 @@
-export const tmp = "";
-
-export const getPageCount = (list: any[], count: number) => 
-    Math.floor((list.length - 1) / count) + 1;
+export const getpagecount=(list:any[],count:number)=>{
+    return Math.floor((list.length-1)/count)+1
+};
