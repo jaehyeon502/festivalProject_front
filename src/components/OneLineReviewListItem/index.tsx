@@ -15,8 +15,8 @@ export default function OneLineReviewListItem({ oneLineReviewItem } : Props) {
   return (
     <Box sx={{ padding:'10px' }}>
         <Box mb = '5px' display= 'flex' alignItems= 'center'>
-            <Avatar sx = {{ width : '40px', height : '40px', m : '4px' }} src = {oneLineReviewItem.userProfileUrl ? oneLineReviewItem.userProfileUrl : ''} />
-            <Typography sx = {{ml : '5px', fontSize:'12px', color:'#888'}}>{oneLineReviewItem.userNickname+ " | "}</Typography>
+            <Avatar sx = {{ width : '40px', height : '40px', m : '4px', cursor:'pointer' }} src = {oneLineReviewItem.userProfileUrl ? oneLineReviewItem.userProfileUrl : ''} />
+            <Typography sx = {{ml : '5px', fontSize:'12px', color:'#888', cursor:'pointer'}}>{oneLineReviewItem.userNickname+ " | "}</Typography>
             <Divider orientation='vertical' variant='middle'/>
             <Typography sx = {{ml : '5px', fontSize:'12px', color:'#888'}}>{oneLineReviewItem.average} / 5 {" | "}</Typography>
             <Divider orientation='vertical' variant='middle'/>
