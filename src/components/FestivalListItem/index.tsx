@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
+import { Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
 import { IPreviewFestivalItem } from 'src/interfaces';
 
 interface Props{
@@ -8,7 +8,6 @@ interface Props{
 
 export default function FestivalListItem({ festivalList }: Props) {
 
-    
     return (
         <Card variant='outlined' >
             <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} >
@@ -31,7 +30,7 @@ export default function FestivalListItem({ festivalList }: Props) {
                     </Box>
                 </Box>
                 <Box>
-                    {/* <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px',height: '200px', width: '200px', borderRadius: '5%' }}></Box> */}
+                    <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px',height: '200px', width: '200px', borderRadius: '5%' }}></Box>
                 </Box>
             </CardActionArea>
         </Card>
