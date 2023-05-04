@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { IPfestivalReviewBoard, IPreviewFestivalItem } from "src/interfaces";
 
 const usePagingHook = (COUNT: number) => {
-    const [festivalList, setFestivalList] = useState<(IPreviewFestivalItem)[]>([]);
-    const [viewList, setViewList] = useState<(IPreviewFestivalItem)[]>([]);
+    const [festivalList, setFestivalList] = useState<(IPreviewFestivalItem  )[]>([]);
+    const [viewList, setViewList] = useState<(IPreviewFestivalItem  )[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(1);
 
 
     const onPageHandler = (page: number) => {
         setPageNumber(page);
-        const templist: (IPreviewFestivalItem)[] = [];
+        const templist: (IPreviewFestivalItem )[] = [];
         const startindex = COUNT * (page - 1);
         const endindex = COUNT * page - 1;
         for (let i = startindex; i <= endindex; i++) {

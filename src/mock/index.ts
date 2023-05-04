@@ -1,4 +1,4 @@
-import { IOneLineReview, IPreviewFestivalItem } from "../interfaces";
+import { IOneLineReview, IPfestivalReviewBoard, IPreviewFestivalItem } from "../interfaces";
 
 export const ONELINEREVIEW_LIST: IOneLineReview[] = [
     {

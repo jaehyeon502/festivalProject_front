@@ -26,8 +26,8 @@ export default function FestivalListItem({ festivalList }: Props) {
                             <Divider />
                         </Box>
                     </Box>
-                    <Box>
-                        <Typography sx={{m:'10px' ,fontSize:'17px',fontWeight:700,lineHeight:'30px'}}>{festivalList.festivalInformation}</Typography>
+                    <Box >
+                        <Typography sx={{m:'10px 10px 20px' ,fontSize:'17px',fontWeight:700,lineHeight:'30px',textOverflow:'ellipsis',maxHeight:'90px',overflow:'hidden',whiteSpace:'nowrap'}}>{festivalList.festivalInformation}</Typography>
                     </Box>
                 </Box>
                 <Box>

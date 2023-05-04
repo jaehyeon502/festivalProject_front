@@ -7,6 +7,7 @@ import NavigationBar from "./views/NavigationBar";
 import Footer from "./views/Footer";
 import Main from './views/Main'
 import AuthenticationView from './views/AuthenticationView'
+import FestivalRiviewBoardList from './components/FestivalRiviewBoardList';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={(<Main />)} />
         <Route path="/auth" element={(<AuthenticationView />)} />
+    
       </Routes>
       {path.pathname !== "/auth" && <Footer />}
     </>

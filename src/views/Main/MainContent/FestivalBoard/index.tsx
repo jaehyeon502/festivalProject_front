@@ -9,11 +9,13 @@ import { getpagecount } from 'src/utils';
 
 
 export default function FestivalBoard() {
-  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(1);
+  const[festivalReviewBoardList,setFestivalReviewBoardList]=useState<IPfestivalReviewBoard[]>([]);
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
     setFestivalList(FESTIVALLIST);
+    setFestivalReviewBoardList(FESTIVALREVIEWBOARDLIST);
   }, []);
 
   return (
@@ -24,7 +26,7 @@ export default function FestivalBoard() {
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
             {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as IPreviewFestivalItem} />))}
-            {viewList.map((festivalBoardListItem) => (<FestivalRiviewBoardList festivalBoardList={festivalBoardListItem as IPfestivalReviewBoard} />))}
+        {festivalReviewBoardList.map((festivalBoardListItem) => (<FestivalRiviewBoardList festivalBoardList={festivalBoardListItem as IPfestivalReviewBoard} />))} 
      
             </Stack>
           </Grid>
