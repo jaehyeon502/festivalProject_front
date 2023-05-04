@@ -16,7 +16,7 @@ export default function FestivalBoard() {
   }, []);
 
   return (
-    <Box sx={{ width: '100%', height: '100%', backgroundColor:'#FFFAFA'}}>
+    <Box sx={{ width: '100%', height: '100%'}}>
       <Box sx={{ pt: '20px', pb: '80px'}}>
         <Box >
         <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
