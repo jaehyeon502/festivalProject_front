@@ -14,7 +14,6 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = ['현재 진행 중인 축제', '개최 예정 축제', '축제  후기', '자유 게시판'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavigationBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
