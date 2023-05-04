@@ -20,13 +20,12 @@ export default function MainRightContent() {
   }, [])
 
   return (
-    <Box sx={{ width: '40%', height: '100%', backgroundColor:'beige', border : 1 }}>
-      <Typography sx = {{ ml : '30px', mt : '15px', fontSize : '20px', fontWeight : 900}}> 
-       [축제명 (좌측 축제 정보 리스트 만들어지면 최상단 축제명 가져올 곳)] 한 줄 평가</Typography>
+    <Box sx={{ width: '40%', height: '100%'}}>
+      <Typography sx = {{ ml : '30px', mt : '15px', fontSize : '24px', fontWeight : 900, color:'#222'}}>한줄평</Typography>
 
-      <Box sx = {{ height : '80%' , mt : '15px', ml : '30px', mr : '30px', overflow : 'hidden'}}>
+      <Box sx = {{ mt : '15px', ml : '30px', mr : '30px', overflow : 'hidden'}}>
         {oneLineReviewList?.map((item) => (
-        <Grid sx = {{ border : 1, mt : '5px', backgroundColor : '#f0ffff'}}>
+        <Grid sx = {{ border : '1px solid #dedede', borderRadius:'10px' , mt : '15px'}}>
           <OneLineReviewListItem oneLineReviewItem = {item}/>
         </Grid>))}
       </Box>
