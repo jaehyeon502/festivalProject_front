@@ -1,9 +1,6 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 
-const selects =[ '서울', '인천', '서산', '춘천', '여주', '원주', '속초', '강릉', '동해', '대전', '군산', '김천', '대구', '포항', '목포', '광주', '여수', '통영', '부산', '울산', '제주도' ];
-const months = [1,2,3,4,5,6,7,8,9,10,11,12];
-
 export default function MonthAndAreaButton() {
 
     const [areaAndMonth, setAreaAndMonth] = useState<string>('');
@@ -12,11 +9,13 @@ export default function MonthAndAreaButton() {
 
     const [selector, setSelector] = useState<number>(0);
 
+    const [MonthSelect, setMonthSelect] = useState<number>(0);
+
     //? const selectedValue를 만들어 Number로 설정해주고
     //? 위의 setSelector에서 selectedValue를 받아주고
     //? setAreaAndMonth에서 String(selecetdValue)를 받아주었다.
     //? 앞에 String을 한 이유는 저렇게 하지 않으면 Number로 처리되기 때문에
-    //? 월별, 지역별이 뜨지 않는다. 
+    //? 월별, 지역별이 뜨지 않는다.
     const areaAndMonthChange = (event: SelectChangeEvent) => {
       const selectedValue = Number(event.target.value);
       setSelector(selectedValue);
@@ -31,7 +30,11 @@ export default function MonthAndAreaButton() {
       setArea(event.target.value as string);
     }
 
-  
+    // const SelectDesignatedNumber = (event: SelectChangeEvent) => {
+    //   const SelectMonth = Number(event.target.value);
+    //   setMonthSelect(Number(event.target.value));
+    //   if(SelectMonth === 1)
+    // }
 
     return (
         <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
@@ -65,7 +68,18 @@ export default function MonthAndAreaButton() {
                   label="Month"
                   onChange={monthChange}
                 >
-                  {months.map((month) => (<MenuItem key={month}>{month+"월"}</MenuItem>))}
+                  <MenuItem value={1}>1월</MenuItem>
+                  <MenuItem value={2}>2월</MenuItem>
+                  <MenuItem value={3}>3월</MenuItem>
+                  <MenuItem value={4}>4월</MenuItem>
+                  <MenuItem value={5}>5월</MenuItem>
+                  <MenuItem value={6}>6월</MenuItem>
+                  <MenuItem value={7}>7월</MenuItem>
+                  <MenuItem value={8}>8월</MenuItem>
+                  <MenuItem value={9}>9월</MenuItem>
+                  <MenuItem value={10}>10월</MenuItem>
+                  <MenuItem value={11}>11월</MenuItem>
+                  <MenuItem value={12}>12월</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -79,7 +93,27 @@ export default function MonthAndAreaButton() {
                   label="Area"
                   onChange={areaChange}
                 >
-                  {selects.map((select) => (<MenuItem key={select}>{select}</MenuItem>))}
+                  <MenuItem value={1}>서울</MenuItem>
+                  <MenuItem value={2}>인천</MenuItem>
+                  <MenuItem value={3}>서산</MenuItem>
+                  <MenuItem value={4}>춘천</MenuItem>
+                  <MenuItem value={5}>여주</MenuItem>
+                  <MenuItem value={6}>원주</MenuItem>
+                  <MenuItem value={7}>속초</MenuItem>
+                  <MenuItem value={8}>강릉</MenuItem>
+                  <MenuItem value={9}>동해</MenuItem>
+                  <MenuItem value={10}>대전</MenuItem>
+                  <MenuItem value={11}>군산</MenuItem>
+                  <MenuItem value={12}>김천</MenuItem>
+                  <MenuItem value={13}>대구</MenuItem>
+                  <MenuItem value={14}>포항</MenuItem>
+                  <MenuItem value={15}>목포</MenuItem>
+                  <MenuItem value={16}>광주</MenuItem>
+                  <MenuItem value={17}>여수</MenuItem>
+                  <MenuItem value={18}>통영</MenuItem>
+                  <MenuItem value={19}>부산</MenuItem>
+                  <MenuItem value={20}>울산</MenuItem>
+                  <MenuItem value={21}>제주도</MenuItem>
                 </Select>
               </FormControl>
             </Box>
