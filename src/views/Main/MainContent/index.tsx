@@ -9,14 +9,14 @@ import { IPreviewFestivalItem } from '../../../interfaces';
 export default function MainContent() {
   return (
     <>
-      <Box sx={{ width: '100%', height: '500px', display:'flex', justifyContent: 'center'}}>
-          <Box sx={{ width:'80vw', height:'500px', display: 'flex' }}>
+      <Box sx={{ mt:'100px', width: '100%', height: 'auto', display:'flex', justifyContent: 'center'}}>
+          <Box sx={{ width:'80vw', height:'auto', display: 'flex' }}>
               <MainLeftContent/>
               <MainRightContent/>
           </Box>
       </Box>
-      <Box sx={{ width: '100%', height: '800px', display:'flex', justifyContent: 'center'}}>
-          <Box sx={{width: '80vw', height:'800px', dsiplay:'flex'}}>
+      <Box sx={{ mt:'150px', width: '100%', display:'flex', justifyContent: 'center'}}>
+          <Box sx={{width: '80vw', dsiplay:'flex'}}>
               <FestivalBoard />
           </Box>
       </Box>

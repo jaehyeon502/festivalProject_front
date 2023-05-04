@@ -14,20 +14,20 @@ export default function FestivalListItem({ festivalList }: Props) {
             <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} >
                 <Box>
                     <Box >
-                        <Typography sx={{fontWeight:900,fontSize:'25px',m:'10px'}}>{festivalList.festivalName}</Typography>
+                        <Typography sx={{fontWeight:900,fontSize:'14px',m:'10px'}}>{festivalList.festivalName}</Typography>
                         <Box>
                             <Divider />
                         </Box>
                     </Box>
                     <Box>
-                        <Typography sx={{m:'10px' ,fontSize:'17px',fontWeight:700}}>개요:{festivalList.festivalType}  기간:{festivalList.festivalDurationStart}~{festivalList.festivalDurationEnd} 시간:{festivalList.festivalTime}</Typography>
-                        <Typography sx={{m:'10px' ,fontSize:'17px',fontWeight:700}}>장소:{festivalList.festivalArea} 요금:{festivalList.festivalCost} 관관객평점:{festivalList.onelineReviewAverage}</Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'11px', color:'#333'}}>개요:{festivalList.festivalType}  기간:{festivalList.festivalDurationStart}~{festivalList.festivalDurationEnd} 시간:{festivalList.festivalTime}</Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'11px', color:'#333'}}>장소:{festivalList.festivalArea} 요금:{festivalList.festivalCost} 관관객평점:{festivalList.onelineReviewAverage}</Typography>
                         <Box>
                             <Divider />
                         </Box>
                     </Box>
-                    <Box >
-                        <Typography sx={{m:'10px 10px 20px' ,fontSize:'17px',fontWeight:700,lineHeight:'30px',textOverflow:'ellipsis',maxHeight:'90px',overflow:'hidden',whiteSpace:'nowrap'}}>{festivalList.festivalInformation}</Typography>
+                    <Box>
+                        <Typography sx={{m:'10px' ,fontSize:'12px',overflow:'hidden', display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical', color: '#444'}}>{festivalList.festivalInformation}</Typography>
                     </Box>
                 </Box>
                 <Box>
