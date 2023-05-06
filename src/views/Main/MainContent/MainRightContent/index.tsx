@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { FESTIVALLIST, ONELINEREVIEW_LIST } from '../../../../mock'
 import { IOneLineReview, IPreviewFestivalItem } from '../../../../interfaces'
 import OneLineReviewListItem from '../../../../components/OneLineReviewListItem';
-import FestivalNameItem from '../../../../components/FestivalNameItem';
+import FestivalNameItem from '../../../../components/FestivalNameItemList';
 
 
 

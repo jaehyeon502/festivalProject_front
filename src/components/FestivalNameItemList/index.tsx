@@ -6,11 +6,12 @@ interface Props{
     festivalNameItem : IPreviewFestivalItem;
 }
 
-export default function FestivalNameItem( {festivalNameItem} : Props) {
+export default function FestivalNameItemList( {festivalNameItem} : Props) {
 
   return (
     <Box>
-        {festivalNameItem.festivalName}
+      <Typography>{festivalNameItem.festivalName}</Typography>
+        
     </Box>
   )
 }
