@@ -1,6 +1,6 @@
 import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem, IOneLineReview } from "src/interfaces";
 
-export const SIMPLELIST: IPreviewFestivalSimpleListItem[] = [
+export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     {
         festivalNumber: 1,
         festivalName: '나고야 눈 축제',
