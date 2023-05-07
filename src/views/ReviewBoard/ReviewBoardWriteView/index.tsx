@@ -1,7 +1,7 @@
 import React, { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
 import {
   Box, Divider, Fab, FormControl,
-  Grid, IconButton, Input, InputAdornment, OutlinedInput, Popover, Stack, Typography
+  Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography
 } from '@mui/material'
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
