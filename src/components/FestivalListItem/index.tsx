@@ -1,16 +1,18 @@
 import React from 'react'
 import { Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
 import { IPreviewFestivalItem } from 'src/interfaces';
+import { useNavigate } from 'react-router-dom';
 
 interface Props{
     festivalList:IPreviewFestivalItem
 }
 
 export default function FestivalListItem({ festivalList }: Props) {
+    const nagigator=useNavigate();
 
     return (
         <Card variant='outlined' >
-            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} >
+            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} onClick={()=>nagigator('/fetivalview')} >
                 <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
                     <Box  >
                         <Typography sx={{fontWeight:900,fontSize:'14px',m:'10px'}}>{festivalList.festivalName}</Typography>
