@@ -1,6 +1,11 @@
+
+import User from "./User.interface";
+
+export type{User};
+
 export interface IPreviewFestivalItem{
-    festivalNumber:number;
-    festivalName:string;
+festivalNumber:number;
+festivalName:string;
     festivalType:string;
     festivalDurationStart: string;
     festivalDurationEnd:string;
