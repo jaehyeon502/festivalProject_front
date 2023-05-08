@@ -12,7 +12,7 @@ export interface IPreviewFestivalItem{
     festivalInformationUrl:string|null;
 }
 
-export interface IPreviewFestivalSimpleListItem{
+export interface IPreviewFestivalSimpleListItem{ //? 인터페이스 같은 게 왜 2개?
     festivalNumber:number;
     festivalName:string;
     festivalType:string;
@@ -90,7 +90,7 @@ export interface ISearchwordLog {
     searchWord: string;
 }
 
-export interface IPfestivalReviewBoard{
+export interface IPfestivalReviewBoard{ //? 위에 있는 Board와 같은 interface
       boardNumber:number;
       boardTitle:string;
       boardContent:string;

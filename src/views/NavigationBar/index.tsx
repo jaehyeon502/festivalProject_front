@@ -12,13 +12,16 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const pages = ['현재 진행 중인 축제', '개최 예정 축제', '축제  후기', '자유 게시판'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavigationBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const path = useLocation();
+  const navigator = useNavigate();
 
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -31,11 +34,11 @@ function NavigationBar() {
         <Toolbar disableGutters>
           <Typography variant="h6" noWrap component="a" href="/" sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, fontFamily: 'monospace', fontWeight: 700, letterSpacing: '.0.1rem', color: '#eee', textDecoration: 'none', cursor:'pointer'}}>Festival</Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (<Button key={page} sx={{ my: 2, color: '#eee', display: 'block',fontSize:'12px' }}>{page}</Button>))}
+            {pages.map((page) => (<Button key={page} sx={{ my: 2, color: '#eee', display: 'block',fontSize:'14px' }}>{page}</Button>))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" sx={{cursor:'pointer'}} />
+            {path.pathname !== '/auth' ? <Button variant = 'contained' onClick = {() => navigator('/auth') }>Login</Button> : <></>}
           </Box>
         </Toolbar>
       </Container>

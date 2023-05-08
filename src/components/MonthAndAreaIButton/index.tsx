@@ -9,11 +9,13 @@ export default function MonthAndAreaButton() {
 
     const [selector, setSelector] = useState<number>(0);
 
+    const [MonthSelect, setMonthSelect] = useState<number>(0);
+
     //? const selectedValue를 만들어 Number로 설정해주고
     //? 위의 setSelector에서 selectedValue를 받아주고
     //? setAreaAndMonth에서 String(selecetdValue)를 받아주었다.
     //? 앞에 String을 한 이유는 저렇게 하지 않으면 Number로 처리되기 때문에
-    //? 월별, 지역별이 뜨지 않는다. 
+    //? 월별, 지역별이 뜨지 않는다.
     const areaAndMonthChange = (event: SelectChangeEvent) => {
       const selectedValue = Number(event.target.value);
       setSelector(selectedValue);
@@ -27,6 +29,12 @@ export default function MonthAndAreaButton() {
     const areaChange = (event: SelectChangeEvent) => {
       setArea(event.target.value as string);
     }
+
+    // const SelectDesignatedNumber = (event: SelectChangeEvent) => {
+    //   const SelectMonth = Number(event.target.value);
+    //   setMonthSelect(Number(event.target.value));
+    //   if(SelectMonth === 1)
+    // }
 
     return (
         <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
