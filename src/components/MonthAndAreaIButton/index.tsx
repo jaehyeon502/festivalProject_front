@@ -30,6 +30,7 @@ export default function MonthAndAreaButton() {
       setArea(event.target.value as string);
     }
 
+    //? back에 있는 API코드를 보고 작성해야함.
     // const SelectDesignatedNumber = (event: SelectChangeEvent) => {
     //   const SelectMonth = Number(event.target.value);
     //   setMonthSelect(Number(event.target.value));
