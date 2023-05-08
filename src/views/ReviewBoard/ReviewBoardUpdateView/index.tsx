@@ -89,9 +89,9 @@ export default function ReviewBoardUpdateView() {
 
               {show ? (
                 <Box sx={{ width : '100%', height : '200px',border: '1px solid', fontSize: '15px', overflow : 'scroll' }}>
-                  {festivalNameList.map((item) => (
+                  {festivalNameList.map((nameItem) => (
                   <Grid onClick = {onClickFestivalNameHandler}>
-                    <FestivalNameItemList festivalNameItem={item}  />
+                    <FestivalNameItemList item={nameItem}  />
                   </Grid>))}
                   {'스크롤 내리기'}
                 </Box>

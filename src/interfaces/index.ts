@@ -103,7 +103,5 @@ export interface IPfestivalReviewBoard{ //? 위에 있는 Board와 같은 interf
       writerProfileUrl:number;
       writerNickname:number;
       festivalNumber:number;
-    
-
 }
 
