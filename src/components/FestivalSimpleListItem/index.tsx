@@ -2,13 +2,14 @@ import { Box, Card, CardActionArea, Divider, Typography } from "@mui/material"
 import { IPreviewFestivalItem } from "src/interfaces"
 
 interface Props{
-    item :IPreviewFestivalItem
+    onClick: () => void;
+    item :IPreviewFestivalItem;
 }
 
-export default function FestivalSimpleListItem({ item }: Props) {
+export default function FestivalSimpleListItem({ onClick, item }: Props) {
 
     return (
-        <Card variant='outlined'>
+        <Card variant='outlined' onClick={onClick}>
             <CardActionArea sx={{  display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }} >
                 <Box>
                     <Box>

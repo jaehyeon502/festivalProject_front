@@ -6,7 +6,7 @@ interface Props {
     festivalBoardList: IPfestivalReviewBoard
 }
 
-export default function FestivalRiviewBoardList({ festivalBoardList }: Props) {
+export default function FestivalReviewBoardList({ festivalBoardList }: Props) {
 
 
     return (

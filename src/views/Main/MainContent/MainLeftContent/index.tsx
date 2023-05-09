@@ -5,13 +5,26 @@ import MonthAndAreaButton from 'src/components/MonthAndAreaIButton';
 import { usePagingHook } from 'src/hooks';
 import { IPreviewFestivalSimpleListItem } from 'src/interfaces';
 import { SIMPLELIST } from 'src/mock';
+import { useFestivalStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
+interface Props{
+  clickPage:boolean;
+  setClickPage: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function MainLeftContent({setClickPage, clickPage} :Props) {
 
 
-export default function MainLeftContent() {
+  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
+  const { festival, setFestival } = useFestivalStore();
 
-  const {  festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList  } = usePagingHook(4);
 
+  const onClickPageHandler = () => {
+    setFestival(SIMPLELIST);
+    console.log(festival);
+    setClickPage(true)
+  }
+  
   useEffect(() => {
     setFestivalList(SIMPLELIST);
   })
@@ -26,7 +39,9 @@ export default function MainLeftContent() {
         <Box sx={{ pt: '10px', pb: '10px', m: '10px'}}>
           <Grid container spacing={1}>
             {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
-            {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} /></Grid>))}
+
+            {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem onClick={() => onClickPageHandler()} item={item as IPreviewFestivalSimpleListItem} /></Grid>))}
+
           </Grid>
         </Box>
       </Box>
