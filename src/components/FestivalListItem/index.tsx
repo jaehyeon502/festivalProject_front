@@ -2,9 +2,10 @@ import React from 'react'
 import { Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
 import { IPreviewFestivalItem } from 'src/interfaces';
 import { useNavigate } from 'react-router-dom';
+import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 
 interface Props{
-    festivalList:IPreviewFestivalItem
+    festivalList:GetInterstFestivalListResponseDto
 }
 
 export default function FestivalListItem({ festivalList }: Props) {
@@ -12,7 +13,7 @@ export default function FestivalListItem({ festivalList }: Props) {
 
     return (
         <Card variant='outlined' >
-            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'center', p: '15px', backgroundColor: '#ffffff'  }} onClick={()=>nagigator('/fetivalview')} >
+            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }} onClick={()=>nagigator('/fetivalview')} >
                 <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
                     <Box  >
                         <Typography sx={{fontWeight:900,fontSize:'14px',m:'10px'}}>{festivalList.festivalName}</Typography>

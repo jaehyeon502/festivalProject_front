@@ -60,7 +60,7 @@ function FirstPage() {
 function SecondPage() {
 
   const [festivalCheckboxList, setFestivalCheckboxList] = useState<IPreviewFestivalItem[]>([]);
-  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(100);
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList }=usePagingHook(100);
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ function SecondPage() {
     <Box>
       <Typography sx={{ mt:'40px' }}>회원님이 관심있는 축제</Typography>
     </Box>
-    {viewList.map( (festivalCheckboxList) => (<SignUpCheckboxListItem festivalCheckboxList={festivalCheckboxList} />))}
+    {viewList.map( (festivalCheckboxList) => (<SignUpCheckboxListItem festivalCheckboxList={festivalCheckboxList as IPreviewFestivalItem} />))}
   </Box>
   )
 }
