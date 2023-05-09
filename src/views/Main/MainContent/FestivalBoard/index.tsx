@@ -4,7 +4,7 @@ import FestivalListItem from 'src/components/FestivalListItem';
 import FestivalRiviewBoardList from 'src/components/FestivalRiviewBoardList';
 import { usePagingHook } from 'src/hooks';
 import { IPfestivalReviewBoard, IPreviewFestivalItem } from 'src/interfaces';
-import { FESTIVALLIST, FESTIVALREVIEWBOARDLIST } from 'src/mock';
+// import { FESTIVALLIST, FESTIVALREVIEWBOARDLIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
 
 
@@ -14,8 +14,8 @@ export default function FestivalBoard() {
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
-    setFestivalList(FESTIVALLIST);
-    setFestivalReviewBoardList(FESTIVALREVIEWBOARDLIST);
+    // setFestivalList(FESTIVALLIST);
+    // setFestivalReviewBoardList(FESTIVALREVIEWBOARDLIST);
   }, []);
 
   return (
