@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import MainLeftContent from './MainLeftContent';
 import MainRightContent from './MainRightContent';
 import FestivalBoard from './FestivalBoard';
-import { IPreviewFestivalItem } from '../../../interfaces';
 
 
 export default function MainContent() {

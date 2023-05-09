@@ -20,8 +20,6 @@ interface ISignUpStore{
     setSignUpError:(setSignUpError:boolean)=>void;
     setInterestedFestivalType:(setInterestedFestivalType:string[])=>void;
 
-
-
 }
 
 const useStore=create<ISignUpStore>((set)=>({
@@ -40,10 +38,8 @@ const useStore=create<ISignUpStore>((set)=>({
     setNickname:(nickname)=>set((state)=>({...state,nickname})),
     setAddress:(address)=>set((state)=>({...state,address})),
     setAddressDetail:(address)=>set((state)=>({...state,address})),
-    setSignUpError:(signUpError)=>set((state)=>({...state,signUpError})),
-    setInterestedFestivalType:(interestedFestivalType)=>set((state)=>({...state,interestedFestivalType})),
-
-
+    setSignUpError:(signUpError:boolean)=>set((state)=>({...state,signUpError})),
+    setInterestedFestivalType:(interestedFestivalType:string[])=>set((state)=>({...state,interestedFestivalType})),
 }))
 
 export default useStore;

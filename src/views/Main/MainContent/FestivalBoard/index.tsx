@@ -1,20 +1,17 @@
-import { Box, Card, Grid, Pagination, Stack, Typography } from '@mui/material'
+import { Box, Grid, Pagination, Stack, Typography } from '@mui/material'
 import axios, { AxiosResponse } from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useCookies } from 'react-cookie';
 import ResponseDto from 'src/apis/response';
 import {  GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 import FestivalListItem from 'src/components/FestivalListItem';
 import { GET_INTERESTED_FESTIVAL_LIST_URL, authorizationHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
-import { IPfestivalReviewBoard} from 'src/interfaces';
 import { getpagecount } from 'src/utils';
 
 
 export default function FestivalBoard() {
   //              HOOK              //
-
- 
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
@@ -40,23 +37,14 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
   
 
 }
-  
-
 
  //          Error Handler          //
-
- const getInterestedFestivalErrorHandler = (error: any) => {
+  const getInterestedFestivalErrorHandler = (error: any) => {
   console.log(error.message);
 }
 
-
-
-
-
-
   //          Use effect        //
   useEffect(() => {
-   
   }, [getInterestedFestivalList(accessToken)]);
 
   return (
@@ -66,10 +54,11 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
           <Typography sx={{ fontSize:'36px', fontWeight:900, color:'#222' }}>관심있는 축제</Typography>
           <Box sx={{ width:'30px', height:'4px', backgroundColor:'#ff9f40', mt:'5px' }}></Box>
         </Box>
-        <Box >
+        <Box>
         <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
+
             {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto} />))}
             </Stack>
           </Grid>

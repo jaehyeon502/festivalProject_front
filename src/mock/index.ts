@@ -120,8 +120,6 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     },
 ]
 
-
-
 export const ONELINEREVIEW_LIST: IOneLineReview[] = [
     {
         festivalNumber: 1,

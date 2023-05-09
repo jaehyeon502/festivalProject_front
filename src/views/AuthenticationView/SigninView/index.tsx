@@ -10,7 +10,6 @@ import { SIGN_IN_URL } from 'src/constants/api';
 import { useSignInStore } from 'src/stores';
 
 import { SIGN_UP_CHECKBOX_LIST, USER } from 'src/mock';
-import { useNavigate } from 'react-router-dom';
 
 import { getExpires } from 'src/utils';
 
@@ -54,7 +53,7 @@ const navigator=useNavigate();
     const { token, expiredTime, ...user } = data;
     const expires = getExpires(expiredTime);
     setCookie("accessToken",token,{expires});
-    setSignInUser(user)
+    setSignInUser(USER)
     console.log(signInUser)
     navigator('/');
 
