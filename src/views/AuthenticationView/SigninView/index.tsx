@@ -1,7 +1,7 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import React, { Dispatch, useState } from 'react'
 import { useSignInStore } from 'src/stores';
-import { USER } from 'src/mock';
+import { SIGN_UP_CHECKBOX_LIST, USER } from 'src/mock';
 import { useNavigate } from 'react-router-dom';
 
 

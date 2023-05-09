@@ -282,12 +282,3 @@ export const USER:User = {
     profileUrl:"",
     interestedFestivalType:['얼음', '꽃']
     }
-
-    export const USER_2:User = {
-        userId:"qwer1233",
-    password:'qwer1233',
-    nickname:"a",
-    telNumber:"000-0000-0000",
-    profileUrl:"",
-    interestedFestivalType:['얼음', '꽃']
-    }
