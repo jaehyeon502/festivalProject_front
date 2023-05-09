@@ -3,7 +3,7 @@ import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem, IOneLineReview, I
 export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     {
         festivalNumber: 1,
-        festivalName: '나고야 눈 축제',
+        festivalName: '나고야 눈 축제1',
         festivalType:"들어가지 않는 내용",
         festivalDurationStart: '2023-01-05',
         festivalDurationEnd: '2023-02-05',
@@ -16,7 +16,7 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     },
     {
         festivalNumber: 2,
-        festivalName: '나고야 눈 축제',
+        festivalName: '나고야 눈 축제2',
         festivalType:"들어가지 않는 내용",
         festivalDurationStart: '2023-02-05',
         festivalDurationEnd: '2023-03-05',
@@ -29,7 +29,7 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     },
     {
         festivalNumber: 3,
-        festivalName: '나고야 눈 축제',
+        festivalName: '나고야 눈 축제3',
         festivalType:"들어가지 않는 내용",
         festivalDurationStart: '2023-03-05',
         festivalDurationEnd: '2023-04-05',
@@ -42,7 +42,7 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     },
     {
         festivalNumber: 4,
-        festivalName: '나고야 눈 축제',
+        festivalName: '나고야 눈 축제4',
         festivalType:"들어가지 않는 내용",
         festivalDurationStart: '2023-04-05',
         festivalDurationEnd: '2023-05-05',
@@ -95,8 +95,6 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
         festivalInformation: '들어가지 않는 내용'
     },
 ]
-
-
 
 export const ONELINEREVIEW_LIST: IOneLineReview[] = [
     {

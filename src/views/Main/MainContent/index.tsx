@@ -2,7 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import MainLeftContent from './MainLeftContent';
 import MainRightContent from './MainRightContent';
-import FestivalBoard from './FestivalBoard';
 import { IPreviewFestivalItem } from '../../../interfaces';
 
 
@@ -17,7 +16,6 @@ export default function MainContent() {
       </Box>
       <Box sx={{ mt:'150px', width: '100%', display:'flex', justifyContent: 'center'}}>
           <Box sx={{width: '80vw', dsiplay:'flex'}}>
-              <FestivalBoard />
           </Box>
       </Box>
     </>
