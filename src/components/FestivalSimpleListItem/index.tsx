@@ -2,8 +2,9 @@ import { Box, Card, CardActionArea, Divider, Typography } from "@mui/material"
 import { IPreviewFestivalItem } from "src/interfaces"
 
 interface Props{
-    onClick: () => void
-    item :IPreviewFestivalItem
+
+    onClick: () => void;
+    item :IPreviewFestivalItem;
 }
 
 export default function FestivalSimpleListItem({ onClick, item }: Props) {
