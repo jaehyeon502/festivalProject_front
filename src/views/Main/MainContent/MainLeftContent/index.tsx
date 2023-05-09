@@ -14,8 +14,10 @@ interface Props{
 
 export default function MainLeftContent({setClickPage, clickPage} :Props) {
 
+
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const { festival, setFestival } = useFestivalStore();
+
 
   const onClickPageHandler = () => {
     setFestival(SIMPLELIST);
@@ -25,7 +27,7 @@ export default function MainLeftContent({setClickPage, clickPage} :Props) {
   
   useEffect(() => {
     setFestivalList(SIMPLELIST);
-  }, []);
+  })
 
   return (
     //? 전체 테이블
@@ -37,7 +39,9 @@ export default function MainLeftContent({setClickPage, clickPage} :Props) {
         <Box sx={{ pt: '10px', pb: '10px', m: '10px'}}>
           <Grid container spacing={1}>
             {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
+
             {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem onClick={() => onClickPageHandler()} item={item as IPreviewFestivalSimpleListItem} /></Grid>))}
+
           </Grid>
         </Box>
       </Box>

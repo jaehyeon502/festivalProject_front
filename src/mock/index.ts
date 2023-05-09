@@ -282,3 +282,4 @@ export const USER:User = {
     profileUrl:"",
     interestedFestivalType:['얼음', '꽃']
     }
+
