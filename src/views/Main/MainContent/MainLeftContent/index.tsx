@@ -10,11 +10,11 @@ import { getpagecount } from 'src/utils';
 
 export default function MainLeftContent() {
 
-  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
+  const {  festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList  } = usePagingHook(4);
 
   useEffect(() => {
     setFestivalList(SIMPLELIST);
-  }, []);
+  })
 
   return (
     //? 전체 테이블
@@ -26,7 +26,7 @@ export default function MainLeftContent() {
         <Box sx={{ pt: '10px', pb: '10px', m: '10px'}}>
           <Grid container spacing={1}>
             {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
-            {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} onClick={() => ()}/></Grid>))}
+            {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} /></Grid>))}
           </Grid>
         </Box>
       </Box>
