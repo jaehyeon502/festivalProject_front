@@ -5,15 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 
 interface Props{
+    onClick: () => void;
     festivalList:GetInterstFestivalListResponseDto
 }
 
-export default function FestivalListItem({ festivalList }: Props) {
+export default function FestivalListItem({ onClick, festivalList }: Props) {
     const nagigator=useNavigate();
 
     return (
-        <Card variant='outlined' >
-            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }}  >
+        <Card variant='outlined' onClick={onClick} >
+            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }} >
                 <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
                     <Box  >
                         <Typography sx={{fontWeight:900,fontSize:'14px',m:'10px'}}>{festivalList.festivalName}</Typography>

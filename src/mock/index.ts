@@ -1,4 +1,4 @@
-import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem, IOneLineReview, IPfestivalReviewBoard, User } from "src/interfaces";
+import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem, IOneLineReview, IPfestivalReviewBoard, User, IUser } from "src/interfaces";
 
 export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     {
@@ -119,8 +119,6 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
         festivalInformation: '들어가지 않는 내용'
     },
 ]
-
-
 
 export const ONELINEREVIEW_LIST: IOneLineReview[] = [
     {
@@ -274,22 +272,12 @@ export const FESTIVALLIST: IPreviewFestivalItem[] =
         ,
     ]
     
-export const USER:User[]=[
-    {
-    userId:"a",
+export const USER:User = {
+    userId:"qwer1234",
+    password:'qwer1234',
     nickname:"a",
     telNumber:"000-0000-0000",
     profileUrl:"",
-    interestedFestival:['얼음']
+    interestedFestivalType:['얼음', '꽃']
     }
-   ,
-    {
-    userId:"b",
-    nickname:"a",
-    telNumber:"000-0000-0000",
-    profileUrl:"",
-    interestedFestival:['지역']
-    }
-   
-    
-]
+

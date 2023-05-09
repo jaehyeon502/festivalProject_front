@@ -23,7 +23,7 @@ export default function AuthenticationView() {
       <Grid container spacing={2}>
         <Grid item lg={5.5} sm={12}>
           <Box sx={{ display: 'flex', flexDirection:'column', justifyContent:'center', height: '100%',backgroundColor: "#dedede" }}>
-            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto } />))}
+            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto } onClick={()=> {}} />))}
           </Box>
         </Grid>
         <Grid item lg={6.5} sm={12}>
