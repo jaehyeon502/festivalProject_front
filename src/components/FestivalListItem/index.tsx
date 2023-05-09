@@ -13,7 +13,7 @@ export default function FestivalListItem({ festivalList }: Props) {
 
     return (
         <Card variant='outlined' >
-            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }} onClick={()=>nagigator('/fetivalview')} >
+            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }}  >
                 <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
                     <Box  >
                         <Typography sx={{fontWeight:900,fontSize:'14px',m:'10px'}}>{festivalList.festivalName}</Typography>
