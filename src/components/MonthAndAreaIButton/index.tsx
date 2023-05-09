@@ -1,15 +1,18 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 
-export default function MonthAndAreaButton() {
+interface Props {
+  setFestivalList: any;
+}
+
+export default function MonthAndAreaButton({ setFestivalList }: Props) {
 
     const [areaAndMonth, setAreaAndMonth] = useState<string>('');
     const [month, setMonth] = useState<string>('');
-    const [area, setArea] = useState<string>('');
+    const [festivalArea, setFestivalArea] = useState<string>('');
 
     const [selector, setSelector] = useState<number>(0);
-
-    const [MonthSelect, setMonthSelect] = useState<number>(0);
 
     //? const selectedValue를 만들어 Number로 설정해주고
     //? 위의 setSelector에서 selectedValue를 받아주고
@@ -22,19 +25,39 @@ export default function MonthAndAreaButton() {
       setAreaAndMonth(String(selectedValue));
     };
 
-    const monthChange = (event: SelectChangeEvent) => {
-      setMonth(event.target.value as string);
-    };
+    // const areaChange = (event: SelectChangeEvent) => {
+    //   setArea(event.target.value as string);
+    // }
 
-    const areaChange = (event: SelectChangeEvent) => {
-      setArea(event.target.value as string);
+    //? back에 있는 API코드를 보고 작성해야함.
+    const selectDesignatedMonth = (event: SelectChangeEvent) => {
+      setMonth(event.target.value as string);
+      const month = Number(event.target.value);
+
+      axios.get(`http://localhost:4040/api/festival/festivalmonth/${month}`)
+        .then((response) => getFestivalListResponse(response))
+        .catch((error) => console.log(error.message));
     }
 
-    // const SelectDesignatedNumber = (event: SelectChangeEvent) => {
-    //   const SelectMonth = Number(event.target.value);
-    //   setMonthSelect(Number(event.target.value));
-    //   if(SelectMonth === 1)
-    // }
+    const selectDesignatedArea = (event: SelectChangeEvent) => {
+      setFestivalArea(event.target.value as string);
+      const festivalArea = String(event.target.value);
+      console.log(festivalArea);
+
+      axios.get(`http://localhost:4040/api/festival/${festivalArea}`)
+        .then((response) => getFestivalAreaListResponse(response))
+        .catch((error) => console.log(error.message));
+    }
+
+    //? 이것은 back-end에서 그냥 Response를 받아왔기 때문에 data.festivalList로 받아왔다.
+    const getFestivalListResponse = (response: AxiosResponse<any, any>) => {
+      setFestivalList(response.data.data.festivalList);
+    }
+
+    //? 이것은 back엔드에서 List로 받았기 때문에 festivalList가 아닌 data에서 끝난다.
+    const getFestivalAreaListResponse = (response: AxiosResponse<any, any>) => {
+      setFestivalList(response.data.data);
+    }
 
     return (
         <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
@@ -66,7 +89,7 @@ export default function MonthAndAreaButton() {
                   id="Month"
                   value={month}
                   label="Month"
-                  onChange={monthChange}
+                  onChange={selectDesignatedMonth}
                 >
                   <MenuItem value={1}>1월</MenuItem>
                   <MenuItem value={2}>2월</MenuItem>
@@ -89,31 +112,32 @@ export default function MonthAndAreaButton() {
                 <InputLabel>지역별</InputLabel>
                 <Select
                   id="Area"
-                  value={area}
-                  label="Area"
-                  onChange={areaChange}
+                  value={festivalArea}
+                  label="festivalArea"
+                  onChange={selectDesignatedArea}
                 >
-                  <MenuItem value={1}>서울</MenuItem>
-                  <MenuItem value={2}>인천</MenuItem>
-                  <MenuItem value={3}>서산</MenuItem>
-                  <MenuItem value={4}>춘천</MenuItem>
-                  <MenuItem value={5}>여주</MenuItem>
-                  <MenuItem value={6}>원주</MenuItem>
-                  <MenuItem value={7}>속초</MenuItem>
-                  <MenuItem value={8}>강릉</MenuItem>
-                  <MenuItem value={9}>동해</MenuItem>
-                  <MenuItem value={10}>대전</MenuItem>
-                  <MenuItem value={11}>군산</MenuItem>
-                  <MenuItem value={12}>김천</MenuItem>
-                  <MenuItem value={13}>대구</MenuItem>
-                  <MenuItem value={14}>포항</MenuItem>
-                  <MenuItem value={15}>목포</MenuItem>
-                  <MenuItem value={16}>광주</MenuItem>
-                  <MenuItem value={17}>여수</MenuItem>
-                  <MenuItem value={18}>통영</MenuItem>
-                  <MenuItem value={19}>부산</MenuItem>
-                  <MenuItem value={20}>울산</MenuItem>
-                  <MenuItem value={21}>제주도</MenuItem>
+                  <MenuItem value={"서울"}>서울</MenuItem>
+                  <MenuItem value={"인천"}>인천</MenuItem>
+                  <MenuItem value={"서산"}>서산</MenuItem>
+                  <MenuItem value={"춘천"}>춘천</MenuItem>
+                  <MenuItem value={"여주"}>여주</MenuItem>
+                  <MenuItem value={"원주"}>원주</MenuItem>
+                  <MenuItem value={"속초"}>속초</MenuItem>
+                  <MenuItem value={"강릉"}>강릉</MenuItem>
+                  <MenuItem value={"동해"}>동해</MenuItem>
+                  <MenuItem value={"대전"}>대전</MenuItem>
+                  <MenuItem value={"군산"}>군산</MenuItem>
+                  <MenuItem value={"김천"}>김천</MenuItem>
+                  <MenuItem value={"대구"}>대구</MenuItem>
+                  <MenuItem value={"포항"}>포항</MenuItem>
+                  <MenuItem value={"목포"}>목포</MenuItem>
+                  <MenuItem value={"광주"}>광주</MenuItem>
+                  <MenuItem value={"여수"}>여수</MenuItem>
+                  <MenuItem value={"통영"}>통영</MenuItem>
+                  <MenuItem value={"부산"}>부산</MenuItem>
+                  <MenuItem value={"울산"}>울산</MenuItem>
+                  <MenuItem value={"제주도"}>제주도</MenuItem>
+                  <MenuItem value={"진주"}>진주</MenuItem>
                 </Select>
               </FormControl>
             </Box>

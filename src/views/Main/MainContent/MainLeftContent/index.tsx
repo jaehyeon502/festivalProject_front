@@ -10,17 +10,17 @@ import { getpagecount } from 'src/utils';
 
 export default function MainLeftContent() {
 
-  const { interestedFestivalList, viewList, pageNumber, onPageHandler, COUNT, setInterestedFestivalList } = usePagingHook(4);
+  const {  festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList  } = usePagingHook(4);
 
   useEffect(() => {
-    setInterestedFestivalList(SIMPLELIST);
+    setFestivalList(SIMPLELIST);
   })
 
   return (
     //? 전체 테이블
     <Box sx={{ width: '55%', height: '100%', mr:'5%', backgroundColor:'' }}>
       <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
-        <MonthAndAreaButton />
+        <MonthAndAreaButton setFestivalList={setFestivalList} />
       </Box>
       <Box sx = {{ m: '10px',backgroundColor: '#FFFFFF'}}>
         <Box sx={{ pt: '10px', pb: '10px', m: '10px'}}>
@@ -31,7 +31,7 @@ export default function MainLeftContent() {
         </Box>
       </Box>
       <Box sx={{ pt: '20px', display: 'flex', justifyContent: 'center' }}>
-        <Pagination page={pageNumber} count={getpagecount(interestedFestivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
+        <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
       </Box>
   </Box>
   )

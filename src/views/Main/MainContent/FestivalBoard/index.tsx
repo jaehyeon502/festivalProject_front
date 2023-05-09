@@ -5,20 +5,19 @@ import { useCookies } from 'react-cookie';
 import ResponseDto from 'src/apis/response';
 import {  GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 import FestivalListItem from 'src/components/FestivalListItem';
-import FestivalRiviewBoardList from 'src/components/FestivalRiviewBoardList';
 import { GET_INTERESTED_FESTIVAL_LIST_URL, authorizationHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
-import { IPfestivalReviewBoard, IPreviewFestivalItem } from 'src/interfaces';
-import { FESTIVALLIST } from 'src/mock';
+import { IPfestivalReviewBoard} from 'src/interfaces';
 import { getpagecount } from 'src/utils';
 
 
 export default function FestivalBoard() {
   //              HOOK              //
-  const{interestedFestivalList, viewList, pageNumber, onPageHandler, COUNT, setInterestedFestivalList}=usePagingHook(2);
-  // const[festivalReviewBoardList,setFestivalReviewBoardList]=useState<IPfestivalReviewBoard[]>([]);
+
+ 
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
 
 
   //          EVENT HANDLER           //
@@ -36,7 +35,7 @@ const getInterestedFestivalList=(accessToken:string)=>{
 const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>)=>{
   const {result,message,data}=response.data as ResponseDto<GetInterstFestivalListResponseDto[]>
   if(!result || data === null) return;
-  setInterestedFestivalList(data);
+  setFestivalList(data);
   console.log("data"+data)
   
 
@@ -77,7 +76,7 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
         </Grid>
         </Box>
         <Box sx={{display:'flex',justifyContent:'center'}} >
-          <Pagination  sx={{mt:'20px',ml:'20px',mr:'20px'}} page={pageNumber} count={getpagecount(interestedFestivalList,COUNT)} onChange={(event, value) => onPageHandler(value)} />
+          <Pagination  sx={{mt:'20px',ml:'20px',mr:'20px'}} page={pageNumber} count={getpagecount(festivalList,COUNT)} onChange={(event, value) => onPageHandler(value)} />
         </Box>
       </Box>
     </Box>

@@ -11,11 +11,11 @@ import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 export default function AuthenticationView() {
 
   const [ AuthenticationView, setAuthenticationView] = useState<boolean>(true);
-  const{interestedFestivalList, viewList, pageNumber, onPageHandler, COUNT, setInterestedFestivalList}=usePagingHook(2);
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList }=usePagingHook(2);
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
-    setInterestedFestivalList(FESTIVALLIST);
+    setFestivalList(FESTIVALLIST);
   }, []);
 
   return (

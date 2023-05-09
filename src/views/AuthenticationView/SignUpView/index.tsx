@@ -60,11 +60,11 @@ function FirstPage() {
 function SecondPage() {
 
   const [festivalCheckboxList, setFestivalCheckboxList] = useState<IPreviewFestivalItem[]>([]);
-  const{interestedFestivalList, viewList, pageNumber, onPageHandler, COUNT, setInterestedFestivalList}=usePagingHook(100);
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList }=usePagingHook(100);
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
-    setInterestedFestivalList(SIGN_UP_CHECKBOX_LIST);
+    setFestivalList(SIGN_UP_CHECKBOX_LIST);
   }, []);
   return(
   <Box sx={{ width : '100%', height: '100%' }}>

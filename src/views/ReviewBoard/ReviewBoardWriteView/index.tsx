@@ -20,20 +20,34 @@ export default function ReviewBoardWriteView() {
   const [boardContent, setBoardContent] = useState<string>('');
   const [selectedFestivalName, setSelectedFestivalName] = useState<string>('');
 
+  let buttonClick = false;
+
   const navigator = useNavigate();
 
   //          Event Handler          //
   const onClickFestivalSearchButton = (event: MouseEvent<HTMLButtonElement>) => {
+
+    buttonClick = true;
     setShow(true);
   };
 
+  const onClickFestivalSearchBox = (event : MouseEvent<HTMLDivElement>) => {
+    buttonClick = true;
+  }
+
   //? 검색창 외 화면 아무 곳이나 누를 경우 검색창 사라지게
-  const onCloseFestivalSearchHandler = (event : MouseEvent<HTMLButtonElement>) => {
+  const onCloseFestivalSearchHandler = () => {
+
+    if(buttonClick) { //? react에선 모든 기능이 동시에 실행
+      buttonClick = false; 
+      return;
+    };
     setShow(false);
   }
 
   const onFestivalSearchKeyPressHandler = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Enter') return;
+    buttonClick = true;
     setShow(true);
   };
 
@@ -42,8 +56,8 @@ export default function ReviewBoardWriteView() {
     setBoardContent(boardContent + '\n');
   }
 
-  const onClickFestivalNameHandler = () => {
-    setSelectedFestivalName('축제');
+  const onClickFestivalNameHandler = (festivalName : string) => {
+    setSelectedFestivalName(festivalName);
     setShow(false);
   }
 
@@ -69,13 +83,13 @@ export default function ReviewBoardWriteView() {
   }, [])
 
   return (
-    <Box sx={{ backgroundColor: '#c0c0c0' }}>
+    <Box sx={{ backgroundColor: '#c0c0c0' }} onClick = {onCloseFestivalSearchHandler}>
       <Divider />
       <Box sx={{ ml: '200px', mr: '200px', p: '100px 50px', backgroundColor: '#ffffff' }}>
         <Box>
           <Box sx={{ mb: '220px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
 
-            <Box>
+            <Box onClick = {onClickFestivalSearchBox}>
               <FormControl sx={{ width: '280px', ml: '20px', mb: '20px' }} variant="outlined">
                 <OutlinedInput placeholder='검색어 관련 축제명은 연동 후에' onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}
                   endAdornment={
@@ -88,10 +102,10 @@ export default function ReviewBoardWriteView() {
                   sx={{ borderRadius: '20px' }} />
 
                 {show ? (
-                  <Box sx={{ width : '100%', height : '200px',border: '1px solid', fontSize: '15px', overflow : 'scroll' }}>
-                    {festivalNameList.map((item) => (
-                    <Grid onClick = {onClickFestivalNameHandler}>
-                      <FestivalNameItemList festivalNameItem={item}  />
+                  <Box sx={{ width : '100%', height : '200px', border: '1px solid', fontSize: '15px', overflow : 'scroll', position : 'absolute', top : '56px' }}>
+                    {festivalNameList.map((nameItem) => (
+                    <Grid onClick = {() => onClickFestivalNameHandler(nameItem.festivalName)}>
+                      <FestivalNameItemList item={nameItem}/>
                     </Grid>))}
                     {'스크롤 내리기'}
                   </Box>
@@ -106,7 +120,7 @@ export default function ReviewBoardWriteView() {
               </Box>
 
               <Box sx={{ width: '210px', height : '100%', border : '1px solid' }}>
-                <Typography sx = {{ fontSize : '18px'}}>{selectedFestivalName}</Typography>
+                <Typography sx = {{ fontSize : '18px' }}>{selectedFestivalName}</Typography>
               </Box>
 
             </Box>
