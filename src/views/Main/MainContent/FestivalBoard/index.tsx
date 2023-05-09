@@ -9,7 +9,6 @@ import { getpagecount } from 'src/utils';
 
 export default function FestivalBoard() {
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
-  const[festivalReviewBoardList,setFestivalReviewBoardList]=useState<IPfestivalReviewBoard[]>([]);
 
   useEffect(() => {
     setFestivalList(FESTIVALLIST);
@@ -22,11 +21,11 @@ export default function FestivalBoard() {
           <Typography sx={{ fontSize:'36px', fontWeight:900, color:'#222' }}>관심있는 축제</Typography>
           <Box sx={{ width:'30px', height:'4px', backgroundColor:'#ff9f40', mt:'5px' }}></Box>
         </Box>
-        <Box >
+        <Box>
         <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
-            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as IPreviewFestivalItem} />))}
+            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as IPreviewFestivalItem}/>))}
             </Stack>
           </Grid>
         </Grid>

@@ -25,10 +25,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
       setAreaAndMonth(String(selectedValue));
     };
 
-    // const areaChange = (event: SelectChangeEvent) => {
-    //   setArea(event.target.value as string);
-    // }
-
     //? back에 있는 API코드를 보고 작성해야함.
     const selectDesignatedMonth = (event: SelectChangeEvent) => {
       setMonth(event.target.value as string);
