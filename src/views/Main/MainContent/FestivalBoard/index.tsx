@@ -1,14 +1,15 @@
-import { Box, Card, Grid, Pagination, Stack, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Box, Grid, Pagination, Stack, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 import FestivalListItem from 'src/components/FestivalListItem';
 import { usePagingHook } from 'src/hooks';
-import { IPreviewFestivalItem } from 'src/interfaces';
+import { IPfestivalReviewBoard, IPreviewFestivalItem } from 'src/interfaces';
 import { FESTIVALLIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
 
 
 export default function FestivalBoard() {
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
+  const[festivalReviewBoardList,setFestivalReviewBoardList]=useState<IPfestivalReviewBoard[]>([]);
 
   useEffect(() => {
     setFestivalList(FESTIVALLIST);

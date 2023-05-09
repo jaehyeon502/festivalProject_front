@@ -1,6 +1,11 @@
+
+import User from "./User.interface";
+
+export type{User};
+
 export interface IPreviewFestivalItem{
-    festivalNumber:number;
-    festivalName:string;
+festivalNumber:number;
+festivalName:string;
     festivalType:string;
     festivalDurationStart: string;
     festivalDurationEnd:string;
@@ -100,10 +105,8 @@ export interface IPfestivalReviewBoard{ //? 위에 있는 Board와 같은 interf
       recommendCount:number;
       commentCount:number;
       writerId:string;
-      writerProfileUrl:number;
-      writerNickname:number;
+      writerProfileUrl:string;
+      writerNickname:string;
       festivalNumber:number;
-    
-
 }
 
