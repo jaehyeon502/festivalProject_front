@@ -9,8 +9,12 @@ import { GET_INTERESTED_FESTIVAL_LIST_URL, authorizationHeader } from 'src/const
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 
+interface Props{
+  clickPage:boolean;
+  setClickPage: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export default function FestivalBoard() {
+export default function FestivalBoard({setClickPage, clickPage} :Props) {
   //              HOOK              //
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
@@ -59,7 +63,7 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
 
-            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto} />))}
+            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto} onClick={() => setClickPage(true)} />))}
             </Stack>
           </Grid>
         </Grid>
