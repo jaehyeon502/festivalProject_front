@@ -253,20 +253,18 @@ export const FESTIVALLIST: IPreviewFestivalItem[] =
 export const USER:User[]=[
     {
     userId:"a",
-    passwor:'a',
     nickname:"a",
     telNumber:"000-0000-0000",
     profileUrl:"",
-    interestedFestivalType:['얼음']
+    interestedFestival:['얼음']
     }
    ,
     {
     userId:"b",
-    passwor:'b',
     nickname:"a",
     telNumber:"000-0000-0000",
     profileUrl:"",
-    interestedFestivalType:['지역']
+    interestedFestival:['지역']
     }
    
     

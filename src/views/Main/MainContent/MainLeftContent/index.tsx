@@ -10,10 +10,10 @@ import { getpagecount } from 'src/utils';
 
 export default function MainLeftContent() {
 
-  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
+  const { interestedFestivalList, viewList, pageNumber, onPageHandler, COUNT, setInterestedFestivalList } = usePagingHook(4);
 
   useEffect(() => {
-    setFestivalList(SIMPLELIST);
+    setInterestedFestivalList(SIMPLELIST);
   })
 
   return (
@@ -31,7 +31,7 @@ export default function MainLeftContent() {
         </Box>
       </Box>
       <Box sx={{ pt: '20px', display: 'flex', justifyContent: 'center' }}>
-        <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
+        <Pagination page={pageNumber} count={getpagecount(interestedFestivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
       </Box>
   </Box>
   )
