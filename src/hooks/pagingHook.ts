@@ -6,8 +6,8 @@ const usePagingHook = (COUNT: number) => {
     const [viewList, setViewList] = useState<(IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(1);
 
-
     const onPageHandler = (page: number) => {
+        
         setPageNumber(page);
         const templist: (IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[] = [];
         const startindex = COUNT * (page - 1);
@@ -15,7 +15,6 @@ const usePagingHook = (COUNT: number) => {
         for (let i = startindex; i <= endindex; i++) {
             if (festivalList.length < i + 1) break;
             templist.push(festivalList[i]);
-            console.log(page)
         }
         setViewList(templist);
     }

@@ -14,19 +14,19 @@ export default function MainLeftContent() {
 
   useEffect(() => {
     setFestivalList(SIMPLELIST);
-  })
+  }, []);
 
   return (
     //? 전체 테이블
     <Box sx={{ width: '55%', height: '100%', mr:'5%', backgroundColor:'' }}>
       <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
-        <MonthAndAreaButton />
+        <MonthAndAreaButton setFestivalList={setFestivalList} />
       </Box>
       <Box sx = {{ m: '10px',backgroundColor: '#FFFFFF'}}>
         <Box sx={{ pt: '10px', pb: '10px', m: '10px'}}>
           <Grid container spacing={1}>
             {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
-            {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} /></Grid>))}
+            {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} onClick={() => ()}/></Grid>))}
           </Grid>
         </Box>
       </Box>

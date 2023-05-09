@@ -66,7 +66,6 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
         festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
         festivalInformation: '들어가지 않는 내용'
     },
-
     {
         festivalNumber: 6,
         festivalName: '나고야 눈 축제',
@@ -80,7 +79,6 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
         festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
         festivalInformation: '들어가지 않는 내용'
     },
-
     {
         festivalNumber: 7,
         festivalName: '나고야 눈 축제',
@@ -92,6 +90,32 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
         onelineReviewAverage: 10,
         festivalCost:"무료",
         festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용'
+    },
+    {
+        festivalNumber: 8,
+        festivalName: '진주 논개제',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-05-05',
+        festivalDurationEnd: '2023-05-08',
+        festivalArea: '진주',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"성인 2000원",
+        festivalInformationUrl: 'https://search.pstatic.net/common?type=n&size=174x250&quality=85&direct=true&src=https%3A%2F%2Fcsearch-phinf.pstatic.net%2F20230413_299%2F1681356027553AhOvU_JPEG%2F110_1908146_manual_image_url_1681356027538.jpg',
+        festivalInformation: '들어가지 않는 내용'
+    },
+    {
+        festivalNumber: 9,
+        festivalName: '진주',
+        festivalType:"들어가지 않는 내용",
+        festivalDurationStart: '2023-05-05',
+        festivalDurationEnd: '2023-05-08',
+        festivalArea: '진주',
+        festivalTime:"들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost:"성인 2000원",
+        festivalInformationUrl: 'https://search.pstatic.net/common?type=n&size=174x250&quality=85&direct=true&src=https%3A%2F%2Fcsearch-phinf.pstatic.net%2F20230413_299%2F1681356027553AhOvU_JPEG%2F110_1908146_manual_image_url_1681356027538.jpg',
         festivalInformation: '들어가지 않는 내용'
     },
 ]

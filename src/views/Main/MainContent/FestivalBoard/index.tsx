@@ -9,7 +9,6 @@ import { getpagecount } from 'src/utils';
 
 export default function FestivalBoard() {
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
-  // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
     setFestivalList(FESTIVALLIST);
