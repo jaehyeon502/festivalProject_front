@@ -1,24 +1,29 @@
 import { Box, Grid, Pagination, Stack, Typography } from '@mui/material'
 import axios, { AxiosResponse } from 'axios';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie';
 import ResponseDto from 'src/apis/response';
-import {  GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
+import { GetFestivalReveiwBoardListResponseDto } from 'src/apis/response/board';
+import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
+
+
 import FestivalListItem from 'src/components/FestivalListItem';
-import { GET_INTERESTED_FESTIVAL_LIST_URL, authorizationHeader } from 'src/constants/api';
+import FestivalReviewBoardList from 'src/components/FestivalReiviewBoardList';
+import { GET_FESTIVAL_REVIEWBOARD_LIST_URL, GET_INTERESTED_FESTIVAL_LIST_URL, authorizationHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 
 interface Props{
   clickPage:boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
-}
 
+}
 export default function FestivalBoard({setClickPage, clickPage} :Props) {
   //              HOOK              //
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
+  const[festivalNumber,setFestivalNumber]=useState<string>('');
 
 
   //          EVENT HANDLER           //
@@ -27,6 +32,13 @@ const getInterestedFestivalList=(accessToken:string)=>{
   .get(GET_INTERESTED_FESTIVAL_LIST_URL,authorizationHeader(accessToken))
   .then((response)=>getInterestedFestivalListResponseHandler(response))
   .catch((error)=>getInterestedFestivalErrorHandler(error))
+}
+
+const getFestivalReviewBoardList=()=>{
+  axios
+  .get(GET_FESTIVAL_REVIEWBOARD_LIST_URL(festivalNumber as string))
+  .then((response)=>getFestivalReviewBoardListResponseHandler(response))
+  .catch((error)=>getFestivalReivewBoardListErrorHandler(error))
 }
 
 
@@ -38,7 +50,13 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
   if(!result || data === null) return;
   setFestivalList(data);
   console.log("data"+data)
-  
+}
+
+const getFestivalReviewBoardListResponseHandler=(response:AxiosResponse<any,any>)=>{
+  const {result,message,data}=response.data as ResponseDto<GetFestivalReveiwBoardListResponseDto[]>
+  if(!result || data === null) return;
+  setFestivalList(data);
+
 
 }
 
@@ -46,10 +64,16 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
   const getInterestedFestivalErrorHandler = (error: any) => {
   console.log(error.message);
 }
+const getFestivalReivewBoardListErrorHandler = (error: any) => {
+  console.log(error.message);
+}
 
   //          Use effect        //
   useEffect(() => {
-  }, [getInterestedFestivalList(accessToken)]);
+    getInterestedFestivalList(accessToken)
+    console.log(accessToken)
+    
+  }, []);
 
   return (
     <Box sx={{ width: '100%', height: '100%'}}>
@@ -62,8 +86,9 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
         <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
           <Grid item sm={12} md={8}  >
             <Stack spacing={2}>
-
-            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto} onClick={() => setClickPage(true)} />))}
+           
+            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto}  onClick={() => setClickPage(true)} />))}
+            {clickPage && viewList.map((festivalReviewBoardList)=>(<FestivalReviewBoardList festivalBoardList={festivalReviewBoardList as GetFestivalReveiwBoardListResponseDto }/>)) }
             </Stack>
           </Grid>
         </Grid>

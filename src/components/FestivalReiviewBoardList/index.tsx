@@ -1,9 +1,10 @@
 import React from 'react'
 import { Avatar, Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
 import { IPfestivalReviewBoard } from 'src/interfaces';
+import { GetFestivalReveiwBoardListResponseDto } from 'src/apis/response/board';
 
 interface Props {
-    festivalBoardList: IPfestivalReviewBoard
+    festivalBoardList: GetFestivalReveiwBoardListResponseDto
 }
 
 
