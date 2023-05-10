@@ -23,8 +23,8 @@ function App() {
         <Route path="/auth" element={(<AuthenticationView />)} />
         <Route path = "/reviewboard">
           <Route path = 'write' element = {(<ReviewBoardWriteView/>)}/>
-          <Route path = 'detail/:boardNumber' element = {(<ReviewBoardDetailView/>)}/>
-          <Route path = 'update/:boardNumber' element = {(<ReviewBoardUpdateView/>)}/>
+          <Route path = 'detail/:reviewBoardNumber' element = {(<ReviewBoardDetailView/>)}/>
+          <Route path = 'update/:reviewBoardNumber' element = {(<ReviewBoardUpdateView/>)}/>
         </Route>
       </Routes>
       {path.pathname !== "/auth" && <Footer />}

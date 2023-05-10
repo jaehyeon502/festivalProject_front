@@ -108,16 +108,16 @@ export default function ReviewBoardWriteView() {
 
                 {show ? (
                   <Box sx={{ width : '100%', height : '200px', border: '1px solid', fontSize: '15px', overflow : 'scroll', position : 'absolute', top : '56px' }}>
-                    {/*//? 첫줄 nameItem은 interface로 선언해둔 객체
+                    {/*//? 첫줄 nameItem은 객체, useEffect로 mock데이터에 festival의 전체 값을 일단 들고왔음
                     //? 클릭하면 nameItem 객체의 festivalName값을 매개변수로 전달
-                    //? 셋째 줄 nameItem은 FestivalNameItemList에서 선언된 festivalName */}
+                    //? 셋째 줄 nameItem은 FestivalNameItemList(component)에서 선언된 festivalName, 2, 3줄은 같은 map 순서의 mock를 갖고있는 것 */}
                     {festivalNameList.map((nameItem) => ( 
                     <Grid onClick = {() => onClickFestivalNameHandler(nameItem.festivalName)}> 
                       <FestivalNameItemList item={nameItem}/>
                     </Grid>))}
                     {'스크롤 내리기'}
                   </Box>
-                ) : (<></>)}
+                ) : (<></>)} 
               </FormControl>
 
             </Box>
