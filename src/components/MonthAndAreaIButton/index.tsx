@@ -23,6 +23,7 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
       const selectedValue = Number(event.target.value);
       setSelector(selectedValue);
       setAreaAndMonth(String(selectedValue));
+      console.log();
     };
 
     //? back에 있는 API코드를 보고 작성해야함.
@@ -38,7 +39,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
     const selectDesignatedArea = (event: SelectChangeEvent) => {
       setFestivalArea(event.target.value as string);
       const festivalArea = String(event.target.value);
-      console.log(festivalArea);
 
       axios.get(`http://localhost:4040/api/festival/${festivalArea}`)
         .then((response) => getFestivalAreaListResponse(response))
