@@ -25,11 +25,6 @@ function NavigationBar() {
   const {signInUser}=useSignInStore();
   
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-
   return (
     <AppBar position="static" sx={{ backgroundColor: '#32383f', color:'#000' }}>
       <Container maxWidth="xl">
@@ -40,7 +35,7 @@ function NavigationBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {path.pathname !== '/auth' ? <Button variant = 'contained' onClick = {() => navigator('/auth') }>{signInUser ? 'Logout' : 'Login'}</Button> : <></>}
+            {path.pathname !== '/auth/sign-in' && path.pathname !== '/auth/sign-up' ? <Button variant = 'contained' onClick = {() => navigator('/auth/sign-in') }>{signInUser ? 'Logout' : 'Login'}</Button> : <></>}
           </Box>
         </Toolbar>
       </Container>

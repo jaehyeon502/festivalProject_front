@@ -18,10 +18,8 @@ export default function MainLeftContent({setClickPage, clickPage} :Props) {
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const { festival, setFestival } = useFestivalStore();
 
-
   const onClickPageHandler = () => {
     setFestival(SIMPLELIST);
-    console.log(festival);
     setClickPage(true)
   }
   
@@ -32,19 +30,14 @@ export default function MainLeftContent({setClickPage, clickPage} :Props) {
   return (
     //? 전체 테이블
     <Box sx={{ width: '55%', height: '100%', mr:'5%', backgroundColor:'' }}>
-      {clickPage ? (
-        <Box>
-          기본정보
+      {clickPage ? (<Box>기본정보
           <Box>
             <Box sx={{ width:'5px', height:'20px', backgroundColor:'#fafb99', mt:'20px'}}>
               <Typography sx={{ ml: '20px'}}>개요</Typography>
               <Typography>sd</Typography>
             </Box>
           </Box>
-        </Box>) 
-      
-      : (
-      <Box>
+        </Box>) : (<Box>
         <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
           <MonthAndAreaButton setFestivalList={setFestivalList} />
         </Box>
@@ -59,8 +52,7 @@ export default function MainLeftContent({setClickPage, clickPage} :Props) {
         <Box sx={{ pt: '20px', display: 'flex', justifyContent: 'center' }}>
           <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
         </Box>
-      </Box>
-      )}
+      </Box>)}
       
 
   </Box>

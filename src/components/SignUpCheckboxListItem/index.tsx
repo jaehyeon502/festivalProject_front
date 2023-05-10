@@ -18,7 +18,7 @@ export default function SignUpCheckboxListItem({festivalCheckboxList} : Props) {
             <FormControlLabel
             value="end"
             control={<Checkbox />}
-            label={festivalCheckboxList.festivalType}//todo : map메서드 사용해서 축제 타입명 가져오기
+            label={festivalCheckboxList.festivalType}
             labelPlacement="end"
             />
             </FormGroup>
