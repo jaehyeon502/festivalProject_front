@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSignInStore } from 'src/stores';
 
 const pages = ['현재 진행 중인 축제', '개최 예정 축제', '축제  후기', '자유 게시판'];
 
@@ -21,6 +22,7 @@ function NavigationBar() {
   const navigator = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const {signInUser}=useSignInStore();
   
 
   const handleCloseNavMenu = () => {
@@ -38,7 +40,7 @@ function NavigationBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {path.pathname !== '/auth' ? <Button variant = 'contained' onClick = {() => navigator('/auth') }>Login</Button> : <></>}
+            {path.pathname !== '/auth' ? <Button variant = 'contained' onClick = {() => navigator('/auth') }>{signInUser ? 'Logout' : 'Login'}</Button> : <></>}
           </Box>
         </Toolbar>
       </Container>

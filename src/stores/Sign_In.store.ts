@@ -6,11 +6,10 @@ interface IUserSIgnInStore{
     setSignInUser:(user:User)=>void;
     resetSignInUser:()=>void;
 }
-const SignInStore=create<IUserSIgnInStore>((set)=>({
+const useStore=create<IUserSIgnInStore>((set)=>({
     signInUser:null,
     setSignInUser:(signInUser:User)=>set((state)=>({...state,signInUser})),
     resetSignInUser:()=>set((state)=>({...state,signInUser:null})),
-
 }))
 
-export default SignInStore;
+export default useStore;

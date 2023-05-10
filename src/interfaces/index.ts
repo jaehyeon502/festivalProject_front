@@ -32,14 +32,14 @@ export interface IPreviewFestivalSimpleListItem { //? 인터페이스 같은 게
 }
 
 export interface IUser {
-    id: string;
+    userId: string;
     password: string;
-    profileUrl: string;
+    profileUrl?: string;
     nickname: string;
     telNumber: string;
-    adminCheck: boolean | null;
-    reportUser: boolean | null;
-    interestedFestival: string | null;
+    adminCheck?: boolean | null;
+    reportUser?: boolean | null;
+    interestedFestivalType: string[] | null;
 }
 
 export interface IReviewBoard {
@@ -58,9 +58,9 @@ export interface IReviewBoard {
 }
 
 export interface IComment {
-    numbercommentNumber: number;
+    commentNumber: number;
     commentContent: string;
-    numberboardNumber: number;
+    boardNumber: number;
     writerId: string;
     writeDatetime: string;
     writerProfileUrl: string | null;

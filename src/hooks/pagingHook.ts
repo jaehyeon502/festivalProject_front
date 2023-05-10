@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem } from "src/interfaces";
+import { GetInterstFestivalListResponseDto } from "src/apis/response/festival";
+import { IComment, IPreviewFestivalItem, IPreviewFestivalSimpleListItem } from "src/interfaces";
 
 const usePagingHook = (COUNT: number) => {
-    const [festivalList, setFestivalList] = useState<(IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[]>([]);
-    const [viewList, setViewList] = useState<(IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[]>([]);
-    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [festivalList, setFestivalList] = useState<(GetInterstFestivalListResponseDto | IPreviewFestivalSimpleListItem | IPreviewFestivalItem | IComment)[]>([]);
+    const [viewList, setViewList] = useState<(GetInterstFestivalListResponseDto | IPreviewFestivalSimpleListItem | IPreviewFestivalItem | IComment)[]>([]);
+    const [pageNumber, setPageNumber] = useState<number>(1); 
 
     const onPageHandler = (page: number) => {
         
         setPageNumber(page);
-        const templist: (IPreviewFestivalItem | IPreviewFestivalSimpleListItem)[] = [];
+        const templist: (GetInterstFestivalListResponseDto | IPreviewFestivalSimpleListItem | IPreviewFestivalItem | IComment)[] = [];
         const startindex = COUNT * (page - 1);
         const endindex = COUNT * page - 1;
         for (let i = startindex; i <= endindex; i++) {

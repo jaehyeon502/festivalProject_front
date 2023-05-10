@@ -6,11 +6,12 @@ import SignUpView from './SignUpView'
 import { FESTIVALLIST } from 'src/mock';
 import FestivalListItem from 'src/components/FestivalListItem';
 import { usePagingHook } from 'src/hooks';
+import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 
 export default function AuthenticationView() {
 
   const [ AuthenticationView, setAuthenticationView] = useState<boolean>(true);
-  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
+  const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList }=usePagingHook(2);
   // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function AuthenticationView() {
       <Grid container spacing={2}>
         <Grid item lg={5.5} sm={12}>
           <Box sx={{ display: 'flex', flexDirection:'column', justifyContent:'center', height: '100%',backgroundColor: "#dedede" }}>
-            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem} />))}
+            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto } onClick={()=> {}} />))}
           </Box>
         </Grid>
         <Grid item lg={6.5} sm={12}>
