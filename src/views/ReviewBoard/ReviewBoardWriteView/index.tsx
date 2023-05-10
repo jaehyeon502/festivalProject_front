@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { IPreviewFestivalItem } from 'src/interfaces';
 import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function ReviewBoardWriteView() {
 
@@ -56,9 +57,13 @@ export default function ReviewBoardWriteView() {
     setBoardContent(boardContent + '\n');
   }
 
-  const onClickFestivalNameHandler = (festivalName : string) => {
+  const onClickFestivalNameHandler = (festivalName : string ) => {
     setSelectedFestivalName(festivalName);
     setShow(false);
+  }
+
+  const onDeleteFestivallNameHandler = () => {
+    setSelectedFestivalName('');
   }
 
   const onBoardWriteHandler = () => {
@@ -103,24 +108,30 @@ export default function ReviewBoardWriteView() {
 
                 {show ? (
                   <Box sx={{ width : '100%', height : '200px', border: '1px solid', fontSize: '15px', overflow : 'scroll', position : 'absolute', top : '56px' }}>
-                    {festivalNameList.map((nameItem) => (
-                    <Grid onClick = {() => onClickFestivalNameHandler(nameItem.festivalName)}>
+                    {/*//? 첫줄 nameItem은 객체, useEffect로 mock데이터에 festival의 전체 값을 일단 들고왔음
+                    //? 클릭하면 nameItem 객체의 festivalName값을 매개변수로 전달
+                    //? 셋째 줄 nameItem은 FestivalNameItemList(component)에서 선언된 festivalName, 2, 3줄은 같은 map 순서의 mock를 갖고있는 것 */}
+                    {festivalNameList.map((nameItem) => ( 
+                    <Grid onClick = {() => onClickFestivalNameHandler(nameItem.festivalName)}> 
                       <FestivalNameItemList item={nameItem}/>
                     </Grid>))}
                     {'스크롤 내리기'}
                   </Box>
-                ) : (<></>)}
+                ) : (<></>)} 
               </FormControl>
 
             </Box>
 
-            <Box sx={{ width: '310px', height : '30px',display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ width: '320px', height : '30px', display: 'flex', justifyContent: 'space-between' }}>
               <Box>
-                <Typography sx={{ fontSize: '18px' }}>축제 이름 : </Typography>
+                <Typography sx={{ fontSize: '18px' }}>축제 이름 : </Typography> 
               </Box>
 
-              <Box sx={{ width: '210px', height : '100%', border : '1px solid' }}>
+              <Box sx={{ width: '220px', height : '100%', border : '1px solid', display : 'flex', justifyContent : 'space-between' }}>
                 <Typography sx = {{ fontSize : '18px' }}>{selectedFestivalName}</Typography>
+                <IconButton onClick = {onDeleteFestivallNameHandler}>
+                  <ClearIcon/>
+                </IconButton>
               </Box>
 
             </Box>

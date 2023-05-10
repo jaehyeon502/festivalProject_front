@@ -1,7 +1,8 @@
 
 import User from "./User.interface";
 
-export type{User};
+export type { User };
+
 
 export interface IPreviewFestivalItem{
 festivalNumber:number;
@@ -17,18 +18,18 @@ festivalInformation:string |null;
 festivalInformationUrl:string|null;
 }
 
-export interface IPreviewFestivalSimpleListItem{ //? 인터페이스 같은 게 왜 2개?
-    festivalNumber:number;
-    festivalName:string;
-    festivalType:string;
+export interface IPreviewFestivalSimpleListItem { //? 인터페이스 같은 게 왜 2개?
+    festivalNumber: number;
+    festivalName: string;
+    festivalType: string;
     festivalDurationStart: string;
-    festivalDurationEnd:string;
-    festivalTime:string | null;
-    festivalArea:string;
-    festivalCost:string;
-    onelineReviewAverage: number | null; 
-    festivalInformation:string |null;
-    festivalInformationUrl:string|null;
+    festivalDurationEnd: string;
+    festivalTime: string | null;
+    festivalArea: string;
+    festivalCost: string;
+    onelineReviewAverage: number | null;
+    festivalInformation: string | null;
+    festivalInformationUrl: string | null;
 }
 
 export interface IUser {
@@ -42,7 +43,7 @@ export interface IUser {
     interestedFestivalType: string[] | null;
 }
 
-export interface IBoard {
+export interface IReviewBoard {
     boardNumber: number;
     boardTitle: string;
     boardContent: string;
@@ -58,9 +59,9 @@ export interface IBoard {
 }
 
 export interface IComment {
-    numbercommentNumber: number;
+    commentNumber: number;
     commentContent: string;
-    numberboardNumber: number;
+    boardNumber: number;
     writerId: string;
     writeDatetime: string;
     writerProfileUrl: string | null;
@@ -95,18 +96,18 @@ export interface ISearchwordLog {
     searchWord: string;
 }
 
-export interface IPfestivalReviewBoard{ //? 위에 있는 Board와 같은 interface
-      boardNumber:number;
-      boardTitle:string;
-      boardContent:string;
-      boardImgUrl:string;
-      boardWriteDatetime:string;
-      viewCount:number;
-      recommendCount:number;
-      commentCount:number;
-      writerId:string;
-      writerProfileUrl:string;
-      writerNickname:string;
-      festivalNumber:number;
+export interface IPfestivalReviewBoard { //? 위에 있는 Board와 같은 interface
+    boardNumber: number;
+    boardTitle: string;
+    boardContent: string;
+    boardImgUrl: string;
+    boardWriteDatetime: string;
+    viewCount: number;
+    recommendCount: number;
+    commentCount: number;
+    writerId: string;
+    writerProfileUrl: string;
+    writerNickname: string;
+    festivalNumber: number;
 }
 

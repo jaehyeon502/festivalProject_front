@@ -10,30 +10,10 @@ import { SIMPLELIST } from 'src/mock';
 import { useFestivalStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
 
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { red } from '@mui/material/colors';
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
 }
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
 
@@ -50,33 +30,59 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
     setExpanded(!expanded);
   }
 
-  //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
-  //? setSelectedFestival에 festival을 넣어준다.
-  const onFestivalItemClick = (festival: IPreviewFestivalSimpleListItem) => {
-    setSelectedFestival(festival);
-    setClickPage(true);
-  }
-
-  const getFestivalAreaList = (response: AxiosResponse<any, any>) => {
-    setFestivalArea(response.data.data.festivalList);
-  }
-
-  // const searchArea = (festival: IPreviewFestivalSimpleListItem) => {
-  //   //? 내일 이거 물어보자 get으로 어떻게 해야할지
-  //   setFestivalArea(festival);
-  //   setClickPage(true);
-
-  //   axios.get(`http://localhost:4040/api/festival/${festivalArea}`)
-  //     .then((response) => getFestivalAreaList(response))
-  //     .catch((error) => console.log(error.message));
-  // }
-
   useEffect(() => {
     setFestivalList(SIMPLELIST);
   }, []);
 
   return (
     //? 전체 테이블
+
+    <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
+      <Box sx={{ pt: '20px', pl: '20px', display: 'flex' }}>
+        <MonthAndAreaButton setFestivalList={setFestivalList} />
+      </Box>
+      <Box sx={{ m: '10px', backgroundColor: '#FFFFFF' }}>
+        <Box sx={{ pt: '10px', pb: '10px', m: '10px' }}>
+          <Grid container spacing={1}>
+            {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
+            {viewList.map((item) => (
+              <Grid item xs={6}>
+              {/*<FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} /> */} 
+              </Grid>))}
+          </Grid>
+          {clickPage ? (
+            <Box>
+              기본정보
+              <Box>
+                <Box sx={{ width: '5px', height: '20px', backgroundColor: '#fafb99', mt: '20px' }}>
+                  <Typography sx={{ ml: '20px' }}>개요</Typography>
+                  <Typography>sd</Typography>
+                </Box>
+              </Box>
+            </Box>)
+
+            : (
+              <Box>
+                <Box sx={{ pt: '20px', pl: '20px', display: 'flex' }}>
+                  <MonthAndAreaButton setFestivalList={setFestivalList} />
+                </Box>
+                <Box sx={{ m: '10px', backgroundColor: '#FFFFFF' }}>
+                  <Box sx={{ pt: '10px', pb: '10px', m: '10px' }}>
+                    <Grid container spacing={1}>
+                      {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
+                      {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} onClick={() => setClickPage(true)} /></Grid>))}
+                    </Grid>
+                  </Box>
+                </Box>
+                <Box sx={{ pt: '20px', display: 'flex', justifyContent: 'center' }}>
+                  <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
+                </Box>
+              </Box>
+            )}
+
+        </Box>
+      </Box>
+
     //? selectedFestival를 만들어서 true이면 실행
     <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
       {clickPage && selectedFestival ? (
