@@ -4,6 +4,7 @@ import MainLeftContent from './MainLeftContent';
 import MainRightContent from './MainRightContent';
 import { IPreviewFestivalItem } from '../../../interfaces';
 import FestivalBoard from './FestivalBoard';
+import { IPreviewFestivalItem } from 'src/interfaces';
 
 
 export default function MainContent() {
