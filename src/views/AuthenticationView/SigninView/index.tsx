@@ -20,7 +20,6 @@ interface Props {
 
 }
 
-
 export default function SigninView({ setAuthenticationView }: Props) {
   //          hook          //
   const [userId, setUserId] = useState<string>('');
