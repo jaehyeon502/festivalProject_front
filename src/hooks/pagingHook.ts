@@ -3,7 +3,7 @@ import { GetFestivalReveiwBoardListResponseDto, GetMyReviewBoardListResponseDto 
 
 
 import { GetInterstFestivalListResponseDto } from "src/apis/response/festival";
-import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem } from "src/interfaces";
+import { IComment, IPreviewFestivalItem, IPreviewFestivalSimpleListItem } from "src/interfaces";
 
 const usePagingHook = (COUNT: number) => {
     const [festivalList, setFestivalList] = useState<(GetInterstFestivalListResponseDto | IPreviewFestivalSimpleListItem | IPreviewFestivalItem | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto)[]>([]);
@@ -19,7 +19,6 @@ const usePagingHook = (COUNT: number) => {
         for (let i = startindex; i <= endindex; i++) {
             if (festivalList.length < i + 1) break;
             templist.push(festivalList[i]);
-            console.log(page)
         }
         setViewList(templist);
     }
@@ -28,7 +27,7 @@ const usePagingHook = (COUNT: number) => {
         onPageHandler(pageNumber);
     }, [festivalList])
 
-    return { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList }
+    return { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}
 }
 
 export default usePagingHook;

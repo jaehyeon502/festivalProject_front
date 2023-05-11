@@ -32,7 +32,7 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
       const month = Number(event.target.value);
 
       axios.get(`http://localhost:4040/api/festival/festivalmonth/${month}`)
-        .then((response) => getFestivalListResponse(response))
+        .then((response) => getFestivalMonthListResponse(response))
         .catch((error) => console.log(error.message));
     }
 
@@ -40,13 +40,13 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
       setFestivalArea(event.target.value as string);
       const festivalArea = String(event.target.value);
 
-      axios.get(`http://localhost:4040/api/festival/${festivalArea}`)
+      axios.get(`http://localhost:4040/api/festival/area/${festivalArea}`)
         .then((response) => getFestivalAreaListResponse(response))
         .catch((error) => console.log(error.message));
     }
 
     //? 이것은 back-end에서 그냥 Response를 받아왔기 때문에 data.festivalList로 받아왔다.
-    const getFestivalListResponse = (response: AxiosResponse<any, any>) => {
+    const getFestivalMonthListResponse = (response: AxiosResponse<any, any>) => {
       setFestivalList(response.data.data.festivalList);
     }
 
@@ -114,26 +114,21 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
                 >
                   <MenuItem value={"서울"}>서울</MenuItem>
                   <MenuItem value={"인천"}>인천</MenuItem>
-                  <MenuItem value={"서산"}>서산</MenuItem>
-                  <MenuItem value={"춘천"}>춘천</MenuItem>
-                  <MenuItem value={"여주"}>여주</MenuItem>
-                  <MenuItem value={"원주"}>원주</MenuItem>
-                  <MenuItem value={"속초"}>속초</MenuItem>
-                  <MenuItem value={"강릉"}>강릉</MenuItem>
-                  <MenuItem value={"동해"}>동해</MenuItem>
                   <MenuItem value={"대전"}>대전</MenuItem>
-                  <MenuItem value={"군산"}>군산</MenuItem>
-                  <MenuItem value={"김천"}>김천</MenuItem>
                   <MenuItem value={"대구"}>대구</MenuItem>
-                  <MenuItem value={"포항"}>포항</MenuItem>
-                  <MenuItem value={"목포"}>목포</MenuItem>
                   <MenuItem value={"광주"}>광주</MenuItem>
-                  <MenuItem value={"여수"}>여수</MenuItem>
-                  <MenuItem value={"통영"}>통영</MenuItem>
                   <MenuItem value={"부산"}>부산</MenuItem>
                   <MenuItem value={"울산"}>울산</MenuItem>
-                  <MenuItem value={"제주도"}>제주도</MenuItem>
-                  <MenuItem value={"진주"}>진주</MenuItem>
+                  <MenuItem value={"세종"}>세종</MenuItem>
+                  <MenuItem value={"경기"}>경기</MenuItem>
+                  <MenuItem value={"충북"}>충북</MenuItem>
+                  <MenuItem value={"충남"}>충남</MenuItem>
+                  <MenuItem value={"경북"}>경북</MenuItem>
+                  <MenuItem value={"경남"}>경남</MenuItem>
+                  <MenuItem value={"전남"}>전남</MenuItem>
+                  <MenuItem value={"전북"}>전북</MenuItem>
+                  <MenuItem value={"강원"}>강원</MenuItem>
+                  <MenuItem value={"제주"}>제주</MenuItem>
                 </Select>
               </FormControl>
             </Box>

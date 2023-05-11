@@ -9,6 +9,8 @@ interface IPreviewFestivalSimpleListItemStore {
 
 const useStore=create<IPreviewFestivalSimpleListItemStore>((set)=>({
     festival: [],
+
+    
     setFestival:(festival)=>set((state)=>({...state,festival}))
 
 
