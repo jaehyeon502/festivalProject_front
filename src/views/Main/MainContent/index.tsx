@@ -2,10 +2,7 @@ import React, {useState} from 'react'
 import Box from '@mui/material/Box';
 import MainLeftContent from './MainLeftContent';
 import MainRightContent from './MainRightContent';
-import { IPreviewFestivalItem } from '../../../interfaces';
 import FestivalBoard from './FestivalBoard';
-import { IPreviewFestivalItem } from 'src/interfaces';
-
 
 export default function MainContent() {
   const [clickPage, setClickPage] = useState<boolean>(false);
