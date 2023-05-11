@@ -42,18 +42,12 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
   const { festival, setFestival } = useFestivalStore();
   const [festivalArea, setFestivalArea] = useState<string>('');
 
-<<<<<<< HEAD
-  const onClickPageHandler = () => {
-    setFestival(SIMPLELIST);
-    setClickPage(true)
-=======
   const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);
 
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
->>>>>>> 0606288eae570bafc1adbbd73dac7de341a48d9a
   }
 
   //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
@@ -83,36 +77,6 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
 
   return (
     //? 전체 테이블
-<<<<<<< HEAD
-    <Box sx={{ width: '55%', height: '100%', mr:'5%', backgroundColor:'' }}>
-      {clickPage ? (<Box>기본정보
-          <Box>
-            <Box sx={{ width:'5px', height:'20px', backgroundColor:'#fafb99', mt:'20px'}}>
-              <Typography sx={{ ml: '20px'}}>개요</Typography>
-              <Typography>sd</Typography>
-            </Box>
-          </Box>
-        </Box>) : (<Box>
-        <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
-          <MonthAndAreaButton setFestivalList={setFestivalList} />
-        </Box>
-        <Box sx = {{ m: '10px',backgroundColor: '#FFFFFF'}}>
-          <Box sx={{ pt: '10px', pb: '10px', m: '10px'}}>
-            <Grid container spacing={1}>
-              {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
-              {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} onClick={() => setClickPage(true)} /></Grid>))}
-            </Grid>
-          </Box>
-        </Box>
-        <Box sx={{ pt: '20px', display: 'flex', justifyContent: 'center' }}>
-          <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
-        </Box>
-      </Box>)}
-      
-
-  </Box>
-)}
-=======
     //? selectedFestival를 만들어서 true이면 실행
     <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
       {clickPage && selectedFestival ? (
@@ -203,4 +167,3 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
     </Box>
   )
 }
->>>>>>> 0606288eae570bafc1adbbd73dac7de341a48d9a

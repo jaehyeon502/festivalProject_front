@@ -1,7 +1,8 @@
-import React,{useState} from 'react'
+import React from 'react'
 
 import { Box, Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material'
 import { IPreviewFestivalItem } from 'src/interfaces';
+import { useSignUpStore } from 'src/stores';
 
 
 interface Props {
@@ -10,6 +11,13 @@ interface Props {
 
 export default function SignUpCheckboxListItem({festivalCheckboxList} : Props) {
 
+  const {profileUrl, setProfileUrl} = useSignUpStore();
+
+  const checkedItem = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.checked;
+    if (!value) return;
+    setProfileUrl(festivalCheckboxList.festivalType);
+  }
 
   return (
     <Box>
@@ -17,7 +25,7 @@ export default function SignUpCheckboxListItem({festivalCheckboxList} : Props) {
             <FormGroup aria-label="position" row>
             <FormControlLabel
             value="end"
-            control={<Checkbox />}
+            control={<Checkbox onChange={(event) => checkedItem(event)}/>}
             label={festivalCheckboxList.festivalType}
             labelPlacement="end"
             />
