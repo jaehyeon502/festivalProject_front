@@ -15,6 +15,7 @@ festivalCost:string;
 onelineReviewAverage: number | null; 
 festivalInformation:string |null;
 festivalInformationUrl:string|null;
+festivalHomepage: string;
 }
 
 export interface IPreviewFestivalSimpleListItem{ //? 인터페이스 같은 게 왜 2개?
@@ -29,6 +30,7 @@ export interface IPreviewFestivalSimpleListItem{ //? 인터페이스 같은 게 
     onelineReviewAverage: number | null; 
     festivalInformation:string |null;
     festivalInformationUrl:string|null;
+    festivalHomepage: string;
 }
 
 export interface IUser {

@@ -25,7 +25,7 @@ const usePagingHook = (COUNT: number) => {
         onPageHandler(pageNumber);
     }, [festivalList])
 
-    return { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList }
+    return { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}
 }
 
 export default usePagingHook;
