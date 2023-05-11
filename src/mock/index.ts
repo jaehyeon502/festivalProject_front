@@ -3,7 +3,7 @@ import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem, IOneLineReview, I
 export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     {
         festivalNumber: 1,
-        festivalName: '나고야 눈 축제',
+        festivalName: '1번',
         festivalType:"들어가지 않는 내용",
         festivalDurationStart: '2023-01-05',
         festivalDurationEnd: '2023-02-05',
@@ -274,10 +274,10 @@ export const FESTIVALLIST: IPreviewFestivalItem[] =
     
 export const USER:User = {
     userId:"qwer1234",
-    password:'qwer1234',
+    // password:'qwer1234',
     nickname:"a",
     telNumber:"000-0000-0000",
     profileUrl:"",
-    interestedFestivalType:['얼음', '꽃']
+    // interestedFestivalType:['얼음', '꽃']
     }
 

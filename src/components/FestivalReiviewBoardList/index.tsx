@@ -3,6 +3,7 @@ import { Avatar, Box, Card, CardActionArea, Divider, Typography } from '@mui/mat
 import { IPfestivalReviewBoard } from 'src/interfaces';
 import { GetFestivalReveiwBoardListResponseDto } from 'src/apis/response/board';
 
+
 interface Props {
     festivalBoardList: GetFestivalReveiwBoardListResponseDto
 }
@@ -18,12 +19,12 @@ export default function FestivalReviewBoardList({ festivalBoardList }: Props) {
                 <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
                     <Box  sx={{ display: 'flex' }}>
                         <Avatar sx={{width:'70px',height:'70px',mb:'10px',justifyContent:'center'}} src={festivalBoardList.writerProfileUrl ? festivalBoardList.writerProfileUrl : ''} />
-                        <Box sx={{ height:'70px',display: 'flex', justifyContent:'center', alignItems:'center' }}>
-                            <Typography sx={{ m: '10px', fontSize: '17px', fontWeight: 700 }}>{festivalBoardList.writerNickname}  </Typography>
-                            <Typography sx={{ m: '10px', fontSize: '17px', fontWeight: 700 }}>작성일:{festivalBoardList.boardWriteDatetime}  </Typography>
-                            <Typography sx={{ m: '10px', fontSize: '17px', fontWeight: 700 }}>조회수:{festivalBoardList.viewCount}     </Typography>
-                            <Typography sx={{ m: '10px', fontSize: '17px', fontWeight: 700 }}>댓글수:{festivalBoardList.commentCount}      </Typography>
-                            <Typography sx={{ m: '10px', fontSize: '17px', fontWeight: 700, }}>좋아요:{festivalBoardList.recommendCount} </Typography>
+                        <Box sx={{ height:'70px',display: 'flex', juifyContent:'center', alignItems:'center' }}>
+                            <Typography sx={{ m: '10px', fontSize: '12px', fontWeight: 700 }}>{festivalBoardList.writerNickname}  </Typography>
+                            <Typography sx={{ m: '10px', fontSize: '12px', fontWeight: 700 }}>작성일:{festivalBoardList.boardWriteDatetime}  </Typography>
+                            <Typography sx={{ m: '10px', fontSize: '12px', fontWeight: 700 }}>조회수:{festivalBoardList.viewCount}     </Typography>
+                            <Typography sx={{ m: '10px', fontSize: '12px', fontWeight: 700 }}>댓글수:{festivalBoardList.commentCount}      </Typography>
+                            <Typography sx={{ m: '10px', fontSize: '12px', fontWeight: 700, }}>좋아요:{festivalBoardList.recommendCount} </Typography>
                         </Box>
                         <Box>
                         </Box>

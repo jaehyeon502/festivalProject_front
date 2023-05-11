@@ -32,8 +32,6 @@ const navigator=useNavigate();
 
 
   const loginHandler = () => {
-    setSignInUser(USER);
-      navigator("/");
     const data: SignInRequestDto = { userId, password };
     axios
       .post(SIGN_IN_URL, data)
@@ -52,8 +50,8 @@ const navigator=useNavigate();
     const { token, expiredTime, ...user } = data;
     const expires = getExpires(expiredTime);
     setCookie("accessToken",token,{expires});
-    setSignInUser(USER)
-    console.log(signInUser)
+    setSignInUser(user)
+    // alert(JSON.stringify(user));
     navigator('/');
 
     

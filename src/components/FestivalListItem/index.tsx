@@ -3,6 +3,7 @@ import { Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
 import { IPreviewFestivalItem } from 'src/interfaces';
 import { useNavigate } from 'react-router-dom';
 import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
+import { useFestivalNumberStore } from 'src/stores';
 
 interface Props{
     onClick: () => void;
@@ -10,11 +11,12 @@ interface Props{
 }
 
 export default function FestivalListItem({ onClick, festivalList }: Props) {
-    const nagigator=useNavigate();
-
+    //                    HOOK                 //
+    const {festivalNumber,setFestivalNumber}=useFestivalNumberStore();
+console.log(festivalNumber)
     return (
         <Card variant='outlined' onClick={onClick} >
-            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }} >
+            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }} onClick={()=>setFestivalNumber(festivalList.festivalNumber)}>
                 <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
                     <Box  >
                         <Typography sx={{fontWeight:900,fontSize:'14px',m:'10px'}}>{festivalList.festivalName}</Typography>

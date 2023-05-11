@@ -1,9 +1,10 @@
-import { Box, Grid, Pagination, Stack, Typography } from '@mui/material'
+import { Box, Button, Grid, Pagination, Stack, Typography } from '@mui/material'
 import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie';
 import ResponseDto from 'src/apis/response';
 import { GetFestivalReveiwBoardListResponseDto } from 'src/apis/response/board';
+
 import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 
 
@@ -11,6 +12,7 @@ import FestivalListItem from 'src/components/FestivalListItem';
 import FestivalReviewBoardList from 'src/components/FestivalReiviewBoardList';
 import { GET_FESTIVAL_REVIEWBOARD_LIST_URL, GET_INTERESTED_FESTIVAL_LIST_URL, authorizationHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
+import { useFestivalNumberStore, useSignInStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
 
 interface Props{
@@ -23,7 +25,8 @@ export default function FestivalBoard({setClickPage, clickPage} :Props) {
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
-  const[festivalNumber,setFestivalNumber]=useState<string>('');
+  const {signInUser}=useSignInStore();
+  const{festivalNumber, setFestivalNumber}=useFestivalNumberStore();
 
 
   //          EVENT HANDLER           //
@@ -34,9 +37,11 @@ const getInterestedFestivalList=(accessToken:string)=>{
   .catch((error)=>getInterestedFestivalErrorHandler(error))
 }
 
-const getFestivalReviewBoardList=()=>{
+const getFestivalReviewBoardList=(festivalNumber: number)=>{
+  setFestivalNumber(festivalNumber);
+
   axios
-  .get(GET_FESTIVAL_REVIEWBOARD_LIST_URL(festivalNumber as string))
+  .get(GET_FESTIVAL_REVIEWBOARD_LIST_URL(festivalNumber))
   .then((response)=>getFestivalReviewBoardListResponseHandler(response))
   .catch((error)=>getFestivalReivewBoardListErrorHandler(error))
 }
@@ -56,7 +61,7 @@ const getFestivalReviewBoardListResponseHandler=(response:AxiosResponse<any,any>
   const {result,message,data}=response.data as ResponseDto<GetFestivalReveiwBoardListResponseDto[]>
   if(!result || data === null) return;
   setFestivalList(data);
-
+  setClickPage(true);
 
 }
 
@@ -70,11 +75,17 @@ const getFestivalReivewBoardListErrorHandler = (error: any) => {
 
   //          Use effect        //
   useEffect(() => {
-    getInterestedFestivalList(accessToken)
-    console.log(accessToken)
-    
+    getInterestedFestivalList(accessToken);
+ 
+
   }, []);
 
+  const check=()=>{
+    alert(signInUser)
+  }
+
+
+console.log(clickPage)
   return (
     <Box sx={{ width: '100%', height: '100%'}}>
       <Box sx={{ pt: '20px', pb: '80px'}}>
@@ -83,12 +94,15 @@ const getFestivalReivewBoardListErrorHandler = (error: any) => {
           <Box sx={{ width:'30px', height:'4px', backgroundColor:'#ff9f40', mt:'5px' }}></Box>
         </Box>
         <Box>
-        <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}} >
+        <Grid container spacing={3} sx={{display:'flex',justifyContent:'center'}}  >
           <Grid item sm={12} md={8}  >
+            <Button onClick={()=>check()}>체크</Button>
             <Stack spacing={2}>
-           
-            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto}  onClick={() => setClickPage(true)} />))}
-            {clickPage && viewList.map((festivalReviewBoardList)=>(<FestivalReviewBoardList festivalBoardList={festivalReviewBoardList as GetFestivalReveiwBoardListResponseDto }/>)) }
+              {!clickPage ?  
+              ( <> {viewList.map((festivalList) => (<FestivalListItem festivalList={festivalList as GetInterstFestivalListResponseDto}  onClick={() => getFestivalReviewBoardList((festivalList as GetInterstFestivalListResponseDto).festivalNumber)} />))}</>)
+              : 
+              ( <> {viewList.map((festivalBoardList)=>(<FestivalReviewBoardList festivalBoardList={festivalBoardList as GetFestivalReveiwBoardListResponseDto }/>)) } </>)
+              }
             </Stack>
           </Grid>
         </Grid>
