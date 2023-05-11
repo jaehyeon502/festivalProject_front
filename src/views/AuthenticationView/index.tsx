@@ -10,9 +10,7 @@ import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 
 export default function AuthenticationView() {
 
-  const [ AuthenticationView, setAuthenticationView] = useState<boolean>(true);
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList }=usePagingHook(2);
-  // const [festivalList, setFestivalList] = useState<IPreviewFestivalItem[]>([]);
 
   useEffect(() => {
     setFestivalList(FESTIVALLIST);
@@ -22,13 +20,14 @@ export default function AuthenticationView() {
     <Box sx={{ padding:"0 120px" }}>
       <Grid container spacing={2}>
         <Grid item lg={5.5} sm={12}>
-          <Box sx={{ display: 'flex', flexDirection:'column', justifyContent:'center', height: '100%',backgroundColor: "#dedede" }}>
-            {viewList.map((festivalItem) => (<FestivalListItem festivalList={festivalItem as GetInterstFestivalListResponseDto } onClick={()=> {}} />))}
+          <Box sx={{ display: 'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', height: '100%' }}>
+            <Typography sx={{ mb:'25px', fontSize:'48px', fontWeight:900, color:'#222' }}>축제정보를 제공하는</Typography>
+            <Typography sx={{ fontSize:'48px', fontWeight:900, color:'#222' }}> 홈페이지 입니다.</Typography>
           </Box>
         </Grid>
         <Grid item lg={6.5} sm={12}>
-          <Card sx={{ height: '630px', mt: '100px', mb: '80px', padding: '50px' }}>
-            {AuthenticationView ? (<SigninView setAuthenticationView={setAuthenticationView} />) : (<SignUpView />)}
+          <Card sx={{ height: '590px', mt: '100px', mb: '80px', padding: '50px' }}>
+            <SigninView/>
           </Card>
         </Grid>
       </Grid>
