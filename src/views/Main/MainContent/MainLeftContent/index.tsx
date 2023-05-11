@@ -35,11 +35,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
 
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-  const [festivalArea, setFestivalArea] = useState<string>('');
-
   const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);
-
-
 
   //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
   //? setSelectedFestival에 festival을 넣어준다.
