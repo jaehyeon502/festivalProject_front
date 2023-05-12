@@ -19,6 +19,7 @@ export default function FestivalBoard({setClickPage, clickPage} :Props) {
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList}=usePagingHook(2);
+  console.log(clickPage);
 
 
   //          EVENT HANDLER           //
