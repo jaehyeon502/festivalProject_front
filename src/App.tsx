@@ -22,10 +22,10 @@ function App() {
     <>
       <NavigationBar />
       <Routes>
-        <Route path="/" element={(<Main />)} />
-        <Route path="/auth">
-          <Route path="sign-in" element={(<AuthenticationView />)}/>
-          <Route path="sign-up" element={(<SignUpView />)}/>
+        <Route path = "/" element={(<Main />)} />
+        <Route path = "/auth">
+          <Route path = "sign-in" element={(<AuthenticationView />)}/>
+          <Route path = "sign-up" element={(<SignUpView />)}/>
         </Route>
         <Route path = "/reviewboard">
           <Route path = 'write' element = {(<ReviewBoardWriteView/>)}/>

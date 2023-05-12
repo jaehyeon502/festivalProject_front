@@ -166,12 +166,22 @@ function FirstPage() {
     <Box>
       <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
         <InputLabel>아이디*</InputLabel>
+<<<<<<< HEAD
+          <Input type="text" endAdornment={
+            <InputAdornment position="end">
+                <IconButton onClick={() => onUserIdValidateButtonHandler()}>
+                    <CheckIcon />
+                </IconButton>
+            </InputAdornment>
+          } 
+=======
         <Input type="text" endAdornment={
           <InputAdornment position="end">
             <IconButton onClick={() => onUserIdValidateButtonHandler()}>
               <CheckIcon />
             </IconButton>
           </InputAdornment>} 
+>>>>>>> 3a7a8af82ed43d90340d7290b8fda97a6c32e455
           value={userId} 
           onChange={(event) => onUserIdChangeHandler(event)} />
           {
@@ -179,8 +189,13 @@ function FirstPage() {
           !userIdPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>아이디 형식이 맞지 않습니다.</FormHelperText>) :
           userIdValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>아이디 중복체크를 해주세요.</FormHelperText>) :
           userIdValidate ? (<FormHelperText sx={{ color:'red' }}>이미사용중인 아이디입니다.</FormHelperText>) : 
+<<<<<<< HEAD
+          (<FormHelperText sx={{ color:'green' }}>사용 가능한 아이디입니다<div className=""></div></FormHelperText>)
+        }
+=======
                           (<FormHelperText sx={{ color:'green' }}>사용 가능한 아이디입니다<div className=""></div></FormHelperText>)
           }
+>>>>>>> 3a7a8af82ed43d90340d7290b8fda97a6c32e455
       </FormControl>
           <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
             <InputLabel>비밀번호*</InputLabel>
@@ -235,9 +250,15 @@ function FirstPage() {
           <InputLabel>닉네임*</InputLabel>
           <Input type="text" endAdornment={
             <InputAdornment position="end">
+<<<<<<< HEAD
+                <IconButton onClick={() => onNicknameValidateButtonHandler()}>
+                    <CheckIcon />
+                </IconButton>
+=======
               <IconButton onClick={() => onNicknameValidateButtonHandler()}>
                 <CheckIcon />
               </IconButton>
+>>>>>>> 3a7a8af82ed43d90340d7290b8fda97a6c32e455
             </InputAdornment>}
             value={nickname} 
             onChange={(event) => onNicknameChangeHandler(event)}/>
@@ -246,8 +267,13 @@ function FirstPage() {
             !nicknamePatternCheck ? (<FormHelperText sx={{ color: 'red' }}>닉네임 형식이 맞지 않습니다.</FormHelperText>) :
             nicknameValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>닉네임 중복체크를 해주세요.</FormHelperText>) :
             nicknameValidate ? (<FormHelperText sx={{ color:'red' }}>이미사용중인 닉네임입니다.</FormHelperText>) : 
+<<<<<<< HEAD
+            (<FormHelperText sx={{ color:'green' }}>사용 가능한 닉네임입니다.<div className=""></div></FormHelperText>)
+          }
+=======
                               (<FormHelperText sx={{ color:'green' }}>사용 가능한 닉네임입니다.<div className=""></div></FormHelperText>)
             }
+>>>>>>> 3a7a8af82ed43d90340d7290b8fda97a6c32e455
         </FormControl>
         <Avatar sx={{ width: "80px", height: "80px", cursor: "pointer" }} onClick={() => onProfileUploadButtonHandler()}/>
           <input ref={imageRef} hidden type='file' accept="image/*" onChange={(event) => onProfileUploadChangeHandler(event)} />
