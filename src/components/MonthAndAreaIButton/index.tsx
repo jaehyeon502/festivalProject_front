@@ -1,18 +1,13 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import ResponseDto from "src/apis/response";
-import GetFestivalMonthListResponseDto from "src/apis/response/festival/Get-FestivalMonth-List.response.dto";
-import { GET_FESTIVAL_LIST } from "src/constants/api";
+import { useParams } from "react-router-dom"; 
 
 interface Props {
   setFestivalList: any;
 }
 
 export default function MonthAndAreaButton({ setFestivalList }: Props) {
-
-  const { festivalNumber } = useParams();
 
   const [areaAndMonth, setAreaAndMonth] = useState<string>('');
   const [month, setMonth] = useState<string>('');
