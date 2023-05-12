@@ -1,6 +1,10 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ResponseDto from "src/apis/response";
+import GetFestivalMonthListResponseDto from "src/apis/response/festival/Get-FestivalMonth-List.response.dto";
+import { GET_FESTIVAL_LIST } from "src/constants/api";
 
 interface Props {
   setFestivalList: any;
@@ -8,53 +12,58 @@ interface Props {
 
 export default function MonthAndAreaButton({ setFestivalList }: Props) {
 
-    const [areaAndMonth, setAreaAndMonth] = useState<string>('');
-    const [month, setMonth] = useState<string>('');
-    const [festivalArea, setFestivalArea] = useState<string>('');
+  const { festivalNumber } = useParams();
 
-    const [selector, setSelector] = useState<number>(0);
+  const [areaAndMonth, setAreaAndMonth] = useState<string>('');
+  const [month, setMonth] = useState<string>('');
+  const [festivalArea, setFestivalArea] = useState<string>('');
 
-    //? const selectedValue를 만들어 Number로 설정해주고
-    //? 위의 setSelector에서 selectedValue를 받아주고
-    //? setAreaAndMonth에서 String(selecetdValue)를 받아주었다.
-    //? 앞에 String을 한 이유는 저렇게 하지 않으면 Number로 처리되기 때문에
-    //? 월별, 지역별이 뜨지 않는다.
-    const areaAndMonthChange = (event: SelectChangeEvent) => {
-      const selectedValue = Number(event.target.value);
-      setSelector(selectedValue);
-      setAreaAndMonth(String(selectedValue));
-      console.log();
-    };
+  const [selector, setSelector] = useState<number>(0);
 
-    //? back에 있는 API코드를 보고 작성해야함.
-    const selectDesignatedMonth = (event: SelectChangeEvent) => {
-      setMonth(event.target.value as string);
-      const month = Number(event.target.value);
+  //? const selectedValue를 만들어 Number로 설정해주고
+  //? 위의 setSelector에서 selectedValue를 받아주고
+  //? setAreaAndMonth에서 String(selecetdValue)를 받아주었다.
+  //? 앞에 String을 한 이유는 저렇게 하지 않으면 Number로 처리되기 때문에
+  //? 월별, 지역별이 뜨지 않는다.
+  const areaAndMonthChange = (event: SelectChangeEvent) => {
+    const selectedValue = Number(event.target.value);
+    setSelector(selectedValue);
+    setAreaAndMonth(String(selectedValue));
+    console.log();
+  };
 
-      axios.get(`http://localhost:4040/api/festival/festivalmonth/${month}`)
-        .then((response) => getFestivalMonthListResponse(response))
-        .catch((error) => console.log(error.message));
-    }
+  const selectDesignatedMonth = (event: SelectChangeEvent) => {
+    setMonth(event.target.value as string);
+    const month = Number(event.target.value);
 
-    const selectDesignatedArea = (event: SelectChangeEvent) => {
-      setFestivalArea(event.target.value as string);
-      const festivalArea = String(event.target.value);
+    axios.get(`http://localhost:4040/api/festival/festivalmonth/${month}`)
+      .then((response) => getFestivalMonthListResponse(response))
+      .catch((error) => console.log(error.message));
+  }
 
-      axios.get(`http://localhost:4040/api/festival/area/${festivalArea}`)
-        .then((response) => getFestivalAreaListResponse(response))
-        .catch((error) => console.log(error.message));
-    }
+  const selectDesignatedArea = (event: SelectChangeEvent) => {
+    setFestivalArea(event.target.value as string);
+    const festivalArea = String(event.target.value);
 
-    //? 이것은 back-end에서 그냥 Response를 받아왔기 때문에 data.festivalList로 받아왔다.
-    const getFestivalMonthListResponse = (response: AxiosResponse<any, any>) => {
-      setFestivalList(response.data.data.festivalList);
-    }
+    axios.get(`http://localhost:4040/api/festival/area/${festivalArea}`)
+      .then((response) => getFestivalAreaListResponse(response))
+      .catch((error) => console.log(error.message));
+  }
 
-    //? 이것은 back엔드에서 List로 받았기 때문에 festivalList가 아닌 data에서 끝난다.
-    const getFestivalAreaListResponse = (response: AxiosResponse<any, any>) => {
-      setFestivalList(response.data.data);
-    }
+  //? 이것은 back-end에서 그냥 Response를 받아왔기 때문에 data.festivalList로 받아왔다.
+  const getFestivalMonthListResponse = (response: AxiosResponse<any, any>) => {
+    setFestivalList(response.data.data.festivalList);
+  }
 
+  //? 이것은 back엔드에서 List로 받았기 때문에 festivalList가 아닌 data에서 끝난다.
+  const getFestivalAreaListResponse = (response: AxiosResponse<any, any>) => {
+    setFestivalList(response.data.data);
+  }
+
+  useEffect(() => {
+
+  }, []);
+  
     return (
         <Box sx={{ pt: '20px', pl: '20px', display: 'flex'}}>
         <Box>

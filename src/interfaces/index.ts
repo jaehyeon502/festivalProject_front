@@ -1,8 +1,6 @@
-
 import User from "./User.interface";
 
 export type { User };
-
 
 export interface IPreviewFestivalItem{
 festivalNumber:number;
