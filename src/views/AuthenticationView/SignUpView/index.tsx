@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useSignUpStore } from "src/stores";
 import { CheckUserIdRequestDto, CheckUserNicknameRequestDto, CheckUserTelNumberRequestDto } from "src/apis/request/user";
 import axios, { AxiosResponse } from "axios";
-import { SIGN_UP_URL, VALIDATE_NICKNAME_URL, VALIDATE_TELNUMBER_URL, VALIDATE_USER_ID_URL } from "src/constants/api";
+import { FILE_UPLOAD_URL, SIGN_UP_URL, VALIDATE_NICKNAME_URL, VALIDATE_TELNUMBER_URL, VALIDATE_USER_ID_URL, multipartHeader } from "src/constants/api";
 import { CheckUserIdResponseDto, CheckUserNicknameResponseDto, CheckUserTelNumberResponseDto } from "src/apis/response/user";
 import ResponseDto from "src/apis/response";
 import CheckIcon from '@mui/icons-material/Check';
@@ -91,6 +91,9 @@ function FirstPage() {
     if (!event.target.files) return;
     const data = new FormData();
     data.append('file', event.target.files[0]);
+    axios.post(FILE_UPLOAD_URL, data, multipartHeader())
+        .then((response) => onProfileUploadChangeResponseHandler(response))
+        .catch((error) => onProfileUploadChangeErrorHandler(error))
   }
 
   const onTelNumberChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -128,6 +131,12 @@ function FirstPage() {
     setNicknameValidate(data.resultState);
   }
 
+  const onProfileUploadChangeResponseHandler = (response: AxiosResponse<any, any>) => {
+    const profile = response.data as string;
+    console.log(profile);
+    setProfileUrl(profile);
+  }
+
   const onTelNumberValidateButtonResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<CheckUserTelNumberResponseDto>;
     if (!result || !data) {
@@ -145,6 +154,9 @@ function FirstPage() {
   const onNicknameValidateButtonErrorHandler = (error: any) => {
     console.log(error.message);
   }
+  const onProfileUploadChangeErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
 
   const onTelNumberValidateButtonErrorHandler = (error: any) => {
     console.log(error.message);
@@ -155,21 +167,20 @@ function FirstPage() {
       <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
         <InputLabel>아이디*</InputLabel>
         <Input type="text" endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton onClick={() => onUserIdValidateButtonHandler()}>
-                            <CheckIcon />
-                        </IconButton>
-                    </InputAdornment>
-                } 
-                value={userId} 
-                onChange={(event) => onUserIdChangeHandler(event)} />
-                {
-                  userIdPatternCheck === null ? (<></>) :
-                  !userIdPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>아이디 형식이 맞지 않습니다.</FormHelperText>) :
-                  userIdValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>아이디 중복체크를 해주세요.</FormHelperText>) :
-                  userIdValidate ? (<FormHelperText sx={{ color:'red' }}>이미사용중인 아이디입니다.</FormHelperText>) : 
-                  (<FormHelperText sx={{ color:'green' }}>사용 가능한 아이디입니다<div className=""></div></FormHelperText>)
-                }
+          <InputAdornment position="end">
+            <IconButton onClick={() => onUserIdValidateButtonHandler()}>
+              <CheckIcon />
+            </IconButton>
+          </InputAdornment>} 
+          value={userId} 
+          onChange={(event) => onUserIdChangeHandler(event)} />
+          {
+          userIdPatternCheck === null ? (<></>) :
+          !userIdPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>아이디 형식이 맞지 않습니다.</FormHelperText>) :
+          userIdValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>아이디 중복체크를 해주세요.</FormHelperText>) :
+          userIdValidate ? (<FormHelperText sx={{ color:'red' }}>이미사용중인 아이디입니다.</FormHelperText>) : 
+                          (<FormHelperText sx={{ color:'green' }}>사용 가능한 아이디입니다<div className=""></div></FormHelperText>)
+          }
       </FormControl>
           <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
             <InputLabel>비밀번호*</InputLabel>
@@ -194,13 +205,12 @@ function FirstPage() {
             <Input
               type={showPasswordCheck ? "text" : "password"}
               endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPasswordCheck(!showPasswordCheck)}
-                  >
-                    {showPasswordCheck ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
+              <InputAdornment position="end">
+                <IconButton
+                onClick={() => setShowPasswordCheck(!showPasswordCheck)}>
+                  {showPasswordCheck ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
               }
               value={passwordCheck}
               onChange={(event) => onPasswordCheckChangeHandler(event)}
@@ -224,20 +234,20 @@ function FirstPage() {
         >
           <InputLabel>닉네임*</InputLabel>
           <Input type="text" endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton onClick={() => onNicknameValidateButtonHandler()}>
-                            <CheckIcon />
-                        </IconButton>
-                    </InputAdornment>}
-                    value={nickname} 
-                    onChange={(event) => onNicknameChangeHandler(event)}/>
-                    {
-                  nicknamePatternCheck === null ? (<></>) :
-                  !nicknamePatternCheck ? (<FormHelperText sx={{ color: 'red' }}>닉네임 형식이 맞지 않습니다.</FormHelperText>) :
-                  nicknameValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>닉네임 중복체크를 해주세요.</FormHelperText>) :
-                  nicknameValidate ? (<FormHelperText sx={{ color:'red' }}>이미사용중인 닉네임입니다.</FormHelperText>) : 
-                  (<FormHelperText sx={{ color:'green' }}>사용 가능한 닉네임입니다.<div className=""></div></FormHelperText>)
-                }
+            <InputAdornment position="end">
+              <IconButton onClick={() => onNicknameValidateButtonHandler()}>
+                <CheckIcon />
+              </IconButton>
+            </InputAdornment>}
+            value={nickname} 
+            onChange={(event) => onNicknameChangeHandler(event)}/>
+            {
+            nicknamePatternCheck === null ? (<></>) :
+            !nicknamePatternCheck ? (<FormHelperText sx={{ color: 'red' }}>닉네임 형식이 맞지 않습니다.</FormHelperText>) :
+            nicknameValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>닉네임 중복체크를 해주세요.</FormHelperText>) :
+            nicknameValidate ? (<FormHelperText sx={{ color:'red' }}>이미사용중인 닉네임입니다.</FormHelperText>) : 
+                              (<FormHelperText sx={{ color:'green' }}>사용 가능한 닉네임입니다.<div className=""></div></FormHelperText>)
+            }
         </FormControl>
         <Avatar sx={{ width: "80px", height: "80px", cursor: "pointer" }} onClick={() => onProfileUploadButtonHandler()}/>
           <input ref={imageRef} hidden type='file' accept="image/*" onChange={(event) => onProfileUploadChangeHandler(event)} />
@@ -251,18 +261,18 @@ function FirstPage() {
       >
         <InputLabel>휴대전화번호*</InputLabel>
         <Input type="text"endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton onClick={() => onTelNumberValidateButtonHandler()}>
-                            <CheckIcon />
-                        </IconButton>
-                    </InputAdornment>}
+          <InputAdornment position="end">
+            <IconButton onClick={() => onTelNumberValidateButtonHandler()}>
+              <CheckIcon />
+            </IconButton>
+          </InputAdornment>}
         onChange={(event) => onTelNumberChangeHandler(event)}/>
         {
-          telNumberPatternCheck === null ? (<></>) :
-          !telNumberPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>휴대전화번호 형식이 맞지 않습니다.</FormHelperText>) :
-          telNumberValidate === null ? (<FormHelperText sx={{ color:'orange' }}>휴대전화번호 중복체크를 해주세요.</FormHelperText>) : 
-          telNumberValidate ? (<FormHelperText sx={{ color: 'red' }}>중복된 휴대전화번호입니다.</FormHelperText>) : 
-          (<FormHelperText sx={{ color: 'green' }}>사용 가능한 휴대전화번호입니다.</FormHelperText>)
+        telNumberPatternCheck === null ? (<></>) :
+        !telNumberPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>휴대전화번호 형식이 맞지 않습니다.</FormHelperText>) :
+        telNumberValidate === null ? (<FormHelperText sx={{ color:'orange' }}>휴대전화번호 중복체크를 해주세요.</FormHelperText>) : 
+        telNumberValidate ? (<FormHelperText sx={{ color: 'red' }}>중복된 휴대전화번호입니다.</FormHelperText>) : 
+                            (<FormHelperText sx={{ color: 'green' }}>사용 가능한 휴대전화번호입니다.</FormHelperText>)
         }
       </FormControl>
     </Box>
@@ -322,10 +332,25 @@ export default function SignUpView() {
 
   //          Response Handler          //
   const signUpResponseHandler = (response: AxiosResponse<any, any>) => {
+    if (!userId || !password || !passwordCheck || !nickname || !telNumber){
+      setSignUpError(true);
+      setPage(1);
+      return;
+    }
+
+    if (!userIdPatternCheck || !passwordPatternCheck || !nicknamePatternCheck || !telNumberPatternCheck) {
+      setPage(1);
+      return;
+    }
+
+    if(userIdValidate || !passwordValidate || nicknameValidate || telNumberValidate) {
+      setPage(1);
+      return;
+    }
+
     const { result, message, data } = response.data as ResponseDto<SignUpResponseDto>;
     if (result) navigator('/auth/sign-in');
     else alert(message);
-
   }
   //          Error Handler          //
   const signUpErrorHandler = (error: any) => {
