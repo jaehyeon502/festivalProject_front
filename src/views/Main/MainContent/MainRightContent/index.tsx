@@ -1,9 +1,8 @@
-import { Box, Grid, Stack, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { FESTIVALLIST, ONELINEREVIEW_LIST } from "../../../../mock";
-import { IOneLineReview, IPreviewFestivalItem } from "../../../../interfaces";
-import OneLineReviewListItem from "../../../../components/OneLineReviewListItem";
-import FestivalNameItem from "../../../../components/FestivalNameItemList";
+import { Box, Grid, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
+import { FESTIVALLIST, ONELINEREVIEW_LIST } from "src/mock";
+import { IOneLineReview, IPreviewFestivalItem } from "src/interfaces";
+import OneLineReviewListItem from "src/components/OneLineReviewListItem";
 
 interface Props {
   clickPage: boolean;
@@ -43,7 +42,7 @@ export default function MainRightContent({ clickPage }: Props) {
       </Typography>
       {clickPage && selectedFestivalReviewList.length ? (
         <Box>
-           {selectedFestivalReviewList?.map((item) => (
+          {selectedFestivalReviewList?.map((item) => (
             <Grid
               sx={{
                 border: "1px solid #dedede",

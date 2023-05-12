@@ -38,8 +38,6 @@ export default function FestivalBoard({ setClickPage, clickPage }: Props) {
   }
 
   const getFestivalReviewBoardList = () => {
-
-
     axios
       .get(GET_FESTIVAL_REVIEWBOARD_LIST_URL(festivalNumber as number))
       .then((response) => getFestivalReviewBoardListResponseHandler(response))
@@ -47,15 +45,14 @@ export default function FestivalBoard({ setClickPage, clickPage }: Props) {
   }
 
 
-  //          Response Handler          //
+const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>)=>{
+  const {result,message,data} = response.data as ResponseDto<GetInterstFestivalListResponseDto[]>
+  if(!result || data === null) return;
+  setFestivalList(data);
+  console.log("data"+data);
+}
 
 
-  const getInterestedFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<GetInterstFestivalListResponseDto[]>
-    if (!result || data === null) return;
-    setFestivalList(data);
-    console.log("data" + data)
-  }
 
   const getFestivalReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetFestivalReveiwBoardListResponseDto[]>

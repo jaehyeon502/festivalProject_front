@@ -1,12 +1,9 @@
 import { Box, Card, Grid, Typography } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import SigninView from './SigninView'
-import SignUpView from './SignUpView'
 import { FESTIVALLIST } from 'src/mock';
-import FestivalListItem from 'src/components/FestivalListItem';
 import { usePagingHook } from 'src/hooks';
-import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 
 export default function AuthenticationView() {
 
