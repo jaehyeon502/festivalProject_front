@@ -10,6 +10,7 @@ import AuthenticationView from './views/AuthenticationView'
 import ReviewBoardWriteView from './views/ReviewBoard/ReviewBoardWriteView';
 import ReviewBoardDetailView from './views/ReviewBoard/ReviewBoardDetailView';
 import ReviewBoardUpdateView from './views/ReviewBoard/ReviewBoardUpdateView';
+import ReviewBoardListView from './views/ReviewBoard/ReviewBoardListView';
 import SignUpView from './views/AuthenticationView/SignUpView';
 import { Button } from '@mui/material';
 
@@ -30,6 +31,7 @@ function App() {
           <Route path = 'write' element = {(<ReviewBoardWriteView/>)}/>
           <Route path = 'detail/:reviewBoardNumber' element = {(<ReviewBoardDetailView/>)}/>
           <Route path = 'update/:reviewBoardNumber' element = {(<ReviewBoardUpdateView/>)}/>
+          <Route path = 'list' element = {(<ReviewBoardListView/>)}/>
         </Route>
       </Routes>
         <Button></Button>
