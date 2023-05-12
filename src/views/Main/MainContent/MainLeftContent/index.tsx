@@ -10,7 +10,12 @@ import { SIMPLELIST } from 'src/mock';
 import { useFestivalStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
 
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import FestivalOnclickChangeItem from 'src/components/FestivalOnclickChangeItem';
+
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
@@ -34,45 +39,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
 
 
-  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-  const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);
-
-  //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
-  //? setSelectedFestival에 festival을 넣어준다.
-  const onFestivalItemClick = (festival: IPreviewFestivalSimpleListItem) => {
-    setSelectedFestival(festival);
-    setClickPage(true);
-  }
-
-  useEffect(() => {
-    setFestivalList(SIMPLELIST);
-  }, []);
-
   return (
-    //? 전체 테이블
-    //? selectedFestival를 만들어서 true이면 실행
-    <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
-      {clickPage && selectedFestival ? (
-        <FestivalOnclickChangeItem setClickPage={setClickPage} item={selectedFestival} />
-      )
-        : (
-          <Box>
-            <Box sx={{ pt: '20px', pl: '20px', display: 'flex' }}>
-              <MonthAndAreaButton setFestivalList={setFestivalList} />
-            </Box>
-            <Box sx={{ m: '10px', backgroundColor: '#FFFFFF' }}>
-              <Box sx={{ pt: '10px', pb: '10px', m: '10px' }}>
-                <Grid container spacing={1}>
-                  {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
-                  {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} onClick={() => onFestivalItemClick(item as IPreviewFestivalSimpleListItem)} /></Grid>))}
-                </Grid>
-              </Box>
-            </Box>
-            <Box sx={{ pt: '20px', display: 'flex', justifyContent: 'center' }}>
-              <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
-            </Box>
-          </Box>
-        )}
-    </Box>
+
+<></>
   )
-}
+};

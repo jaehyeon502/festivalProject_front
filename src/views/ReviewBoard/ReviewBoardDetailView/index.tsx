@@ -4,7 +4,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { COMMENT_LIST, REVIEW_BOARD_LIST } from 'src/mock';
 import { IComment, IReviewBoard } from 'src/interfaces';
 import CommentListItem from 'src/components/CommentListItem';
@@ -14,12 +14,17 @@ import WarningIcon from '@mui/icons-material/Warning';
 
 export default function ReviewBoardDetailView() {
 
+  const path = useLocation();
+
+  //          Hook          //
   const [reviewBoard, setReviewBoard] = useState<IReviewBoard>(); //? 잘못된 게시물 번호를 넣을 수도 있으니 null 타입
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const { reviewBoardNumber } = useParams();
+  const [ boardNum, setBoardNum] = useState<number>();
   const navigator = useNavigate();
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
 
+  //          Event Handler          //
   const onClickRecommendHandler = () => {
     if (recommendStatus === true) {
       setRecommendStatus(false);
@@ -46,7 +51,7 @@ export default function ReviewBoardDetailView() {
       alert('이전 글이 없습니다.');
       return;
     }
-    navigator(`/reviewBoard/detail/${boardNumber}`)
+    navigator(`/reviewBoard/detail/${boardNumber}`) 
   }
 
   useEffect(() => {
@@ -69,7 +74,7 @@ export default function ReviewBoardDetailView() {
     setReviewBoard(reviewBoardData);
     setFestivalList(COMMENT_LIST);
 
-  }, [])
+  }, [path])
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0' }}>
