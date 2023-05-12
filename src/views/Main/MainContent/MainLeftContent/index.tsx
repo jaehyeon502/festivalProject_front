@@ -1,7 +1,7 @@
-import { Avatar, Box, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Divider, FormControl, Grid, IconButton, IconButtonProps, InputLabel, Link, MenuItem, Pagination, Select, SelectChangeEvent, Stack, Typography, styled } from '@mui/material'
+import { Box, Grid, IconButton, IconButtonProps, Pagination, SelectChangeEvent, styled } from '@mui/material'
 import axios, { AxiosResponse } from 'axios';
 import React from 'react';
-import { ChangeEvent, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 import FestivalSimpleListItem from 'src/components/FestivalSimpleListItem';
 import MonthAndAreaButton from 'src/components/MonthAndAreaIButton';
 import { usePagingHook } from 'src/hooks';
@@ -14,6 +14,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import FestivalOnclickChangeItem from 'src/components/FestivalOnclickChangeItem';
+
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
@@ -38,15 +40,13 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
 
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-  const { festival, setFestival } = useFestivalStore();
-  const [festivalArea, setFestivalArea] = useState<string>('');
-
   const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);
 
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
+  //? setSelectedFestival에 festival을 넣어준다.
+  const onFestivalItemClick = (festival: IPreviewFestivalSimpleListItem) => {
+    setSelectedFestival(festival);
+    setClickPage(true);
   }
 
   //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
@@ -211,7 +211,6 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
             </Box>
           )}
       </Box>
-=======
 
     //? selectedFestival를 만들어서 true이면 실행
     <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
@@ -281,6 +280,10 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
             </CardContent>
           </Collapse>
         </Card>
+    //? selectedFestival를 만들어서 true이면 실행
+    <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
+      {clickPage && selectedFestival ? (
+        <FestivalOnclickChangeItem setClickPage={setClickPage} item={selectedFestival} />
       )
         : (
           <Box>

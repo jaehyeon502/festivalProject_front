@@ -4,7 +4,6 @@ import MainLeftContent from './MainLeftContent';
 import MainRightContent from './MainRightContent';
 import FestivalBoard from './FestivalBoard';
 
-
 export default function MainContent() {
   const [clickPage, setClickPage] = useState<boolean>(false);
   return (
