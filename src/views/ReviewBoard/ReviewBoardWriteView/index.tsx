@@ -38,8 +38,7 @@ export default function ReviewBoardWriteView() {
 
   //? 검색창 외 화면 아무 곳이나 누를 경우 검색창 사라지게
   const onCloseFestivalSearchHandler = () => {
-
-    if(buttonClick) { //? react에선 모든 기능이 동시에 실행
+    if(buttonClick) {
       buttonClick = false; 
       return;
     };

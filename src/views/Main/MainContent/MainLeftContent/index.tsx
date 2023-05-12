@@ -1,7 +1,7 @@
-import { Avatar, Box, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Divider, FormControl, Grid, IconButton, IconButtonProps, InputLabel, Link, MenuItem, Pagination, Select, SelectChangeEvent, Stack, Typography, styled } from '@mui/material'
+import { Box, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Grid, IconButton, IconButtonProps, Link, Pagination, SelectChangeEvent, Typography, styled } from '@mui/material'
 import axios, { AxiosResponse } from 'axios';
 import React from 'react';
-import { ChangeEvent, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 import FestivalSimpleListItem from 'src/components/FestivalSimpleListItem';
 import MonthAndAreaButton from 'src/components/MonthAndAreaIButton';
 import { usePagingHook } from 'src/hooks';
@@ -14,6 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import FestivalOnclickChangeItem from 'src/components/FestivalOnclickChangeItem';
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
@@ -38,26 +39,13 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
 
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-  const { festival, setFestival } = useFestivalStore();
-  const [festivalArea, setFestivalArea] = useState<string>('');
-
   const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);
-
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  }
 
   //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
   //? setSelectedFestival에 festival을 넣어준다.
   const onFestivalItemClick = (festival: IPreviewFestivalSimpleListItem) => {
     setSelectedFestival(festival);
     setClickPage(true);
-  }
-
-  const getFestivalAreaList = (response: AxiosResponse<any, any>) => {
-    setFestivalArea(response.data.data.festivalList);
   }
 
   // const searchArea = (festival: IPreviewFestivalSimpleListItem) => {
@@ -163,18 +151,18 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
                 <Box display='inline'>
                   축제정보
                 </Box>
-                <ExpandMore
+                {/* <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
                   aria-label="show more"
                 >
                   <ExpandMoreIcon />
-                </ExpandMore>
+                </ExpandMore> */}
               </Box>
 
             </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
+            {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
                 <Typography paragraph>
                   천년고도 진주는 예로부터 북평양 남진주라 불릴 정도로 전통예술이 뛰어난 고장으로 유명하다.
@@ -189,7 +177,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
                   지역의 다양한 전통예술을 총망라하여 진주의 독자적인 전통문화 예술제이다.
                 </Typography>
               </CardContent>
-            </Collapse>
+            </Collapse> */}
           </Card>
         )
           : (
@@ -211,11 +199,10 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
             </Box>
           )}
       </Box>
-=======
 
     //? selectedFestival를 만들어서 true이면 실행
     <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
-      {clickPage && selectedFestival ? (
+      {/* {clickPage && selectedFestival ? (
         <Card sx={{ maxWidth: "100%" }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box sx={{ width: '40px', ml : '5px' }}></Box>
@@ -281,6 +268,10 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
             </CardContent>
           </Collapse>
         </Card>
+    //? selectedFestival를 만들어서 true이면 실행
+    <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
+      {clickPage && selectedFestival ? (
+        <FestivalOnclickChangeItem setClickPage={setClickPage} item={selectedFestival} />
       )
         : (
           <Box>
@@ -291,7 +282,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
               <Box sx={{ pt: '10px', pb: '10px', m: '10px' }}>
                 <Grid container spacing={1}>
                   {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
-                  {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} onClick={() => onFestivalItemClick(item as IPreviewFestivalSimpleListItem)} /></Grid>))}
+                  {/* {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} onClick={() => onFestivalItemClick(item as IPreviewFestivalSimpleListItem)} /></Grid>))}
                 </Grid>
               </Box>
             </Box>
@@ -301,6 +292,8 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
           </Box>
         )}
       </Box>
+       */} 
+    </Box>
     </Box>
   )
 };
