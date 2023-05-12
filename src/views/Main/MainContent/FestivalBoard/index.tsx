@@ -99,7 +99,7 @@ console.log(clickPage)
             <Button onClick={()=>check()}>체크</Button>
             <Stack spacing={2}>
               {!clickPage ?  
-              ( <> {viewList.map((festivalList) => (<FestivalListItem festivalList={festivalList as GetInterstFestivalListResponseDto}  onClick={() => getFestivalReviewBoardList((festivalList as GetInterstFestivalListResponseDto).festivalNumber)} />))}</>)
+              ( <> {viewList.map((festivalList) => (<FestivalListItem festivalList={festivalList as GetInterstFestivalListResponseDto}  onClick={() => setClickPage(true)} />))}</>)
               : 
               ( <> {viewList.map((festivalBoardList)=>(<FestivalReviewBoardList festivalBoardList={festivalBoardList as GetFestivalReveiwBoardListResponseDto }/>)) } </>)
               }
