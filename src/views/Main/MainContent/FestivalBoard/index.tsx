@@ -8,7 +8,7 @@ import { GetFestivalReveiwBoardListResponseDto } from 'src/apis/response/board';
 import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 
 
-import FestivalListItem from 'src/components/FestivalListItem';
+import InterestedFestivalListItem from 'src/components/InterestedFestivalListItem';
 import FestivalReviewBoardList from 'src/components/FestivalReiviewBoardList';
 import { GET_FESTIVAL_REVIEWBOARD_LIST_URL, GET_INTERESTED_FESTIVAL_LIST_URL, authorizationHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
@@ -101,7 +101,7 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
 
               <Stack spacing={2}>
                 {!clickPage ?
-                  (<> {viewList.map((festivalList) => (<FestivalListItem festivalList={festivalList as GetInterstFestivalListResponseDto} onClick={() => setClickPage(true)} />))}</>)
+                  (<> {viewList.map((festivalList) => (<InterestedFestivalListItem festivalList={festivalList as GetInterstFestivalListResponseDto} onClick={() => setClickPage(true)} />))}</>)
                   :
                   (<> {viewList.map((festivalBoardList) => (<FestivalReviewBoardList festivalBoardList={festivalBoardList as GetFestivalReveiwBoardListResponseDto} />))} </>)
                 }
