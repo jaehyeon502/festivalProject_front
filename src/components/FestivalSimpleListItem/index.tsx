@@ -19,7 +19,6 @@ export default function FestivalSimpleListItem({ onClick, item }: Props) {
     }
 
 
-
     return (
         <Card variant='outlined' onClick={()=>onClickHandler()}>
             <CardActionArea sx={{  display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }} >

@@ -6,21 +6,31 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { COMMENT_LIST, REVIEW_BOARD_LIST } from 'src/mock';
+
 import { Comment, ReviewBoard } from 'src/interfaces';
+
+
 import CommentListItem from 'src/components/CommentListItem';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
+import axios, { AxiosResponse } from 'axios';
+import { error } from 'console';
+import ResponseDto from 'src/apis/response';
+import { GetReviewBoardResponseDto } from 'src/apis/response/board';
 
 export default function ReviewBoardDetailView() {
 
   const path = useLocation();
 
   //          Hook          //
+
   const [reviewBoard, setReviewBoard] = useState<ReviewBoard>(); //? 잘못된 게시물 번호를 넣을 수도 있으니 null 타입
+
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
+  const [reviewBoard,setReviewBoard]=useState<ReviewBaord | null>(null);
   const { reviewBoardNumber } = useParams();
-  const [ boardNum, setBoardNum] = useState<number>();
+  const [boardNum, setBoardNum] = useState<number>();
   const navigator = useNavigate();
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
 
@@ -35,6 +45,14 @@ export default function ReviewBoardDetailView() {
   //^ as 타입명 => 변환하고자 하는 변수의 타입이 여러 개일 경우 그 중 하나 골라서 형 변환
   //^ Number() => Class, parseInt() => 메서드 / Number()가 더 상위?
   //^ parseInt()로는 string, undefined 타입의 변수는 바꿀 수 없었으나 Number()로는 바뀌었음
+
+  const getReviewBoard = () => {
+    // axios
+      // .get(GET_REVIEW_BOARD_URL(boardNumber as number))
+      // .then((response)=> getReviewBoardResponseHandler(response))
+      // .catch((error) => getReviewBoardErrorHandler(error))
+  }
+
 
   const onClickNextBoardHandler = () => {
     const boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) + 1 : Number(reviewBoardNumber);
@@ -51,9 +69,29 @@ export default function ReviewBoardDetailView() {
       alert('이전 글이 없습니다.');
       return;
     }
-    navigator(`/reviewBoard/detail/${boardNumber}`) 
+    navigator(`/reviewBoard/detail/${boardNumber}`)
   }
 
+  //       Response Handler       //
+
+  const setBoardResponseDto = (data: GetReviewBoardResponseDto) => {
+    const { reviewBoard, commentList, recommendList } = data
+    // setReviewBoard(reviewBoard)
+    // setFestivalList(commentList)
+
+
+}
+
+
+   const getReviewBoardResponseHandler=(resposne:AxiosResponse<any,any>)=>{
+    const {result,message,data}=resposne.data as ResponseDto<GetReviewBoardResponseDto>
+    if(!result || !data) return;
+    
+    setBoardResponseDto(data);
+  }
+
+
+  //             Use Effect          //
   useEffect(() => {
 
     //? 해당 후기 게시물의 존재 여부 검증
@@ -71,8 +109,8 @@ export default function ReviewBoardDetailView() {
       navigator('/');
     }
 
-    setReviewBoard(reviewBoardData);
-    setFestivalList(COMMENT_LIST);
+    // setReviewBoard(reviewBoardData);
+    // setFestivalList(COMMENT_LIST);
 
   }, [path])
 
@@ -155,9 +193,9 @@ export default function ReviewBoardDetailView() {
 
           <Box sx={{ pt: '20px', pb: '15px', pl: '50px', pr: '50px' }}>
             <Card variant='outlined' sx={{ p: '20px' }}>
-              <Input minRows={3} multiline disableUnderline fullWidth/>
-              <Box sx={{ display: 'flex', justifyContent: 'end'}}>
-                <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }}>댓글 작성</Button>
+              <Input minRows={3} multiline disableUnderline fullWidth />
+              <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+                <Button sx={{ p: '4px 20px', backgroundColor: '#00ffff', color: 'black', fontSize: '16px', fontWeight: 700, borderRadius: '42px' }}>댓글 작성</Button>
               </Box>
             </Card>
           </Box>

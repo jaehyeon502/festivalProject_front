@@ -354,7 +354,7 @@ export default function SignUpView() {
   }
   //          Error Handler          //
   const signUpErrorHandler = (error: any) => {
-
+    alert(error.message);
   }
   return (
     <Box sx={{ padding: "85px 250px" }}>

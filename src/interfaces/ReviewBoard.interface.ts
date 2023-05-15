@@ -1,4 +1,6 @@
+
 interface ReviewBoard{
+
     boardNumber: number;
     boardTitle: string;
     boardContent: string;
@@ -13,6 +15,5 @@ interface ReviewBoard{
     festivalNumber: number;
 
 
-}
+export default ReviewBaord
 
-export default ReviewBoard
