@@ -112,11 +112,11 @@ export const FESTIVALLIST: IPreviewFestivalItem[] =
     
 export const USER:User = {
     userId:"qwer1234",
-    password:'qwer1234',
+    // password:'qwer1234',
     nickname:"a",
     telNumber:"000-0000-0000",
     profileUrl:"",
-    interestedFestivalType:['얼음', '꽃']
+    // interestedFestivalType:['얼음', '꽃']
     }
 
 export const REVIEW_BOARD_LIST : IReviewBoard[] = [
