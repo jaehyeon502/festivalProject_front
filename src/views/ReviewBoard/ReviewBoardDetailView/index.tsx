@@ -17,16 +17,8 @@ export default function ReviewBoardDetailView() {
   const path = useLocation();
 
   //          Hook          //
-<<<<<<< HEAD
-
-
-
-  const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
-
-=======
   const [reviewBoard, setReviewBoard] = useState<ReviewBoard>(); //? 잘못된 게시물 번호를 넣을 수도 있으니 null 타입
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
->>>>>>> 6f43321976602b1aa48037c5503c136ec88c5604
   const { reviewBoardNumber } = useParams();
   const [ boardNum, setBoardNum] = useState<number>();
   const navigator = useNavigate();
@@ -62,14 +54,6 @@ export default function ReviewBoardDetailView() {
     navigator(`/reviewBoard/detail/${boardNumber}`) 
   }
 
-<<<<<<< HEAD
-  //       Response Handler       //
-
-
-
-  //             Use Effect          //
-=======
->>>>>>> 6f43321976602b1aa48037c5503c136ec88c5604
   useEffect(() => {
 
     //? 해당 후기 게시물의 존재 여부 검증

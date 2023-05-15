@@ -18,3 +18,4 @@ export const VALIDATE_TELNUMBER_URL = `${HOST}api/user/check/telnumber`
 export const FILE_UPLOAD_URL=`${HOST}file/upload`
 export const GET_ALL_FESTIVAL_LIST = `${HOST}api/festival`
 export const GET_ONELINE_REVIEW_URL=(festivalNumber:number)=>`${HOST}api/festival/oneLineReview/${festivalNumber}`
+export const GET_ALL_REVIEWBOARD_LIST_URL=`${HOST}api/board/all-review-board`
