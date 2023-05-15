@@ -1,10 +1,13 @@
 import User from "./User.interface";
-import Festival from "./Festivl.interface";
-import ReviewBaord from "./ReviewBoard.interface";
 
-export type { User,Festival ,ReviewBaord};
+import ReviewBoard from "./ReviewBoard.interface";
+import Comment from "./Comment.interface";
+import OneLineReview from "./OndeLineReview.interface";
+import Festival from "./Festival.interface";
 
-export interface IPreviewFestivalItem{
+
+
+ export interface IPreviewFestivalItem{
 festivalNumber:number;
 festivalName:string;
 festivalType:string;

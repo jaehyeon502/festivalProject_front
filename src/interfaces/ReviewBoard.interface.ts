@@ -1,4 +1,6 @@
-interface ReviewBaord {
+
+interface ReviewBoard{
+
     boardNumber: number;
     boardTitle: string;
     boardContent: string;
@@ -11,6 +13,7 @@ interface ReviewBaord {
     writerProfileUrl: string | null;
     writerNickname: string;
     festivalNumber: number;
-}
+
 
 export default ReviewBaord
+
