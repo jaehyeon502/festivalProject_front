@@ -21,7 +21,6 @@ export default function MypageView() {
     const navigator=useNavigate();
     console.log("로그인"+signInUser)
 
-
       //          EVENT HANDLER           //
       const getMyReviewBoardResponse=(accessToken:string)=>{
           axios
@@ -56,8 +55,6 @@ export default function MypageView() {
         navigator('/');
     }
   
-    
-
   }, []);
 
 

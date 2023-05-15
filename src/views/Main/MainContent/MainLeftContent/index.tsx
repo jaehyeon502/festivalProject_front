@@ -30,7 +30,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
   }
 
   useEffect(() => {
-    console.log(viewList);
+    console.log(festivalNumber);
   }, [festivalNumber]);
 
   return (
