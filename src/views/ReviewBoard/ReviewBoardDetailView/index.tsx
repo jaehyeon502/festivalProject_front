@@ -6,7 +6,10 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { COMMENT_LIST, REVIEW_BOARD_LIST } from 'src/mock';
-import { IComment, IReviewBoard, ReviewBaord } from 'src/interfaces';
+
+import { Comment, ReviewBoard } from 'src/interfaces';
+
+
 import CommentListItem from 'src/components/CommentListItem';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
@@ -21,7 +24,9 @@ export default function ReviewBoardDetailView() {
   const path = useLocation();
 
   //          Hook          //
-  // const [reviewBoard, setReviewBoard] = useState<IReviewBoard>(); //? 잘못된 게시물 번호를 넣을 수도 있으니 null 타입
+
+  const [reviewBoard, setReviewBoard] = useState<ReviewBoard>(); //? 잘못된 게시물 번호를 넣을 수도 있으니 null 타입
+
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [reviewBoard,setReviewBoard]=useState<ReviewBaord | null>(null);
   const { reviewBoardNumber } = useParams();
@@ -178,7 +183,7 @@ export default function ReviewBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as IComment} />)}
+              {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)}
             </Stack>
           </Box>
 

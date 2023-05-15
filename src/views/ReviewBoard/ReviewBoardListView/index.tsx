@@ -3,7 +3,7 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
-import { IReviewBoard } from 'src/interfaces';
+import {  ReviewBoard } from 'src/interfaces';
 import { useEffect } from 'react';
 import { REVIEW_BOARD_LIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
@@ -81,7 +81,7 @@ export default function ReviewBoardListView() {
 
       <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
         <Stack sx={{ p: '10px' }}>
-          {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as IReviewBoard} />))}
+          {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as ReviewBoard} />))}
         </Stack>
       </Box>
 
