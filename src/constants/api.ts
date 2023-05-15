@@ -18,5 +18,3 @@ export const FILE_UPLOAD_URL=`${HOST}file/upload`
 export const GET_ONELINE_REVIEW_URL=(festivalNumber:number)=>`${HOST}api/festival/oneLineReview/${festivalNumber}`
 
 
-
-

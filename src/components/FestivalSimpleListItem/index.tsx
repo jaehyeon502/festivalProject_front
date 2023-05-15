@@ -8,6 +8,8 @@ interface Props{
     item :IPreviewFestivalItem;
 }
 
+
+
 export default function FestivalSimpleListItem({ onClick, item }: Props) {
     const {setFestivalNumber}=useFestivalNumberStore();
 
@@ -15,6 +17,7 @@ export default function FestivalSimpleListItem({ onClick, item }: Props) {
         onClick();
         setFestivalNumber(item.festivalNumber);
     }
+
 
     return (
         <Card variant='outlined' onClick={()=>onClickHandler()}>
