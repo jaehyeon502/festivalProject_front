@@ -1,6 +1,8 @@
 import User from "./User.interface";
+import Festival from "./Festivl.interface";
+import ReviewBaord from "./ReviewBoard.interface";
 
-export type { User };
+export type { User,Festival ,ReviewBaord};
 
 export interface IPreviewFestivalItem{
 festivalNumber:number;
