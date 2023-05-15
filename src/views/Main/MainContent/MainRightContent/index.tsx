@@ -1,7 +1,7 @@
 import { Box, Grid, Pagination, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { FESTIVALLIST, ONELINEREVIEW_LIST } from "src/mock";
-import { IOneLineReview, IPreviewFestivalItem } from "src/interfaces";
+import {  Festival,  OneLineReview } from "src/interfaces";
 import OneLineReviewListItem from "src/components/OneLineReviewListItem";
 import axios, { AxiosResponse } from "axios";
 import ResponseDto from "src/apis/response";
@@ -18,9 +18,10 @@ interface Props {
 }
 
 export default function MainRightContent({ clickPage }: Props) {
-  //       HOOk                
-  // const [oneLineReviewList, setOneLineReviewList] =useState<GetOneLineReviewResponseDto[]>();
-  const [festivalName, setFestivalName] = useState<IPreviewFestivalItem[]>();
+//   HOOK  //
+  const [oneLineReviewList, setOneLineReviewList] =
+    useState<OneLineReview[]>();
+  const [festivalName, setFestivalName] = useState<Festival[]>();
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const {festivalNumber}=useFestivalNumberStore();
@@ -53,7 +54,7 @@ export default function MainRightContent({ clickPage }: Props) {
 
   //          use Effect             //
   useEffect(() => {
-   
+  
     getOneLineReview();
   }, [festivalNumber]);
 

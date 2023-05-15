@@ -1,22 +1,24 @@
 import React from 'react'
 
 import { Box, Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material'
-import { IPreviewFestivalItem } from 'src/interfaces';
+import { Festival } from 'src/interfaces';
 import { useSignUpStore } from 'src/stores';
 
 
 interface Props {
-    festivalCheckboxList: IPreviewFestivalItem;
+    festivalCheckboxList: Festival;
 }
 
 export default function SignUpCheckboxListItem({festivalCheckboxList} : Props) {
 
-  const {profileUrl, setProfileUrl} = useSignUpStore();
+  const {interestedFestival, setInterestedFestival} = useSignUpStore();
 
   const checkedItem = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.checked;
     if (!value) return;
-    setProfileUrl(festivalCheckboxList.festivalType);
+    const checkBoxItem: string = festivalCheckboxList.festivalType;
+    console.log(checkBoxItem);
+      setInterestedFestival([checkBoxItem]);
   }
 
   return (

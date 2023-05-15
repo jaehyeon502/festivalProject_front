@@ -1,6 +1,6 @@
-import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem, IOneLineReview, IPfestivalReviewBoard, User, IUser, IReviewBoard, IComment } from "src/interfaces";
+import { Festival, Comment,OneLineReview,User,ReviewBoard} from "src/interfaces";
 
-export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
+export const SIMPLELIST: Festival[] = [ //? 타입 통일
     {
         festivalNumber: 1,
         festivalName: '나고야 눈 축제1',
@@ -17,7 +17,7 @@ export const SIMPLELIST: IPreviewFestivalItem[] = [ //? 타입 통일
     }
 ]
 
-export const ONELINEREVIEW_LIST: IOneLineReview[] = [
+export const ONELINEREVIEW_LIST: OneLineReview[] = [
     {
         festivalNumber: 1,
         userId: 'kdw@123',
@@ -74,8 +74,86 @@ export const ONELINEREVIEW_LIST: IOneLineReview[] = [
     }
 ]
 
-export const SIGN_UP_CHECKBOX_LIST: IPreviewFestivalItem[] = [
+export const SIGN_UP_CHECKBOX_LIST: Festival[] = [
     {
+        festivalNumber: 1,
+        festivalName: '테스트축제이름',
+        festivalType: '테스트축제타입5',
+        festivalDurationStart: '2023-01-01',
+        festivalDurationEnd: '2023-02-01',
+        festivalTime: '08',
+        festivalArea: '테스트지역',
+        festivalCost: '무료',
+        onelineReviewAverage: null,
+        festivalInformation: null,
+        festivalInformationUrl: null,
+        festivalHomepage: 'http'
+    },{
+        festivalNumber: 1,
+        festivalName: '테스트축제이름',
+        festivalType: '테스트축제타입5',
+        festivalDurationStart: '2023-01-01',
+        festivalDurationEnd: '2023-02-01',
+        festivalTime: '08',
+        festivalArea: '테스트지역',
+        festivalCost: '무료',
+        onelineReviewAverage: null,
+        festivalInformation: null,
+        festivalInformationUrl: null,
+        festivalHomepage: 'http'
+    },{
+        festivalNumber: 1,
+        festivalName: '테스트축제이름',
+        festivalType: '테스트축제타입5',
+        festivalDurationStart: '2023-01-01',
+        festivalDurationEnd: '2023-02-01',
+        festivalTime: '08',
+        festivalArea: '테스트지역',
+        festivalCost: '무료',
+        onelineReviewAverage: null,
+        festivalInformation: null,
+        festivalInformationUrl: null,
+        festivalHomepage: 'http'
+    },{
+        festivalNumber: 1,
+        festivalName: '테스트축제이름',
+        festivalType: '테스트축제타입5',
+        festivalDurationStart: '2023-01-01',
+        festivalDurationEnd: '2023-02-01',
+        festivalTime: '08',
+        festivalArea: '테스트지역',
+        festivalCost: '무료',
+        onelineReviewAverage: null,
+        festivalInformation: null,
+        festivalInformationUrl: null,
+        festivalHomepage: 'http'
+    },{
+        festivalNumber: 1,
+        festivalName: '테스트축제이름',
+        festivalType: '테스트축제타입5',
+        festivalDurationStart: '2023-01-01',
+        festivalDurationEnd: '2023-02-01',
+        festivalTime: '08',
+        festivalArea: '테스트지역',
+        festivalCost: '무료',
+        onelineReviewAverage: null,
+        festivalInformation: null,
+        festivalInformationUrl: null,
+        festivalHomepage: 'http'
+    },{
+        festivalNumber: 1,
+        festivalName: '테스트축제이름',
+        festivalType: '테스트축제타입5',
+        festivalDurationStart: '2023-01-01',
+        festivalDurationEnd: '2023-02-01',
+        festivalTime: '08',
+        festivalArea: '테스트지역',
+        festivalCost: '무료',
+        onelineReviewAverage: null,
+        festivalInformation: null,
+        festivalInformationUrl: null,
+        festivalHomepage: 'http'
+    },{
         festivalNumber: 1,
         festivalName: '테스트축제이름',
         festivalType: '테스트축제타입5',
@@ -91,7 +169,7 @@ export const SIGN_UP_CHECKBOX_LIST: IPreviewFestivalItem[] = [
     },
 
 ];
-export const FESTIVALLIST: IPreviewFestivalItem[] =
+export const FESTIVALLIST: Festival[] =
     [
         {
             festivalNumber: 2,
@@ -119,7 +197,7 @@ export const USER:User = {
     // interestedFestivalType:['얼음', '꽃']
     }
 
-export const REVIEW_BOARD_LIST : IReviewBoard[] = [
+export const REVIEW_BOARD_LIST : ReviewBoard[] = [
     {
         boardNumber: 1,
         boardTitle: '야호 신나는 축제',
@@ -192,7 +270,7 @@ export const REVIEW_BOARD_LIST : IReviewBoard[] = [
     }
 ]
 
-export const COMMENT_LIST : IComment[] = [
+export const COMMENT_LIST : Comment[] = [
     {
         commentNumber: 1,
         commentContent: '놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 ',

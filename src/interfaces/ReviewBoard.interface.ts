@@ -14,6 +14,6 @@ interface ReviewBoard{
     writerNickname: string;
     festivalNumber: number;
 
-
-export default ReviewBaord
+}
+export default ReviewBoard;
 

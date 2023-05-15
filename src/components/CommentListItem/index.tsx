@@ -1,9 +1,9 @@
 import { Avatar, Box, Typography } from '@mui/material'
 import React from 'react'
-import { IComment } from 'src/interfaces'
+import { Comment } from 'src/interfaces'
 
 interface Props{
-    item : IComment;
+    item : Comment;
 }
 export default function CommentListItem({item} : Props) {
   return (

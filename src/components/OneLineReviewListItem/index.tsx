@@ -1,10 +1,12 @@
 import React from 'react'
-import { IOneLineReview } from '../../interfaces'
+import { OneLineReview } from '../../interfaces'
 import { Avatar, Box, Divider, Typography } from '@mui/material';
 import { GetOneLineReviewResponseDto } from 'src/apis/response/festival';
 
 interface Props{
+
     oneLineReviewItem : GetOneLineReviewResponseDto
+
 }
 
 export default function OneLineReviewListItem({ oneLineReviewItem } : Props) {

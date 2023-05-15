@@ -1,9 +1,9 @@
 import React from 'react'
-import { IPreviewFestivalItem } from '../../interfaces'
+import { Festival } from '../../interfaces'
 import { Avatar, Box, Divider, Typography } from '@mui/material';
 
 interface Props{
-    item : IPreviewFestivalItem;
+    item : Festival;
 }
 
 export default function FestivalNameItemList( {item} : Props) {

@@ -3,19 +3,20 @@ import React, { useState, useEffect, useRef, ChangeEvent } from "react";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import SignUpCheckboxListItem from "src/components/SignUpCheckboxListItem";
-import { IPreviewFestivalItem } from "src/interfaces";
+import { Festival } from "src/interfaces";
 import { usePagingHook } from "src/hooks";
 import { SIGN_UP_CHECKBOX_LIST } from "src/mock";
 import { useNavigate } from "react-router-dom";
 import { useSignUpStore } from "src/stores";
 import { CheckUserIdRequestDto, CheckUserNicknameRequestDto, CheckUserTelNumberRequestDto } from "src/apis/request/user";
 import axios, { AxiosResponse } from "axios";
-import { FILE_UPLOAD_URL, SIGN_UP_URL, VALIDATE_NICKNAME_URL, VALIDATE_TELNUMBER_URL, VALIDATE_USER_ID_URL, multipartHeader } from "src/constants/api";
+import { FILE_UPLOAD_URL, GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL, GET_INTERESTED_FESTIVAL_LIST_URL, SIGN_UP_URL, VALIDATE_NICKNAME_URL, VALIDATE_TELNUMBER_URL, VALIDATE_USER_ID_URL, multipartHeader } from "src/constants/api";
 import { CheckUserIdResponseDto, CheckUserNicknameResponseDto, CheckUserTelNumberResponseDto } from "src/apis/response/user";
 import ResponseDto from "src/apis/response";
 import CheckIcon from '@mui/icons-material/Check';
 import { SignUpRequestDto } from "src/apis/request/auth";
 import { SignUpResponseDto } from "src/apis/response/auth";
+import { GetFestivalTypeListResponseDto } from "src/apis/response/festival";
 
 function FirstPage() {
 
@@ -148,18 +149,18 @@ function FirstPage() {
 
   //          Error Handler          //
   const onUserIdValidateButtonErrorHandler = (error: any) => {
-    console.log(error.message);
+    alert(error.message);
   }
 
   const onNicknameValidateButtonErrorHandler = (error: any) => {
-    console.log(error.message);
+    alert(error.message);
   }
   const onProfileUploadChangeErrorHandler = (error: any) => {
-    console.log(error.message);
+    alert(error.message);
   }
 
   const onTelNumberValidateButtonErrorHandler = (error: any) => {
-    console.log(error.message);
+    alert(error.message);
   }
 
   return (
@@ -280,10 +281,27 @@ function FirstPage() {
 }
 
 function SecondPage() {
-  const { viewList, setFestivalList} = usePagingHook(100);
+  const { interestedFestival, setInterestedFestival } = useSignUpStore();
+  const [ signUpCheckboxList, setSignUpCheckboxList ] = useState<GetFestivalTypeListResponseDto[]>([]);
+  
+  const onSignUpCheckboxList = () => {
+    axios.get(GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL)
+        .then((response) => onSignUpCheckboxListResponse(response))
+        .catch((error) => onSignUpCheckboxListError(error))
+  } 
+
+  const onSignUpCheckboxListResponse = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetFestivalTypeListResponseDto[]>
+    
+    if(!result || data === null ) return;
+    setSignUpCheckboxList(data);
+  }
+  const onSignUpCheckboxListError = (error: any) => {
+    alert(error.message);
+  }
 
   useEffect(() => {
-    setFestivalList(SIGN_UP_CHECKBOX_LIST);
+    onSignUpCheckboxList();
   }, []);
 
   return (
@@ -291,9 +309,9 @@ function SecondPage() {
       <Box>
         <Typography sx={{ mt: "40px" }}>회원님이 관심있는 축제</Typography>
       </Box>
-      {viewList.map((festivalCheckboxList) => (
+      {signUpCheckboxList.map((festivalCheckboxList) => (
         <SignUpCheckboxListItem
-          festivalCheckboxList={festivalCheckboxList as IPreviewFestivalItem}
+          festivalCheckboxList={festivalCheckboxList as Festival}
         />
       ))}
     </Box>
@@ -301,7 +319,7 @@ function SecondPage() {
 }
 
 export default function SignUpView() {
-  const { userId, password, passwordCheck, nickname, telNumber, profileUrl, interestedFestival } = useSignUpStore();
+  const { userId, password, passwordCheck, nickname, telNumber, profileUrl, interestedFestival, setInterestedFestival } = useSignUpStore();
   const { userIdPatternCheck, passwordPatternCheck, nicknamePatternCheck, telNumberPatternCheck } = useSignUpStore();
   const { userIdValidate, passwordValidate, nicknameValidate, telNumberValidate } = useSignUpStore();
   const {setSignUpError} = useSignUpStore();
