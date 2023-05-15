@@ -25,10 +25,10 @@ export default function ReviewBoardDetailView() {
 
   //          Hook          //
 
-  const [reviewBoard, setReviewBoard] = useState<ReviewBoard>(); //? 잘못된 게시물 번호를 넣을 수도 있으니 null 타입
+
 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
-  const [reviewBoard,setReviewBoard]=useState<ReviewBaord | null>(null);
+
   const { reviewBoardNumber } = useParams();
   const [boardNum, setBoardNum] = useState<number>();
   const navigator = useNavigate();
@@ -74,21 +74,6 @@ export default function ReviewBoardDetailView() {
 
   //       Response Handler       //
 
-  const setBoardResponseDto = (data: GetReviewBoardResponseDto) => {
-    const { reviewBoard, commentList, recommendList } = data
-    // setReviewBoard(reviewBoard)
-    // setFestivalList(commentList)
-
-
-}
-
-
-   const getReviewBoardResponseHandler=(resposne:AxiosResponse<any,any>)=>{
-    const {result,message,data}=resposne.data as ResponseDto<GetReviewBoardResponseDto>
-    if(!result || !data) return;
-    
-    setBoardResponseDto(data);
-  }
 
 
   //             Use Effect          //

@@ -5,47 +5,6 @@ import OneLineReview from "./OndeLineReview.interface";
 import Festival from "./Festival.interface";
 
 
-<<<<<<< HEAD
- export interface IPreviewFestivalItem{
-festivalNumber:number;
-festivalName:string;
-festivalType:string;
-festivalDurationStart: string;
-festivalDurationEnd:string;
-festivalTime:string | null;
-festivalArea:string;
-festivalCost:string;
-onelineReviewAverage: number | null; 
-festivalInformation:string |null;
-festivalInformationUrl:string|null;
-festivalHomepage: string;
-}
-
-export interface IPreviewFestivalSimpleListItem { //? 인터페이스 같은 게 왜 2개?
-    festivalNumber: number;
-    festivalName: string;
-    festivalType: string;
-    festivalDurationStart: string;
-    festivalDurationEnd:string;
-    festivalTime:string | null;
-    festivalArea:string;
-    festivalCost:string;
-    onelineReviewAverage: number | null; 
-    festivalInformation:string |null;
-    festivalInformationUrl:string|null;
-    festivalHomepage: string;
-}
-export interface IUser {
-    userId: string;
-    password: string;
-    profileUrl?: string;
-    nickname: string;
-    telNumber: string;
-    adminCheck?: boolean | null;
-    reportUser?: boolean | null;
-    interestedFestivalType?: string[] | null;
-}
-=======
 
 //  export interface IPreviewFestivalItem{
 // festivalNumber:number;
@@ -86,7 +45,6 @@ export interface IUser {
 //     reportUser?: boolean | null;
 //     interestedFestivalType: string[] | null;
 // }
->>>>>>> cc1e09988bc2fce9073ca3498ed6dfb6682e6a98
 
 // export interface IReviewBoard {
 //     boardNumber: number;
@@ -156,3 +114,4 @@ export interface IUser {
 //     festivalNumber: number;
 // }
 
+export type { User, Comment, OneLineReview, Festival }
