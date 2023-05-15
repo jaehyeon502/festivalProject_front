@@ -16,6 +16,7 @@ import ResponseDto from "src/apis/response";
 import CheckIcon from '@mui/icons-material/Check';
 import { SignUpRequestDto } from "src/apis/request/auth";
 import { SignUpResponseDto } from "src/apis/response/auth";
+import { GetFestivalTypeListResponseDto } from "src/apis/response/festival";
 
 function FirstPage() {
 
@@ -280,25 +281,27 @@ function FirstPage() {
 }
 
 function SecondPage() {
-  const { viewList, setFestivalList} = usePagingHook(100);
   const { interestedFestival, setInterestedFestival } = useSignUpStore();
+  const [ signUpCheckboxList, setSignUpCheckboxList ] = useState<GetFestivalTypeListResponseDto[]>([]);
   
-  const onSignUpCheckboxListHandler = () => {
+  const onSignUpCheckboxList = () => {
     axios.get(GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL)
-        .then((response) => onSignUpCheckboxListResponseHandler(response))
-        .catch((error) => onSignUpCheckboxListErrorHandler(error))
+        .then((response) => onSignUpCheckboxListResponse(response))
+        .catch((error) => onSignUpCheckboxListError(error))
   } 
 
-  const onSignUpCheckboxListResponseHandler = (response: AxiosResponse<any, any>
-    ) => {
-
+  const onSignUpCheckboxListResponse = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetFestivalTypeListResponseDto[]>
+    
+    if(!result || data === null ) return;
+    setSignUpCheckboxList(data);
   }
-  const onSignUpCheckboxListErrorHandler = (error: any) => {
+  const onSignUpCheckboxListError = (error: any) => {
     alert(error.message);
   }
 
   useEffect(() => {
-    setFestivalList(SIGN_UP_CHECKBOX_LIST);
+    onSignUpCheckboxList();
   }, []);
 
   return (
@@ -306,7 +309,7 @@ function SecondPage() {
       <Box>
         <Typography sx={{ mt: "40px" }}>회원님이 관심있는 축제</Typography>
       </Box>
-      {viewList.map((festivalCheckboxList) => (
+      {signUpCheckboxList.map((festivalCheckboxList) => (
         <SignUpCheckboxListItem
           festivalCheckboxList={festivalCheckboxList as IPreviewFestivalItem}
         />
@@ -316,7 +319,7 @@ function SecondPage() {
 }
 
 export default function SignUpView() {
-  const { userId, password, passwordCheck, nickname, telNumber, profileUrl, interestedFestival } = useSignUpStore();
+  const { userId, password, passwordCheck, nickname, telNumber, profileUrl, interestedFestival, setInterestedFestival } = useSignUpStore();
   const { userIdPatternCheck, passwordPatternCheck, nicknamePatternCheck, telNumberPatternCheck } = useSignUpStore();
   const { userIdValidate, passwordValidate, nicknameValidate, telNumberValidate } = useSignUpStore();
   const {setSignUpError} = useSignUpStore();
@@ -369,7 +372,7 @@ export default function SignUpView() {
   }
   //          Error Handler          //
   const signUpErrorHandler = (error: any) => {
-
+    alert(error.message);
   }
   return (
     <Box sx={{ padding: "85px 250px" }}>

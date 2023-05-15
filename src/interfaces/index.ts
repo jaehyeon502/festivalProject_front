@@ -1,8 +1,8 @@
-
 import User from "./User.interface";
+import Festival from "./Festivl.interface";
+import ReviewBaord from "./ReviewBoard.interface";
 
-export type { User };
-
+export type { User,Festival ,ReviewBaord};
 
 export interface IPreviewFestivalItem{
 festivalNumber:number;
@@ -41,7 +41,7 @@ export interface IUser {
     telNumber: string;
     adminCheck?: boolean | null;
     reportUser?: boolean | null;
-    interestedFestivalType: string[] | null;
+    interestedFestivalType?: string[] | null;
 }
 
 export interface IReviewBoard {

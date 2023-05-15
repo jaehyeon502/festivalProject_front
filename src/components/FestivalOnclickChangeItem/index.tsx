@@ -67,15 +67,12 @@ export default function FestivalOnclickChangeItem({ setClickPage, item }: Props)
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>정보 : <Link href={item.festivalHomepage}>{`홈페이지`}</Link></Typography>
                   <Box>
-                    <Box sx={{ fontSize:'14px'}} display='inline'>
-                      축제정보
-                    </Box>
+                    <Box sx={{ fontSize:'14px'}} display='inline'> 축제정보 </Box>
                     <ExpandMore
                     expand={expanded}
-                     onClick={handleExpandClick}
-                     aria-expanded={expanded}
-                    aria-label="show more"
-                    >
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more">
                     <ExpandMoreIcon />
                     </ExpandMore>
                   </Box>
