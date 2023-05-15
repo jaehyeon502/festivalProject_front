@@ -45,6 +45,7 @@ export default function FestivalBoard({ setClickPage, clickPage }: Props) {
   }
 
 
+  //           Response Handler           //
 const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>)=>{
   const {result,message,data} = response.data as ResponseDto<GetInterstFestivalListResponseDto[]>
   if(!result || data === null) return;
@@ -77,17 +78,12 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
 
   }, [])
 
-
   useEffect(() => {
     getFestivalReviewBoardList();
 
 
   }, [festivalNumber])
 
-
-
-
-  console.log(clickPage)
   return (
     <Box sx={{ width: '100%', height: '100%' }}>
       <Box sx={{ pt: '20px', pb: '80px' }}>

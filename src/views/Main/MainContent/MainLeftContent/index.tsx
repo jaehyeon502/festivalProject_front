@@ -15,19 +15,22 @@ interface Props {
 }
 
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
+  //         HOOK             //
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const [selectedFestival, setSelectedFestival] = useState<Festival | null>(null);
 
-  const {festivalNumber} = useFestivalNumberStore();
+  const {festivalNumber, setFestivalNumber} = useFestivalNumberStore();
+
 
   const onFestivalItemClick = (festival: Festival) => {
+
     setSelectedFestival(festival);
     setClickPage(true);
   }
 
   useEffect(() => {
-
+    console.log(viewList);
   }, [festivalNumber]);
 
   return (

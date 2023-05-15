@@ -1,6 +1,4 @@
-
-interface ReviewBoard{
-
+interface FreeBoard {
     boardNumber: number;
     boardTitle: string;
     boardContent: string;
@@ -12,8 +10,6 @@ interface ReviewBoard{
     writerId: string;
     writerProfileUrl: string | null;
     writerNickname: string;
-    festivalNumber: number;
-
 }
-export default ReviewBoard;
 
+export default FreeBoard

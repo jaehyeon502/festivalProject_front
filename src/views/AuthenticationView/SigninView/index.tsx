@@ -8,29 +8,22 @@ import { SignInResponseDto } from 'src/apis/response/auth';
 import ResponseDto from 'src/apis/response';
 import { SIGN_IN_URL } from 'src/constants/api';
 import { useSignInStore } from 'src/stores';
-
 import { USER } from 'src/mock';
-
 import { getExpires } from 'src/utils';
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
-
-
-
-
 
 export default function SigninView() {
   //          hook          //
   const [userId, setUserId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { signInUser,setSignInUser } = useSignInStore();
+  const { setSignInUser } = useSignInStore();
   const [loginError, setLoginError] = useState<boolean>(false);
   const [cookies,setCookie]=useCookies();
   const navigator=useNavigate();
 
   //          Event Handler          //
-
 
   const loginHandler = () => {
     if (!userId.trim() || !password) {
@@ -53,6 +46,7 @@ export default function SigninView() {
   //          Response Handler          //
 
   const signInResposneHandler = (resposne: AxiosResponse<any, any>) => {
+    alert('작동')
     const { result, message, data } = resposne.data as ResponseDto<SignInResponseDto>;
     if (!result || !data) {
       setLoginError(true);
@@ -60,7 +54,8 @@ export default function SigninView() {
     }
     const { token, expiredTime, ...user } = data;
     const expires = getExpires(expiredTime);
-    setCookie("accessToken",token,{expires, path: '/'});
+
+    setCookie('accessToken', token,{ expires });
     setSignInUser(user)
     navigator('/');
     
