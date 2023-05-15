@@ -26,7 +26,6 @@ function NavigationBar() {
     navigator('/')
 
   }
-
   const onClickBoardListNameHandler = (boardName : string) => {
     if(boardName === '현재 진행 중인 축제') alert('현진축 게시판');
     else if(boardName === '개최 예정 축제') alert('개예축 게시판')
@@ -42,13 +41,12 @@ function NavigationBar() {
           <Typography variant="h6" noWrap component="a" href="/" sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, fontWeight: 900, letterSpacing: '.0.1rem', fontSize:'20px', color: '#eee', textDecoration: 'none', cursor:'pointer'}}>FestivalProject</Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (<Button onClick = {() => onClickBoardListNameHandler(page)} key={page} sx={{ my: 2, color: '#eee', display: 'block',fontSize:'14px' }}>{page}</Button>))}
-            {pages.map((page) => (<Button key={page} sx={{ my: 2, ml:'5%' , color: '#eee', display: 'block',fontSize:'12px', fontWeight:900 }}>{page}</Button>))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
               { accessToken ?
-            ( <><Button variant='contained' sx={{ borderColor: 'blue', color: 'black' }} onClick={() => navigator('/mypage')}>마이페이지</Button>
+            ( <><Button variant='contained' sx={{backgroundColor:'#eee', color:'#32383f', fontSize:'14px', fontWeight:900}} onClick={() => navigator('/mypage')}>My Page</Button>
               <IconButton onClick={logOutClickHandler}><PowerOffIcon/></IconButton></>
-            ):(<Button variant='contained' sx={{backgroundColor:'black'}} onClick={() => navigator('/auth')}>로그인</Button>)
+            ):(<Button variant='contained' sx={{backgroundColor:'#eee', color:'#32383f', fontSize:'14px', fontWeight:900}} onClick={() => navigator('/auth')}>Login</Button>)
             }
           </Box>
         </Toolbar>

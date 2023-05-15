@@ -54,7 +54,7 @@ export default function MainRightContent({ clickPage }: Props) {
 
   //          use Effect             //
   useEffect(() => {
-   
+  
     getOneLineReview();
   }, [festivalNumber]);
 
