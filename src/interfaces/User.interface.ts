@@ -1,9 +1,8 @@
 interface User{
     userId:string;
-    password:string;
     nickname:string;
     telNumber:string;
-    profileUrl?:string;
+    profileUrl:string | null;
     interestedFestivalType?: string[];
 }
 export default User;

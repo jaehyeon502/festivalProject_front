@@ -17,7 +17,7 @@ export default function ReviewBoardListView() {
   const navigator = useNavigate();
   const [searchTypeButton, setSearchTypeButton] = useState<boolean>(false);
   const [searchTypeName, setSearchTypeName] = useState<string>('최신순');
-  const searchType = ['최신순', '조회수', '제목 + 내용'];
+  const searchType = ['최신순', '평점순', '조회수', '제목 + 내용'];
 
   //          Event Handler          //
   const onClickSearchTypeButtonHandler = () => {
@@ -33,6 +33,7 @@ export default function ReviewBoardListView() {
     if (typeName === '최신순') setSearchTypeName(typeName);
     else if (typeName === '조회수') setSearchTypeName(typeName);
     else if (typeName === '제목 + 내용') setSearchTypeName(typeName);
+    else if (typeName === '평점순') setSearchTypeName(typeName);
     setSearchTypeButton(false);
     return;
   }

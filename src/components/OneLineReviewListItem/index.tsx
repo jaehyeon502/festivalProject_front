@@ -8,9 +8,7 @@ interface Props{
 
 export default function OneLineReviewListItem({ oneLineReviewItem } : Props) {
 
-    const backGroundImage = `url(${oneLineReviewItem.userProfileUrl})`;
     const dateGap = Date.now() - Date.parse(oneLineReviewItem.writeDatetime);
-    const before = Math.floor(dateGap / (1000 * 60));
 
   return (
     <Box sx={{ padding:'10px' }}>

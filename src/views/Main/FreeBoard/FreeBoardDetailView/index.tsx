@@ -5,22 +5,22 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { COMMENT_LIST, REVIEW_BOARD_LIST } from 'src/mock';
-import { IComment, IReviewBoard } from 'src/interfaces';
+import { COMMENT_LIST, FREE_BOARD_LIST, REVIEW_BOARD_LIST } from 'src/mock';
+import { IComment, IFreeBoard, IReviewBoard } from 'src/interfaces';
 import CommentListItem from 'src/components/CommentListItem';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
 
-export default function ReviewBoardDetailView() {
-
+export default function FreeBoardDetailView() {
+  
   const path = useLocation();
 
   //          Hook          //
-  const [reviewBoard, setReviewBoard] = useState<IReviewBoard>(); //? 잘못된 게시물 번호를 넣을 수도 있으니 null 타입
+  const [freeBoard, setFreeBoard] = useState<IFreeBoard>(); 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [ menuFlag, setMenuFlag] = useState<boolean>(false);
-  const { reviewBoardNumber } = useParams();
+  const { freeBoardNumber } = useParams();
   const navigator = useNavigate();
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
 
@@ -32,46 +32,43 @@ export default function ReviewBoardDetailView() {
     }
     setRecommendStatus(true);
   }
-  //^ as 타입명 => 변환하고자 하는 변수의 타입이 여러 개일 경우 그 중 하나 골라서 형 변환
-  //^ Number() => Class, parseInt() => 메서드 / Number()가 더 상위?
-  //^ parseInt()로는 string, undefined 타입의 변수는 바꿀 수 없었으나 Number()로는 바뀌었음
 
   const onClickNextBoardHandler = () => {
-    const boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) + 1 : Number(reviewBoardNumber);
-    if (boardNumber > REVIEW_BOARD_LIST.length) {
+    const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) + 1 : Number(freeBoardNumber);
+    if (boardNumber > FREE_BOARD_LIST.length) {
       alert('다음 글이 없습니다.');
       return;
     }
-    navigator(`/reviewBoard/detail/${boardNumber}`)
+    navigator(`/freeBoard/detail/${boardNumber}`)
   }
 
   const onClickPreviousBoardHandler = () => {
-    const boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) - 1 : Number(reviewBoardNumber);
+    const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) - 1 : Number(freeBoardNumber);
     if (boardNumber < 1) {
       alert('이전 글이 없습니다.');
       return;
     }
-    navigator(`/reviewBoard/detail/${boardNumber}`) 
+    navigator(`/freeBoard/detail/${boardNumber}`) 
   }
 
   useEffect(() => {
 
     //? 해당 후기 게시물의 존재 여부 검증
-    if (!reviewBoardNumber) {
+    if (!freeBoardNumber) {
       navigator('/');
       return;
     }
 
     //? 일치하는 후기 게시물 Number 들고오기, 일치하는 번호에 있는 mock 데이터를 담는다.
     //? List 중 하나만 들고올 때 <-> 여러 개 들고올 땐 map돌려서
-    const reviewBoardData = REVIEW_BOARD_LIST.find((item) => item.boardNumber === parseInt(reviewBoardNumber));
+    const freeBoardData = FREE_BOARD_LIST.find((item) => item.boardNumber === parseInt(freeBoardNumber));
 
     // //? 제대로 들고왔는지
-    if (!reviewBoardData) {
+    if (!freeBoardData) {
       navigator('/');
     }
 
-    setReviewBoard(reviewBoardData);
+    setFreeBoard(freeBoardData);
     setFestivalList(COMMENT_LIST);
 
   }, [path])
@@ -83,9 +80,9 @@ export default function ReviewBoardDetailView() {
         <Box display='flex' justifyContent='flex-end'>
           <Box sx={{ mb: '30px', width: '400px', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex' }}>
-              <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={reviewBoard?.writerProfileUrl ? reviewBoard.writerProfileUrl : ''} />
+              <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={freeBoard?.writerProfileUrl ? freeBoard.writerProfileUrl : ''} />
 
-              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {reviewBoard?.writerNickname}</Typography>
+              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {freeBoard?.writerNickname}</Typography>
             </Box>
             <Box sx={{ mt: '40px', ml: '10px', fontWeight: 600 }}>
               <IconButton sx={{ color: 'red' }}>
@@ -97,16 +94,16 @@ export default function ReviewBoardDetailView() {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%' }}>
-          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{reviewBoard?.boardTitle}</Typography>
-          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{reviewBoard?.boardWriteDatetime}</Typography>
+          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{freeBoard?.boardTitle}</Typography>
+          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{freeBoard?.boardWriteDatetime}</Typography>
         </Box>
 
         <Divider sx={{ mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box>
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
-            <img src={reviewBoard?.boardImgUrl ? reviewBoard.boardImgUrl : ''} />
-            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{reviewBoard?.boardContent}</Typography>
+            <img src={freeBoard?.boardImgUrl ? freeBoard.boardImgUrl : ''} />
+            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{freeBoard?.boardContent}</Typography>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
@@ -117,9 +114,9 @@ export default function ReviewBoardDetailView() {
                     :
                     <ThumbUpOutlinedIcon sx={{ width: '20px', height: '20px' }} />}
                 </IconButton>
-                추천 {reviewBoard?.recommendCount}</Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {reviewBoard?.commentCount} </Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {reviewBoard?.viewCount}</Box>
+                추천 {freeBoard?.recommendCount}</Box>
+              <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {freeBoard?.commentCount} </Box>
+              <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {freeBoard?.viewCount}</Box>
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>

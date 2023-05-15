@@ -1,4 +1,3 @@
-
 import User from "./User.interface";
 
 export type { User };
@@ -56,6 +55,20 @@ export interface IReviewBoard {
     writerProfileUrl: string | null;
     writerNickname: string;
     festivalNumber: number;
+}
+
+export interface IFreeBoard {
+    boardNumber: number;
+    boardTitle: string;
+    boardContent: string;
+    boardImgUrl: string | null;
+    boardWriteDatetime: string;
+    viewCount: number;
+    recommendCount: number;
+    commentCount: number;
+    writerId: string;
+    writerProfileUrl: string | null;
+    writerNickname: string;
 }
 
 export interface IComment {
