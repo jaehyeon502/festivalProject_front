@@ -44,7 +44,11 @@ export default function ReviewBoardListView() {
 
 
   useEffect(() => {
+
     getAllReviewBoardLsit();
+
+    // setFestivalList();
+
   }, [])
   return (
     <Box>

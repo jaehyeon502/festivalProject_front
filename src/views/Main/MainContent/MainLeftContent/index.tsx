@@ -15,6 +15,7 @@ interface Props {
 }
 
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
+  //         HOOK             //
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);

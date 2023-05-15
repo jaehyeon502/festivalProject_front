@@ -12,7 +12,9 @@ interface Props {
 
 export default function FestivalReviewBoardList({ festivalBoardList }: Props) {
 
-    const navigator=useNavigate();
+//    HOOk         //
+const navigator=useNavigate();
+
 
 
     return (
