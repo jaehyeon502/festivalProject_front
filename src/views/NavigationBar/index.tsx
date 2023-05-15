@@ -1,19 +1,31 @@
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSignInStore } from 'src/stores';
+import PowerOffIcon from '@mui/icons-material/PowerOff';
+import { useCookies } from 'react-cookie';
+import { AppBar, IconButton } from '@mui/material';
 
 const pages = ['현재 진행 중인 축제', '개최 예정 축제', '축제 후기', '자유 게시판'];
 
 function NavigationBar() {
-  const path = useLocation();
+  //             HOOK               //
   const navigator = useNavigate();
+  const {signInUser,resetSignInUser}=useSignInStore();
+  const [cookies,setCookie]=useCookies();
+  const accessToken=cookies.accessToken;
 
-  const {signInUser}=useSignInStore();
+  
+//        Response Handler        //////
+  const logOutClickHandler=()=>{
+    setCookie('accessToken',' ',{expires:new Date(),path:'/'})
+    resetSignInUser();
+    navigator('/')
+
+  }
 
   const onClickBoardListNameHandler = (boardName : string) => {
     if(boardName === '현재 진행 중인 축제') alert('현진축 게시판');
@@ -32,9 +44,12 @@ function NavigationBar() {
             {pages.map((page) => (<Button onClick = {() => onClickBoardListNameHandler(page)} key={page} sx={{ my: 2, color: '#eee', display: 'block',fontSize:'14px' }}>{page}</Button>))}
             {pages.map((page) => (<Button key={page} sx={{ my: 2, ml:'5%' , color: '#eee', display: 'block',fontSize:'12px', fontWeight:900 }}>{page}</Button>))}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
-            {path.pathname !== '/auth/sign-in' && path.pathname !== '/auth/sign-up' ? <Button sx={{ backgroundColor:'#fff', color: '#32383f', fontSize:'12px', fontWeight:900 }} variant = 'contained' onClick = {() => navigator('/auth/sign-in') }>{signInUser ? 'Logout' : 'Login'}</Button> : <></>}
+              { accessToken ?
+            ( <><Button variant='contained' sx={{ borderColor: 'blue', color: 'black' }} onClick={() => navigator('/mypage')}>마이페이지</Button>
+              <IconButton onClick={logOutClickHandler}><PowerOffIcon/></IconButton></>
+            ):(<Button variant='contained' sx={{backgroundColor:'black'}} onClick={() => navigator('/auth')}>로그인</Button>)
+            }
           </Box>
         </Toolbar>
       </Container>

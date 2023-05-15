@@ -16,7 +16,7 @@ export default function ReviewBoardListView() {
   const navigator = useNavigate();
 
   useEffect(() => {
-    setFestivalList(REVIEW_BOARD_LIST);
+    // setFestivalList();
   }, [])
   return (
     <Box>

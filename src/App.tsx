@@ -10,6 +10,8 @@ import AuthenticationView from './views/AuthenticationView'
 import ReviewBoardWriteView from './views/ReviewBoard/ReviewBoardWriteView';
 import ReviewBoardDetailView from './views/ReviewBoard/ReviewBoardDetailView';
 import ReviewBoardUpdateView from './views/ReviewBoard/ReviewBoardUpdateView';
+import MypageView from './views/MypageView';
+import { useSignInStore } from './stores';
 import ReviewBoardListView from './views/ReviewBoard/ReviewBoardListView';
 import SignUpView from './views/AuthenticationView/SignUpView';
 import { Button } from '@mui/material';
@@ -17,15 +19,19 @@ import { Button } from '@mui/material';
 function App() {
 
   const path = useLocation();
+  const {signInUser}=useSignInStore();
 
+  console.log("로그인"+signInUser)
   return (
     <>
       <NavigationBar />
       <Routes>
-        <Route path = "/" element={(<Main />)} />
-        <Route path = "/auth">
-          <Route path = "sign-in" element={(<AuthenticationView />)}/>
-          <Route path = "sign-up" element={(<SignUpView />)}/>
+        <Route path="/" element={(<Main />)} />
+        <Route path="/auth" element={(<AuthenticationView />)} />
+        <Route path="/mypage" element={(<MypageView/>)}/>
+        <Route path="/auth">
+          <Route path="sign-in" element={(<AuthenticationView />)}/>
+          <Route path="sign-up" element={(<SignUpView />)}/>
         </Route>
         <Route path = "/reviewboard">
           <Route path = 'write' element = {(<ReviewBoardWriteView/>)}/>

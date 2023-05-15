@@ -1,5 +1,5 @@
 import { Box, Grid, Pagination } from '@mui/material'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import FestivalSimpleListItem from 'src/components/FestivalSimpleListItem';
 import MonthAndAreaButton from 'src/components/MonthAndAreaIButton';
@@ -8,22 +8,29 @@ import { IPreviewFestivalSimpleListItem } from 'src/interfaces';
 import { getpagecount } from 'src/utils';
 
 import FestivalOnclickChangeItem from 'src/components/FestivalOnclickChangeItem';
+import { useFestivalNumberStore } from 'src/stores';
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
+  //         HOOK             //
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);
 
-  // const {festivalNumber} = useFestivalStore();
+  const {festivalNumber, setFestivalNumber} = useFestivalNumberStore();
 
   const onFestivalItemClick = (festival: IPreviewFestivalSimpleListItem) => {
+    setFestivalNumber(festival.festivalNumber);
     setSelectedFestival(festival);
     setClickPage(true);
   }
+
+  useEffect(() => {
+    console.log(viewList);
+  }, [festivalNumber]);
 
   return (
     //? 전체 테이블
