@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Card, CardActionArea, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
-import { IFreeBoard } from 'src/interfaces';
+import { FreeBoard } from 'src/interfaces';
 
 interface Props {
-    item : IFreeBoard;
+    item : FreeBoard;
 }
 
 export default function FreeBoardListITem({item} : Props) {

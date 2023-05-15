@@ -5,8 +5,8 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { COMMENT_LIST, FREE_BOARD_LIST, REVIEW_BOARD_LIST } from 'src/mock';
-import { IComment, IFreeBoard, IReviewBoard } from 'src/interfaces';
+import { COMMENT_LIST, FREE_BOARD_LIST} from 'src/mock';
+import { Comment, FreeBoard } from 'src/interfaces';
 import CommentListItem from 'src/components/CommentListItem';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
@@ -17,7 +17,7 @@ export default function FreeBoardDetailView() {
   const path = useLocation();
 
   //          Hook          //
-  const [freeBoard, setFreeBoard] = useState<IFreeBoard>(); 
+  const [freeBoard, setFreeBoard] = useState<FreeBoard>(); 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [ menuFlag, setMenuFlag] = useState<boolean>(false);
   const { freeBoardNumber } = useParams();
@@ -142,7 +142,7 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as IComment} />)}
+              {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)}
             </Stack>
           </Box>
 

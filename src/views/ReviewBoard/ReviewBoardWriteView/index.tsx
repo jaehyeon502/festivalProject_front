@@ -7,7 +7,7 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate } from 'react-router-dom';
-import { IPreviewFestivalItem } from 'src/interfaces';
+import { Festival, } from 'src/interfaces';
 import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -17,7 +17,7 @@ export default function ReviewBoardWriteView() {
   const [reviewBoardTitle, setReviewBoardTitle] = useState<string>('');
   const [reviewBoardContent, setReviewBoardContent] = useState<string>('');
   const [show, setShow] = useState<boolean>(false);
-  const [festivalNameList, setFestivalNameList] = useState<IPreviewFestivalItem[]>([]);
+  const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
   const [boardContent, setBoardContent] = useState<string>('');
   const [selectedFestivalName, setSelectedFestivalName] = useState<string>('');
 

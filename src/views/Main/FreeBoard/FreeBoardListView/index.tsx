@@ -3,10 +3,9 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
-import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
-import { IFreeBoard, IReviewBoard } from 'src/interfaces';
+import { FreeBoard} from 'src/interfaces';
 import { useEffect, useState } from 'react';
-import { FREE_BOARD_LIST, REVIEW_BOARD_LIST } from 'src/mock';
+import { FREE_BOARD_LIST} from 'src/mock';
 import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
 import FreeBoardListITem from 'src/components/FreeBoardListItem';
@@ -87,7 +86,7 @@ export default function FreeBoardListView() {
   
         <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
           <Stack sx={{ p: '10px' }}>
-            {viewList.map((item) => (<FreeBoardListITem item={item as IFreeBoard} />))}
+            {viewList.map((item) => (<FreeBoardListITem item={item as FreeBoard} />))}
           </Stack>
         </Box>
   

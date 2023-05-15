@@ -3,6 +3,6 @@ interface User{
     nickname:string;
     telNumber:string;
     profileUrl:string | null;
-    interestedFestivalType?: string[];
+    interestedFestival?: string[];
 }
 export default User;

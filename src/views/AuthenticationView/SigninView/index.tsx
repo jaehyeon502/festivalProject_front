@@ -54,6 +54,7 @@ export default function SigninView() {
     }
     const { token, expiredTime, ...user } = data;
     const expires = getExpires(expiredTime);
+
     setCookie('accessToken', token,{ expires });
     setSignInUser(user)
     navigator('/');

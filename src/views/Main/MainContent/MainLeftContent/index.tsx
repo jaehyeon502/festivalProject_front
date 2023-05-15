@@ -1,29 +1,37 @@
 import { Box, Grid, Pagination } from '@mui/material'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import FestivalSimpleListItem from 'src/components/FestivalSimpleListItem';
 import MonthAndAreaButton from 'src/components/MonthAndAreaIButton';
 import { usePagingHook } from 'src/hooks';
-import { IPreviewFestivalSimpleListItem } from 'src/interfaces';
+import { Festival } from 'src/interfaces';
 import { getpagecount } from 'src/utils';
 
 import FestivalOnclickChangeItem from 'src/components/FestivalOnclickChangeItem';
+import { useFestivalNumberStore } from 'src/stores';
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
+  //         HOOK             //
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-  const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);
+  const [selectedFestival, setSelectedFestival] = useState<Festival | null>(null);
 
-  // const {festivalNumber} = useFestivalStore();
+  const {festivalNumber, setFestivalNumber} = useFestivalNumberStore();
 
-  const onFestivalItemClick = (festival: IPreviewFestivalSimpleListItem) => {
+
+  const onFestivalItemClick = (festival: Festival) => {
+
     setSelectedFestival(festival);
     setClickPage(true);
   }
+
+  useEffect(() => {
+    console.log(viewList);
+  }, [festivalNumber]);
 
   return (
     //? 전체 테이블
@@ -42,7 +50,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
               <Box sx={{ pt: '10px', pb: '10px', m: '10px' }}>
                 <Grid container spacing={1}>
                   {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
-                  {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as IPreviewFestivalSimpleListItem} onClick={() => onFestivalItemClick(item as IPreviewFestivalSimpleListItem)} /></Grid>))}
+                  {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as Festival} onClick={() => onFestivalItemClick(item as Festival)} /></Grid>))}
                 </Grid>
               </Box>
             </Box>

@@ -4,11 +4,15 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
-import { IReviewBoard } from 'src/interfaces';
+import {  ReviewBoard } from 'src/interfaces';
 import { useEffect, useState } from 'react';
 import { REVIEW_BOARD_LIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
+import axios, { AxiosResponse } from 'axios';
+import ResponseDto from 'src/apis/response';
+import { GetAllReviewBoardListResponseDto } from 'src/apis/response/board';
+import { GET_ALL_REVIEWBOARD_LIST_URL } from 'src/constants/api';
 
 export default function ReviewBoardListView() {
 
@@ -38,8 +42,36 @@ export default function ReviewBoardListView() {
     return;
   }
 
+  //               Event Handler         //
+  const getAllReviewBoardLsit=()=>{
+    axios
+    .get(GET_ALL_REVIEWBOARD_LIST_URL)
+    .then((response)=>getReviewBordListResponseHandler(response))
+    .catch((error)=>getReviewBoardErrorHandler(error))
+    
+  }
+
+  //         Response Handler        //
+
+  const  getReviewBordListResponseHandler = (response:AxiosResponse<any,any>)=>{
+    const {result,message,data}=response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
+    if(!result || data === null) return;
+    setFestivalList(data)
+  }
+
+  //            Error Handler     //
+
+  const getReviewBoardErrorHandler=(error:any)=>{
+    console.log(error.message);
+  }
+
+
   useEffect(() => {
-    setFestivalList(REVIEW_BOARD_LIST);
+
+    getAllReviewBoardLsit();
+
+    // setFestivalList();
+
   }, [])
   return (
     <Box>
@@ -87,7 +119,7 @@ export default function ReviewBoardListView() {
 
       <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
         <Stack sx={{ p: '10px' }}>
-          {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as IReviewBoard} />))}
+          {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as ReviewBoard} />))}
         </Stack>
       </Box>
 
