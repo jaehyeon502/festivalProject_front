@@ -5,7 +5,6 @@ import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
 import { IReviewBoard } from 'src/interfaces';
 import { useEffect } from 'react';
-import { REVIEW_BOARD_LIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';

@@ -5,9 +5,7 @@ import Comment from "./Comment.interface";
 import OneLineReview from "./OndeLineReview.interface";
 import Festival from "./Festival.interface";
 
-
-
- export interface IPreviewFestivalItem{
+export interface IPreviewFestivalItem{
 festivalNumber:number;
 festivalName:string;
 festivalType:string;
@@ -115,3 +113,4 @@ export interface IPfestivalReviewBoard { //? 위에 있는 Board와 같은 inter
     festivalNumber: number;
 }
 
+export type { User, ReviewBoard, Comment, OneLineReview, Festival }
