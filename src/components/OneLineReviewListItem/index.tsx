@@ -1,9 +1,9 @@
 import React from 'react'
-import { IOneLineReview } from '../../interfaces'
+import { OneLineReview } from '../../interfaces'
 import { Avatar, Box, Divider, Typography } from '@mui/material';
 
 interface Props{
-    oneLineReviewItem : IOneLineReview
+    oneLineReviewItem : OneLineReview
 }
 
 export default function OneLineReviewListItem({ oneLineReviewItem } : Props) {

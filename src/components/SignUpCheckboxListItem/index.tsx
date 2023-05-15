@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { Box, Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material'
-import { IPreviewFestivalItem } from 'src/interfaces';
+import { Festival } from 'src/interfaces';
 import { useSignUpStore } from 'src/stores';
 
 
 interface Props {
-    festivalCheckboxList: IPreviewFestivalItem;
+    festivalCheckboxList: Festival;
 }
 
 export default function SignUpCheckboxListItem({festivalCheckboxList} : Props) {

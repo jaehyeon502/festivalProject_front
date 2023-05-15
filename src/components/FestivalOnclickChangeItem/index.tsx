@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, CardHeader, CardMedia, Collapse, IconButton, IconButtonProps, Link, Typography, styled } from "@mui/material";
-import { IPreviewFestivalItem, IPreviewFestivalSimpleListItem } from "src/interfaces";
+import { Festival } from "src/interfaces";
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -7,7 +7,7 @@ import React, { useState } from "react";
 
 interface Props{
     setClickPage: React.Dispatch<React.SetStateAction<boolean>>
-    item: IPreviewFestivalItem;
+    item: Festival;
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -28,7 +28,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 export default function FestivalOnclickChangeItem({ setClickPage, item }: Props) {
 
     const [expanded, setExpanded] = React.useState(false);
-    const [selectedFestival, setSelectedFestival] = useState<IPreviewFestivalSimpleListItem | null>(null);
+    const [selectedFestival, setSelectedFestival] = useState<Festival | null>(null);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -36,7 +36,7 @@ export default function FestivalOnclickChangeItem({ setClickPage, item }: Props)
 
     //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
     //? setSelectedFestival에 festival을 넣어준다.
-    const onFestivalItemClick = (festival: IPreviewFestivalSimpleListItem) => {
+    const onFestivalItemClick = (festival: Festival) => {
         setSelectedFestival(festival);
         setClickPage(true);
       }

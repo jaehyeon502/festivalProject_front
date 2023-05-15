@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, ChangeEvent } from "react";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import SignUpCheckboxListItem from "src/components/SignUpCheckboxListItem";
-import { IPreviewFestivalItem } from "src/interfaces";
+import { Festival } from "src/interfaces";
 import { usePagingHook } from "src/hooks";
 import { SIGN_UP_CHECKBOX_LIST } from "src/mock";
 import { useNavigate } from "react-router-dom";
@@ -293,7 +293,7 @@ function SecondPage() {
       </Box>
       {viewList.map((festivalCheckboxList) => (
         <SignUpCheckboxListItem
-          festivalCheckboxList={festivalCheckboxList as IPreviewFestivalItem}
+          festivalCheckboxList={festivalCheckboxList as Festival}
         />
       ))}
     </Box>

@@ -3,17 +3,17 @@ import { GetFestivalReveiwBoardListResponseDto, GetMyReviewBoardListResponseDto 
 
 
 import { GetInterstFestivalListResponseDto, GetOneLineReviewResponseDto } from "src/apis/response/festival";
-import { IComment, IPreviewFestivalItem, IPreviewFestivalSimpleListItem, IReviewBoard } from "src/interfaces";
+import { Comment, Festival, ReviewBoard } from "src/interfaces";
 
 const usePagingHook = (COUNT: number) => {
-    const [festivalList, setFestivalList] = useState<(GetOneLineReviewResponseDto|IComment|GetInterstFestivalListResponseDto | IPreviewFestivalSimpleListItem | IPreviewFestivalItem | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto|IReviewBoard)[]>([]);
-    const [viewList, setViewList] = useState<(GetOneLineReviewResponseDto|IComment|GetInterstFestivalListResponseDto | IPreviewFestivalSimpleListItem | IPreviewFestivalItem | GetFestivalReveiwBoardListResponseDto |GetMyReviewBoardListResponseDto|IReviewBoard)[]>([]);
+    const [festivalList, setFestivalList] = useState<(GetOneLineReviewResponseDto|Comment|GetInterstFestivalListResponseDto  | Festival | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto|ReviewBoard)[]>([]);
+    const [viewList, setViewList] = useState<(GetOneLineReviewResponseDto|Comment|GetInterstFestivalListResponseDto  | Festival | GetFestivalReveiwBoardListResponseDto |GetMyReviewBoardListResponseDto|ReviewBoard)[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(1); 
 
     const onPageHandler = (page: number) => {
         
         setPageNumber(page);
-        const templist: (GetOneLineReviewResponseDto|IComment|GetInterstFestivalListResponseDto | IPreviewFestivalSimpleListItem | IPreviewFestivalItem |GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto|IReviewBoard)[] = [];
+        const templist: (GetOneLineReviewResponseDto|Comment|GetInterstFestivalListResponseDto  | Festival |GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto|ReviewBoard)[] = [];
         const startindex = COUNT * (page - 1);
         const endindex = COUNT * page - 1;
         for (let i = startindex; i <= endindex; i++) {
