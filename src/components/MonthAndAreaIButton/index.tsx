@@ -1,7 +1,9 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import ResponseDto from "src/apis/response";
+import { GetAllFestivalListResponseDto } from "src/apis/response/festival";
+import { GET_ALL_FESTIVAL_LIST } from "src/constants/api";
 
 interface Props {
   setFestivalList: any;
@@ -20,15 +22,8 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   //? setAreaAndMonth에서 String(selecetdValue)를 받아주었다.
   //? 앞에 String을 한 이유는 저렇게 하지 않으면 Number로 처리되기 때문에
   //? 월별, 지역별이 뜨지 않는다.
+  
   //       EVENT HANDLER       //
-
-  const getNowMonth = () => {
-    const nowMonth = new Date().getMonth()
-
-
-
-  }
-
   const areaAndMonthChange = (event: SelectChangeEvent) => {
     const selectedValue = Number(event.target.value);
     setSelector(selectedValue);
@@ -65,9 +60,24 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
     setFestivalList(response.data.data);
   }
 
+  const allFestivalList = () => {
+    axios.get(GET_ALL_FESTIVAL_LIST)
+      .then((response) => getAllFestivalListResponseHandler(response))
+      .catch((error) => getAllFestivalListErrorHandler(error))
+  }
 
-  //           USE EFFECT         //
+  const getAllFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
+    const {result, message, data} = response.data as ResponseDto<GetAllFestivalListResponseDto>
+    if(!result || data === null) return;
+    setFestivalList(data);
+  }
+
+  const getAllFestivalListErrorHandler = (error : any) => {
+    console.log(error.message);
+  }
+
   useEffect(() => {
+    allFestivalList();
   }, []);
 
   return (

@@ -78,15 +78,11 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
 
   }, [])
 
-
   useEffect(() => {
     getFestivalReviewBoardList();
 
 
   }, [festivalNumber])
-
-
-
 
   return (
     <Box sx={{ width: '100%', height: '100%' }}>

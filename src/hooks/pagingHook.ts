@@ -18,6 +18,9 @@ const usePagingHook = (COUNT: number) => {
 
         const templist: (GetOneLineReviewResponseDto|IComment|GetInterstFestivalListResponseDto | IPreviewFestivalSimpleListItem | IPreviewFestivalItem |GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto|IReviewBoard)[] = [];
 
+        console.log('festivalList');
+        console.log(festivalList);
+        
         const startindex = COUNT * (page - 1);
         const endindex = COUNT * page - 1;
         for (let i = startindex; i <= endindex; i++) {

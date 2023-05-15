@@ -12,7 +12,6 @@ interface Dto {
         festivalInformation: string | null;
         festivalInformationUrl: string | null;
         festivalHomepage: string;
-
     };
 
     recommendList:
@@ -20,11 +19,8 @@ interface Dto {
         {
             userId: String;
             boardNumber: number;
-            userProfileUrl: String;
+            userProfileUrl: String | null;
             userNickname: String;
-
-
-
         }
 
     ];
@@ -38,8 +34,6 @@ interface Dto {
             writeDatetime: String
             writerProfileUrl: String | null;
             writerNickname: String
-
-
         }
     ]
 

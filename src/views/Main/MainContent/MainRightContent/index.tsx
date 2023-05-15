@@ -26,9 +26,6 @@ export default function MainRightContent({ clickPage }: Props) {
   const {festivalNumber}=useFestivalNumberStore();
 
   const [selectedFestivalReviewList, setSelectedFestivalReviewList] = useState<any[]>([]);
-  const {festivalNumber}=useFestivalNumberStore();
-  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-
 
   //         Event Handler         //
 
@@ -48,34 +45,11 @@ export default function MainRightContent({ clickPage }: Props) {
 
   }
 
-
-  
-  //         Event Handler         //
-
-  const getOneLineReview=()=>{
-    axios
-    .get(GET_ONELINE_REVIEW_URL(festivalNumber as number))
-    .then((response)=>getOneLineReviewResponseHandler(response))
-    .catch((error)=>getOneLineReviewErrorHandler(error))
-  }
-
-
-   //             Response Handler               ///
-
-   const getOneLineReviewResponseHandler=(response:AxiosResponse<any,any>)=>{
-    const {result,message,data}=response.data as ResponseDto<GetOneLineReviewResponseDto[]>
-    if(!result || data === null)return;
-    setFestivalList(data)
-
-  }
-
   //        Error handler              //
 
   const getOneLineReviewErrorHandler = (error: any) => {
     console.log(error.message);
   }
-
-
 
   //          use Effect             //
   useEffect(() => {
