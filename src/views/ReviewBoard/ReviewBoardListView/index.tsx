@@ -8,6 +8,10 @@ import { useEffect } from 'react';
 import { REVIEW_BOARD_LIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
+import axios, { AxiosResponse } from 'axios';
+import ResponseDto from 'src/apis/response';
+import { GetAllReviewBoardListResponseDto } from 'src/apis/response/board';
+import { GET_ALL_REVIEWBOARD_LIST_URL } from 'src/constants/api';
 
 export default function ReviewBoardListView() {
 
@@ -15,8 +19,36 @@ export default function ReviewBoardListView() {
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const navigator = useNavigate();
 
+  //               Event Handler         //
+  const getAllReviewBoardLsit=()=>{
+    axios
+    .get(GET_ALL_REVIEWBOARD_LIST_URL)
+    .then((response)=>getReviewBordListResponseHandler(response))
+    .catch((error)=>getReviewBoardErrorHandler(error))
+    
+  }
+
+  //         Response Handler        //
+
+  const  getReviewBordListResponseHandler = (response:AxiosResponse<any,any>)=>{
+    const {result,message,data}=response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
+    if(!result || data === null) return;
+    setFestivalList(data)
+  }
+
+  //            Error Handler     //
+
+  const getReviewBoardErrorHandler=(error:any)=>{
+    console.log(error.message);
+  }
+
+
   useEffect(() => {
+
+    getAllReviewBoardLsit();
+
     // setFestivalList();
+
   }, [])
   return (
     <Box>

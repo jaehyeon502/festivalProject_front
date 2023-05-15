@@ -1,15 +1,13 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSignInStore } from 'src/stores';
 import PowerOffIcon from '@mui/icons-material/PowerOff';
-import { Cookies, useCookies } from 'react-cookie';
-import { IconButton } from '@mui/material';
+import { useCookies } from 'react-cookie';
+import { AppBar, IconButton } from '@mui/material';
 
 const pages = ['현재 진행 중인 축제', '개최 예정 축제', '축제 후기', '자유 게시판'];
 

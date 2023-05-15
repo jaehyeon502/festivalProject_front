@@ -26,9 +26,9 @@ export default function MainRightContent({ clickPage }: Props) {
   const {festivalNumber}=useFestivalNumberStore();
 
   const [selectedFestivalReviewList, setSelectedFestivalReviewList] = useState<any[]>([]);
+<<<<<<< HEAD
+=======
 
-
-  
   //         Event Handler         //
 
   const getOneLineReview=()=>{
@@ -38,23 +38,21 @@ export default function MainRightContent({ clickPage }: Props) {
     .catch((error)=>getOneLineReviewErrorHandler(error))
   }
 
+  //             Response Handler               ///
 
-   //             Response Handler               ///
-
-   const getOneLineReviewResponseHandler=(response:AxiosResponse<any,any>)=>{
+  const getOneLineReviewResponseHandler=(response:AxiosResponse<any,any>)=>{
     const {result,message,data}=response.data as ResponseDto<GetOneLineReviewResponseDto[]>
     if(!result || data === null)return;
     setFestivalList(data)
 
   }
+>>>>>>> 466a520b506276b5cfb46952a4f0027de5a01690
 
   //        Error handler              //
 
   const getOneLineReviewErrorHandler = (error: any) => {
     console.log(error.message);
   }
-
-
 
   //          use Effect             //
   useEffect(() => {
