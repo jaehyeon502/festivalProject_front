@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
-import { IPreviewFestivalItem } from 'src/interfaces';
 import { useNavigate } from 'react-router-dom';
 import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 import { useFestivalNumberStore } from 'src/stores';

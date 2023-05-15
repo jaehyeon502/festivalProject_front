@@ -1,16 +1,11 @@
 interface OneLineReview{
-    boardContent: string;
-    boardImgUrl: string;
-    boardNumber: number
-    boardTitle: string;
-    boardWriteDatetime: string;
-    commentCount: number;
-    festivalNumber: number;
-    recommendCount: number;
-    viewCount: number;
-    writerId: string;
-    writerNickname: string;
-    writerProfileUrl: string | null
+    festivalNumber:number;
+      userId:string;
+      average:number;
+      userProfileUrl:string;
+      oneLineReviewContent:string;
+      userNickname:string;
+      writeDatetime:string;
 
 }
 export default OneLineReview
