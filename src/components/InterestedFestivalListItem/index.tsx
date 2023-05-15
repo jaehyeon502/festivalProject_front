@@ -10,7 +10,7 @@ interface Props{
     festivalList:GetInterstFestivalListResponseDto
 }
 
-export default function FestivalListItem({ onClick, festivalList }: Props) {
+export default function InterestedFestivalListItem({ onClick, festivalList }: Props) {
     //                    HOOK                 //
     const {festivalNumber,setFestivalNumber}=useFestivalNumberStore();
 console.log(festivalNumber)
