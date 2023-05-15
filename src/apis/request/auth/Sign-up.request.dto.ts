@@ -4,7 +4,7 @@ interface RequestDto {
     nickname:string;
     profileUrl:string;
     telNumber: string;
-    interestedFestival: string[];
+    interestedFestival: string;
 }
 
 export default RequestDto;

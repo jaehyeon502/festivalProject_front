@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useSignUpStore } from "src/stores";
 import { CheckUserIdRequestDto, CheckUserNicknameRequestDto, CheckUserTelNumberRequestDto } from "src/apis/request/user";
 import axios, { AxiosResponse } from "axios";
-import { FILE_UPLOAD_URL, SIGN_UP_URL, VALIDATE_NICKNAME_URL, VALIDATE_TELNUMBER_URL, VALIDATE_USER_ID_URL, multipartHeader } from "src/constants/api";
+import { FILE_UPLOAD_URL, GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL, GET_INTERESTED_FESTIVAL_LIST_URL, SIGN_UP_URL, VALIDATE_NICKNAME_URL, VALIDATE_TELNUMBER_URL, VALIDATE_USER_ID_URL, multipartHeader } from "src/constants/api";
 import { CheckUserIdResponseDto, CheckUserNicknameResponseDto, CheckUserTelNumberResponseDto } from "src/apis/response/user";
 import ResponseDto from "src/apis/response";
 import CheckIcon from '@mui/icons-material/Check';
@@ -148,18 +148,18 @@ function FirstPage() {
 
   //          Error Handler          //
   const onUserIdValidateButtonErrorHandler = (error: any) => {
-    console.log(error.message);
+    alert(error.message);
   }
 
   const onNicknameValidateButtonErrorHandler = (error: any) => {
-    console.log(error.message);
+    alert(error.message);
   }
   const onProfileUploadChangeErrorHandler = (error: any) => {
-    console.log(error.message);
+    alert(error.message);
   }
 
   const onTelNumberValidateButtonErrorHandler = (error: any) => {
-    console.log(error.message);
+    alert(error.message);
   }
 
   return (
@@ -281,6 +281,21 @@ function FirstPage() {
 
 function SecondPage() {
   const { viewList, setFestivalList} = usePagingHook(100);
+  const { interestedFestival, setInterestedFestival } = useSignUpStore();
+  
+  const onSignUpCheckboxListHandler = () => {
+    axios.get(GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL)
+        .then((response) => onSignUpCheckboxListResponseHandler(response))
+        .catch((error) => onSignUpCheckboxListErrorHandler(error))
+  } 
+
+  const onSignUpCheckboxListResponseHandler = (response: AxiosResponse<any, any>
+    ) => {
+
+  }
+  const onSignUpCheckboxListErrorHandler = (error: any) => {
+    alert(error.message);
+  }
 
   useEffect(() => {
     setFestivalList(SIGN_UP_CHECKBOX_LIST);

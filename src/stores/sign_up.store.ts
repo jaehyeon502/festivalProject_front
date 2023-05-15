@@ -8,14 +8,14 @@ interface ISignUpStore{
     nickname:string;
     profileUrl:string;
     telNumber:string;
-    interestedFestival:string[];
+    interestedFestival:string;
     setUserId:(setUserId:string)=>void;
     setPassword:(setPasswrod:string)=>void;
     setPasswordCheck:(setPasswordCheck:string)=>void;
     setNickname:(setNickname:string)=>void;
     setProfileUrl:(setProfileUrl:string)=>void;
     setTelNumber:(setTelNumber:string) => void;
-    setInterestedFestival:(setInterestedFestival:string[])=>void;
+    setInterestedFestival:(setInterestedFestival:string)=>void;
     
     signUpError:boolean;
     setSignUpError:(setSignUpError:boolean)=>void;
@@ -49,14 +49,14 @@ const useStore=create<ISignUpStore>((set)=>({
     nickname:'',
     profileUrl:'',
     telNumber:'',
-    interestedFestival: [],
+    interestedFestival:'',
     setUserId:(userId)=>set((state)=>({...state,userId})),
     setPassword:(password)=>set((state)=>({...state,password})),
     setPasswordCheck:(passwordCheck)=>set((state)=>({...state,passwordCheck})),
     setNickname:(nickname)=>set((state)=>({...state,nickname})),
     setProfileUrl:(profileUrl)=>set((state)=>({...state,profileUrl})),
     setTelNumber:(telNumber)=>set((state)=>({...state,telNumber})),
-    setInterestedFestival:(interestedFestival:string[])=>set((state)=>({...state,interestedFestival})),
+    setInterestedFestival:(interestedFestival)=>set((state)=>({...state,interestedFestival})),
     
     signUpError:false,
     setSignUpError:(signUpError:boolean)=>set((state)=>({...state,signUpError})),
