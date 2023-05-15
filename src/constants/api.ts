@@ -13,3 +13,4 @@ export const VALIDATE_NICKNAME_URL = `${HOST}api/user/check/nickname`
 export const VALIDATE_TELNUMBER_URL = `${HOST}api/user/check/telnumber`
 
 export const GET_INTERESTED_FESTIVAL_LIST_URL = `${HOST}api/board/festival/interested-list`
+export const FILE_UPLOAD_URL = `${HOST}file/upload`
