@@ -11,5 +11,6 @@ export const SIGN_UP_URL = `${HOST}auth/sign-up`
 export const VALIDATE_USER_ID_URL = `${HOST}api/user/check/userid`
 export const VALIDATE_NICKNAME_URL = `${HOST}api/user/check/nickname`
 export const VALIDATE_TELNUMBER_URL = `${HOST}api/user/check/telnumber`
-
+export const FILE_UPLOAD_URL=`${HOST}file/upload`
 export const GET_INTERESTED_FESTIVAL_LIST_URL = `${HOST}api/board/festival/interested-list`
+export const GET_ALL_FESTIVAL_LIST = `${HOST}api/festival`

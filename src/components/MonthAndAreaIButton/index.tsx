@@ -1,7 +1,9 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; 
+import ResponseDto from "src/apis/response";
+import { GetAllFestivalListResponseDto } from "src/apis/response/festival";
+import { GET_ALL_FESTIVAL_LIST } from "src/constants/api";
 
 interface Props {
   setFestivalList: any;
@@ -55,8 +57,24 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
     setFestivalList(response.data.data);
   }
 
-  useEffect(() => {
+  const allFestivalList = () => {
+    axios.get(GET_ALL_FESTIVAL_LIST)
+      .then((response) => getAllFestivalListResponseHandler(response))
+      .catch((error) => getAllFestivalListErrorHandler(error))
+  }
 
+  const getAllFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
+    const {result, message, data} = response.data as ResponseDto<GetAllFestivalListResponseDto>
+    if(!result || data === null) return;
+    setFestivalList(data);
+  }
+
+  const getAllFestivalListErrorHandler = (error : any) => {
+    console.log(error.message);
+  }
+
+  useEffect(() => {
+    allFestivalList();
   }, []);
   
     return (

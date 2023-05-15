@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,10 +14,6 @@ function NavigationBar() {
   const navigator = useNavigate();
 
   const {signInUser}=useSignInStore();
-  
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
 
   const onClickBoardListNameHandler = (boardName : string) => {
     if(boardName === '현재 진행 중인 축제') alert('현진축 게시판');
