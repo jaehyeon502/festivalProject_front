@@ -40,7 +40,6 @@ function App() {
           <Route path = 'list' element = {(<ReviewBoardListView/>)}/>
         </Route>
       </Routes>
-        <Button></Button>
       {path.pathname !== "/auth/sign-in" && path.pathname !== "/auth/sign-up" && <Footer />}
     </>
   );

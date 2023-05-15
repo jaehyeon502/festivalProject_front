@@ -1,10 +1,8 @@
 import User from "./User.interface";
 
-import ReviewBoard from "./ReviewBoard.interface";
 import Comment from "./Comment.interface";
 import OneLineReview from "./OndeLineReview.interface";
 import Festival from "./Festival.interface";
-
 
 
  export interface IPreviewFestivalItem{

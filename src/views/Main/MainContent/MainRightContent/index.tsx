@@ -26,8 +26,6 @@ export default function MainRightContent({ clickPage }: Props) {
   const {festivalNumber}=useFestivalNumberStore();
 
   const [selectedFestivalReviewList, setSelectedFestivalReviewList] = useState<any[]>([]);
-<<<<<<< HEAD
-=======
 
   //         Event Handler         //
 
@@ -46,7 +44,6 @@ export default function MainRightContent({ clickPage }: Props) {
     setFestivalList(data)
 
   }
->>>>>>> 466a520b506276b5cfb46952a4f0027de5a01690
 
   //        Error handler              //
 
