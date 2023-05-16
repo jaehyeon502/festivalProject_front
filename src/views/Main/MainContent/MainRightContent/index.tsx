@@ -5,12 +5,10 @@ import {  Festival,  OneLineReview } from "src/interfaces";
 import OneLineReviewListItem from "src/components/OneLineReviewListItem";
 import axios, { AxiosResponse } from "axios";
 import ResponseDto from "src/apis/response";
-
 import { usePagingHook } from "src/hooks";
 import { GetOneLineReviewResponseDto } from "src/apis/response/festival";
 import { useFestivalNumberStore } from "src/stores";
 import { GET_ONELINE_REVIEW_URL } from "src/constants/api";
-
 import { getpagecount } from "src/utils";
 
 interface Props {
@@ -18,16 +16,14 @@ interface Props {
 }
 
 export default function MainRightContent({ clickPage }: Props) {
-//   HOOK  //
   const [oneLineReviewList, setOneLineReviewList] =
     useState<OneLineReview[]>();
   const [festivalName, setFestivalName] = useState<Festival[]>();
-
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const {festivalNumber}=useFestivalNumberStore();
-
   const [selectedFestivalReviewList, setSelectedFestivalReviewList] = useState<any[]>([]);
 
+  
   //         Event Handler         //
 
   const getOneLineReview=()=>{
@@ -37,9 +33,10 @@ export default function MainRightContent({ clickPage }: Props) {
     .catch((error)=>getOneLineReviewErrorHandler(error))
   }
 
-  //             Response Handler               ///
 
-  const getOneLineReviewResponseHandler=(response:AxiosResponse<any,any>)=>{
+   //             Response Handler               ///
+
+   const getOneLineReviewResponseHandler=(response:AxiosResponse<any,any>)=>{
     const {result,message,data}=response.data as ResponseDto<GetOneLineReviewResponseDto[]>
     if(!result || data === null)return;
     setFestivalList(data)
@@ -53,12 +50,13 @@ export default function MainRightContent({ clickPage }: Props) {
     console.log(error.message);
   }
 
+
+
   //          use Effect             //
   useEffect(() => {
-  
+   
     getOneLineReview();
   }, [festivalNumber]);
-
 
   //? useEffect가 실행되면서 mock에 있는 OneLineReviewList 데이터를 oneLineReviewList(useState)에 List 형태로 저장
   //? 이후 return에서 oneLineReviewList를 map으로 돌면서 저장된 인덱스를 하나씩 꺼내온다.
@@ -66,7 +64,6 @@ export default function MainRightContent({ clickPage }: Props) {
   //   setOneLineReviewList(ONELINEREVIEW_LIST);
   //   setFestivalName(FESTIVALLIST);
   // }, []);
-
 
   // useEffect(() => {
   // Request -> Response로 리스트가 옴
