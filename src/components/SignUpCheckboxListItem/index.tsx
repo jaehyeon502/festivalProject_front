@@ -15,10 +15,19 @@ export default function SignUpCheckboxListItem({festivalCheckboxList} : Props) {
 
   const checkedItem = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.checked;
-    if (!value) return;
     const checkBoxItem: string = festivalCheckboxList.festivalType;
-    console.log(checkBoxItem);
-      setInterestedFestival([checkBoxItem]);
+    
+    let checkedFestival: string[] = [];
+    if (value) {
+      interestedFestival.forEach(item => checkedFestival.push(item));
+      checkedFestival.push(checkBoxItem);
+    }
+    else {
+      interestedFestival.forEach(item => { if(item !== checkBoxItem) checkedFestival.push(item) });
+    }
+    
+      setInterestedFestival(checkedFestival);
+      console.log(checkedFestival);
   }
 
   return (

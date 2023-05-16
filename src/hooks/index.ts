@@ -1,2 +1,2 @@
 import usePagingHook from "./pagingHook";
-export{usePagingHook};
+export {usePagingHook};
