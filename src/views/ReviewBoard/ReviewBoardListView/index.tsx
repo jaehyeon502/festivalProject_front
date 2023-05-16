@@ -11,8 +11,8 @@ import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { GetReviewBoardListResponseDto } from 'src/apis/response/board';
 import { GET_ALL_REVIEWBOARD_LIST_URL } from 'src/constants/api';
+import { GetAllReviewBoardListResponseDto } from 'src/apis/response/board';
 
 export default function ReviewBoardListView() {
 
@@ -54,7 +54,7 @@ export default function ReviewBoardListView() {
   //         Response Handler        //
 
   const  getReviewBordListResponseHandler = (response:AxiosResponse<any,any>)=>{
-    const {result,message,data}=response.data as ResponseDto<GetReviewBoardListResponseDto[]>
+    const {result,message,data}=response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
     if(!result || data === null) return;
     setFestivalList(data)
   }
@@ -69,8 +69,6 @@ export default function ReviewBoardListView() {
   useEffect(() => {
 
     getAllReviewBoardLsit();
-
-    // setFestivalList();
 
   }, [])
   return (
