@@ -42,13 +42,19 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
     if (!result || !data) return;
     setSelectedFestival(data);
   }
+  
   const getOnefestivalErrorHandler = (error: any) => {
     return console.log(error.message);
   }
 
   useEffect(() => {
+<<<<<<< HEAD
     getOneFestival();
     console.log(festivalNumber);
+=======
+    getOneFestival()
+
+>>>>>>> 7565b84b76385e05f80b4ee4878a0218bee8cdd6
   }, [festivalNumber]);
 
   return (

@@ -26,7 +26,7 @@ export default function FestivalBoard({ setClickPage, clickPage }: Props) {
   const accessToken = cookies.accessToken;
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(2);
   const { signInUser } = useSignInStore();
-  const { festivalNumber, setFestivalNumber } = useFestivalNumberStore();
+  const { festivalNumber } = useFestivalNumberStore();
 
 
   //          EVENT HANDLER           //
@@ -80,8 +80,6 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
 
   useEffect(() => {
     getFestivalReviewBoardList();
-
-
   }, [festivalNumber])
 
   return (

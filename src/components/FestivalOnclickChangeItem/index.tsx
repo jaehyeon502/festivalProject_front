@@ -28,18 +28,11 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 export default function FestivalOnclickChangeItem({ setClickPage, item }: Props) {
 
     const [expanded, setExpanded] = React.useState(false);
-    const [selectedFestival, setSelectedFestival] = useState<Festival | null>(null);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     }
 
-    //? onFestivalItemClick를 만들어 festival에 IPreviewFestivalSimpleListItem 데이터를 넣고
-    //? setSelectedFestival에 festival을 넣어준다.
-    const onFestivalItemClick = (festival: Festival) => {
-        setSelectedFestival(festival);
-        setClickPage(true);
-      }
 
     return (
         <Card sx={{ maxWidth: "100%" }}>
