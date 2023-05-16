@@ -1,4 +1,4 @@
-interface Dto {
+interface Dto{
     boardNumber: number
     boardTitle: string;
     boardContent: string;
@@ -11,8 +11,5 @@ interface Dto {
     writerProfileUrl: string | null
     writerNickname: string;
     festivalNumber: number;
-    
 }
-
-
 export default Dto;

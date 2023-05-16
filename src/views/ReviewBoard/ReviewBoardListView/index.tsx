@@ -70,8 +70,6 @@ export default function ReviewBoardListView() {
 
     getAllReviewBoardLsit();
 
-    // setFestivalList();
-
   }, [])
   return (
     <Box>
