@@ -4,21 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 import { useFestivalNumberStore } from 'src/stores';
 
-interface Props{
+interface Props {
     onClick: () => void;
-    festivalList:GetInterstFestivalListResponseDto
+    festivalList: GetInterstFestivalListResponseDto
 }
 
 export default function InterestedFestivalListItem({ onClick, festivalList }: Props) {
     //                    HOOK                 //
-    const {festivalNumber,setFestivalNumber}=useFestivalNumberStore();
-console.log(festivalNumber)
+    const { festivalNumber, setFestivalNumber } = useFestivalNumberStore();
+    console.log(festivalNumber)
     return (
         <Card variant='outlined' onClick={onClick} >
-            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff'  }} onClick={()=>setFestivalNumber(festivalList.festivalNumber)}>
+            <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff' }} onClick={() => setFestivalNumber(festivalList.festivalNumber)}>
                 <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
                     <Box  >
-                        <Typography sx={{fontWeight:900,fontSize:'14px',m:'10px'}}>{festivalList.festivalName}</Typography>
+                        <Typography sx={{ fontWeight: 900, fontSize: '14px', m: '10px' }}>{festivalList.festivalName}</Typography>
                         <Box>
                             <Divider />
                         </Box>
@@ -31,11 +31,11 @@ console.log(festivalNumber)
                         </Box>
                     </Box>
                     <Box>
-                        <Typography sx={{m:'10px' ,fontSize:'12px',overflow:'hidden', display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical', color: '#444'}}>{festivalList.festivalInformation}</Typography>
+                        <Typography sx={{ m: '10px', fontSize: '12px', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', color: '#444' }}>{festivalList.festivalInformation}</Typography>
                     </Box>
                 </Box>
                 <Box>
-                    <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px',height: '200px', width: '200px', borderRadius: '5%' }}></Box>
+                    <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px', height: '200px', width: '200px', borderRadius: '5%' }}></Box>
                 </Box>
             </CardActionArea>
         </Card>
