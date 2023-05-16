@@ -30,7 +30,7 @@ function NavigationBar() {
     if(boardName === '현재 진행 중인 축제') alert('현진축 게시판');
     else if(boardName === '개최 예정 축제') alert('개예축 게시판')
     else if(boardName === '축제 후기') navigator('/reviewBoard/list');
-    else if(boardName === '자유 게시판') alert('자유 게시판');
+    else if(boardName === '자유 게시판') navigator('/freeBoard/list');
     else return;
   };
 

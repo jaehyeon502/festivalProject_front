@@ -9,6 +9,8 @@ export const multipartHeader = () => {
 export const SIGN_IN_URL = `${HOST}auth/sign-in`;
 export const SIGN_UP_URL = `${HOST}auth/sign-up`
 export const GET_ALL_REVIEWBOARD_LIST_URL=`${HOST}api/board/all-review-board`
+export const GET_USER_URL = `${HOST}api/user/`;
+
 export const GET_INTERESTED_FESTIVAL_LIST_URL =`${HOST}api/board/festival/interested-list`
 export const GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL = `${HOST}api/festival/type-list`
 export const GET_MYREVIEWBOARD_LIST_URL=`${HOST}api/board/my-reviewboard-list`;
