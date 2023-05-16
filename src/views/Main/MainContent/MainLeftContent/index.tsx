@@ -47,9 +47,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
   }
 
   useEffect(() => {
-    getOneFestival()
-
-
+    getOneFestival();
     console.log(festivalNumber);
   }, [festivalNumber]);
 

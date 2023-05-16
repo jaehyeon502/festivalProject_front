@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ResponseDto from 'src/apis/response';
 import { GetMyReviewBoardListResponseDto } from 'src/apis/response/board';
 import FestivalReviewBoardList from 'src/components/FestivalReiviewBoardList'
-import { GET_ALL_REVIEWBOARD_LIST_URL, authorizationHeader } from 'src/constants/api';
+import { GET_MYREVIEWBOARD_LIST_URL, authorizationHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
 import { useSignInStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
@@ -24,7 +24,7 @@ export default function MypageView() {
       //          EVENT HANDLER           //
       const getMyReviewBoardResponse=(accessToken:string)=>{
           axios
-          .get(GET_ALL_REVIEWBOARD_LIST_URL,authorizationHeader(accessToken))
+          .get(GET_MYREVIEWBOARD_LIST_URL,authorizationHeader(accessToken))
           .then((response)=>getMyReviewBoardResponseHandler(response))
           .catch((error)=>getMyReviewBoardErrorHandler(error))
   
