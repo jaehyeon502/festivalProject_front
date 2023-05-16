@@ -9,28 +9,47 @@ import { getpagecount } from 'src/utils';
 
 import FestivalOnclickChangeItem from 'src/components/FestivalOnclickChangeItem';
 import { useFestivalNumberStore } from 'src/stores';
+import { GetOneFestivalResponseDto } from 'src/apis/response/festival';
+import axios, { AxiosResponse } from 'axios';
+import { GET_ONE_FESTIVAL_URL } from 'src/constants/api';
+import ResponseDto from 'src/apis/response';
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
-  //         HOOK             //
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-  const [selectedFestival, setSelectedFestival] = useState<Festival | null>(null);
+  const [selectedFestival, setSelectedFestival] = useState<GetOneFestivalResponseDto | null>(null);
 
-  const {festivalNumber, setFestivalNumber} = useFestivalNumberStore();
+  const { festivalNumber, setFestivalNumber } = useFestivalNumberStore();
 
+  const onFestivalItemClick = () => {
 
-  const onFestivalItemClick = (festival: Festival) => {
-
-    setSelectedFestival(festival);
     setClickPage(true);
   }
 
+  const getOneFestival = () => {
+    axios
+      .get(GET_ONE_FESTIVAL_URL(festivalNumber as number))
+      .then((response) => getOneFestivalResponseHandler(response))
+      .catch((error) => getOnefestivalErrorHandler(error))
+  }
+
+  const getOneFestivalResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetOneFestivalResponseDto>
+    if (!result || !data) return;
+    setSelectedFestival(data);
+  }
+  const getOnefestivalErrorHandler = (error: any) => {
+    return console.log(error.message);
+  }
+
   useEffect(() => {
-    console.log(viewList);
+    getOneFestival()
+
+
   }, [festivalNumber]);
 
   return (
@@ -39,7 +58,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
     //? onClick이 아닌 setClickPage에 setClickPage를 넣어주고 item에는 selectedFestival을 넣어줬다(새로 만들지 않았어도 됐다.)
     <Box sx={{ width: '55%', height: '100%', mr: '5%', backgroundColor: '' }}>
       {clickPage && selectedFestival ? (
-        <FestivalOnclickChangeItem setClickPage={setClickPage} item={selectedFestival} />
+        <FestivalOnclickChangeItem setClickPage={setClickPage} item={selectedFestival as Festival} />
       )
         : (
           <Box>
@@ -50,7 +69,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
               <Box sx={{ pt: '10px', pb: '10px', m: '10px' }}>
                 <Grid container spacing={1}>
                   {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
-                  {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as Festival} onClick={() => onFestivalItemClick(item as Festival)} /></Grid>))}
+                  {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as GetOneFestivalResponseDto} onClick={() => onFestivalItemClick()} /></Grid>))}
                 </Grid>
               </Box>
             </Box>

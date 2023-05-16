@@ -2,8 +2,9 @@ import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } fro
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import ResponseDto from "src/apis/response";
-import { GetAllFestivalListResponseDto } from "src/apis/response/festival";
-import { GET_ALL_FESTIVAL_LIST } from "src/constants/api";
+import { GetAllFestivalListResponseDto, GetOneFestivalResponseDto } from "src/apis/response/festival";
+import { GET_ALL_FESTIVAL_LIST, GET_ONE_FESTIVAL_URL } from "src/constants/api";
+import { useFestivalNumberStore } from "src/stores";
 
 interface Props {
   setFestivalList: any;
@@ -14,6 +15,7 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   const [areaAndMonth, setAreaAndMonth] = useState<string>('');
   const [month, setMonth] = useState<string>('');
   const [festivalArea, setFestivalArea] = useState<string>('');
+  const {festivalNumber}=useFestivalNumberStore();
 
   const [selector, setSelector] = useState<number>(0);
 
@@ -49,6 +51,15 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
       .catch((error) => console.log(error.message));
   }
 
+  
+  const allFestivalList = () => {
+    axios.get(GET_ALL_FESTIVAL_LIST)
+      .then((response) => getAllFestivalListResponseHandler(response))
+      .catch((error) => getAllFestivalListErrorHandler(error))
+  }
+
+  
+
   //           RESPONSE HANDLER         //
   //? 이것은 back-end에서 그냥 Response를 받아왔기 때문에 data.festivalList로 받아왔다.
   const getFestivalMonthListResponse = (response: AxiosResponse<any, any>) => {
@@ -60,11 +71,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
     setFestivalList(response.data.data);
   }
 
-  const allFestivalList = () => {
-    axios.get(GET_ALL_FESTIVAL_LIST)
-      .then((response) => getAllFestivalListResponseHandler(response))
-      .catch((error) => getAllFestivalListErrorHandler(error))
-  }
 
   const getAllFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
     const {result, message, data} = response.data as ResponseDto<GetAllFestivalListResponseDto>
@@ -76,9 +82,19 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
     console.log(error.message);
   }
 
+  
+
+  //            Error Handler        //
+
+ 
+
+
+  //              Use Effect           //
+
   useEffect(() => {
     allFestivalList();
   }, []);
+ 
 
   return (
     <Box sx={{ pt: '20px', pl: '20px', display: 'flex' }}>
