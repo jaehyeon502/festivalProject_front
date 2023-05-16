@@ -5,12 +5,8 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
 import {  ReviewBoard } from 'src/interfaces';
-<<<<<<< HEAD
-import { useEffect } from 'react';
-=======
 import { useEffect, useState } from 'react';
 import { REVIEW_BOARD_LIST } from 'src/mock';
->>>>>>> 462676ccf7dd19036842ab5243faf9eab26d1275
 import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
