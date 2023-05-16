@@ -1,16 +1,16 @@
 interface Dto{
-    boardContent: string;
-    boardImgUrl: string;
     boardNumber: number
     boardTitle: string;
+    boardContent: string;
+    boardImgUrl: string;
     boardWriteDatetime: string;
-    commentCount: number;
-    festivalNumber: number;
-    recommendCount: number;
     viewCount: number;
+    recommendCount: number;
+    commentCount: number;
     writerId: string;
-    writerNickname: string;
     writerProfileUrl: string | null
+    writerNickname: string;
+    festivalNumber: number;
 
 }
 
