@@ -1,4 +1,4 @@
-import { User } from "src/interfaces";
+import User from "src/interfaces/User.interface";
 import { create } from "zustand";
 
 interface IUserSIgnInStore{

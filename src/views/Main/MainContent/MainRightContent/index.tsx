@@ -40,6 +40,7 @@ export default function MainRightContent({ clickPage }: Props) {
     const {result,message,data}=response.data as ResponseDto<GetOneLineReviewResponseDto[]>
     if(!result || data === null)return;
     setFestivalList(data)
+    console.log("data"+data)
 
   }
 

@@ -50,6 +50,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
     getOneFestival()
 
 
+    console.log(festivalNumber);
   }, [festivalNumber]);
 
   return (
