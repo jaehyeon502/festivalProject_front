@@ -24,8 +24,8 @@ export default function InterestedFestivalListItem({ onClick, festivalList }: Pr
                         </Box>
                     </Box>
                     <Box>
-                        <Typography sx={{ m: '10px', fontSize: '11px', color: '#333' }}>개요:{festivalList.festivalType}  기간:{festivalList.festivalDurationStart}~{festivalList.festivalDurationEnd} 시간:{festivalList.festivalTime}</Typography>
-                        <Typography sx={{ m: '10px', fontSize: '11px', color: '#333' }}>장소:{festivalList.festivalArea} 요금:{festivalList.festivalCost} 관관객평점:{festivalList.onelineReviewAverage}</Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'11px', color:'#333'}}>개요:{festivalList.festivalType}  기간:{festivalList.festivalDurationStart}~{festivalList.festivalDurationEnd} 시간:{festivalList.festivalTime}</Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'11px', color:'#333'}}>장소:{festivalList.festivalArea} 요금:{festivalList.festivalCost} 관광객평점:{festivalList.onelineReviewAverage}</Typography>
                         <Box>
                             <Divider />
                         </Box>

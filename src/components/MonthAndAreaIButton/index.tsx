@@ -1,5 +1,6 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import ResponseDto from "src/apis/response";
 import { GetAllFestivalListResponseDto, GetOneFestivalResponseDto } from "src/apis/response/festival";
@@ -58,8 +59,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
       .catch((error) => getAllFestivalListErrorHandler(error))
   }
 
-  
-
   //           RESPONSE HANDLER         //
   //? 이것은 back-end에서 그냥 Response를 받아왔기 때문에 data.festivalList로 받아왔다.
   const getFestivalMonthListResponse = (response: AxiosResponse<any, any>) => {
@@ -71,11 +70,12 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
     setFestivalList(response.data.data);
   }
 
-
   const getAllFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
-    const {result, message, data} = response.data as ResponseDto<GetAllFestivalListResponseDto>
+    const {result, message, data} = response.data as ResponseDto<GetAllFestivalListResponseDto[]>
     if(!result || data === null) return;
-    setFestivalList(data);
+    const now = dayjs().format('YYYY-MM-DD');
+    const filteredData = data.filter((item) => item.festivalDurationEnd >= now);
+    setFestivalList(filteredData);
   }
 
   const getAllFestivalListErrorHandler = (error : any) => {
@@ -86,15 +86,13 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
 
   //            Error Handler        //
 
- 
-
 
   //              Use Effect           //
 
   useEffect(() => {
     allFestivalList();
   }, []);
- 
+
 
   return (
     <Box sx={{ pt: '20px', pl: '20px', display: 'flex' }}>
