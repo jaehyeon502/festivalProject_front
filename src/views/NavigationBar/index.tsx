@@ -45,7 +45,7 @@ function NavigationBar() {
           <Box sx={{ flexGrow: 0 }}>
               { accessToken ?
             ( <><Button variant='contained' sx={{backgroundColor:'#eee', color:'#32383f', fontSize:'14px', fontWeight:900}} onClick={() => navigator('/mypage')}>My Page</Button>
-              <IconButton onClick={logOutClickHandler}><PowerOffIcon/></IconButton></>
+              <Button variant='contained' sx={{ml:'20px',backgroundColor:'#eee', color:'#32383f', fontSize:'14px', fontWeight:900}} onClick={logOutClickHandler}>Logout</Button></>
             ):(<Button variant='contained' sx={{backgroundColor:'#eee', color:'#32383f', fontSize:'14px', fontWeight:900}} onClick={() => navigator('/auth')}>Login</Button>)
             }
           </Box>
