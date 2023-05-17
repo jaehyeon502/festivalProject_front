@@ -11,8 +11,8 @@ import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { GET_ALL_REVIEWBOARD_LIST_URL } from 'src/constants/api';
-import { GetAllReviewBoardListResponseDto } from 'src/apis/response/board';
+import { GET_ALL_REVIEWBOARD_LIST_URL, GET_SEARCH_REVIEWBOARD_LIST } from 'src/constants/api';
+import { GetAllReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
 
 export default function ReviewBoardListView() {
 
@@ -22,6 +22,8 @@ export default function ReviewBoardListView() {
   const [searchTypeButton, setSearchTypeButton] = useState<boolean>(false);
   const [searchTypeName, setSearchTypeName] = useState<string>('최신순');
   const searchType = ['최신순', '평점순', '조회수', '제목 + 내용'];
+  const [searchView,setSearchView]=useState<boolean>(false);
+  const [searchWord,setSearchWord]=useState<string>('');
 
   //          Event Handler          //
   const onClickSearchTypeButtonHandler = () => {
@@ -31,6 +33,14 @@ export default function ReviewBoardListView() {
     }
     setSearchTypeButton(true);
     return;
+  }
+  
+  console.log(searchWord)
+  console.log(searchView)
+
+  const onSearchHandler = ( )=>{
+    setSearchView(true);
+    getSearchReviewBoardList();
   }
 
   const onClickSearchType = (typeName: string) => {
@@ -51,6 +61,14 @@ export default function ReviewBoardListView() {
     
   }
 
+  const getSearchReviewBoardList=()=>{
+    alert('검색')
+    axios
+    .get(GET_SEARCH_REVIEWBOARD_LIST(searchWord as string))
+    .then((response)=>getSearchReviewBoardListResponseHandler(response))
+    .catch((error)=>getSearchReviewBoardListErrorHandler(error))
+}
+
   //         Response Handler        //
 
   const  getReviewBordListResponseHandler = (response:AxiosResponse<any,any>)=>{
@@ -59,18 +77,35 @@ export default function ReviewBoardListView() {
     setFestivalList(data)
   }
 
+  const getSearchReviewBoardListResponseHandler=(response:AxiosResponse<any,any>)=>{
+    const {result,message,data} = response.data as ResponseDto<GetSearchReviewBoardListResponseDto[]>
+      if(!result || data === null) return
+      setFestivalList(data);
+}
+
+
   //            Error Handler     //
 
   const getReviewBoardErrorHandler=(error:any)=>{
     console.log(error.message);
   }
 
+  const getSearchReviewBoardListErrorHandler =(error:any)=>{
+    return console.log(error.message);
+}
+
+//           Use Effect        //
 
   useEffect(() => {
-
+ 
     getAllReviewBoardLsit();
 
   }, [])
+  
+
+
+  
+
   return (
     <Box>
 
@@ -80,13 +115,13 @@ export default function ReviewBoardListView() {
 
         <Box display='flex'>
           <Box>
-            <OutlinedInput sx={{ width: '300px' }}
+            <OutlinedInput sx={{ width: '300px' }} onChange={(event)=>setSearchWord(event.target.value)}
               placeholder='검색명을 입력해 주세요.'
               endAdornment={
                 <IconButton edge='end'>
-                  <SearchSharpIcon />
+                  <SearchSharpIcon onClick={()=>onSearchHandler()} />
                 </IconButton>
-              } />
+              }   />
           </Box>
           <Box>
             {
@@ -117,7 +152,9 @@ export default function ReviewBoardListView() {
 
       <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
         <Stack sx={{ p: '10px' }}>
-          {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as ReviewBoard} />))}
+          {!searchView  ? 
+          (<>  {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as ReviewBoard} />))}</>) : 
+          (<>     {viewList.map((searchView) => (<ReviewBoardListItem item={searchView as GetSearchReviewBoardListResponseDto} />))}</>)}
         </Stack>
       </Box>
 

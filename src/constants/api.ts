@@ -23,3 +23,6 @@ export const GET_ALL_FESTIVAL_LIST = `${HOST}api/festival`
 
 export const GET_ONELINE_REVIEW_URL=(festivalNumber:number)=>`${HOST}api/festival/oneLineReview/${festivalNumber}`
 export const GET_ONE_FESTIVAL_URL=(festivalNumber:number)=>`${HOST}api/festival/festival/${festivalNumber}`
+export const GET_TOP1_ONELINEREVIEW_URL=`${HOST}api/festival/top1-onelinereview`
+
+export const GET_SEARCH_REVIEWBOARD_LIST=(searchWord:string)=>`${HOST}api/board/search-reviewboard/${searchWord}`

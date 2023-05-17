@@ -54,6 +54,8 @@ export default function ReviewBoardDetailView() {
     navigator(`/reviewBoard/detail/${boardNumber}`) 
   }
 
+
+  //     Use Effect           //
   useEffect(() => {
 
     //? 해당 후기 게시물의 존재 여부 검증

@@ -45,6 +45,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
   }
 
   //         Error Handler        //
+  
   const getOnefestivalErrorHandler = (error: any) => {
     return console.log(error.message);
   }
@@ -53,8 +54,6 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
   useEffect(() => {
     getOneFestival()
 
-
-    console.log(festivalNumber);
   }, [festivalNumber]);
 
   return (

@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { GetFestivalReveiwBoardListResponseDto, GetMyReviewBoardListResponseDto } from "src/apis/response/board";
+import { GetFestivalReveiwBoardListResponseDto, GetMyReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from "src/apis/response/board";
 import { GetInterstFestivalListResponseDto, GetOneFestivalResponseDto, GetOneLineReviewResponseDto } from "src/apis/response/festival";
 import { Comment, Festival, FreeBoard, ReviewBoard } from "src/interfaces";
 
 const usePagingHook = (COUNT: number) => {
 
-    const [festivalList, setFestivalList] = useState<(GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto | ReviewBoard | FreeBoard)[]>([]);
-    const [viewList, setViewList] = useState<(GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto | ReviewBoard | FreeBoard)[]>([]);
+    const [festivalList, setFestivalList] = useState<(GetSearchReviewBoardListResponseDto |GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto | ReviewBoard | FreeBoard)[]>([]);
+    const [viewList, setViewList] = useState<(GetSearchReviewBoardListResponseDto | GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto | ReviewBoard | FreeBoard)[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(1);
     
 
     const onPageHandler = (page: number) => {
 
         setPageNumber(page); 
-        const templist: (GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto | ReviewBoard | FreeBoard)[] = [];
+        const templist: (GetSearchReviewBoardListResponseDto |GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto | ReviewBoard | FreeBoard)[] = [];
         const startindex = COUNT * (page - 1);
         const endindex = COUNT * page - 1;
         for (let i = startindex; i <= endindex; i++) {
