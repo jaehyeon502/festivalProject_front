@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
+import React, { KeyboardEvent, MouseEvent, useEffect, useState, ChangeEvent, useRef } from 'react'
 import {
   Box, Divider, Fab, FormControl,
   Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography
@@ -11,15 +11,26 @@ import { Festival, } from 'src/interfaces';
 import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import ClearIcon from '@mui/icons-material/Clear';
+import axios, { AxiosResponse } from 'axios';
+import { FILE_UPLOAD_URL, POST_REVIEW_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
+import { PostReviewBoardRequestDto } from 'src/apis/request/board';
+import { useCookies } from 'react-cookie';
+import { PostReviewBoardResponseDto } from 'src/apis/response/board';
+import ResponseDto from 'src/apis/response';
 
 export default function ReviewBoardWriteView() {
 
-  const [reviewBoardTitle, setReviewBoardTitle] = useState<string>('');
-  const [reviewBoardContent, setReviewBoardContent] = useState<string>('');
+  const imageRef = useRef<HTMLInputElement | null>(null);
+  const [boardTitle, setBoardTitle] = useState<string>('');
+  const [boardContent, setBoardContent] = useState<string>('');
+  const [boardImgUrl, setBoardImgUrl] = useState<string>('');
+  const [festivalNumber, setFestivalNumber] = useState<number>(1);
   const [show, setShow] = useState<boolean>(false);
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
-  const [boardContent, setBoardContent] = useState<string>('');
   const [selectedFestivalName, setSelectedFestivalName] = useState<string>('');
+  const [cookies] = useCookies();
+
+  const accessToken = cookies.accessToken;
 
   let buttonClick = false;
 
@@ -36,6 +47,33 @@ export default function ReviewBoardWriteView() {
     buttonClick = true;
   }
 
+  const onImageUploadButtonHandler = () => {
+    if(!imageRef.current) return;
+    imageRef.current.click();
+  }
+  
+  //? 이미지 파일 업로드
+  const onImageUploadChangeHandler = (event : ChangeEvent<HTMLInputElement>) => {
+    if(!event.target.files) return;
+
+    const data = new FormData();
+    data.append('file', event.target.files[0]);
+
+    axios.post(FILE_UPLOAD_URL, data, multipartHeader())
+    .then((response) => imageUploadResponseHandler(response))
+    .catch((error) => imageUploadErrorHandler(error));
+  }
+
+  //? 글 작성
+  const postBoard = () => {
+    //? requestDto에 정의된 변수명과 state명들이 일치해야한다.
+    const data : PostReviewBoardRequestDto = { festivalNumber, boardTitle, boardContent, boardImgUrl};
+
+    axios.post(POST_REVIEW_BOARD_URL, data, authorizationHeader(accessToken))
+    .then((response) => postBoardResponseHandler(response))
+    .catch((error) => postBoardErrorHandler(error))
+    console.log('포보 실행')
+  }
   //? 검색창 외 화면 아무 곳이나 누를 경우 검색창 사라지게
   const onCloseFestivalSearchHandler = () => {
     if(buttonClick) {
@@ -66,11 +104,11 @@ export default function ReviewBoardWriteView() {
   }
 
   const onBoardWriteHandler = () => {
-    if (!reviewBoardTitle.trim()) {
+    if (!boardTitle.trim()) {
       alert('제목이 입력되지 않았습니다.')
       return;
     }
-    if (!reviewBoardContent.trim()) {
+    if (!boardContent.trim()) {
       alert('내용이 입력되지 않았습니다.')
       return;
     }
@@ -79,12 +117,34 @@ export default function ReviewBoardWriteView() {
       return;
     }
 
-    navigator('/')
+    postBoard()
   }
+
+  //          Response Handler          //
+  const imageUploadResponseHandler = (response : AxiosResponse<any, any>) => {
+    const imageUrl = response.data as string;
+    if(!imageUrl) return;
+    setBoardImgUrl(imageUrl);
+  }
+
+  const postBoardResponseHandler = (response : AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<PostReviewBoardResponseDto>;
+    if(!result || !data){
+      alert(message);
+      return;
+    }
+
+    navigator('/reviewBoard/list')
+  }
+
+  //          Error Handler          //
+  const imageUploadErrorHandler = (error : any) => console.log(error.message);
+  const postBoardErrorHandler = (error : any) => console.log(error.message);
 
   useEffect(() => {
     setFestivalNameList(SIMPLELIST);
   }, [])
+
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0' }} onClick = {onCloseFestivalSearchHandler}>
@@ -136,10 +196,15 @@ export default function ReviewBoardWriteView() {
             </Box>
 
             <Box>
-              <IconButton>
+              <IconButton onClick = {onImageUploadButtonHandler}>
                 <InsertPhotoOutlinedIcon />
+                <input 
+                ref = {imageRef} 
+                hidden type = 'file'
+                accept = 'image/*' 
+                onChange = {(event) => onImageUploadChangeHandler(event)}
+                onKeyDown = {(event) => onContentKeyPressHandler(event)}/>
               </IconButton>
-              <Input placeholder='업로드는 Back과 연동 후에' />
             </Box>
           </Box>
         </Box>
@@ -147,7 +212,7 @@ export default function ReviewBoardWriteView() {
             <Box>
             <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
               sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}}
-              onChange={(event) => setReviewBoardTitle(event.target.value)} />
+              onChange={(event) => setBoardTitle(event.target.value)} />
             </Box>
             <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
             <Box>
@@ -156,7 +221,7 @@ export default function ReviewBoardWriteView() {
                 fullWidth disableUnderline placeholder='본문을 작성해주세요.'
                 multiline minRows={1}
                 sx={{ fontSize: '18px', fontWeight: 600 }}
-                onChange={(event) => setReviewBoardContent(event.target.value)}
+                onChange={(event) => setBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
             </Typography>
             </Box>
