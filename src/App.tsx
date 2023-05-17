@@ -47,7 +47,9 @@ function App() {
   const getUserErrorHandler = (error : any) => console.log(error.message);
 
   useEffect( () => {
+    console.log('!!!');
     const accessToken = cookies.accessToken;
+    console.log(accessToken);
     if(accessToken) getUser(accessToken);
   }, [path])
 
