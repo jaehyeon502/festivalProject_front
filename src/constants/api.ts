@@ -20,6 +20,7 @@ export const VALIDATE_NICKNAME_URL = `${HOST}api/user/check/nickname`
 export const VALIDATE_TELNUMBER_URL = `${HOST}api/user/check/telnumber`
 export const FILE_UPLOAD_URL=`${HOST}file/upload`
 export const GET_ALL_FESTIVAL_LIST = `${HOST}api/festival`
+export const PATCH_USER_PROFILE = `${HOST}api/user/profile`
 
 export const GET_ONELINE_REVIEW_URL=(festivalNumber:number)=>`${HOST}api/festival/oneLineReview/${festivalNumber}`
 export const GET_ONE_FESTIVAL_URL=(festivalNumber:number)=>`${HOST}api/festival/festival/${festivalNumber}`
