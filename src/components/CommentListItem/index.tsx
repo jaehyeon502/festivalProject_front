@@ -13,7 +13,7 @@ export default function CommentListItem({item} : Props) {
            <Typography sx = {{mr : '10px'}}>{item?.writerNickname + ' | '}</Typography>
            <Typography sx = {{mr : '10px'}}>{item?.writeDatetime}</Typography>
         </Box>
-           <Typography sx = {{fontSize : '17px', ml : '20px', mb : '8px', mt : '8px', mr : '20px'}}>{item?.commentContent}</Typography>
+           <Typography sx = {{fontSize : '17px', ml : '20px', mb : '8px', mt : '8px', mr : '20px'}}>{item.commentContent}</Typography>
     </Box>
     )
 }

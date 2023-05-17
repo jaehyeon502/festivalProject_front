@@ -1,41 +1,25 @@
+import { Comment } from "src/interfaces";
+import Recommend from "src/interfaces/Recommend.interface";
+
 interface Dto {
-    reviewBoard: {
+
+    board: {
+        boardNumber: number
+        boardTitle: string;
+        boardContent: string;
+        boardImgUrl: string;
+        boardWriteDatetime: string;
+        viewCount: number;
+        recommendCount: number;
+        commentCount: number;
+        writerId: string;
+        writerProfileUrl: string | null
+        writerNickname: string;
         festivalNumber: number;
-        festivalName: string;
-        festivalType: string;
-        festivalDurationStart: string;
-        festivalDurationEnd: string;
-        festivalTime: string | null;
-        festivalArea: string;
-        festivalCost: string;
-        onelineReviewAverage: number | null;
-        festivalInformation: string | null;
-        festivalInformationUrl: string | null;
-        festivalHomepage: string;
     };
 
-    recommendList:
-    [
-        {
-            userId: String;
-            boardNumber: number;
-            userProfileUrl: String | null;
-            userNickname: String;
-        }
-
-    ];
-    commentList:
-    [
-        {
-            commentNumber: number
-            commentContent: String
-            boardNumber: number
-            writerId: String
-            writeDatetime: String
-            writerProfileUrl: String | null;
-            writerNickname: String
-        }
-    ]
+    recommendList : Recommend[]
+    commentList: Comment[]
 
 }
 

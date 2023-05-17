@@ -4,7 +4,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
-import {  ReviewBoard } from 'src/interfaces';
+import { ReviewBoard } from 'src/interfaces';
 import { useEffect, useState } from 'react';
 import { REVIEW_BOARD_LIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
@@ -21,7 +21,7 @@ export default function ReviewBoardListView() {
   const navigator = useNavigate();
   const [searchTypeButton, setSearchTypeButton] = useState<boolean>(false);
   const [searchTypeName, setSearchTypeName] = useState<string>('최신순');
-  const searchType = ['최신순', '평점순', '조회수', '제목 + 내용'];
+  const searchType = ['최신순', '평점순', '조회수'];
 
   //          Event Handler          //
   const onClickSearchTypeButtonHandler = () => {
@@ -36,39 +36,37 @@ export default function ReviewBoardListView() {
   const onClickSearchType = (typeName: string) => {
     if (typeName === '최신순') setSearchTypeName(typeName);
     else if (typeName === '조회수') setSearchTypeName(typeName);
-    else if (typeName === '제목 + 내용') setSearchTypeName(typeName);
     else if (typeName === '평점순') setSearchTypeName(typeName);
     setSearchTypeButton(false);
     return;
   }
 
-  //               Event Handler         //
-  const getAllReviewBoardLsit=()=>{
+  const getAllReviewBoardList = () => {
     axios
-    .get(GET_ALL_REVIEWBOARD_LIST_URL)
-    .then((response)=>getReviewBordListResponseHandler(response))
-    .catch((error)=>getReviewBoardErrorHandler(error))
-    
+      .get(GET_ALL_REVIEWBOARD_LIST_URL)
+      .then((response) => getReviewBoardListResponseHandler(response))
+      .catch((error) => getReviewBoardErrorHandler(error))
+
   }
 
-  //         Response Handler        //
+  //         Response Handler            //
 
-  const  getReviewBordListResponseHandler = (response:AxiosResponse<any,any>)=>{
-    const {result,message,data}=response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
-    if(!result || data === null) return;
+  const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
+    if (!result || data === null) return;
     setFestivalList(data)
   }
 
-  //            Error Handler     //
+  //            Error Handler          //
 
-  const getReviewBoardErrorHandler=(error:any)=>{
+  const getReviewBoardErrorHandler = (error: any) => {
     console.log(error.message);
   }
 
 
   useEffect(() => {
 
-    getAllReviewBoardLsit();
+    getAllReviewBoardList();
 
   }, [])
   return (
@@ -117,7 +115,7 @@ export default function ReviewBoardListView() {
 
       <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
         <Stack sx={{ p: '10px' }}>
-          {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as ReviewBoard} />))}
+          {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as GetAllReviewBoardListResponseDto} />))}
         </Stack>
       </Box>
 
