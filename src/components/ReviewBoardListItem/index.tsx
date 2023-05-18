@@ -1,6 +1,4 @@
-import React from 'react'
 import { Box, Card, CardActionArea, Typography } from '@mui/material'
-import { ReviewBoard } from 'src/interfaces'
 import { useNavigate } from 'react-router-dom';
 import { GetAllReviewBoardListResponseDto } from 'src/apis/response/board';
 
@@ -12,6 +10,7 @@ export default function ReviewBoardListItem({ item }: Props) {
 
     //        Hook          //
     const navigator = useNavigate();
+    console.log(item.boardImgUrl);
 
     return (
         <Card variant = 'outlined' sx = {{ mb : '10px'}}>

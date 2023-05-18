@@ -167,7 +167,7 @@ export default function ReviewBoardDetailView() {
             <Box sx={{ display: 'flex' }}>
               <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={reviewBoard?.writerProfileUrl ? reviewBoard.writerProfileUrl : ''} />
 
-              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {reviewBoard?.writerNickname}</Typography>
+              <Typography sx={{ mt: '40px', mr: '10px', fontWeight: 550 }}>작성자 명 : {reviewBoard?.writerNickname}</Typography>
             </Box>
             <Box sx={{ mt: '40px', ml: '10px', fontWeight: 600 }}>
               <IconButton sx={{ color: 'red' }}>
@@ -237,7 +237,6 @@ export default function ReviewBoardDetailView() {
               {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
             </Stack>
           </Box>
-        
 
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)}></Pagination>
