@@ -117,7 +117,7 @@ export default function ReviewBoardWriteView() {
       return;
     }
 
-    postBoard()
+    postBoard();
   }
 
   //          Response Handler          //

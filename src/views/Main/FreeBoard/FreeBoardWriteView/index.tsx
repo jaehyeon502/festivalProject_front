@@ -5,11 +5,16 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import { useNavigate } from 'react-router-dom';
 import { Festival} from 'src/interfaces';
 import { SIMPLELIST } from 'src/mock';
+import FestivalNameItemList from 'src/components/FestivalNameItemList';
+import ClearIcon from '@mui/icons-material/Clear';
 import axios, { AxiosResponse } from 'axios';
-import { FILE_UPLOAD_URL, multipartHeader } from 'src/constants/api';
+import { PostFreeBoardRequestDto } from 'src/apis/request/freeboard';
+import { FILE_UPLOAD_URL, POST_FREE_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
+import ResponseDto from 'src/apis/response';
+import { PostFreeBoardResponseDto } from 'src/apis/response/freeboard';
+import { useCookies } from 'react-cookie';
 
 export default function FreeBoardWriteView() {
-
   const imageRef = useRef<HTMLInputElement | null>(null);
   const [boardImgUrl, setBoardImgUrl] = useState<string>('');
   const [freeBoardTitle, setFreeBoardTitle] = useState<string>('');
@@ -18,6 +23,10 @@ export default function FreeBoardWriteView() {
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
 
   const navigator = useNavigate();
+
+  const [cookies] = useCookies();
+
+  const accessToken = cookies.accessToken;
 
   //          Event Handler          //
   const onContentKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
@@ -40,6 +49,27 @@ export default function FreeBoardWriteView() {
       .catch((error) => imageUploadErrorHandler(error));
   }
 
+  const PostFreeBoard = () => {
+    const data: PostFreeBoardRequestDto = {freeBoardTitle, freeBoardContent, freeBoardImgUrl: ''};
+
+    axios.post(POST_FREE_BOARD_URL, data, authorizationHeader(accessToken))
+        .then((response) => PostFreeBoardResponse(response))
+        .catch((error) => PostFreeBoardError(error))
+  }
+
+  const PostFreeBoardResponse = (response: AxiosResponse<any, any>) => {
+    const {result, message, data} = response.data as ResponseDto<PostFreeBoardResponseDto>
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    navigator('/freeboard/list');
+  }
+
+  const PostFreeBoardError = (error: any) => {
+    console.log(error.message);
+  }
+
   const onBoardWriteHandler = () => {
     if (!freeBoardTitle.trim()) {
       alert('제목이 입력되지 않았습니다.')
@@ -51,6 +81,7 @@ export default function FreeBoardWriteView() {
     }
 
     navigator('/freeBoard/list')
+    PostFreeBoard();
   }
 
   const imageUploadResponseHandler = (response : AxiosResponse<any, any>) => {

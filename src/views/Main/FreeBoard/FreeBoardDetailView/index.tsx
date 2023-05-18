@@ -5,24 +5,45 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { COMMENT_LIST, FREE_BOARD_LIST} from 'src/mock';
-import { Comment, FreeBoard } from 'src/interfaces';
+import { COMMENT_LIST} from 'src/mock';
+import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
 import CommentListItem from 'src/components/CommentListItem';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
+import { GET_FREE_BOARD } from 'src/constants/api';
+import axios, { AxiosResponse } from 'axios';
+import ResponseDto from 'src/apis/response';
+import { GetFreeBoardResponseDto } from 'src/apis/response/freeboard';
+import { useSignInStore } from 'src/stores';
 
 export default function FreeBoardDetailView() {
   
   const path = useLocation();
 
   //          Hook          //
+  const {signInUser} = useSignInStore();
   const [freeBoard, setFreeBoard] = useState<FreeBoard>(); 
+  const [freeBoardCommentList, setFreeBoardCommentList] = useState<FreeBoardComment[]>([]);
+  const [freeBoardrecommendList, setFreeBoardRecommendList] = useState<FreeBoardRecommend[]>([]);
+
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [ menuFlag, setMenuFlag] = useState<boolean>(false);
   const { freeBoardNumber } = useParams();
   const navigator = useNavigate();
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
+  let isLoad = false;
+
+  const setReviewBoardResponse = (data : GetFreeBoardResponseDto) =>{
+    
+    const { freeBoard, freeBoardCommentList, freeBoardRecommendList } = data;
+    setFreeBoard(freeBoard);
+    setFestivalList(freeBoardCommentList);
+    setFreeBoardRecommendList(freeBoardRecommendList);
+
+    const boardOwner = signInUser !== null && freeBoard?.writerUserId === signInUser.userId;
+    setMenuFlag(boardOwner);
+  }
 
   //          Event Handler          //
   const onClickRecommendHandler = () => {
@@ -33,43 +54,65 @@ export default function FreeBoardDetailView() {
     setRecommendStatus(true);
   }
 
-  const onClickNextBoardHandler = () => {
-    const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) + 1 : Number(freeBoardNumber);
-    if (boardNumber > FREE_BOARD_LIST.length) {
-      alert('다음 글이 없습니다.');
-      return;
-    }
-    navigator(`/freeBoard/detail/${boardNumber}`)
+  const getFreeBoard = () => {
+    axios.get(GET_FREE_BOARD(freeBoardNumber as string))
+        .then((response) => getFreeBoardResponse(response))
+        .catch((error) => getFreeBoardError(error))
   }
 
-  const onClickPreviousBoardHandler = () => {
-    const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) - 1 : Number(freeBoardNumber);
-    if (boardNumber < 1) {
-      alert('이전 글이 없습니다.');
-      return;
-    }
-    navigator(`/freeBoard/detail/${boardNumber}`) 
+  const getFreeBoardResponse = (response: AxiosResponse<any, any>) => {
+    const {result, message, data } = response.data as ResponseDto<GetFreeBoardResponseDto>
+    if(!result || !data) return;
+    setReviewBoardResponse(data);
   }
+
+  const getFreeBoardError = (error: any) => {
+    console.log(error.message);
+  }
+
+
+
+  // const onClickNextBoardHandler = () => {
+  //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) + 1 : Number(freeBoardNumber);
+  //   if (boardNumber > FREE_BOARD_LIST.length) {
+  //     alert('다음 글이 없습니다.');
+  //     return;
+  //   }
+  //   navigator(`/freeBoard/detail/${boardNumber}`)
+  // }
+
+  // const onClickPreviousBoardHandler = () => {
+  //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) - 1 : Number(freeBoardNumber);
+  //   if (boardNumber < 1) {
+  //     alert('이전 글이 없습니다.');
+  //     return;
+  //   }
+  //   navigator(`/freeBoard/detail/${boardNumber}`) 
+  // }
 
   useEffect(() => {
 
-    //? 해당 후기 게시물의 존재 여부 검증
+    if (isLoad) return;
+    //? boardNumber가 존재하는지 검증
     if (!freeBoardNumber) {
-      navigator('/');
+      navigator("/");
       return;
     }
+    isLoad = true;
+    getFreeBoard();
+    console.log(freeBoardNumber);
 
-    //? 일치하는 후기 게시물 Number 들고오기, 일치하는 번호에 있는 mock 데이터를 담는다.
-    //? List 중 하나만 들고올 때 <-> 여러 개 들고올 땐 map돌려서
-    const freeBoardData = FREE_BOARD_LIST.find((item) => item.boardNumber === parseInt(freeBoardNumber));
+    // //? 일치하는 후기 게시물 Number 들고오기, 일치하는 번호에 있는 mock 데이터를 담는다.
+    // //? List 중 하나만 들고올 때 <-> 여러 개 들고올 땐 map돌려서
+    // const freeBoardData = FREE_BOARD_LIST.find((item) => item.freeBoardNumber === parseInt(freeBoardNumber));
 
-    // //? 제대로 들고왔는지
-    if (!freeBoardData) {
-      navigator('/');
-    }
+    // // //? 제대로 들고왔는지
+    // if (!freeBoardData) {
+    //   navigator('/');
+    // }
 
-    setFreeBoard(freeBoardData);
-    setFestivalList(COMMENT_LIST);
+    // setFreeBoard(freeBoardData);
+    // setFestivalList(COMMENT_LIST);
 
   }, [path])
 
@@ -94,16 +137,16 @@ export default function FreeBoardDetailView() {
         </Box>
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%' }}>
-          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{freeBoard?.boardTitle}</Typography>
-          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{freeBoard?.boardWriteDatetime}</Typography>
+          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{freeBoard?.freeBoardTitle}</Typography>
+          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{freeBoard?.freeBoardWriteDatetime}</Typography>
         </Box>
 
         <Divider sx={{ mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box>
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
-            <img src={freeBoard?.boardImgUrl ? freeBoard.boardImgUrl : ''} />
-            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{freeBoard?.boardContent}</Typography>
+            <img src={freeBoard?.freeBoardImgUrl ? freeBoard.freeBoardImgUrl : ''} />
+            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{freeBoard?.freeBoardContent}</Typography>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
@@ -120,14 +163,14 @@ export default function FreeBoardDetailView() {
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
-              <Box sx={{ display: 'inline', ml: '25px' }} onClick={onClickNextBoardHandler}>
+              <Box sx={{ display: 'inline', ml: '25px' }} >
                 <IconButton sx={{ color: 'black' }}>
                   <ArrowUpwardIcon />
                 </IconButton>
                 다음 글
               </Box>
 
-              <Box sx={{ display: 'inline', ml: '25px' }} onClick={onClickPreviousBoardHandler}>
+              <Box sx={{ display: 'inline', ml: '25px' }} >
                 <IconButton sx={{ color: 'black' }}>
                   <ArrowDownwardIcon />
                 </IconButton>

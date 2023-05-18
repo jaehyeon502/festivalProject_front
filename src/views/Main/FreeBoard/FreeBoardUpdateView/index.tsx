@@ -10,6 +10,12 @@ import { useNavigate } from 'react-router-dom';
 import { Festival } from 'src/interfaces';
 import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
+import { PatchFreeBoardRequestDto } from 'src/apis/request/freeboard';
+import axios, { AxiosResponse } from 'axios';
+import { PATCH_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
+import { useCookies } from 'react-cookie';
+import ResponseDto from 'src/apis/response';
+import { PatchFreeBoardResponseDto } from 'src/apis/response/freeboard';
 
 export default function FreeBoardUpdateView() {
   
@@ -19,6 +25,9 @@ export default function FreeBoardUpdateView() {
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
 
   const navigator = useNavigate();
+
+  const [cookies] = useCookies();
+  const accessToken = cookies.accessToken;
 
   //          Event Handler          //
   const onContentKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
@@ -35,8 +44,28 @@ export default function FreeBoardUpdateView() {
       alert('내용이 입력되지 않았습니다.')
       return;
     }
+    patchFreeBoard();
+    navigator('/free-board/list');
+  }
 
-    navigator('/')
+  const patchFreeBoard = () => {
+    const data: PatchFreeBoardRequestDto = { freeBoardNumber: 0, freeBoardTitle, freeBoardContent, freeBoardImgUrl: '' };
+
+    axios.patch(PATCH_FREE_BOARD_URL, data, authorizationHeader(accessToken))
+        .then((response) => patchFreeBoardResponse(response))
+        .catch((error) => patchFreeBoardError(error))
+  }
+
+  const patchFreeBoardResponse = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<PatchFreeBoardResponseDto>
+    if (!result || data === null){
+      alert(message);
+      return;
+    }
+  }
+
+  const patchFreeBoardError = (error: any) => {
+    console.log(error.message);
   }
 
   useEffect(() => {

@@ -109,7 +109,6 @@ export default function ReviewBoardListView() {
             }
           </Box>
         </Box>
-
       </Box>
 
       <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>

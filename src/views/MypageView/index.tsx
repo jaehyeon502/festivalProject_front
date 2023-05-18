@@ -16,7 +16,7 @@ import { PatchUserProfileResponseDto } from 'src/apis/response/user';
 export default function MypageView() {
   //          HOOk            //
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList} = usePagingHook(5);
- 
+
   const navigator = useNavigate();
   const imageRef = useRef<HTMLInputElement | null>(null);
 
