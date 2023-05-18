@@ -62,11 +62,8 @@ export default function FreeBoardListView() {
     }, [])
     return (
       <Box>
-  
         <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
-  
           <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>자유 게시판</Typography>
-  
           <Box display='flex'>
             <Box>
               <OutlinedInput sx={{ width: '300px' }}
@@ -101,9 +98,7 @@ export default function FreeBoardListView() {
               }
             </Box>
           </Box>
-  
         </Box>
-  
         <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
           <Stack sx={{ p: '10px' }}>
             {viewList.map((item) => (<FreeBoardListITem item={item as GetFreeBoardListResponseDto} />))}
