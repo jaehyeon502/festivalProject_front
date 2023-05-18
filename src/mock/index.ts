@@ -2,8 +2,8 @@ import { Festival, Comment,OneLineReview,User,ReviewBoard, FreeBoard} from "src/
 
 export const SIMPLELIST: Festival[] = [ //? 타입 통일
     {
-        festivalNumber: 1,
-        festivalName: '나고야 눈 축제1',
+        festivalNumber: 11,
+        festivalName: '부산가족축제',
         festivalType: "들어가지 않는 내용",
         festivalDurationStart: '2023-01-05',
         festivalDurationEnd: '2023-02-05',

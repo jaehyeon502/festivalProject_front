@@ -55,7 +55,6 @@ export default function ReviewBoardWriteView() {
   //? 이미지 파일 업로드
   const onImageUploadChangeHandler = (event : ChangeEvent<HTMLInputElement>) => {
     if(!event.target.files) return;
-
     const data = new FormData();
     data.append('file', event.target.files[0]);
 
@@ -72,8 +71,8 @@ export default function ReviewBoardWriteView() {
     axios.post(POST_REVIEW_BOARD_URL, data, authorizationHeader(accessToken))
     .then((response) => postBoardResponseHandler(response))
     .catch((error) => postBoardErrorHandler(error))
-    console.log('포보 실행')
   }
+
   //? 검색창 외 화면 아무 곳이나 누를 경우 검색창 사라지게
   const onCloseFestivalSearchHandler = () => {
     if(buttonClick) {
@@ -192,11 +191,9 @@ export default function ReviewBoardWriteView() {
                   <ClearIcon/>
                 </IconButton>
               </Box>
-
             </Box>
-
             <Box>
-              <IconButton onClick = {onImageUploadButtonHandler}>
+            <IconButton onClick={() => onImageUploadButtonHandler()}>
                 <InsertPhotoOutlinedIcon />
                 <input 
                 ref = {imageRef} 
@@ -208,24 +205,27 @@ export default function ReviewBoardWriteView() {
             </Box>
           </Box>
         </Box>
-        
-            <Box>
+          <Box>
             <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
               sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}}
               onChange={(event) => setBoardTitle(event.target.value)} />
+          </Box>
+          <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
+          <Box>
+            <Box sx={{ display: 'flex', alignItems: 'start' }}>
+            
             </Box>
-            <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
-            <Box>
-            <Typography>
+            <Typography >
               <Input
                 fullWidth disableUnderline placeholder='본문을 작성해주세요.'
                 multiline minRows={1}
                 sx={{ fontSize: '18px', fontWeight: 600 }}
                 onChange={(event) => setBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
+              <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
             </Typography>
-            </Box>
-          
+            
+          </Box>
       </Box>
 
       <Fab sx={{ position: 'fixed', zIndex: 999, bottom: '200px', right: '240px', backgroundColor: '#f0fff0' }}

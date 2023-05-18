@@ -81,9 +81,7 @@ export default function FreeBoardListView() {
               }
             </Box>
           </Box>
-  
         </Box>
-  
         <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
           <Stack sx={{ p: '10px' }}>
             {viewList.map((item) => (<FreeBoardListITem item={item as FreeBoard} />))}

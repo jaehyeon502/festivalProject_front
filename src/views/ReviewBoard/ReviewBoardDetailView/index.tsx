@@ -237,7 +237,6 @@ export default function ReviewBoardDetailView() {
               {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)}
             </Stack>
           </Box>
-         
 
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)}></Pagination>
