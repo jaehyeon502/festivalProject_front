@@ -2,9 +2,10 @@ import React from 'react'
 import { Box, Card, CardActionArea, Typography } from '@mui/material'
 import { ReviewBoard } from 'src/interfaces'
 import { useNavigate } from 'react-router-dom';
+import { GetAllReviewBoardListResponseDto } from 'src/apis/response/board';
 
 interface Props {
-    item: ReviewBoard;
+    item: GetAllReviewBoardListResponseDto;
 }
 
 export default function ReviewBoardListItem({ item }: Props) {

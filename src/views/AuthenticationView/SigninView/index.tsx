@@ -58,7 +58,6 @@ export default function SigninView() {
     setCookie('accessToken', token,{ expires });
     setSignInUser(user)
     navigator('/');
-    
   }
   //          Error Handler          //
   const signInErrorHandler = (error: any) => {

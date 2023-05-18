@@ -26,7 +26,6 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
   const { festivalNumber, setFestivalNumber } = useFestivalNumberStore();
 
   const onFestivalItemClick = () => {
-
     setClickPage(true);
   }
 //         Event Handler         //

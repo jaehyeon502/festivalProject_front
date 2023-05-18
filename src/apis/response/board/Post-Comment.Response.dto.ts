@@ -1,3 +1,6 @@
+import { Comment } from "src/interfaces";
+import Recommend from "src/interfaces/Recommend.interface";
+
 interface Dto {
     board: {
         boardNumber: number
@@ -14,26 +17,8 @@ interface Dto {
         festivalNumber: number;
     }
 
-    recommendList: [
-        {
-            userId: String;
-            boardNumber: number;
-            userProfileUrl: String | null;
-            userNickname: String;
-        }
-    ]
-
-    commentList: [
-        {
-            commentNumber: number
-            commentContent: String
-            boardNumber: number
-            writerId: String
-            writeDatetime: String
-            writerProfileUrl: String | null;
-            writerNickname: String
-        }
-    ]
+    recommendList: Recommend[]
+    commentList: Comment[]
 }
 
 export default Dto
