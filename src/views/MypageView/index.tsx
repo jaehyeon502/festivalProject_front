@@ -17,7 +17,7 @@ import { PatchUserNicknameRequestDto, PatchUserProfileRequestDto } from 'src/api
 export default function MypageView() {
   //          HOOk            //
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList} = usePagingHook(5);
- 
+
   const navigator = useNavigate();
   const imageRef = useRef<HTMLInputElement | null>(null);
 

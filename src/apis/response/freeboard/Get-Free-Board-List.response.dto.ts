@@ -1,15 +1,15 @@
-interface FreeBoard {
+interface Dto{
     freeBoardNumber: number;
     freeBoardTitle: string;
     freeBoardContent: string;
-    freeBoardImgUrl: string | null;
+    freeBoardImgUrl: string;
     freeBoardWriteDatetime: string;
     viewCount: number;
     recommendCount: number;
     commentCount: number;
     writerUserId: string;
-    writerProfileUrl: string | null;
+    writerProfileUrl: string;
     writerNickname: string;
 }
 
-export default FreeBoard;
+export default Dto;
