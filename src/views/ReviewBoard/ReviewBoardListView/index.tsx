@@ -50,7 +50,6 @@ export default function ReviewBoardListView() {
   }
 
   //         Response Handler            //
-
   const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
     if (!result || data === null) return;
@@ -58,7 +57,6 @@ export default function ReviewBoardListView() {
   }
 
   //            Error Handler          //
-
   const getReviewBoardErrorHandler = (error: any) => {
     console.log(error.message);
   }
@@ -69,6 +67,7 @@ export default function ReviewBoardListView() {
     getAllReviewBoardList();
 
   }, [])
+
   return (
     <Box>
 
@@ -106,7 +105,7 @@ export default function ReviewBoardListView() {
                     <IconButton edge='end' onClick={onClickSearchTypeButtonHandler}>
                       <ArrowDropDownIcon sx={{ width: '40px', height: '40px' }} />
                     </IconButton>
-                  } />
+              } />
             }
           </Box>
         </Box>

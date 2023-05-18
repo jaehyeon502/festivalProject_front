@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function FreeBoardListITem({item} : Props) {
-  
+
     //        Hook          //
     const navigator = useNavigate();
 
@@ -16,7 +16,15 @@ export default function FreeBoardListITem({item} : Props) {
         <Card variant = 'outlined' sx = {{ mb : '10px'}}>
             <CardActionArea sx ={{ display : 'flex', justifyContent : 'start', p : '10px'}} onClick = {() => navigator(`/freeBoard/detail/${item.boardNumber}`)}>
                 <Box>
-                <Box component={'img'} src = {item.boardImgUrl ? item.boardImgUrl : ''} sx = {{ height : '200px', width : '220px', borderRadius : '12px'}} />
+                    {item.boardImgUrl && (
+                    <Box>
+                        <Box
+                        component="img"
+                        src = {item.boardImgUrl}
+                        sx = {{ height : '200px', width : '220px', borderRadius : '12px'}}
+                        />
+                    </Box>
+                    )}
                 </Box>
                 <Box sx = {{ ml : '12px', border : '1px solid', width : '1020px', height : '190px', borderRadius : '22px'}}>
                     <Box display='flex' sx = {{ ml : '10px', mt : '25px'}}>

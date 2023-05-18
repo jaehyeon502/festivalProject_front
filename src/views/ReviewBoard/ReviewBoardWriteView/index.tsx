@@ -93,7 +93,8 @@ export default function ReviewBoardWriteView() {
     setBoardContent(boardContent + '\n');
   }
 
-  const onClickFestivalNameHandler = (festivalName : string ) => {
+  const onClickFestivalNameHandler = (festivalNumber: number, festivalName : string ) => {
+    setFestivalNumber(festivalNumber);
     setSelectedFestivalName(festivalName);
     setShow(false);
   }
@@ -151,7 +152,6 @@ export default function ReviewBoardWriteView() {
       <Box sx={{ ml: '200px', mr: '200px', p: '100px 50px', backgroundColor: '#ffffff' }}>
         <Box>
           <Box sx={{ mb: '220px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
-
             <Box onClick = {onClickFestivalSearchBox}>
               <FormControl sx={{ width: '280px', ml: '20px', mb: '20px' }} variant="outlined">
                 <OutlinedInput placeholder='검색어 관련 축제명은 연동 후에' onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}
@@ -170,14 +170,13 @@ export default function ReviewBoardWriteView() {
                     //? 클릭하면 nameItem 객체의 festivalName값을 매개변수로 전달
                     //? 셋째 줄 nameItem은 FestivalNameItemList(component)에서 선언된 festivalName, 2, 3줄은 같은 map 순서의 mock를 갖고있는 것 */}
                     {festivalNameList.map((nameItem) => ( 
-                    <Grid onClick = {() => onClickFestivalNameHandler(nameItem.festivalName)}> 
+                    <Grid onClick = {() => onClickFestivalNameHandler(nameItem.festivalNumber, nameItem.festivalName)}> 
                       <FestivalNameItemList item={nameItem}/>
                     </Grid>))}
                     {'스크롤 내리기'}
                   </Box>
                 ) : (<></>)} 
               </FormControl>
-
             </Box>
 
             <Box sx={{ width: '320px', height : '30px', display: 'flex', justifyContent: 'space-between' }}>
@@ -212,9 +211,7 @@ export default function ReviewBoardWriteView() {
           </Box>
           <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
           <Box>
-            <Box sx={{ display: 'flex', alignItems: 'start' }}>
-            
-            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'start' }}></Box>
             <Typography >
               <Input
                 fullWidth disableUnderline placeholder='본문을 작성해주세요.'
@@ -224,7 +221,6 @@ export default function ReviewBoardWriteView() {
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
               <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
             </Typography>
-            
           </Box>
       </Box>
 
