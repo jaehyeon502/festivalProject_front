@@ -11,6 +11,12 @@ import { Festival} from 'src/interfaces';
 import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import ClearIcon from '@mui/icons-material/Clear';
+import axios, { AxiosResponse } from 'axios';
+import { PostFreeBoardRequestDto } from 'src/apis/request/freeboard';
+import { POST_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
+import ResponseDto from 'src/apis/response';
+import { PostFreeBoardResponseDto } from 'src/apis/response/freeboard';
+import { useCookies } from 'react-cookie';
 
 export default function FreeBoardWriteView() {
 
@@ -21,10 +27,35 @@ export default function FreeBoardWriteView() {
 
   const navigator = useNavigate();
 
+  const [cookies] = useCookies();
+
+  const accessToken = cookies.accessToken;
+
   //          Event Handler          //
   const onContentKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Enter') return;
     setBoardContent(boardContent + '\n');
+  }
+
+  const PostFreeBoard = () => {
+    const data: PostFreeBoardRequestDto = {freeBoardTitle, freeBoardContent, freeBoardImgUrl: ''};
+
+    axios.post(POST_FREE_BOARD_URL, data, authorizationHeader(accessToken))
+        .then((response) => PostFreeBoardResponse(response))
+        .catch((error) => PostFreeBoardError(error))
+  }
+
+  const PostFreeBoardResponse = (response: AxiosResponse<any, any>) => {
+    const {result, message, data} = response.data as ResponseDto<PostFreeBoardResponseDto>
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    navigator('/freeboard/list');
+  }
+
+  const PostFreeBoardError = (error: any) => {
+    console.log(error.message);
   }
 
   const onBoardWriteHandler = () => {
@@ -36,8 +67,7 @@ export default function FreeBoardWriteView() {
       alert('내용이 입력되지 않았습니다.')
       return;
     }
-
-    navigator('/')
+    PostFreeBoard();
   }
 
   useEffect(() => {

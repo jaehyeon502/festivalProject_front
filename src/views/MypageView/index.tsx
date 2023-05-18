@@ -6,11 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ResponseDto from 'src/apis/response';
 import { GetMyReviewBoardListResponseDto } from 'src/apis/response/board';
 import FestivalReviewBoardList from 'src/components/FestivalReiviewBoardList'
-<<<<<<< HEAD
-import { GET_MYREVIEWBOARD_LIST_URL, authorizationHeader } from 'src/constants/api';
-=======
 import { FILE_UPLOAD_URL, GET_ALL_REVIEWBOARD_LIST_URL, PATCH_USER_PROFILE, authorizationHeader, multipartHeader } from 'src/constants/api';
->>>>>>> c7ce79acbaca58310b0f112d2354b96f0625867f
 import { usePagingHook } from 'src/hooks';
 import { useSignInStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
@@ -21,27 +17,10 @@ import { PatchUserNicknameRequestDto, PatchUserProfileRequestDto } from 'src/api
 export default function MypageView() {
   //          HOOk            //
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList} = usePagingHook(5);
- 
+
   const navigator = useNavigate();
   const imageRef = useRef<HTMLInputElement | null>(null);
 
-<<<<<<< HEAD
-      //          EVENT HANDLER           //
-      const getMyReviewBoardResponse=(accessToken:string)=>{
-          axios
-          .get(GET_MYREVIEWBOARD_LIST_URL,authorizationHeader(accessToken))
-          .then((response)=>getMyReviewBoardResponseHandler(response))
-          .catch((error)=>getMyReviewBoardErrorHandler(error))
-  
-      }
-  
-    //          Response Handler          //
-    const getMyReviewBoardResponseHandler = (response:AxiosResponse<any,any>)=>{
-      const {result,message,data} = response.data as ResponseDto<GetMyReviewBoardListResponseDto[]>
-      if(!result || data === null) return;
-      setFestivalList(data)
-    
-=======
   const {signInUser} = useSignInStore();
   const { setSignInUser } = useSignInStore();
 
@@ -92,7 +71,6 @@ export default function MypageView() {
     if(!result || !data) {
       alert(message);
       return;
->>>>>>> c7ce79acbaca58310b0f112d2354b96f0625867f
     }
     setSignInUser(data);
     alert('변경되었습니다!')

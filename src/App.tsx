@@ -61,7 +61,7 @@ function App() {
       <Routes>
         <Route path="/" element={(<Main />)} />
         <Route path="/auth" element={(<AuthenticationView />)} />
-        <Route path="/mypage" element={(<MypageView/>)}/>
+        <Route path="/mypage" element={(<MypageView />)}/>
         <Route path="/auth">
           <Route path="sign-in" element={(<AuthenticationView />)}/>
           <Route path="sign-up" element={(<SignUpView />)}/>
