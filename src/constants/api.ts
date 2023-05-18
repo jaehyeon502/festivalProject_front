@@ -10,6 +10,9 @@ export const SIGN_IN_URL = `${HOST}auth/sign-in`;
 export const SIGN_UP_URL = `${HOST}auth/sign-up`
 export const GET_ALL_REVIEWBOARD_LIST_URL=`${HOST}api/board/all-review-board`
 export const GET_USER_URL = `${HOST}api/user/`;
+export const POST_FREE_BOARD_URL = `${HOST}api/free-board`;
+export const PATCH_FREE_BOARD_URL = `${HOST}api/free-board`;
+
 
 export const POST_REVIEW_BOARD_URL = `${HOST}api/board`;
 export const PATCH_REVIEW_BOARD_URL = `${HOST}api/board`;
@@ -21,6 +24,9 @@ export const POST_REVIEW_BOARD_COMMENT_URL = `${HOST}api/board/post-comment`
 export const PATCH_REVIEW_BOARD_COMMENT_URL = `${HOST}api/board/patch-comment`
 export const DELETE_REVIEW_BOARD_COMMENT_URL = (commentNumber : number) => `${HOST}api/board/delete-comment/${commentNumber}`
 export const POST_REVIEW_BOARD_RECOMMEND_URL = `${HOST}api/board/recommend`
+export const GET_FREE_BOARD_LIST = `${HOST}api/free-board`
+export const GET_FREE_BOARD_URL = (freeBoardNumber: string) => `${HOST}api/free-board/${freeBoardNumber}`
+
 
 export const GET_INTERESTED_FESTIVAL_LIST_URL =`${HOST}api/festival/festival/interested-list`
 export const GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL = `${HOST}api/festival/type-list`

@@ -47,9 +47,7 @@ function App() {
   const getUserErrorHandler = (error : any) => console.log(error.message);
 
   useEffect( () => {
-    console.log('!!!');
     const accessToken = cookies.accessToken;
-    console.log(accessToken);
     if(accessToken) getUser(accessToken);
   }, [path])
 
@@ -61,7 +59,7 @@ function App() {
       <Routes>
         <Route path="/" element={(<Main />)} />
         <Route path="/auth" element={(<AuthenticationView />)} />
-        <Route path="/mypage" element={(<MypageView/>)}/>
+        <Route path="/mypage" element={(<MypageView />)}/>
         <Route path="/auth">
           <Route path="sign-in" element={(<AuthenticationView />)}/>
           <Route path="sign-up" element={(<SignUpView />)}/>

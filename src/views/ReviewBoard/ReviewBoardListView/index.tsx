@@ -161,11 +161,10 @@ export default function ReviewBoardListView() {
                     <IconButton edge='end' onClick={onClickSearchTypeButtonHandler}>
                       <ArrowDropDownIcon sx={{ width: '40px', height: '40px' }} />
                     </IconButton>
-                  } />
+              } />
             }
           </Box>
         </Box>
-
       </Box>
 
       <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>

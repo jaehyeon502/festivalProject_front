@@ -12,19 +12,17 @@ import { useSignInStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { PatchUserProfileResponseDto } from 'src/apis/response/user';
-import { PatchUserNicknameRequestDto, PatchUserProfileRequestDto } from 'src/apis/request/user';
 
 export default function MypageView() {
   //          HOOk            //
   const{festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList} = usePagingHook(5);
- 
+
   const navigator = useNavigate();
   const imageRef = useRef<HTMLInputElement | null>(null);
 
   const {signInUser} = useSignInStore();
   const { setSignInUser } = useSignInStore();
 
-  const [ userProfileUrl, setUserProfileUrl ] = useState<string>('');
   const [ onChangeClick, setOnChangeClick ] = useState<boolean>(false);
   const [ updatedUserNickname, setUpdatedUserNickname ] = useState<string>('');
   const [ updatedUserProfileUrl, setUpdatedUserProfileUrl ] = useState<string | null>(null);
@@ -77,7 +75,7 @@ export default function MypageView() {
     setOnChangeClick(false);
   }
 
-  const completeChangeResponseHandler = () => {
+  const completeChangeHandler = () => {
 
     const data = {
       nickname: updatedUserNickname,
@@ -169,7 +167,7 @@ export default function MypageView() {
                             </Avatar>
                           </Stack>
                           <Box>
-                            <Button sx={{ mt: '5px'}} variant="contained" component="label" onClick={() => completeChangeResponseHandler()} >
+                            <Button sx={{ mt: '5px'}} variant="contained" component="label" onClick={() => completeChangeHandler()} >
                               완료
                             </Button>
                           </Box>
