@@ -11,7 +11,7 @@ import CommentListItem from 'src/components/CommentListItem';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
-import { GET_FREE_BOARD } from 'src/constants/api';
+import { GET_FREE_BOARD_URL } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { GetFreeBoardResponseDto } from 'src/apis/response/freeboard';
@@ -55,7 +55,7 @@ export default function FreeBoardDetailView() {
   }
 
   const getFreeBoard = () => {
-    axios.get(GET_FREE_BOARD(freeBoardNumber as string))
+    axios.get(GET_FREE_BOARD_URL(freeBoardNumber as string))
         .then((response) => getFreeBoardResponse(response))
         .catch((error) => getFreeBoardError(error))
   }
@@ -100,13 +100,12 @@ export default function FreeBoardDetailView() {
     }
     isLoad = true;
     getFreeBoard();
-    console.log(freeBoardNumber);
 
     // //? 일치하는 후기 게시물 Number 들고오기, 일치하는 번호에 있는 mock 데이터를 담는다.
     // //? List 중 하나만 들고올 때 <-> 여러 개 들고올 땐 map돌려서
     // const freeBoardData = FREE_BOARD_LIST.find((item) => item.freeBoardNumber === parseInt(freeBoardNumber));
 
-    // // //? 제대로 들고왔는지
+    // //? 제대로 들고왔는지
     // if (!freeBoardData) {
     //   navigator('/');
     // }
@@ -114,7 +113,7 @@ export default function FreeBoardDetailView() {
     // setFreeBoard(freeBoardData);
     // setFestivalList(COMMENT_LIST);
 
-  }, [path])
+  }, [])
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0' }}>
@@ -160,6 +159,7 @@ export default function FreeBoardDetailView() {
                 추천 {freeBoard?.recommendCount}</Box>
               <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {freeBoard?.commentCount} </Box>
               <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {freeBoard?.viewCount}</Box>
+              <Button onClick={() => navigator(`/freeboard/update/${freeBoard?.freeBoardNumber}`)}>수정</Button>
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
@@ -185,7 +185,7 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)}
+              {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
             </Stack>
           </Box>
 

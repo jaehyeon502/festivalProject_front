@@ -25,7 +25,7 @@ export const PATCH_REVIEW_BOARD_COMMENT_URL = `${HOST}api/board/patch-comment`
 export const DELETE_REVIEW_BOARD_COMMENT_URL = (commentNumber : number) => `${HOST}api/board/delete-comment/${commentNumber}`
 export const POST_REVIEW_BOARD_RECOMMEND_URL = `${HOST}api/board/recommend`
 export const GET_FREE_BOARD_LIST = `${HOST}api/free-board`
-export const GET_FREE_BOARD = (freeBoardNumber: string) => `${HOST}api/free-board/${freeBoardNumber}`
+export const GET_FREE_BOARD_URL = (freeBoardNumber: string) => `${HOST}api/free-board/${freeBoardNumber}`
 
 
 export const GET_INTERESTED_FESTIVAL_LIST_URL =`${HOST}api/festival/festival/interested-list`

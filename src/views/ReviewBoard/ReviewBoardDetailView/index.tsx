@@ -6,7 +6,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
-import { Comment, ReviewBoard } from 'src/interfaces';
+import { Comment, FreeBoardComment, ReviewBoard } from 'src/interfaces';
 import CommentListItem from 'src/components/CommentListItem';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
@@ -234,10 +234,10 @@ export default function ReviewBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px'}}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)}
+              {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
             </Stack>
           </Box>
-         
+        
 
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)}></Pagination>
