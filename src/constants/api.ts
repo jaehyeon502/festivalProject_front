@@ -14,8 +14,8 @@ export const GET_USER_URL = `${HOST}api/user/`;
 export const POST_REVIEW_BOARD_URL = `${HOST}api/board`;
 export const PATCH_REVIEW_BOARD_URL = `${HOST}api/board`;
 export const GET_REVIEW_BOARD_URL = (boardNumber : string ) => `${HOST}api/board/${boardNumber}`
-export const DELETE_REVIEW_BAORD_URL = (boardNumber : string) => `${HOST}api/board/${boardNumber}`;
-export const GET_FESTIVAL_REVIEWBOARD_LIST_URL=(festivalNumber:number)=>`${HOST}api/festival/onlyfestival/${festivalNumber}`;
+export const DELETE_REVIEW_BOARD_URL = (boardNumber : string) => `${HOST}api/board/${boardNumber}`;
+export const GET_FESTIVAL_REVIEWBOARD_LIST_URL=(festivalNumber: number)=>`${HOST}api/festival/onlyfestival/${festivalNumber}`;
 export const GET_MY_REVIEW_BOARD_LIST_URL = `${HOST}api/board/my-reviewboard-list`
 export const POST_REVIEW_BOARD_COMMENT_URL = `${HOST}api/board/post-comment`
 export const PATCH_REVIEW_BOARD_COMMENT_URL = `${HOST}api/board/patch-comment`
