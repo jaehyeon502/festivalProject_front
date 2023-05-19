@@ -46,7 +46,6 @@ export default function SigninView() {
   //          Response Handler          //
 
   const signInResposneHandler = (resposne: AxiosResponse<any, any>) => {
-    alert('작동')
     const { result, message, data } = resposne.data as ResponseDto<SignInResponseDto>;
     if (!result || !data) {
       setLoginError(true);
@@ -58,7 +57,6 @@ export default function SigninView() {
     setCookie('accessToken', token,{ expires });
     setSignInUser(user)
     navigator('/');
-    
   }
   //          Error Handler          //
   const signInErrorHandler = (error: any) => {

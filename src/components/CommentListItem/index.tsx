@@ -1,6 +1,6 @@
 import { Avatar, Box, Divider, IconButton, Typography } from '@mui/material'
 import { useState, useEffect } from 'react';
-import { Comment } from 'src/interfaces'
+import { Comment, FreeBoardComment } from 'src/interfaces'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useSignInStore } from 'src/stores';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
@@ -114,7 +114,7 @@ export default function CommentListItem({ item }: Props) {
             <Box sx = {{position : 'absolute'}}>
               <Typography onClick = {onPatchCommentHandler}>댓글 수정</Typography>
               <Divider />
-              <Typography onClick = {onDeleteCommentHandler}>댓글 삭제</Typography>
+              <Typography onClick = {() => onDeleteCommentHandler()}>댓글 삭제</Typography>
             </Box>
             : 
             <></>

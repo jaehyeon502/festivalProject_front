@@ -25,6 +25,6 @@ export type {
     PatchCommentResponseDto,
     PostCommentResponseDto,
     PostReviewBoardResponseDto,
-    RecommendReviewBoardResponseDto
+    RecommendReviewBoardResponseDto,
 }
 

@@ -5,10 +5,13 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
 import { FreeBoard} from 'src/interfaces';
 import { useEffect, useState } from 'react';
-import { FREE_BOARD_LIST} from 'src/mock';
 import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
 import FreeBoardListITem from 'src/components/FreeBoardListItem';
+import axios, { AxiosResponse } from 'axios';
+import { GET_FREE_BOARD_LIST } from 'src/constants/api';
+import { GetFreeBoardListResponseDto } from 'src/apis/response/freeboard';
+import ResponseDto from 'src/apis/response';
 
 export default function FreeBoardListView() {
 
@@ -28,6 +31,23 @@ export default function FreeBoardListView() {
       setSearchTypeButton(true);
       return;
     }
+
+    const getFreeBoardList = () => {
+      axios.get(GET_FREE_BOARD_LIST)
+          .then((response) => getFreeBoardListResponse(response))
+          .catch((error) => getFreeBoardListError(error))
+    }
+
+    const getFreeBoardListResponse = (response: AxiosResponse<any, any>) => {
+      const {result, message, data} = response.data as ResponseDto<GetFreeBoardListResponseDto[]>
+      if (!result || data === null) return;
+      setFestivalList(data);
+      console.log(data);
+    }
+
+    const getFreeBoardListError = (error: any) => {
+      console.log(error.message);
+    }
   
     const onClickSearchType = (typeName: string) => {
       if (typeName === '최신순') setSearchTypeName(typeName);
@@ -38,15 +58,12 @@ export default function FreeBoardListView() {
     }
   
     useEffect(() => {
-      setFestivalList(FREE_BOARD_LIST);
+      getFreeBoardList();
     }, [])
     return (
       <Box>
-  
         <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
-  
           <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>자유 게시판</Typography>
-  
           <Box display='flex'>
             <Box>
               <OutlinedInput sx={{ width: '300px' }}
@@ -81,12 +98,10 @@ export default function FreeBoardListView() {
               }
             </Box>
           </Box>
-  
         </Box>
-  
         <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
           <Stack sx={{ p: '10px' }}>
-            {viewList.map((item) => (<FreeBoardListITem item={item as FreeBoard} />))}
+            {viewList.map((item) => (<FreeBoardListITem item={item as GetFreeBoardListResponseDto} />))}
           </Stack>
         </Box>
   

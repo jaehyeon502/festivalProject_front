@@ -82,7 +82,7 @@ export default function ReviewBoardDetailView() {
   //? 다음 글
   const onClickNextBoardHandler = () => {
     const boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) + 1 : Number(reviewBoardNumber);
-    if (boardNumber > festivalList.length) {
+    if (boardNumber > 12) {
       alert('다음 글이 없습니다.');
       return;
     }
