@@ -5,14 +5,14 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
 import { ReviewBoard } from 'src/interfaces';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { REVIEW_BOARD_LIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { GetAllReviewBoardListResponseDto } from 'src/apis/response/board';
-import { GET_ALL_REVIEWBOARD_LIST_URL } from 'src/constants/api';
+import { GET_ALL_REVIEWBOARD_LIST_URL, GET_SEARCH_REVIEWBOARD_LIST } from 'src/constants/api';
+import { GetAllReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
 
 export default function ReviewBoardListView() {
 
@@ -21,8 +21,12 @@ export default function ReviewBoardListView() {
   const navigator = useNavigate();
   const [searchTypeButton, setSearchTypeButton] = useState<boolean>(false);
   const [searchTypeName, setSearchTypeName] = useState<string>('최신순');
+  const [searchView,setSearchView]=useState<boolean>(false);
+  const [searchWord,setSearchWord]=useState<string>('');
+  const [searchWordValue,setSearchWordValue]=useState<string>('');
+  const [errorMessage,setErrorMessage]=useState<string>('');
   const searchType = ['최신순', '평점순', '조회수'];
-
+  const path = useLocation();
   //          Event Handler          //
   const onClickSearchTypeButtonHandler = () => {
     if (searchTypeButton === true) {
@@ -31,6 +35,16 @@ export default function ReviewBoardListView() {
     }
     setSearchTypeButton(true);
     return;
+  }
+  
+
+  const onSearchHandler = ( )=>{
+    setSearchView(true);
+    setSearchWordValue(searchWord);
+    getSearchReviewBoardList();
+    if(searchWord === '') alert("검색어 입력해주세요");
+    setSearchWord('');
+    
   }
 
   const onClickSearchType = (typeName: string) => {
@@ -49,7 +63,23 @@ export default function ReviewBoardListView() {
 
   }
 
+  const setSearchWordHandler=(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>{
+    const value = event.target.value;
+     
+      setSearchWord(value);
+
+  }
+
   //         Response Handler            //
+  const getSearchReviewBoardList=()=>{
+    axios
+    .get(GET_SEARCH_REVIEWBOARD_LIST(searchWord as string))
+    .then((response)=>getSearchReviewBoardListResponseHandler(response))
+    .catch((error)=>getSearchReviewBoardListErrorHandler(error))
+}
+
+  //         Response Handler        //
+
   const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
     if (!result || data === null) return;
@@ -57,33 +87,61 @@ export default function ReviewBoardListView() {
   }
 
   //            Error Handler          //
+  const getSearchReviewBoardListResponseHandler=(response:AxiosResponse<any,any>)=>{
+    const {result,message,data} = response.data as ResponseDto<GetSearchReviewBoardListResponseDto[]>
+      if(!result || data === null){
+        setFestivalList([]);
+        setErrorMessage(message);
+        return;
+      }
+      if(searchTypeName === '조회수'){
+        const viewcount = data.sort((a, b) => b.viewCount - a.viewCount);
+        setFestivalList(viewcount);
+      }
+    
+      setFestivalList(data);
+        
+}
+
+
+  //            Error Handler     //
+
   const getReviewBoardErrorHandler = (error: any) => {
     console.log(error.message);
   }
 
+  const getSearchReviewBoardListErrorHandler =(error:any)=>{
+    return console.log(error.message);
+}
+
+//           Use Effect        //
 
   useEffect(() => {
 
     getAllReviewBoardList();
-
-  }, [])
+    setSearchView(false);
+  }, [path])
+  
 
   return (
     <Box>
 
       <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
-
-        <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>축제 후기 게시판</Typography>
+        
+      {!searchView  ? 
+          (<>        <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) : 
+          (<>         <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>{searchWordValue}에 검색 결과 입니다.</Typography></>)}
+ 
 
         <Box display='flex'>
           <Box>
-            <OutlinedInput sx={{ width: '300px' }}
+            <OutlinedInput sx={{ width: '300px' }} value={searchWord} onChange={(event)=>setSearchWordHandler(event)}
               placeholder='검색명을 입력해 주세요.'
               endAdornment={
                 <IconButton edge='end'>
-                  <SearchSharpIcon />
+                  <SearchSharpIcon onClick={()=>onSearchHandler()} />
                 </IconButton>
-              } />
+              }   />
           </Box>
           <Box>
             {
@@ -113,7 +171,15 @@ export default function ReviewBoardListView() {
 
       <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
         <Stack sx={{ p: '10px' }}>
-          {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as GetAllReviewBoardListResponseDto} />))}
+          {!searchView  ? 
+          (<>{viewList.map((searchView) => (<ReviewBoardListItem item={searchView as GetSearchReviewBoardListResponseDto} />))}</>) :
+            viewList.length === 0  ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '416px' }}>
+                <Typography sx={{ fontSize: '24px', fontWeight: 500, color: 'rgba(0,0,0,0.4)' }}>{errorMessage}</Typography>
+              </Box>
+            ) : 
+            (<> {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as GetAllReviewBoardListResponseDto}/>))}</>) 
+        }
         </Stack>
       </Box>
 
