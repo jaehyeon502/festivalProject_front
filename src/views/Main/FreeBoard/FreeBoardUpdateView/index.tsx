@@ -17,6 +17,7 @@ import { useCookies } from 'react-cookie';
 import ResponseDto from 'src/apis/response';
 import { GetFreeBoardResponseDto, PatchFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useSignInStore } from 'src/stores';
+import { useImageUploadHook } from 'src/hooks';
 
 export default function FreeBoardUpdateView() {
   const navigator = useNavigate();
@@ -24,10 +25,11 @@ export default function FreeBoardUpdateView() {
   const {signInUser} = useSignInStore();
   const {freeBoardNumber} = useParams();
   const [cookies] = useCookies();
+
+  const { freeBoardImgUrl, setFreeBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
   
   const [freeBoardTitle, setFreeBoardTitle] = useState<string>('');
   const [freeBoardContent, setFreeBoardContent] = useState<string>('');
-  const [freeBoardImgUrl, setFreeBoardImgUrl] = useState<string>('');
 
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
   const accessToken = cookies.accessToken;
@@ -127,10 +129,16 @@ export default function FreeBoardUpdateView() {
             </Box>
 
             <Box>
-              <IconButton>
+            <IconButton onClick={() => onImageUploadButtonHandler()}>
                 <InsertPhotoOutlinedIcon />
+                <input 
+                ref = {imageRef}
+                hidden type = 'file'
+                accept = 'image/*'
+                onChange={(event) => onImageUploadChangeHandler(event)}
+                onKeyDown={(event) => onContentKeyPressHandler(event)}
+                />
               </IconButton>
-              <Input placeholder='업로드는 Back과 연동 후에' />
             </Box>
           </Box>
         </Box>
@@ -149,6 +157,7 @@ export default function FreeBoardUpdateView() {
                 sx={{ fontSize: '18px', fontWeight: 600 }}
                 onChange={(event) => setFreeBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
+                <Box sx={{ width: '100%' }} component='img' src={freeBoardImgUrl}></Box>
             </Typography>
             </Box>
           
