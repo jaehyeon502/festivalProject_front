@@ -12,6 +12,8 @@ export const GET_ALL_REVIEWBOARD_LIST_URL=`${HOST}api/board/all-review-board`
 export const GET_USER_URL = `${HOST}api/user/`;
 export const POST_FREE_BOARD_URL = `${HOST}api/free-board`;
 export const PATCH_FREE_BOARD_URL = `${HOST}api/free-board`;
+export const PATCH_FREE_BOARD_COMMENT_URL = `${HOST}api/free-board`;
+export const POST_FREE_BOARD_COMMENT_URL = `${HOST}api/free-board/comment`;
 
 
 export const POST_REVIEW_BOARD_URL = `${HOST}api/board`;

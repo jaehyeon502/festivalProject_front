@@ -1,6 +1,4 @@
-import { FreeBoardComment, FreeBoardRecommend } from "src/interfaces";
-
-interface Dto{
+interface ResponseDto {
     freeBoard :{
         freeBoardNumber: number;
         freeBoardTitle: string;
@@ -16,9 +14,9 @@ interface Dto{
     };
     freeBoardCommentList:[
         {
-            commentNumber: number;
-            commentContent: string;
-            boardNumber: number;
+            freeBoardCommentNumber: number;
+            freeBoardCommentContent: string;
+            freeBoardNumber: number;
             writerId: string;
             writeDatetime: string;
             writerProfileUrl: string | null;
@@ -34,5 +32,4 @@ interface Dto{
         }
     ];
 }
-
-export default Dto
+export default ResponseDto;

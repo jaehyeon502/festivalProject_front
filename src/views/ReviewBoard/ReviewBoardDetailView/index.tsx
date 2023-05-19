@@ -276,7 +276,7 @@ export default function ReviewBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)}
+              {/* {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)} */}
             </Stack>
           </Box>
 
