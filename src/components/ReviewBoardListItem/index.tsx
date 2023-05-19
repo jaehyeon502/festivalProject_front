@@ -1,9 +1,9 @@
 import { Box, Card, CardActionArea, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
-import { GetAllReviewBoardListResponseDto } from 'src/apis/response/board';
+import { GetReviewBoardListResponseDto } from 'src/apis/response/board';
 
 interface Props {
-    item: GetAllReviewBoardListResponseDto;
+    item: GetReviewBoardListResponseDto;
 }
 
 export default function ReviewBoardListItem({ item }: Props) {
