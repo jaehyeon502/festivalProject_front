@@ -1,7 +1,5 @@
-import React from 'react'
 import { Box, Card, CardActionArea, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
-import { FreeBoard } from 'src/interfaces';
 import { GetFreeBoardListResponseDto } from 'src/apis/response/freeboard';
 
 interface Props {
@@ -9,7 +7,7 @@ interface Props {
 }
 
 export default function FreeBoardListITem({item} : Props) {
-  
+
     //        Hook          //
     const navigator = useNavigate();
 

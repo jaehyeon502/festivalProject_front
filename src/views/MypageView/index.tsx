@@ -6,13 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import ResponseDto from 'src/apis/response';
 import { GetMyReviewBoardListResponseDto } from 'src/apis/response/board';
 import FestivalReviewBoardList from 'src/components/FestivalReiviewBoardList'
-import { FILE_UPLOAD_URL, GET_ALL_REVIEWBOARD_LIST_URL, PATCH_USER_PROFILE, authorizationHeader, multipartHeader } from 'src/constants/api';
+import { FILE_UPLOAD_URL, GET_ALL_REVIEWBOARD_LIST_URL, GET_MY_REVIEW_BOARD_LIST_URL, PATCH_USER_PROFILE, authorizationHeader, multipartHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
 import { useSignInStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { PatchUserProfileResponseDto } from 'src/apis/response/user';
-import { PatchUserNicknameRequestDto, PatchUserProfileRequestDto } from 'src/apis/request/user';
 
 export default function MypageView() {
   //          HOOk            //
@@ -24,7 +23,6 @@ export default function MypageView() {
   const {signInUser} = useSignInStore();
   const { setSignInUser } = useSignInStore();
 
-  const [ userProfileUrl, setUserProfileUrl ] = useState<string>('');
   const [ onChangeClick, setOnChangeClick ] = useState<boolean>(false);
   const [ updatedUserNickname, setUpdatedUserNickname ] = useState<string>('');
   const [ updatedUserProfileUrl, setUpdatedUserProfileUrl ] = useState<string | null>(null);
@@ -41,7 +39,7 @@ export default function MypageView() {
   //          EVENT HANDLER           //
   const getMyReviewBoardResponse=(accessToken:string)=>{
       axios
-      .get(GET_ALL_REVIEWBOARD_LIST_URL,authorizationHeader(accessToken))
+      .get(GET_MY_REVIEW_BOARD_LIST_URL,authorizationHeader(accessToken))
       .then((response)=>getMyReviewBoardResponseHandler(response))
       .catch((error)=>getMyReviewBoardErrorHandler(error))
   }
@@ -77,7 +75,7 @@ export default function MypageView() {
     setOnChangeClick(false);
   }
 
-  const completeChangeResponseHandler = () => {
+  const completeChangeHandler = () => {
 
     const data = {
       nickname: updatedUserNickname,
@@ -169,7 +167,7 @@ export default function MypageView() {
                             </Avatar>
                           </Stack>
                           <Box>
-                            <Button sx={{ mt: '5px'}} variant="contained" component="label" onClick={() => completeChangeResponseHandler()} >
+                            <Button sx={{ mt: '5px'}} variant="contained" component="label" onClick={() => completeChangeHandler()} >
                               완료
                             </Button>
                           </Box>
