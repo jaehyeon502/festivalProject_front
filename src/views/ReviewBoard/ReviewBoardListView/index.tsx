@@ -4,9 +4,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
-import { ReviewBoard } from 'src/interfaces';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { REVIEW_BOARD_LIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
@@ -38,7 +36,7 @@ export default function ReviewBoardListView() {
   }
   
 
-  const onSearchHandler = ( )=>{
+  const onSearchHandler = ()=>{
     setSearchView(true);
     setSearchWordValue(searchWord);
     getSearchReviewBoardList();
@@ -65,9 +63,7 @@ export default function ReviewBoardListView() {
 
   const setSearchWordHandler=(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>{
     const value = event.target.value;
-     
-      setSearchWord(value);
-
+    setSearchWord(value);
   }
 
   //         Response Handler            //
@@ -79,7 +75,6 @@ export default function ReviewBoardListView() {
 }
 
   //         Response Handler        //
-
   const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetReviewBoardListResponseDto[]>
     if (!result || data === null) return;
@@ -98,14 +93,10 @@ export default function ReviewBoardListView() {
         const viewcount = data.sort((a, b) => b.viewCount - a.viewCount);
         setFestivalList(viewcount);
       }
-    
       setFestivalList(data);
-        
 }
 
-
   //            Error Handler     //
-
   const getReviewBoardErrorHandler = (error: any) => {
     console.log(error.message);
   }
@@ -115,24 +106,20 @@ export default function ReviewBoardListView() {
 }
 
 //           Use Effect        //
-
   useEffect(() => {
 
     getAllReviewBoardList();
     setSearchView(false);
   }, [path])
   
-
   return (
     <Box>
 
       <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
         
       {!searchView  ? 
-          (<>        <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) : 
-          (<>         <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>{searchWordValue}에 검색 결과 입니다.</Typography></>)}
- 
-
+          (<> <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) : 
+          (<> <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>{searchWordValue}에 검색 결과 입니다.</Typography></>)}
         <Box display='flex'>
           <Box>
             <OutlinedInput sx={{ width: '300px' }} value={searchWord} onChange={(event)=>setSearchWordHandler(event)}

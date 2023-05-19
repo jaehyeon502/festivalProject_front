@@ -37,15 +37,15 @@ export default function CommentListItem({ item }: Props) {
   //          Event Handler          //
   const onPatchCommentHandler = () => {
 
-     const data : PatchCommentRequestDto = {
-       boardNumber : parseInt(boardNumber as string),
-       commentNumber,
-       commentContent
-     }
+    const data : PatchCommentRequestDto = {
+      boardNumber : parseInt(boardNumber as string),
+      commentNumber,
+      commentContent
+    }
 
-     axios.patch(PATCH_REVIEW_BOARD_COMMENT_URL, authorizationHeader(accessToken))
-     .then((response) => patchCommentResponseHandler(response))
-     .catch((error) => patchCommentErrorHandler(error));
+    axios.patch(PATCH_REVIEW_BOARD_COMMENT_URL, authorizationHeader(accessToken))
+    .then((response) => patchCommentResponseHandler(response))
+    .catch((error) => patchCommentErrorHandler(error));
   }
 
   const onDeleteCommentHandler = () => {
@@ -87,21 +87,21 @@ export default function CommentListItem({ item }: Props) {
   }
 
   useEffect(() => {
-    const owner = signInUser !== null && comment?.writerId === signInUser.userId;
+    const owner = signInUser !== null && item?.writerId === signInUser.userId;
     if (owner) setFlag(true);
-    if (signInUser) setFlag(true);
+
   }, [])
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', ml: '20px', mb: '12px' }}>
+      <Box sx={{  width : '1455px', display: 'flex', justifyContent:'space-between', ml: '20px', mb: '12px' }}>
         <Box sx={{ display: 'flex' }}>
           <Avatar sx={{ mr: '10px', width: '50px', height: '50px' }} src={item?.writerProfileUrl ? item?.writerProfileUrl : ''} />
           <Typography sx={{ mr: '10px' }}>{item?.writerNickname + ' | '}</Typography>
           <Typography sx={{ mr: '10px' }}>{item?.writeDatetime}</Typography>
         </Box>
 
-        <Box sx={{ mr: '40px' }}>
+        <Box sx={{ mr: '40px'}}>
 
           {flag
             ?

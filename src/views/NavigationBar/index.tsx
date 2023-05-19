@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import { useSignInStore } from 'src/stores';
+import { useFestivalNumberStore, useSignInStore } from 'src/stores';
 import PowerOffIcon from '@mui/icons-material/PowerOff';
 import { useCookies } from 'react-cookie';
 import { AppBar, IconButton } from '@mui/material';
@@ -15,6 +15,7 @@ function NavigationBar() {
   //             HOOK               //
   const navigator = useNavigate();
   const {signInUser,resetSignInUser}=useSignInStore();
+  const { setFestivalNumber } = useFestivalNumberStore();
   const [cookies,setCookie]=useCookies();
   const accessToken=cookies.accessToken;
 
@@ -27,6 +28,7 @@ function NavigationBar() {
 
   }
   const onClickBoardListNameHandler = (boardName : string) => {
+    setFestivalNumber(null);
     if(boardName === '현재 진행 중인 축제') alert('현진축 게시판');
     else if(boardName === '개최 예정 축제') alert('개예축 게시판')
     else if(boardName === '축제 후기') navigator('/reviewBoard/list');

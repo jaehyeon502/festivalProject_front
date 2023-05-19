@@ -12,7 +12,7 @@ interface Props {
 export default function InterestedFestivalListItem({ onClick, festivalList }: Props) {
     //                    HOOK                 //
     const { festivalNumber, setFestivalNumber } = useFestivalNumberStore();
-    console.log(festivalNumber)
+    
     return (
         <Card variant='outlined' onClick={onClick} >
             <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff' }} onClick={() => setFestivalNumber(festivalList.festivalNumber)}>

@@ -134,7 +134,6 @@ function FirstPage() {
 
   const onProfileUploadChangeResponseHandler = (response: AxiosResponse<any, any>) => {
     const profile = response.data as string;
-    console.log(profile);
     setProfileUrl(profile);
   }
 

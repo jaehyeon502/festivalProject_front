@@ -5,9 +5,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { COMMENT_LIST} from 'src/mock';
-import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
-import CommentListItem from 'src/components/CommentListItem';
+import { FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
@@ -135,6 +133,7 @@ export default function FreeBoardDetailView() {
     console.log(error.message);
   }
 
+<<<<<<< HEAD
   const patchFreeBoardCommentHandler = () => {
     if (!accessToken) {
       alert('로그인이 필요합니다.');
@@ -178,6 +177,8 @@ export default function FreeBoardDetailView() {
   //   navigator(`/freeBoard/detail/${boardNumber}`) 
   // }
 
+=======
+>>>>>>> b24a7ca21201b63387cf46b8c68563a1bae98aae
   useEffect(() => {
 
     if (isLoad) return;
