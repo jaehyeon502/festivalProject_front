@@ -1,2 +1,4 @@
 import usePagingHook from "./pagingHook";
-export {usePagingHook};
+import useImageUploadHook from "./imageUploadHook";
+
+export { usePagingHook, useImageUploadHook };

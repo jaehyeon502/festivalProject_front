@@ -13,14 +13,14 @@ import { FILE_UPLOAD_URL, POST_FREE_BOARD_URL, authorizationHeader, multipartHea
 import ResponseDto from 'src/apis/response';
 import { PostFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useCookies } from 'react-cookie';
+import { useImageUploadHook } from 'src/hooks';
 
 export default function FreeBoardWriteView() {
-  const imageRef = useRef<HTMLInputElement | null>(null);
-  const [boardImgUrl, setBoardImgUrl] = useState<string>('');
   const [freeBoardTitle, setFreeBoardTitle] = useState<string>('');
   const [freeBoardContent, setFreeBoardContent] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
+  const { freeBoardImgUrl, setFreeBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
 
   const navigator = useNavigate();
 
@@ -34,23 +34,8 @@ export default function FreeBoardWriteView() {
     setBoardContent(boardContent + '\n');
   }
 
-  const onImageUploadButtonHandler = () => {
-    if(!imageRef.current) return;
-    imageRef.current.click();
-  }
-
-  const onImageUploadChangeHandler = (event : ChangeEvent<HTMLInputElement>) => {
-    if(!event.target.files) return;
-    const data = new FormData();
-    data.append('file', event.target.files[0]);
-
-    axios.post(FILE_UPLOAD_URL, data, multipartHeader())
-      .then((response) => imageUploadResponseHandler(response))
-      .catch((error) => imageUploadErrorHandler(error));
-  }
-
   const PostFreeBoard = () => {
-    const data: PostFreeBoardRequestDto = {freeBoardTitle, freeBoardContent, freeBoardImgUrl: ''};
+    const data: PostFreeBoardRequestDto = {freeBoardTitle, freeBoardContent, freeBoardImgUrl};
 
     axios.post(POST_FREE_BOARD_URL, data, authorizationHeader(accessToken))
         .then((response) => PostFreeBoardResponse(response))
@@ -83,18 +68,6 @@ export default function FreeBoardWriteView() {
     navigator('/freeBoard/list')
     PostFreeBoard();
   }
-
-  const imageUploadResponseHandler = (response : AxiosResponse<any, any>) => {
-    const imageUrl = response.data as string;
-    if(!imageUrl) return;
-    setBoardImgUrl(imageUrl);
-  }
-
-  const imageUploadErrorHandler = (error: any) => console.log(error.message);
-
-  useEffect(() => {
-    setFestivalNameList(SIMPLELIST);
-  }, [])
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0', height : '100%' }}>
@@ -138,7 +111,7 @@ export default function FreeBoardWriteView() {
               sx={{ fontSize: '18px', fontWeight: 600 }}
               onChange={(event) => setFreeBoardContent(event.target.value)}
               onKeyPress={(event) => onContentKeyPressHandler(event)}/>
-            <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
+            <Box sx={{ width: '100%' }} component='img' src={freeBoardImgUrl}></Box>
           </Typography>
         </Box>
       </Box>
