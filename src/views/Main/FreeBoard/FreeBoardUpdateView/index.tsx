@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react'
+import React, { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
 import {
   Box, Divider, Fab, FormControl,
   Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography
@@ -12,26 +12,24 @@ import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import { PatchFreeBoardRequestDto } from 'src/apis/request/freeboard';
 import axios, { AxiosResponse } from 'axios';
-import { FILE_UPLOAD_URL, GET_FREE_BOARD_URL, PATCH_FREE_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
+import { GET_FREE_BOARD_URL, PATCH_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
 import { useCookies } from 'react-cookie';
 import ResponseDto from 'src/apis/response';
 import { GetFreeBoardResponseDto, PatchFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useSignInStore } from 'src/stores';
+import { useImageUploadHook } from 'src/hooks';
 
 export default function FreeBoardUpdateView() {
-
   const navigator = useNavigate();
-  const imageRef = useRef<HTMLInputElement | null>(null);
 
   const {signInUser} = useSignInStore();
   const {freeBoardNumber} = useParams();
   const [cookies] = useCookies();
 
-  const [ boardImgUrl, setBoardImgUrl ] = useState<string>('');
+  const { freeBoardImgUrl, setFreeBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
   
   const [freeBoardTitle, setFreeBoardTitle] = useState<string>('');
   const [freeBoardContent, setFreeBoardContent] = useState<string>('');
-  const [freeBoardImgUrl, setFreeBoardImgUrl] = useState<string>('');
 
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
   const accessToken = cookies.accessToken;
@@ -53,21 +51,6 @@ export default function FreeBoardUpdateView() {
     }
     patchFreeBoard();
     navigator('/freeboard/list');
-  }
-
-  const onClickChangeImageButtonHandler = () => {
-    if(!imageRef.current) return;
-    imageRef.current.click();
-  }
-
-  const updateImageUploadHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    if(!event.target.files) return;
-    const data = new FormData();
-    data.append('file', event.target.files[0]);
-
-    axios.post(FILE_UPLOAD_URL, data, multipartHeader())
-      .then((response) => changeImageResponseHandler(response))
-      .catch((error) => changeImageErrorHandler(error))
   }
 
   const getFreeBoard = () => {
@@ -94,14 +77,12 @@ export default function FreeBoardUpdateView() {
     if (freeBoardImgUrl) setFreeBoardImgUrl(freeBoardImgUrl);
   }
 
-  const changeImageResponseHandler = (response: AxiosResponse<any, any>) => {
-    const imageUrl = response.data as string;
-    if(!imageUrl) return;
-    setBoardImgUrl(imageUrl);
+  const getFreeBoardError = (error: any) => {
+    console.log(error.message);
   }
 
   const patchFreeBoard = () => {
-    const data: PatchFreeBoardRequestDto = { freeBoardNumber: parseInt(freeBoardNumber as string), freeBoardTitle, freeBoardContent, freeBoardImgUrl: '' };
+    const data: PatchFreeBoardRequestDto = { freeBoardNumber: parseInt(freeBoardNumber as string), freeBoardTitle, freeBoardContent, freeBoardImgUrl};
 
     axios.patch(PATCH_FREE_BOARD_URL, data, authorizationHeader(accessToken))
         .then((response) => patchFreeBoardResponse(response))
@@ -117,16 +98,7 @@ export default function FreeBoardUpdateView() {
     navigator(`/freeboard/detail/${freeBoardNumber}`);
   }
 
-  //          Error Handler          //
-  const getFreeBoardError = (error: any) => {
-    console.log(error.message);
-  }
-
   const patchFreeBoardError = (error: any) => {
-    console.log(error.message);
-  }
-
-  const changeImageErrorHandler = (error: any) => {
     console.log(error.message);
   }
 
@@ -148,16 +120,24 @@ export default function FreeBoardUpdateView() {
       <Divider />
       <Box sx={{ ml: '200px', mr: '200px', p: '100px 50px', backgroundColor: '#ffffff' }}>
         <Box>
-          <Box sx={{ mb: '220px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'end'}}>
+          <Box sx={{ mb: '220px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
 
             <Box>
-              <IconButton onClick={() => onClickChangeImageButtonHandler()}>
+            </Box>
+
+            <Box >
+            </Box>
+
+            <Box>
+            <IconButton onClick={() => onImageUploadButtonHandler()}>
                 <InsertPhotoOutlinedIcon />
                 <input 
-                ref={imageRef} 
-                hidden type='file' 
-                accept='image/*' 
-                onChange={(event) => updateImageUploadHandler(event)} />
+                ref = {imageRef}
+                hidden type = 'file'
+                accept = 'image/*'
+                onChange={(event) => onImageUploadChangeHandler(event)}
+                onKeyDown={(event) => onContentKeyPressHandler(event)}
+                />
               </IconButton>
             </Box>
           </Box>
@@ -168,7 +148,7 @@ export default function FreeBoardUpdateView() {
               sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}} value={freeBoardTitle}
               onChange={(event) => setFreeBoardTitle(event.target.value)} />
             </Box>
-            <Divider sx={{ mt: '35px', mb: '45px', mr: '20px' }} />
+            <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
             <Box>
             <Typography>
               <Input
@@ -177,9 +157,10 @@ export default function FreeBoardUpdateView() {
                 sx={{ fontSize: '18px', fontWeight: 600 }}
                 onChange={(event) => setFreeBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
-            <Box sx={{ width: '50%' }} component='img' src={boardImgUrl}></Box>
-          </Typography>
-        </Box>
+                <Box sx={{ width: '100%' }} component='img' src={freeBoardImgUrl}></Box>
+            </Typography>
+            </Box>
+          
       </Box>
 
       <Fab sx={{ position: 'fixed', zIndex: 999, bottom: '200px', right: '240px', backgroundColor: '#f0fff0' }}

@@ -42,14 +42,12 @@ export default function MainRightContent({ clickPage }: Props) {
     const {result,message,data}=response.data as ResponseDto<GetOneLineReviewResponseDto[]>
     if(!result || data === null)return;
     setFestivalList(data)
-    console.log("data"+data)
   }
 
   const getTop1OneLineReviewResponseHandler=(response:AxiosResponse<any,any>)=>{
     const {result,message,data}=response.data as ResponseDto<GetTop1OneLineReviewResponseDto[]>
     if(!result || data === null)return;
     setFestivalList(data)
-    console.log("data"+data)
   }
 
   //        Error handler              //

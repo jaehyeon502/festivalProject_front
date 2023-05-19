@@ -1,4 +1,4 @@
-import { Box, Grid, Pagination } from '@mui/material'
+import { Box, Grid, Pagination, SelectChangeEvent } from '@mui/material'
 import React, { useEffect } from 'react';
 import { useState } from 'react'
 import FestivalSimpleListItem from 'src/components/FestivalSimpleListItem';
@@ -21,7 +21,8 @@ interface Props {
 
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
 
-  const path = useLocation();
+  const [ showSameFestival, setShowSameFestival] = useState<string>('');
+  const [festivalArea, setFestivalArea] = useState<string>('');
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const [selectedFestival, setSelectedFestival] = useState<GetOneFestivalResponseDto | null>(null);
@@ -39,6 +40,14 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
       .catch((error) => getOnefestivalErrorHandler(error))
   }
 
+  const sameLocal = (event: SelectChangeEvent) => {
+    setShowSameFestival(event.target.value as string)
+    
+    axios.get(`http://localhost:4040/api/festival/area/${festivalArea}`)
+      .then((response) => getShowSameFestivalResponseHandler(response))
+      .catch((error) => getShowSameFestivalErrorHandler(error))
+  }
+
   //         Response Handler         //
   const getOneFestivalResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetOneFestivalResponseDto>
@@ -46,10 +55,20 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
     setSelectedFestival(data);
   }
 
+  const getShowSameFestivalResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetOneFestivalResponseDto>
+    if(!result || !data) return;
+    setFestivalArea(response.data.data);
+  }
+
   //         Error Handler        //
   
   const getOnefestivalErrorHandler = (error: any) => {
-    return console.log(error.message);
+    console.log(error.message);
+  }
+
+  const getShowSameFestivalErrorHandler = (error: any) => {
+    console.log(error.message);
   }
 
   //         Use Effect          //
@@ -67,7 +86,8 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
       if (clickPage) setClickPage(false);
     };
 
-  }, [festivalNumber, clickPage]);
+
+  }, [festivalNumber, clickPage, festivalArea]);
 
   return (
     //? 전체 테이블

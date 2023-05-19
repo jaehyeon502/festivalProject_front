@@ -122,8 +122,7 @@ export default function MypageView() {
     if (signInUser) {
       setUpdatedUserNickname(signInUser.nickname);
       setUpdatedUserProfileUrl(signInUser.profileUrl);
-    }
-  
+    }  
   }, []);
 
   return (

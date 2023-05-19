@@ -36,7 +36,7 @@ export default function ReviewBoardListView() {
   }
   
 
-  const onSearchHandler = ( )=>{
+  const onSearchHandler = ()=>{
     setSearchView(true);
     setSearchWordValue(searchWord);
     getSearchReviewBoardList();
@@ -93,9 +93,7 @@ export default function ReviewBoardListView() {
         const viewcount = data.sort((a, b) => b.viewCount - a.viewCount);
         setFestivalList(viewcount);
       }
-    
       setFestivalList(data);
-        
 }
 
   //            Error Handler     //
@@ -120,8 +118,8 @@ export default function ReviewBoardListView() {
       <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
         
       {!searchView  ? 
-          (<>        <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) : 
-          (<>         <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>{searchWordValue}에 검색 결과 입니다.</Typography></>)}
+          (<> <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) : 
+          (<> <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>{searchWordValue}에 검색 결과 입니다.</Typography></>)}
         <Box display='flex'>
           <Box>
             <OutlinedInput sx={{ width: '300px' }} value={searchWord} onChange={(event)=>setSearchWordHandler(event)}

@@ -43,3 +43,5 @@ export const GET_ONE_FESTIVAL_URL=(festivalNumber:number)=>`${HOST}api/festival/
 export const GET_TOP1_ONELINEREVIEW_URL=`${HOST}api/festival/top1-onelinereview`
 
 export const GET_SEARCH_REVIEWBOARD_LIST=(searchWord:string)=>`${HOST}api/board/search-reviewboard/${searchWord}`
+
+export const DELETE_FREE_BOARD = (freeBoardNumber: string) => `${HOST}api/free-board/${freeBoardNumber}`

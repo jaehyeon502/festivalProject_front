@@ -95,7 +95,6 @@ export default function ReviewBoardWriteView() {
 
   const onClickFestivalNameHandler = (festivalNumber: number, festivalName : string ) => {
     setFestivalNumber(festivalNumber);
-    console.log(festivalNumber);
     setSelectedFestivalName(festivalName);
     setShow(false);
   }

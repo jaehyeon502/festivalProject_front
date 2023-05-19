@@ -7,4 +7,4 @@ interface Comment{
     writerProfileUrl: string | null;
     writerNickname: string;
 }
-export default Comment
+export default Comment;

@@ -9,11 +9,12 @@ import { FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces'
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
-import { GET_FREE_BOARD_URL } from 'src/constants/api';
+import { DELETE_FREE_BOARD, GET_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { GetFreeBoardResponseDto } from 'src/apis/response/freeboard';
+import { DeleteFreeBoardResponseDto, GetFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useSignInStore } from 'src/stores';
+import { useCookies } from 'react-cookie';
 
 export default function FreeBoardDetailView() {
   
@@ -30,6 +31,10 @@ export default function FreeBoardDetailView() {
   const { freeBoardNumber } = useParams();
   const navigator = useNavigate();
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
+
+  const [cookies] = useCookies();
+
+  const accessToken = cookies.accessToken;
   let isLoad = false;
 
   const setReviewBoardResponse = (data : GetFreeBoardResponseDto) =>{
@@ -50,6 +55,36 @@ export default function FreeBoardDetailView() {
       return;
     }
     setRecommendStatus(true);
+  }
+
+  const onDeleteFreeBoardHandler = () => {
+    if(!accessToken) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+
+    if(freeBoard?.writerUserId !== signInUser?.userId) {
+      alert('권한이 없습니다.');
+      return;
+    }
+
+    axios.delete(DELETE_FREE_BOARD(freeBoardNumber as string), authorizationHeader(accessToken))
+        .then((response) => onDeleteFreeBoardResponseHandler(response))
+        .catch((error) => onDeleteFreeBoardErrorHandler(error))
+  }
+
+  const onDeleteFreeBoardResponseHandler = (response: AxiosResponse<any, any>) => {
+    const {result, message, data} = response.data as ResponseDto<DeleteFreeBoardResponseDto>
+    if (!result || !data || !data.resultStatus) {
+      alert(message);
+      return;
+    }
+    alert('삭제되었습니다.');
+    navigator('/freeboard/list');
+  }
+
+  const onDeleteFreeBoardErrorHandler = (error: any) => {
+    console.log(error.message);
   }
 
   const getFreeBoard = () => {
@@ -78,7 +113,6 @@ export default function FreeBoardDetailView() {
     }
     isLoad = true;
     getFreeBoard();
-
   }, [])
 
   return (
@@ -110,7 +144,7 @@ export default function FreeBoardDetailView() {
 
         <Box>
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
-            <img src={freeBoard?.freeBoardImgUrl ? freeBoard.freeBoardImgUrl : ''} />
+          {freeBoard?.freeBoardImgUrl && (<Box sx={{ width: '100%', mt: '20px' }} component='img' src={freeBoard?.freeBoardImgUrl} />)}
             <Typography sx={{ fontSize: '18px', mt: '10px' }}>{freeBoard?.freeBoardContent}</Typography>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
@@ -126,6 +160,7 @@ export default function FreeBoardDetailView() {
               <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {freeBoard?.commentCount} </Box>
               <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {freeBoard?.viewCount}</Box>
               <Button onClick={() => navigator(`/freeboard/update/${freeBoard?.freeBoardNumber}`)}>수정</Button>
+              <Button onClick={() => onDeleteFreeBoardHandler()}>삭제</Button>
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
@@ -151,7 +186,7 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {/**viewList.map((commentItem) => <CommentListItem item2={commentItem as FreeBoardComment} />)**/}
+              {/* {(viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)} */}
             </Stack>
           </Box>
 

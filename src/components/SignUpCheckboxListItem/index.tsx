@@ -26,8 +26,7 @@ export default function SignUpCheckboxListItem({festivalCheckboxList} : Props) {
       interestedFestival.forEach(item => { if(item !== checkBoxItem) checkedFestival.push(item) });
     }
     
-      setInterestedFestival(checkedFestival);
-      console.log(checkedFestival);
+    setInterestedFestival(checkedFestival);
   }
 
   return (
