@@ -185,7 +185,7 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
+              {/**viewList.map((commentItem) => <CommentListItem item2={commentItem as FreeBoardComment} />)**/}
             </Stack>
           </Box>
 
