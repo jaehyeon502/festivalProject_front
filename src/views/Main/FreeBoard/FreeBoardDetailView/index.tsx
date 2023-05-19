@@ -100,19 +100,6 @@ export default function FreeBoardDetailView() {
     }
     isLoad = true;
     getFreeBoard();
-
-    // //? 일치하는 후기 게시물 Number 들고오기, 일치하는 번호에 있는 mock 데이터를 담는다.
-    // //? List 중 하나만 들고올 때 <-> 여러 개 들고올 땐 map돌려서
-    // const freeBoardData = FREE_BOARD_LIST.find((item) => item.freeBoardNumber === parseInt(freeBoardNumber));
-
-    // //? 제대로 들고왔는지
-    // if (!freeBoardData) {
-    //   navigator('/');
-    // }
-
-    // setFreeBoard(freeBoardData);
-    // setFestivalList(COMMENT_LIST);
-
   }, [])
 
   return (
