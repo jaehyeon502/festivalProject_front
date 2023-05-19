@@ -61,7 +61,6 @@ export default function ReviewBoardDetailView() {
     axios.get(GET_REVIEW_BOARD_URL(reviewBoardNumber as string))
       .then((response) => getBoardResponseHandler(response))
       .catch((error) => getBoardErrorHandler(error));
-
   }
 
   //? 추천 누르기
@@ -191,7 +190,6 @@ export default function ReviewBoardDetailView() {
   const postCommentReponseHandler = (response: AxiosResponse<any, any>) => {
 
     const { result, message, data } = response.data as ResponseDto<PostCommentResponseDto>
-
     if (!result || !data) return;
     setReviewBoardResponse(data);
   }
@@ -267,7 +265,7 @@ export default function ReviewBoardDetailView() {
               <DragHandleIcon />
             </IconButton>
       
-         </Box>
+        </Box>
         )}
         <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/reviewboard/update/${reviewBoard?.boardNumber}`)}>게시글 수정</MenuItem>

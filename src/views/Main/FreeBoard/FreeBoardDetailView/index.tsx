@@ -5,9 +5,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { COMMENT_LIST} from 'src/mock';
-import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
-import CommentListItem from 'src/components/CommentListItem';
+import { FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
@@ -104,26 +102,6 @@ export default function FreeBoardDetailView() {
   const getFreeBoardError = (error: any) => {
     console.log(error.message);
   }
-
-
-
-  // const onClickNextBoardHandler = () => {
-  //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) + 1 : Number(freeBoardNumber);
-  //   if (boardNumber > FREE_BOARD_LIST.length) {
-  //     alert('다음 글이 없습니다.');
-  //     return;
-  //   }
-  //   navigator(`/freeBoard/detail/${boardNumber}`)
-  // }
-
-  // const onClickPreviousBoardHandler = () => {
-  //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) - 1 : Number(freeBoardNumber);
-  //   if (boardNumber < 1) {
-  //     alert('이전 글이 없습니다.');
-  //     return;
-  //   }
-  //   navigator(`/freeBoard/detail/${boardNumber}`) 
-  // }
 
   useEffect(() => {
 

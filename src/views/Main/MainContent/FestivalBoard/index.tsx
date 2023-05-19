@@ -50,7 +50,6 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
   const {result,message,data} = response.data as ResponseDto<GetInterstFestivalListResponseDto[]>
   if(!result || data === null) return;
   setFestivalList(data);
-  console.log("data"+data);
 }
 
 

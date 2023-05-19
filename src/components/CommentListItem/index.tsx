@@ -34,15 +34,15 @@ export default function CommentListItem({ item }: Props) {
   //          Event Handler          //
   const onPatchCommentHandler = () => {
 
-     const data : PatchCommentRequestDto = {
-       boardNumber : parseInt(boardNumber as string),
-       commentNumber,
-       commentContent
-     }
+    const data : PatchCommentRequestDto = {
+      boardNumber : parseInt(boardNumber as string),
+      commentNumber,
+      commentContent
+    }
 
-     axios.patch(PATCH_REVIEW_BOARD_COMMENT_URL, authorizationHeader(accessToken))
-     .then((response) => patchCommentResponseHandler(response))
-     .catch((error) => patchCommentErrorHandler(error));
+    axios.patch(PATCH_REVIEW_BOARD_COMMENT_URL, authorizationHeader(accessToken))
+    .then((response) => patchCommentResponseHandler(response))
+    .catch((error) => patchCommentErrorHandler(error));
   }
 
   const onDeleteCommentHandler = () => {

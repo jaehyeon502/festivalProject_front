@@ -42,7 +42,6 @@ export default function FreeBoardListView() {
       const {result, message, data} = response.data as ResponseDto<GetFreeBoardListResponseDto[]>
       if (!result || data === null) return;
       setFestivalList(data);
-      console.log(data);
     }
 
     const getFreeBoardListError = (error: any) => {
@@ -99,6 +98,7 @@ export default function FreeBoardListView() {
             </Box>
           </Box>
         </Box>
+        
         <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
           <Stack sx={{ p: '10px' }}>
             {viewList.map((item) => (<FreeBoardListITem item={item as GetFreeBoardListResponseDto} />))}
