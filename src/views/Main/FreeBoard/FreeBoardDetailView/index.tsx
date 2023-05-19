@@ -16,6 +16,7 @@ import { DeleteFreeBoardResponseDto, GetFreeBoardResponseDto, PatchFreeBoardComm
 import { useSignInStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
 import { PatchFreeBoardCommentRequestDto, PatchFreeBoardRequestDto, PostFreeBoardCommentRequestDto } from 'src/apis/request/freeboard';
+import CommentListItem from 'src/components/CommentListItem';
 
 export default function FreeBoardDetailView() {
   
@@ -133,7 +134,6 @@ export default function FreeBoardDetailView() {
     console.log(error.message);
   }
 
-<<<<<<< HEAD
   const patchFreeBoardCommentHandler = () => {
     if (!accessToken) {
       alert('로그인이 필요합니다.');
@@ -177,8 +177,6 @@ export default function FreeBoardDetailView() {
   //   navigator(`/freeBoard/detail/${boardNumber}`) 
   // }
 
-=======
->>>>>>> b24a7ca21201b63387cf46b8c68563a1bae98aae
   useEffect(() => {
 
     if (isLoad) return;
