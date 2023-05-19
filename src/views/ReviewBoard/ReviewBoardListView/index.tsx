@@ -12,7 +12,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { GET_ALL_REVIEWBOARD_LIST_URL, GET_SEARCH_REVIEWBOARD_LIST } from 'src/constants/api';
-import { GetAllReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
+import { GetReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
 
 export default function ReviewBoardListView() {
 
@@ -81,7 +81,7 @@ export default function ReviewBoardListView() {
   //         Response Handler        //
 
   const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
+    const { result, message, data } = response.data as ResponseDto<GetReviewBoardListResponseDto[]>
     if (!result || data === null) return;
     setFestivalList(data)
   }
@@ -178,7 +178,7 @@ export default function ReviewBoardListView() {
                 <Typography sx={{ fontSize: '24px', fontWeight: 500, color: 'rgba(0,0,0,0.4)' }}>{errorMessage}</Typography>
               </Box>
             ) : 
-            (<> {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as GetAllReviewBoardListResponseDto}/>))}</>) 
+            (<> {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as GetReviewBoardListResponseDto}/>))}</>) 
         }
         </Stack>
       </Box>

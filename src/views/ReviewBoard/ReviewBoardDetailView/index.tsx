@@ -3,6 +3,7 @@ import { Box, Divider, Typography, Pagination, Avatar, Stack, IconButton, Input,
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
@@ -12,11 +13,11 @@ import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
 import { useCookies } from 'react-cookie';
-import { DELETE_REVIEW_BOARD_URL, GET_REVIEW_BOARD_URL, POST_REVIEW_BOARD_COMMENT_URL, POST_REVIEW_BOARD_RECOMMEND_URL, authorizationHeader } from 'src/constants/api';
+import { DELETE_REVIEW_BOARD_COMMENT_URL, DELETE_REVIEW_BOARD_URL, GET_ALL_REVIEWBOARD_LIST_URL, GET_REVIEW_BOARD_URL, PATCH_REVIEW_BOARD_COMMENT_URL, POST_REVIEW_BOARD_COMMENT_URL, POST_REVIEW_BOARD_RECOMMEND_URL, authorizationHeader } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { DeleteReviewBoardResponseDto, GetReviewBoardResponseDto, PostCommentResponseDto, RecommendReviewBoardResponseDto } from 'src/apis/response/board';
-import { PostCommentRequestDto, RecommendReviewBoardRequestDto } from 'src/apis/request/board';
+import { DeleteCommentResponseDto, DeleteReviewBoardResponseDto, GetReviewBoardListResponseDto, GetReviewBoardResponseDto, PatchCommentResponseDto, PostCommentResponseDto, RecommendReviewBoardResponseDto } from 'src/apis/response/board';
+import { PatchCommentRequestDto, PostCommentRequestDto, RecommendReviewBoardRequestDto } from 'src/apis/request/board';
 import Recommend from 'src/interfaces/Recommend.interface';
 import { useSignInStore } from 'src/stores';
 
@@ -32,7 +33,8 @@ export default function ReviewBoardDetailView() {
   const [recommendList, setRecommendList] = useState<Recommend[]>([])
 
   const [commentContent, setCommentContent] = useState<string>('');
-  const [commentList, setCommentList] = useState<Comment[]>([]);
+  const commentNumber : number = 1;
+  const [comment, setComment] = useState<Comment[]>([]);
 
   const [menuFlag, setMenuFlag] = useState<boolean>(false);
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
@@ -47,6 +49,12 @@ export default function ReviewBoardDetailView() {
 
   //          Event Handler          //
   const onClickRecommendHandler = () => onRecommendHandler()
+
+  const getReviewBoardList = () => {
+    axios.get(GET_ALL_REVIEWBOARD_LIST_URL)
+    .then((response) => getReviewBoardListResponseHandler(response))
+    .catch((error) => getReviewBoardErrorHandler(error))
+  }
 
   //? 후기 게시물 조회
   const getBoard = () => {
@@ -81,8 +89,17 @@ export default function ReviewBoardDetailView() {
 
   //? 다음 글
   const onClickNextBoardHandler = () => {
-    const boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) + 1 : Number(reviewBoardNumber);
-    if (boardNumber > 12) {
+    let boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) + 1 : Number(reviewBoardNumber);
+    while(!reviewBoardNumber) boardNumber += 1;
+
+    // getReviewBoardList();
+    // console.log(boardNumber);
+    // console.log(festivalList.length);
+    //Todo 짜증; Back에서 글 삭제 시 게시물 번호도 날리고 이후에 인덱스도 1씩 감소시켜야된다.
+    //Todo 게시물 전체 갯수를 가져와도 현재 삭제 후 갯수랑 이전에 삭제 전 게시물 총 갯수랑 다름
+    //Todo 아니면 DB board 테이블의 마지막 인덱스를 가져올 수 있을까?
+
+    if (boardNumber > 1000) {
       alert('다음 글이 없습니다.');
       return;
     }
@@ -91,7 +108,9 @@ export default function ReviewBoardDetailView() {
 
   //? 이전 글
   const onClickPreviousBoardHandler = () => {
-    const boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) - 1 : Number(reviewBoardNumber);
+    let boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) - 1 : Number(reviewBoardNumber);
+    while(!reviewBoardNumber) boardNumber -= 1;
+
     if (boardNumber < 1) {
       alert('이전 글이 없습니다.');
       return;
@@ -122,13 +141,39 @@ export default function ReviewBoardDetailView() {
   }
 
   //          Response Handler          //
+  const patchCommentResponseHandler = (response : AxiosResponse<any, any>) => {
+
+    const { result, message, data } = response.data as ResponseDto<PatchCommentResponseDto>;
+    if(!result || !data){
+      alert(message);
+      return;
+    }
+  }
+
+  const deleteCommentResponseHandler = (response : AxiosResponse<any, any>) => {
+
+    const { result, message, data } = response.data as ResponseDto<DeleteCommentResponseDto>;
+    // if(!result || !data){
+    //   alert(message);
+    //   return;
+    // }
+    // navigator(`/reviewBoard/detail/${boardNumber}`)
+  }
+
+  const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>)=> {
+    const { result, message, data } = response.data as ResponseDto<GetReviewBoardListResponseDto[]>
+    if (!result || data === null) return;
+    setFestivalList(data);
+
+  }
+  
   const getBoardResponseHandler = (response: AxiosResponse<any, any>) => {
 
     const { result, message, data } = response.data as ResponseDto<GetReviewBoardResponseDto>
     if (!result || !data) {
       alert(message);
-      navigator('/');
-      return;
+      //navigator('/');
+       return;
     }
     setReviewBoardResponse(data);
 
@@ -148,7 +193,6 @@ export default function ReviewBoardDetailView() {
     const { result, message, data } = response.data as ResponseDto<PostCommentResponseDto>
 
     if (!result || !data) return;
-
     setReviewBoardResponse(data);
   }
 
@@ -161,9 +205,12 @@ export default function ReviewBoardDetailView() {
 
   //          Error Handler          //
   const getBoardErrorHandler = (error: any) => console.log(error.message);
+  const getReviewBoardErrorHandler = (error : any) => console.log(error.message);
   const recommendErrorHandler = (error: any) => console.log(error.message);
   const postCommentErrorHandler = (error: any) => console.log(error.message);
   const deleteBoardErrorHandler = (error: any) => console.log(error.message);
+  const patchCommentErrorHandler = (error : any) => console.log(error.message);
+  const deleteCommentErrorHandler = (error : any) => console.log(error.message);
 
   //^ Function
   //? 글 조회는 Dto 1개에 집합 객체가 3개 묶여있어서 하나 바뀔 때 마다 이 함수에서 한 개 씩 바꿔주는 듯
@@ -173,9 +220,11 @@ export default function ReviewBoardDetailView() {
     setReviewBoard(board);
     setFestivalList(commentList);
     setRecommendList(recommendList);
+    setComment(commentList);
   }
 
   useEffect(() => {
+    
     if (isCheck === true) return;
     getBoard();
     isCheck = true;
@@ -274,7 +323,7 @@ export default function ReviewBoardDetailView() {
         <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box sx={{ pb: '20px' }}>
-          <Box sx={{ ml: '30px' }}>
+          <Box sx={{ ml: '30px', display : 'flex', justifyContent : 'space-between'}}>
             <Stack>
               {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)}
             </Stack>
