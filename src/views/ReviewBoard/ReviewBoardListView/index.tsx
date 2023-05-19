@@ -40,9 +40,11 @@ export default function ReviewBoardListView() {
 
   const onSearchHandler = ( )=>{
     setSearchView(true);
+    setSearchWordValue(searchWord);
     getSearchReviewBoardList();
     if(searchWord === '') alert("검색어 입력해주세요");
     setSearchWord('');
+    
   }
 
   const onClickSearchType = (typeName: string) => {
@@ -63,8 +65,8 @@ export default function ReviewBoardListView() {
 
   const setSearchWordHandler=(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>{
     const value = event.target.value;
-    setSearchWordValue(value);
-    setSearchWord(value);
+     
+      setSearchWord(value);
 
   }
 

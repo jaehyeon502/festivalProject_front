@@ -1,11 +1,15 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Box from '@mui/material/Box';
 import MainLeftContent from './MainLeftContent';
 import MainRightContent from './MainRightContent';
 import FestivalBoard from './FestivalBoard';
+import { useLocation } from 'react-router-dom';
 
 export default function MainContent() {
   const [clickPage, setClickPage] = useState<boolean>(false);
+  const path = useLocation();
+
+  
   return (
     <>
       <Box sx={{ mt:'100px', width: '100%', height: 'auto', display:'flex', justifyContent: 'center'}}>
