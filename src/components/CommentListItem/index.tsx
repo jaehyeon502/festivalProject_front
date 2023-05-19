@@ -1,5 +1,5 @@
-import { Avatar, Box, Divider, IconButton, Typography } from '@mui/material'
-import { useState, useEffect } from 'react';
+import { Avatar, Box, Button, Card, Divider, IconButton, Input, Typography } from '@mui/material'
+import { useState, useEffect, Dispatch } from 'react';
 import { Comment, FreeBoardComment } from 'src/interfaces'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useSignInStore } from 'src/stores';
@@ -12,7 +12,9 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { PatchCommentRequestDto } from 'src/apis/request/board';
 
 interface Props {
-  item: Comment;
+  item: FreeBoardComment;
+  // freeBoardCommentUpdate: boolean;
+  // setFreeBoardCommentUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function CommentListItem({ item }: Props) {
 
@@ -22,11 +24,12 @@ export default function CommentListItem({ item }: Props) {
   const [flag, setFlag] = useState<boolean>(false);
   const [comment, setComment] = useState<Comment>();
   const [drag, setDrag] = useState<boolean>(false);
+  const [ freeBoardCommentUpdate, setFreeBoardCommentUpdate ] = useState<boolean>(false);
 
   const navigator = useNavigate();
   const accessToken = cookies.accessToken;
-  const commentNumber : number  = item.commentNumber;
-  const commentContent = item.commentContent;
+  const commentNumber : number  = item.freeBoardCommentNumber;
+  const commentContent = item.freeBoardCommentContent;
 
   const path = useLocation();
   const { boardNumber } = useParams();
@@ -112,7 +115,7 @@ export default function CommentListItem({ item }: Props) {
           {drag
             ?
             <Box sx = {{position : 'absolute'}}>
-              <Typography onClick = {onPatchCommentHandler}>댓글 수정</Typography>
+              <Typography onClick = {() => setFreeBoardCommentUpdate(true)}>댓글 수정</Typography>
               <Divider />
               <Typography onClick = {() => onDeleteCommentHandler()}>댓글 삭제</Typography>
             </Box>
@@ -122,7 +125,15 @@ export default function CommentListItem({ item }: Props) {
 
         </Box>
       </Box>
-      <Typography sx={{ fontSize: '17px', ml: '20px', mb: '8px', mt: '8px', mr: '20px' }}>{item?.commentContent}</Typography>
+      <Typography sx={{ fontSize: '17px', ml: '20px', mb: '8px', mt: '8px', mr: '20px' }}>{item?.freeBoardCommentContent}</Typography>
+      {freeBoardCommentUpdate ? (<Box sx={{ pt: '20px', pb: '15px', pl: '50px', pr: '50px' }}>
+        <Card variant='outlined' sx={{ p: '20px' }}>
+          <Input minRows={3} multiline disableUnderline fullWidth />
+          <Box sx={{ display: 'flex', justifyContent: 'end'}}>
+            <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }} onClick={onPatchCommentHandler}>댓글 수정</Button>
+          </Box>
+        </Card>
+      </Box>) : (<></>)}
     </Box>
   )
 }
