@@ -4,15 +4,13 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
-import { ReviewBoard } from 'src/interfaces';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { REVIEW_BOARD_LIST } from 'src/mock';
 import { getpagecount } from 'src/utils';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { GET_ALL_REVIEWBOARD_LIST_URL, GET_SEARCH_REVIEWBOARD_LIST } from 'src/constants/api';
-import { GetAllReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
+import { GetReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
 
 export default function ReviewBoardListView() {
 
@@ -65,9 +63,7 @@ export default function ReviewBoardListView() {
 
   const setSearchWordHandler=(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>{
     const value = event.target.value;
-     
-      setSearchWord(value);
-
+    setSearchWord(value);
   }
 
   //         Response Handler            //
@@ -79,9 +75,8 @@ export default function ReviewBoardListView() {
 }
 
   //         Response Handler        //
-
   const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<GetAllReviewBoardListResponseDto[]>
+    const { result, message, data } = response.data as ResponseDto<GetReviewBoardListResponseDto[]>
     if (!result || data === null) return;
     setFestivalList(data)
   }
@@ -103,9 +98,7 @@ export default function ReviewBoardListView() {
         
 }
 
-
   //            Error Handler     //
-
   const getReviewBoardErrorHandler = (error: any) => {
     console.log(error.message);
   }
@@ -115,14 +108,12 @@ export default function ReviewBoardListView() {
 }
 
 //           Use Effect        //
-
   useEffect(() => {
 
     getAllReviewBoardList();
     setSearchView(false);
   }, [path])
   
-
   return (
     <Box>
 
@@ -131,8 +122,6 @@ export default function ReviewBoardListView() {
       {!searchView  ? 
           (<>        <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) : 
           (<>         <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>{searchWordValue}에 검색 결과 입니다.</Typography></>)}
- 
-
         <Box display='flex'>
           <Box>
             <OutlinedInput sx={{ width: '300px' }} value={searchWord} onChange={(event)=>setSearchWordHandler(event)}
@@ -178,7 +167,7 @@ export default function ReviewBoardListView() {
                 <Typography sx={{ fontSize: '24px', fontWeight: 500, color: 'rgba(0,0,0,0.4)' }}>{errorMessage}</Typography>
               </Box>
             ) : 
-            (<> {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as GetAllReviewBoardListResponseDto}/>))}</>) 
+            (<> {viewList.map((reviewBoardItem) => (<ReviewBoardListItem item={reviewBoardItem as GetReviewBoardListResponseDto}/>))}</>) 
         }
         </Stack>
       </Box>

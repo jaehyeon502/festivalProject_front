@@ -5,9 +5,7 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { COMMENT_LIST} from 'src/mock';
-import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
-import CommentListItem from 'src/components/CommentListItem';
+import { FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
@@ -70,26 +68,6 @@ export default function FreeBoardDetailView() {
     console.log(error.message);
   }
 
-
-
-  // const onClickNextBoardHandler = () => {
-  //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) + 1 : Number(freeBoardNumber);
-  //   if (boardNumber > FREE_BOARD_LIST.length) {
-  //     alert('다음 글이 없습니다.');
-  //     return;
-  //   }
-  //   navigator(`/freeBoard/detail/${boardNumber}`)
-  // }
-
-  // const onClickPreviousBoardHandler = () => {
-  //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) - 1 : Number(freeBoardNumber);
-  //   if (boardNumber < 1) {
-  //     alert('이전 글이 없습니다.');
-  //     return;
-  //   }
-  //   navigator(`/freeBoard/detail/${boardNumber}`) 
-  // }
-
   useEffect(() => {
 
     if (isLoad) return;
@@ -100,18 +78,6 @@ export default function FreeBoardDetailView() {
     }
     isLoad = true;
     getFreeBoard();
-
-    // //? 일치하는 후기 게시물 Number 들고오기, 일치하는 번호에 있는 mock 데이터를 담는다.
-    // //? List 중 하나만 들고올 때 <-> 여러 개 들고올 땐 map돌려서
-    // const freeBoardData = FREE_BOARD_LIST.find((item) => item.freeBoardNumber === parseInt(freeBoardNumber));
-
-    // //? 제대로 들고왔는지
-    // if (!freeBoardData) {
-    //   navigator('/');
-    // }
-
-    // setFreeBoard(freeBoardData);
-    // setFestivalList(COMMENT_LIST);
 
   }, [])
 
@@ -185,7 +151,7 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
+              {/**viewList.map((commentItem) => <CommentListItem item2={commentItem as FreeBoardComment} />)**/}
             </Stack>
           </Box>
 

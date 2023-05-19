@@ -95,6 +95,7 @@ export default function ReviewBoardWriteView() {
 
   const onClickFestivalNameHandler = (festivalNumber: number, festivalName : string ) => {
     setFestivalNumber(festivalNumber);
+    console.log(festivalNumber);
     setSelectedFestivalName(festivalName);
     setShow(false);
   }
@@ -219,7 +220,7 @@ export default function ReviewBoardWriteView() {
                 sx={{ fontSize: '18px', fontWeight: 600 }}
                 onChange={(event) => setBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
-              <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
+              <Box sx={{ width: '50%' }} component='img' src={boardImgUrl}></Box>
             </Typography>
           </Box>
       </Box>

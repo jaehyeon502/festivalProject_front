@@ -13,12 +13,15 @@ import { GetOneFestivalResponseDto } from 'src/apis/response/festival';
 import axios, { AxiosResponse } from 'axios';
 import { GET_ONE_FESTIVAL_URL } from 'src/constants/api';
 import ResponseDto from 'src/apis/response';
+import { useLocation } from 'react-router-dom';
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function MainLeftContent({ setClickPage, clickPage }: Props) {
+
+  const path = useLocation();
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const [selectedFestival, setSelectedFestival] = useState<GetOneFestivalResponseDto | null>(null);
@@ -51,9 +54,20 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
 
   //         Use Effect          //
   useEffect(() => {
-    getOneFestival()
 
-  }, [festivalNumber]);
+    if (clickPage && festivalNumber) getOneFestival();
+
+    //? 어디선가 clickPage가 true로 계속 실행이 되고 있어서
+    //? return문으로 강제적으로 clickPage가 true이면
+    //? setClickPage를 false로 돌려줌
+    //? 완전한 기능도 아님. 자세히보면 0.1초 동안 
+    //? 다른 페이지가 떴다가 메인 화면으로 바뀌는 것을 확인 할 수 있음.
+    return () => {
+      setSelectedFestival(null);
+      if (clickPage) setClickPage(false);
+    };
+
+  }, [festivalNumber, clickPage]);
 
   return (
     //? 전체 테이블
