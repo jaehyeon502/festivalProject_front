@@ -28,7 +28,7 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
   const onFestivalItemClick = () => {
     setClickPage(true);
   }
-
+//         Event Handler         //
   const getOneFestival = () => {
     axios
       .get(GET_ONE_FESTIVAL_URL(festivalNumber as number))
@@ -36,16 +36,20 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
       .catch((error) => getOnefestivalErrorHandler(error))
   }
 
+  //         Response Handler         //
   const getOneFestivalResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetOneFestivalResponseDto>
     if (!result || !data) return;
     setSelectedFestival(data);
   }
+
+  //         Error Handler        //
   
   const getOnefestivalErrorHandler = (error: any) => {
     return console.log(error.message);
   }
 
+  //         Use Effect          //
   useEffect(() => {
     getOneFestival()
 
