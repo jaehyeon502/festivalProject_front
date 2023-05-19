@@ -48,7 +48,6 @@ function App() {
 
   useEffect( () => {
     const accessToken = cookies.accessToken;
-    console.log(accessToken);
     if(accessToken) getUser(accessToken);
   }, [path])
 

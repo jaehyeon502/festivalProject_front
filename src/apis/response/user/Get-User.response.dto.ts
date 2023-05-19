@@ -4,6 +4,9 @@ interface Dto {
     nickname : string;
     profileUrl : string | null;
     telNumber : string;
+    interestedFestival:string[];
+
+
 }
 
 export default Dto;

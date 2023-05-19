@@ -1,9 +1,9 @@
 import { Avatar, Box, Typography } from '@mui/material'
 import { FreeBoardComment } from 'src/interfaces'
-
 interface Props{
     item :FreeBoardComment;
 }
+
 export default function CommentListItem({item} : Props) {
   return (
     <Box>

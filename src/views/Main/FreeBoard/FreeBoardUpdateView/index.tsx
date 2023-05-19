@@ -6,33 +6,36 @@ import {
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Festival } from 'src/interfaces';
 import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import { PatchFreeBoardRequestDto } from 'src/apis/request/freeboard';
 import axios, { AxiosResponse } from 'axios';
-import { PATCH_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
+import { GET_FREE_BOARD_URL, PATCH_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
 import { useCookies } from 'react-cookie';
 import ResponseDto from 'src/apis/response';
-import { PatchFreeBoardResponseDto } from 'src/apis/response/freeboard';
+import { GetFreeBoardResponseDto, PatchFreeBoardResponseDto } from 'src/apis/response/freeboard';
+import { useSignInStore } from 'src/stores';
 
 export default function FreeBoardUpdateView() {
+  const navigator = useNavigate();
+
+  const {signInUser} = useSignInStore();
+  const {freeBoardNumber} = useParams();
+  const [cookies] = useCookies();
   
   const [freeBoardTitle, setFreeBoardTitle] = useState<string>('');
   const [freeBoardContent, setFreeBoardContent] = useState<string>('');
-  const [boardContent, setBoardContent] = useState<string>('');
+  const [freeBoardImgUrl, setFreeBoardImgUrl] = useState<string>('');
+
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
-
-  const navigator = useNavigate();
-
-  const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
 
   //          Event Handler          //
   const onContentKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Enter') return;
-    setBoardContent(boardContent + '\n');
+    setFreeBoardContent(freeBoardContent + '\n');
   }
 
   const onBoardWriteHandler = () => {
@@ -45,11 +48,39 @@ export default function FreeBoardUpdateView() {
       return;
     }
     patchFreeBoard();
-    navigator('/free-board/list');
+    navigator('/freeboard/list');
+  }
+
+  const getFreeBoard = () => {
+    axios.get(GET_FREE_BOARD_URL(freeBoardNumber as string))
+        .then((response) => getFreeBoardResponse(response))
+        .catch((error) => getFreeBoardError(error))
+  }
+
+  const getFreeBoardResponse = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetFreeBoardResponseDto>
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    const { freeBoardTitle, freeBoardContent, freeBoardImgUrl, writerUserId } = data.freeBoard
+    if (writerUserId !== signInUser?.userId) {
+      alert('권한이 없습니다.');
+      navigator('/');
+      return;
+    }
+
+    setFreeBoardTitle(freeBoardTitle);
+    setFreeBoardContent(freeBoardContent);
+    if (freeBoardImgUrl) setFreeBoardImgUrl(freeBoardImgUrl);
+  }
+
+  const getFreeBoardError = (error: any) => {
+    console.log(error.message);
   }
 
   const patchFreeBoard = () => {
-    const data: PatchFreeBoardRequestDto = { freeBoardNumber: 0, freeBoardTitle, freeBoardContent, freeBoardImgUrl: '' };
+    const data: PatchFreeBoardRequestDto = { freeBoardNumber: parseInt(freeBoardNumber as string), freeBoardTitle, freeBoardContent, freeBoardImgUrl: '' };
 
     axios.patch(PATCH_FREE_BOARD_URL, data, authorizationHeader(accessToken))
         .then((response) => patchFreeBoardResponse(response))
@@ -62,6 +93,7 @@ export default function FreeBoardUpdateView() {
       alert(message);
       return;
     }
+    navigator(`/freeboard/detail/${freeBoardNumber}`);
   }
 
   const patchFreeBoardError = (error: any) => {
@@ -69,7 +101,16 @@ export default function FreeBoardUpdateView() {
   }
 
   useEffect(() => {
-    setFestivalNameList(SIMPLELIST);
+    if (!freeBoardNumber) {
+      navigator("/free-board/list");
+      return;
+    }
+
+    if (!accessToken) {
+      navigator("/auth/sign-in");
+      return;
+    }
+    getFreeBoard();
   }, [])
 
   return (
@@ -96,7 +137,7 @@ export default function FreeBoardUpdateView() {
         
             <Box>
             <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
-              sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}}
+              sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}} value={freeBoardTitle}
               onChange={(event) => setFreeBoardTitle(event.target.value)} />
             </Box>
             <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
@@ -104,7 +145,7 @@ export default function FreeBoardUpdateView() {
             <Typography>
               <Input
                 fullWidth disableUnderline placeholder='본문을 작성해주세요.'
-                multiline minRows={1}
+                multiline minRows={1} value={freeBoardContent}
                 sx={{ fontSize: '18px', fontWeight: 600 }}
                 onChange={(event) => setFreeBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
