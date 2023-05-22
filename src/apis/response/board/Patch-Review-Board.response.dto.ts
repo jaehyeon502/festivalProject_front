@@ -2,6 +2,7 @@ import { Comment } from "src/interfaces";
 import Recommend from "src/interfaces/Recommend.interface";
 
 interface Dto {
+
     board: {
         boardNumber: number
         boardTitle: string;
@@ -11,14 +12,15 @@ interface Dto {
         viewCount: number;
         recommendCount: number;
         commentCount: number;
-        writerUserId: string;
+        writerId: string;
         writerProfileUrl: string | null
         writerNickname: string;
         festivalNumber: number;
-    }
+    };
 
-    recommendList: Recommend[]
+    recommendList : Recommend[]
     commentList: Comment[]
+
 }
 
 export default Dto

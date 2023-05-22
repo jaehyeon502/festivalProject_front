@@ -14,8 +14,6 @@ export default function FestivalReviewBoardList({ festivalBoardList }: Props) {
 //    HOOk         //
 const navigator=useNavigate();
 
-
-
     return (
         <Card variant='outlined' >
             <CardActionArea sx={{ m: '10px, 0', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff' }} onClick = {() => navigator(`/reviewBoard/detail/${festivalBoardList.boardNumber}`)} >
@@ -46,7 +44,7 @@ const navigator=useNavigate();
                     </Box>
                 </Box>
                 <Box>
-                    <Box component={'img'} src={festivalBoardList?.writerProfileUrl as string} sx={{ height: '200px', width: '200px', borderRadius: '5%' }}></Box>
+                    <Box component={'img'} src={festivalBoardList?.boardImgUrl as string} sx={{ height: '200px', width: '200px', borderRadius: '5%' }}></Box>
                 </Box>
             </CardActionArea>
         </Card>

@@ -67,14 +67,14 @@ function App() {
         </Route>
         <Route path = "/reviewboard">
           <Route path = 'write' element = {(<ReviewBoardWriteView/>)}/>
-          <Route path = 'detail/:reviewBoardNumber' element = {(<ReviewBoardDetailView/>)}/>
-          <Route path = 'update/:reviewBoardNumber' element = {(<ReviewBoardUpdateView/>)}/>
+          <Route path = 'detail/:boardNumber' element = {(<ReviewBoardDetailView/>)}/>
+          <Route path = 'update/:boardNumber' element = {(<ReviewBoardUpdateView/>)}/>
           <Route path = 'list' element = {(<ReviewBoardListView/>)}/>
         </Route>
         <Route path = "/freeboard">
           <Route path = 'write' element = {(<FreeBoardWriteView/>)}/> 
-          <Route path = 'detail/:freeBoardNumber' element = {(<FreeBoardDetailView/>)}/> 
-          <Route path = 'update/:freeBoardNumber' element = {(<FreeBoardUpdateView/>)}/> 
+          <Route path = 'detail/:boardNumber' element = {(<FreeBoardDetailView/>)}/> 
+          <Route path = 'update/:boardNumber' element = {(<FreeBoardUpdateView/>)}/> 
           <Route path = 'list' element = {(<FreeBoardListView/>)}/> 
         </Route>
       </Routes>
