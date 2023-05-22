@@ -138,8 +138,9 @@ export default function ReviewBoardListView() {
             <OutlinedInput sx={{ width: '300px' }} value={searchWord} onChange={(event)=>setSearchWordHandler(event)}
               placeholder='검색명을 입력해 주세요.'
               endAdornment={
-                <IconButton edge='end'>
-                  <SearchSharpIcon onClick={()=>onSearchHandler()} />
+                <IconButton edge='end' onKeyPress={() => }>
+                  <SearchSharpIcon 
+                  onClick={()=>onSearchHandler()}/>
                 </IconButton>
               }   />
           </Box>
