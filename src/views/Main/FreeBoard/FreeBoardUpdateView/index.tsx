@@ -82,7 +82,7 @@ export default function FreeBoardUpdateView() {
   }
 
   const patchFreeBoard = () => {
-    const data: PatchFreeBoardRequestDto = { freeBoardNumber: parseInt(freeBoardNumber as string), freeBoardTitle, freeBoardContent, freeBoardImgUrl: '' };
+    const data: PatchFreeBoardRequestDto = { freeBoardNumber: parseInt(freeBoardNumber as string), freeBoardTitle, freeBoardContent, freeBoardImgUrl};
 
     axios.patch(PATCH_FREE_BOARD_URL, data, authorizationHeader(accessToken))
         .then((response) => patchFreeBoardResponse(response))

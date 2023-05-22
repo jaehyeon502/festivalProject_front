@@ -5,18 +5,18 @@ import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { COMMENT_LIST} from 'src/mock';
-import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
-import CommentListItem from 'src/components/CommentListItem';
+import { FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
-import { DELETE_FREE_BOARD, GET_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
+import { DELETE_FREE_BOARD, GET_FREE_BOARD_URL, PATCH_FREE_BOARD_COMMENT_URL, POST_FREE_BOARD_COMMENT_URL, authorizationHeader } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { DeleteFreeBoardResponseDto, GetFreeBoardResponseDto } from 'src/apis/response/freeboard';
+import { DeleteFreeBoardResponseDto, GetFreeBoardResponseDto, PatchFreeBoardCommentResponseDto, PostFreeBoardCommentResponseDto } from 'src/apis/response/freeboard';
 import { useSignInStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
+import { PatchFreeBoardCommentRequestDto, PatchFreeBoardRequestDto, PostFreeBoardCommentRequestDto } from 'src/apis/request/freeboard';
+import CommentListItem from 'src/components/CommentListItem';
 
 export default function FreeBoardDetailView() {
   
@@ -30,7 +30,9 @@ export default function FreeBoardDetailView() {
 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [ menuFlag, setMenuFlag] = useState<boolean>(false);
+  const [ freeBoardCommentContent, setFreeBoardCommentContent ] = useState<string>('');
   const { freeBoardNumber } = useParams();
+  const { freeBoardCommentNumber } = useParams();
   const navigator = useNavigate();
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
 
@@ -39,7 +41,7 @@ export default function FreeBoardDetailView() {
   const accessToken = cookies.accessToken;
   let isLoad = false;
 
-  const setReviewBoardResponse = (data : GetFreeBoardResponseDto) =>{
+  const setFreeBoardResponse = (data : GetFreeBoardResponseDto | PostFreeBoardCommentResponseDto) =>{
     
     const { freeBoard, freeBoardCommentList, freeBoardRecommendList } = data;
     setFreeBoard(freeBoard);
@@ -75,6 +77,33 @@ export default function FreeBoardDetailView() {
         .catch((error) => onDeleteFreeBoardErrorHandler(error))
   }
 
+  const onPostFreeBoardCommentHandler = () => {
+    if(!accessToken) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+
+    const data: PostFreeBoardCommentRequestDto = { freeBoardNumber: parseInt(freeBoardNumber as string), freeBoardCommentContent};
+    axios.post(POST_FREE_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
+        .then((response) => onPostFreeBoardCommentResponseHandler(response))
+        .catch((error) => onPostFreeBoardCommentErrorHandler(error))
+  }
+
+  const onPostFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<PostFreeBoardCommentResponseDto>
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    setFreeBoardResponse(data);
+    setFreeBoardCommentContent('');
+    alert('작성되었습니다.');
+  }
+
+  const onPostFreeBoardCommentErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+
   const onDeleteFreeBoardResponseHandler = (response: AxiosResponse<any, any>) => {
     const {result, message, data} = response.data as ResponseDto<DeleteFreeBoardResponseDto>
     if (!result || !data || !data.resultStatus) {
@@ -98,14 +127,37 @@ export default function FreeBoardDetailView() {
   const getFreeBoardResponse = (response: AxiosResponse<any, any>) => {
     const {result, message, data } = response.data as ResponseDto<GetFreeBoardResponseDto>
     if(!result || !data) return;
-    setReviewBoardResponse(data);
+    setFreeBoardResponse(data);
   }
 
   const getFreeBoardError = (error: any) => {
     console.log(error.message);
   }
 
+  const patchFreeBoardCommentHandler = () => {
+    if (!accessToken) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
 
+    const data: PatchFreeBoardCommentRequestDto = {  freeBoardNumber: parseInt(freeBoardNumber as string), freeBoardCommentNumber: parseInt(freeBoardCommentNumber as string), freeBoardCommentContent } 
+    axios.patch(PATCH_FREE_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
+        .then((response) => patchFreeBoardCommentResponseHandler(response))
+        .catch((error) => patchFreeBoardCommentErrorHandler(error))
+  }
+
+  const patchFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<PatchFreeBoardCommentResponseDto>
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+
+  }
+
+  const patchFreeBoardCommentErrorHandler = (error: any) => {
+
+  }
 
   // const onClickNextBoardHandler = () => {
   //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) + 1 : Number(freeBoardNumber);
@@ -166,8 +218,8 @@ export default function FreeBoardDetailView() {
 
         <Box>
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
-          {freeBoard?.freeBoardImgUrl && (<Box sx={{ width: '100%', mt: '20px' }} component='img' src={freeBoard?.freeBoardImgUrl} />)}
             <Typography sx={{ fontSize: '18px', mt: '10px' }}>{freeBoard?.freeBoardContent}</Typography>
+            {freeBoard?.freeBoardImgUrl && (<Box sx={{ width: '100%', mt: '20px' }} component='img' src={freeBoard?.freeBoardImgUrl} />)}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
@@ -208,7 +260,8 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {/* {(viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)} */}
+              
+              {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
             </Stack>
           </Box>
 
@@ -218,9 +271,9 @@ export default function FreeBoardDetailView() {
 
           <Box sx={{ pt: '20px', pb: '15px', pl: '50px', pr: '50px' }}>
             <Card variant='outlined' sx={{ p: '20px' }}>
-              <Input minRows={3} multiline disableUnderline fullWidth/>
+              <Input minRows={3} multiline disableUnderline fullWidth onChange={(event) => setFreeBoardCommentContent(event.target.value)} />
               <Box sx={{ display: 'flex', justifyContent: 'end'}}>
-                <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }}>댓글 작성</Button>
+                <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }} onClick={() => onPostFreeBoardCommentHandler()}>댓글 작성</Button>
               </Box>
             </Card>
           </Box>

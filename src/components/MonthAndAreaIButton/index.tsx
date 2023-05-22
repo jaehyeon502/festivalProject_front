@@ -52,7 +52,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
       .catch((error) => console.log(error.message));
   }
 
-  
   const allFestivalList = () => {
     axios.get(GET_ALL_FESTIVAL_LIST)
       .then((response) => getAllFestivalListResponseHandler(response))

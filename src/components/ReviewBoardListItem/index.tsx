@@ -10,7 +10,6 @@ export default function ReviewBoardListItem({ item }: Props) {
 
     //        Hook          //
     const navigator = useNavigate();
-    console.log(item.boardImgUrl);
 
     return (
         <Card variant = 'outlined' sx = {{ mb : '10px'}}>

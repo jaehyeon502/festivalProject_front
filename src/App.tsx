@@ -25,6 +25,7 @@ import { GetUserResponseDto } from './apis/response/user';
 
 function App() {
 
+  const { signInUser }=useSignInStore();
   const path = useLocation();
   const { setSignInUser } = useSignInStore();
   const [ cookies ] = useCookies();
@@ -51,8 +52,8 @@ function App() {
     if(accessToken) getUser(accessToken);
   }, [path])
 
-  const {signInUser}=useSignInStore();
-  console.log("로그인"+signInUser)
+
+
   return (
     <>
       <NavigationBar/>

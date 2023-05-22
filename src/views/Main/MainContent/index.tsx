@@ -9,6 +9,9 @@ export default function MainContent() {
   const [clickPage, setClickPage] = useState<boolean>(false);
   const path = useLocation();
 
+  useEffect(() => {
+    setClickPage(false);
+  }, [path])
   
   return (
     <>
