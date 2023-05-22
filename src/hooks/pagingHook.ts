@@ -13,6 +13,8 @@ const usePagingHook = (COUNT: number) => {
 
     const onPageHandler = (page: number) => {
 
+        console.log(festivalList);
+
         setPageNumber(page); 
         const templist: ( GetReviewBoardListResponseDto | GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReveiwBoardListResponseDto | GetMyReviewBoardListResponseDto | GetReviewBoardResponseDto | ReviewBoard | GetFreeBoardListResponseDto | FreeBoard | FreeBoardComment)[] = [];
         const startindex = COUNT * (page - 1);

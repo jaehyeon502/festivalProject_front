@@ -12,7 +12,7 @@ interface Dto{
         writerProfileUrl: string;
         writerNickname: string;
     };
-    freeBoardCommentList:[
+    commentList:[
         {
             commentNumber: number;
             commentContent: string;
@@ -23,7 +23,7 @@ interface Dto{
             writerNickname: string;
         }
     ];
-    freeBoardRecommendList:[
+    recommendList:[
         {
             userId: String;
             boardNumber: number;
