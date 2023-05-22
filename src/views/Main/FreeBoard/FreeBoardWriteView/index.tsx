@@ -16,11 +16,10 @@ import { useCookies } from 'react-cookie';
 import { useImageUploadHook } from 'src/hooks';
 
 export default function FreeBoardWriteView() {
-  const [freeBoardTitle, setFreeBoardTitle] = useState<string>('');
-  const [freeBoardContent, setFreeBoardContent] = useState<string>('');
+  const [boardTitle, setFreeBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
-  const { freeBoardImgUrl, setFreeBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
+  const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
 
   const navigator = useNavigate();
 
@@ -35,7 +34,7 @@ export default function FreeBoardWriteView() {
   }
 
   const PostFreeBoard = () => {
-    const data: PostFreeBoardRequestDto = {freeBoardTitle, freeBoardContent, freeBoardImgUrl};
+    const data: PostFreeBoardRequestDto = {boardTitle, boardContent, boardImgUrl};
 
     axios.post(POST_FREE_BOARD_URL, data, authorizationHeader(accessToken))
         .then((response) => PostFreeBoardResponse(response))
@@ -56,11 +55,11 @@ export default function FreeBoardWriteView() {
   }
 
   const onBoardWriteHandler = () => {
-    if (!freeBoardTitle.trim()) {
+    if (!boardTitle.trim()) {
       alert('제목이 입력되지 않았습니다.')
       return;
     }
-    if (!freeBoardContent.trim()) {
+    if (!boardContent.trim()) {
       alert('내용이 입력되지 않았습니다.')
       return;
     }
@@ -109,9 +108,9 @@ export default function FreeBoardWriteView() {
               fullWidth disableUnderline placeholder='본문을 작성해주세요.'
               multiline minRows={1}
               sx={{ fontSize: '18px', fontWeight: 600 }}
-              onChange={(event) => setFreeBoardContent(event.target.value)}
+              onChange={(event) => setBoardContent(event.target.value)}
               onKeyPress={(event) => onContentKeyPressHandler(event)}/>
-            <Box sx={{ width: '100%' }} component='img' src={freeBoardImgUrl}></Box>
+            <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
           </Typography>
         </Box>
       </Box>

@@ -132,7 +132,7 @@ export default function ReviewBoardDetailView() {
   //? 후기 게시물 삭제
   const onDeleteBoardHandler = () => {
     if(!accessToken)  return;
-    if(reviewBoard?.writerId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
+    if(reviewBoard?.writerUserId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
 
     axios.delete(DELETE_REVIEW_BOARD_URL(reviewBoardNumber as string), authorizationHeader(accessToken))
     .then((response) => deleteBoardResponseHandler(response))
@@ -232,7 +232,7 @@ export default function ReviewBoardDetailView() {
   useEffect(() => {
     if (!signInUser) return;
 
-    const boardOwner = signInUser !== null && reviewBoard?.writerId === signInUser.userId;
+    const boardOwner = signInUser !== null && reviewBoard?.writerUserId === signInUser.userId;
     setMenuFlag(boardOwner);
 
     const recommend = recommendList.find((recommend) => recommend.userId === signInUser.userId);
