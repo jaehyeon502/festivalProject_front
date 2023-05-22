@@ -11,6 +11,7 @@ import PatchCommentResponseDto from './Patch-Comment.response.dto'
 import PostCommentResponseDto from './Post-Comment.Response.dto'
 import PostReviewBoardResponseDto from './Post-Review-Board.response.dto'
 import RecommendReviewBoardResponseDto from './Recommend-Review-Board.response.dto'
+import PatchReviewBoardResponseDto from './Patch-Review-Board.response.dto'
 
 export type {
     DeleteCommentResponseDto,
@@ -26,5 +27,6 @@ export type {
     PostCommentResponseDto,
     PostReviewBoardResponseDto,
     RecommendReviewBoardResponseDto,
+    PatchReviewBoardResponseDto
 }
 
