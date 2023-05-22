@@ -171,7 +171,7 @@ export default function ReviewBoardDetailView() {
     if (!result || !data) {
       alert(message);
       //navigator('/');
-       return;
+      return;
     }
     setReviewBoardResponse(data);
 

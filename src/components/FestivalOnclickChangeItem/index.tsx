@@ -47,7 +47,7 @@ export default function FestivalOnclickChangeItem({ setClickPage, item }: Props)
               </IconButton>
             </Box>
           </Box>
-          <CardMedia sx={{ margin: 'auto', height: '80%', width: '80%' }}
+          <CardMedia sx={{ margin: 'auto', height: '50%', width: '50%' }}
             component="img"
             src={item.festivalInformationUrl as string}
           />

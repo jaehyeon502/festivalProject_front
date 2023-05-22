@@ -6,7 +6,7 @@ interface Props {
     item : GetFreeBoardListResponseDto;
 }
 
-export default function FreeBoardListITem({item} : Props) {
+export default function FreeBoardListITem({ item } : Props) {
 
     //        Hook          //
     const navigator = useNavigate();
