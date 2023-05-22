@@ -6,7 +6,7 @@ import { useSignInStore } from 'src/stores';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { DELETE_REVIEW_BOARD_COMMENT_URL, PATCH_REVIEW_BOARD_COMMENT_URL, authorizationHeader } from 'src/constants/api';
 import ResponseDto from 'src/apis/response';
-import { DeleteCommentResponseDto, PatchCommentResponseDto, PostCommentResponseDto } from 'src/apis/response/board';
+import { DeleteCommentResponseDto, PatchCommentResponseDto } from 'src/apis/response/board';
 import { useCookies } from 'react-cookie';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { PatchCommentRequestDto } from 'src/apis/request/board';

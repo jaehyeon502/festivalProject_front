@@ -4,5 +4,12 @@ import GetOneLineReviewResponseDto from './Get-OneLineReview.response,dto'
 import GetFestivalTypeListResponseDto from './Get-Festival-Type-List.response.dto';
 import GetOneFestivalResponseDto from './Get-OneFestival.response.dto'
 import GetTop1OneLineReviewResponseDto from './Get-Top1OneLineReview.response.dto'
+import PostOneLineCommentReviewResponseDto from './Post-One-Line-Comment-Review-response.dto'
 
-export type {GetTop1OneLineReviewResponseDto,GetInterstFestivalListResponseDto, GetAllFestivalListResponseDto, GetOneLineReviewResponseDto, GetFestivalTypeListResponseDto,GetOneFestivalResponseDto};
+export type {GetTop1OneLineReviewResponseDto,
+    GetInterstFestivalListResponseDto, 
+    GetAllFestivalListResponseDto, 
+    GetOneLineReviewResponseDto, 
+    GetFestivalTypeListResponseDto,
+    GetOneFestivalResponseDto,
+    PostOneLineCommentReviewResponseDto};
