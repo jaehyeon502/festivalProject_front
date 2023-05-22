@@ -1,7 +1,7 @@
 interface RequestDto {
-    freeBoardTitle:string;
-    freeBoardContent:string;
-    freeBoardImgUrl:string;
+    boardTitle:string;
+    boardContent:string;
+    boardImgUrl:string | null;
 }
 
 export default RequestDto

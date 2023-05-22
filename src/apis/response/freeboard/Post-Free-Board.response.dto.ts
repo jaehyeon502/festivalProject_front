@@ -2,11 +2,11 @@ import { FreeBoardComment, FreeBoardRecommend } from "src/interfaces";
 
 interface Dto{
     freeBoard :{
-        freeBoardNumber: number;
-        freeBoardTitle: string;
-        freeBoardContent: string;
-        freeBoardImgUrl: string;
-        freeBoardWriteDatetime: string;
+        boardNumber: number;
+        boardTitle: string;
+        boardContent: string;
+        boardImgUrl: string;
+        boardWriteDatetime: string;
         viewCount: number;
         recommendCount: number;
         commentCount: number;
@@ -14,9 +14,25 @@ interface Dto{
         writerProfileUrl: string;
         writerNickname: string;
     };
-
-    freeBoardCommentList: FreeBoardComment[];
-    freeBoardRecommendList: FreeBoardRecommend[];
+    freeBoardCommentList:[
+        {
+            freeBoardCommentNumber: number;
+            freeBoardCommentContent: string;
+            freeBoardNumber: number;
+            writerUserId: string;
+            writeDatetime: string;
+            writerProfileUrl: string | null;
+            writerNickname: string;
+        }
+    ];
+    freeBoardRecommendList:[
+        {
+            userId: String;
+            freeBoardNumber: number;
+            userProfileUrl: String | null;
+            userNickname: String;
+        }
+    ];
 }
 
 export default Dto

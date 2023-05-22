@@ -28,7 +28,7 @@ const usefestivalNumer = ()=>{
             <Avatar sx = {{ width : '40px', height : '40px', m : '4px', cursor:'pointer' }} src = {oneLineReviewItem?.userProfileUrl ? oneLineReviewItem.userProfileUrl : ''} />
             <Typography sx = {{ml : '5px', fontSize:'12px', color:'#888', cursor:'pointer'}}>{oneLineReviewItem?.userNickname+ " | "}</Typography>
             <Divider orientation='vertical' variant='middle'/>
-            <Typography sx = {{ml : '5px', fontSize:'12px', color:'#888'}}>{oneLineReviewItem?.average} / 5 {" | "}</Typography>
+            <Typography sx = {{ml : '5px', fontSize:'12px', color:'#888'}}>{oneLineReviewItem?.average} / 10 {" | "}</Typography>
             <Divider orientation='vertical' variant='middle'/>
             <Typography sx = {{ml : '5px', fontSize:'12px', color:'#888'}}>{oneLineReviewItem?.writeDatetime}</Typography>
         </Box>

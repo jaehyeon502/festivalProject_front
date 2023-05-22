@@ -17,17 +17,19 @@ import { useCookies } from 'react-cookie';
 import ResponseDto from 'src/apis/response';
 import { GetFreeBoardResponseDto, PatchFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useSignInStore } from 'src/stores';
+import { useImageUploadHook } from 'src/hooks';
 
 export default function FreeBoardUpdateView() {
   const navigator = useNavigate();
 
   const {signInUser} = useSignInStore();
-  const {freeBoardNumber} = useParams();
+  const {boardNumber} = useParams();
   const [cookies] = useCookies();
+
+  const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
   
-  const [freeBoardTitle, setFreeBoardTitle] = useState<string>('');
-  const [freeBoardContent, setFreeBoardContent] = useState<string>('');
-  const [freeBoardImgUrl, setFreeBoardImgUrl] = useState<string>('');
+  const [boardTitle, setBoardTitle] = useState<string>('');
+  const [boardContent, setBoardContent] = useState<string>('');
 
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
   const accessToken = cookies.accessToken;
@@ -35,15 +37,15 @@ export default function FreeBoardUpdateView() {
   //          Event Handler          //
   const onContentKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Enter') return;
-    setFreeBoardContent(freeBoardContent + '\n');
+    setBoardContent(boardContent + '\n');
   }
 
   const onBoardWriteHandler = () => {
-    if (!freeBoardTitle.trim()) {
+    if (!boardTitle.trim()) {
       alert('제목이 입력되지 않았습니다.')
       return;
     }
-    if (!freeBoardContent.trim()) {
+    if (!boardContent.trim()) {
       alert('내용이 입력되지 않았습니다.')
       return;
     }
@@ -52,7 +54,7 @@ export default function FreeBoardUpdateView() {
   }
 
   const getFreeBoard = () => {
-    axios.get(GET_FREE_BOARD_URL(freeBoardNumber as string))
+    axios.get(GET_FREE_BOARD_URL(boardNumber as string))
         .then((response) => getFreeBoardResponse(response))
         .catch((error) => getFreeBoardError(error))
   }
@@ -63,16 +65,16 @@ export default function FreeBoardUpdateView() {
       alert(message);
       return;
     }
-    const { freeBoardTitle, freeBoardContent, freeBoardImgUrl, writerUserId } = data.freeBoard
+    const { boardTitle, boardContent, boardImgUrl, writerUserId } = data.freeBoard
     if (writerUserId !== signInUser?.userId) {
       alert('권한이 없습니다.');
       navigator('/');
       return;
     }
 
-    setFreeBoardTitle(freeBoardTitle);
-    setFreeBoardContent(freeBoardContent);
-    if (freeBoardImgUrl) setFreeBoardImgUrl(freeBoardImgUrl);
+    setBoardTitle(boardTitle);
+    setBoardContent(boardContent);
+    if (boardImgUrl) setBoardImgUrl(boardImgUrl);
   }
 
   const getFreeBoardError = (error: any) => {
@@ -80,7 +82,7 @@ export default function FreeBoardUpdateView() {
   }
 
   const patchFreeBoard = () => {
-    const data: PatchFreeBoardRequestDto = { freeBoardNumber: parseInt(freeBoardNumber as string), freeBoardTitle, freeBoardContent, freeBoardImgUrl: '' };
+    const data: PatchFreeBoardRequestDto = { boardNumber: parseInt(boardNumber as string), boardTitle, boardContent, boardImgUrl};
 
     axios.patch(PATCH_FREE_BOARD_URL, data, authorizationHeader(accessToken))
         .then((response) => patchFreeBoardResponse(response))
@@ -93,7 +95,7 @@ export default function FreeBoardUpdateView() {
       alert(message);
       return;
     }
-    navigator(`/freeboard/detail/${freeBoardNumber}`);
+    navigator(`/freeboard/detail/${boardNumber}`);
   }
 
   const patchFreeBoardError = (error: any) => {
@@ -101,7 +103,7 @@ export default function FreeBoardUpdateView() {
   }
 
   useEffect(() => {
-    if (!freeBoardNumber) {
+    if (!boardNumber) {
       navigator("/free-board/list");
       return;
     }
@@ -127,28 +129,35 @@ export default function FreeBoardUpdateView() {
             </Box>
 
             <Box>
-              <IconButton>
+            <IconButton onClick={() => onImageUploadButtonHandler()}>
                 <InsertPhotoOutlinedIcon />
+                <input 
+                ref = {imageRef}
+                hidden type = 'file'
+                accept = 'image/*'
+                onChange={(event) => onImageUploadChangeHandler(event)}
+                onKeyDown={(event) => onContentKeyPressHandler(event)}
+                />
               </IconButton>
-              <Input placeholder='업로드는 Back과 연동 후에' />
             </Box>
           </Box>
         </Box>
         
             <Box>
             <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
-              sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}} value={freeBoardTitle}
-              onChange={(event) => setFreeBoardTitle(event.target.value)} />
+              sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}} value={boardTitle}
+              onChange={(event) => setBoardTitle(event.target.value)} />
             </Box>
             <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
             <Box>
             <Typography>
               <Input
                 fullWidth disableUnderline placeholder='본문을 작성해주세요.'
-                multiline minRows={1} value={freeBoardContent}
+                multiline minRows={1} value={boardContent}
                 sx={{ fontSize: '18px', fontWeight: 600 }}
-                onChange={(event) => setFreeBoardContent(event.target.value)}
+                onChange={(event) => setBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
+                <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
             </Typography>
             </Box>
           

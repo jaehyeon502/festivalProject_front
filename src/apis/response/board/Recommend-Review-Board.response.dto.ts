@@ -11,7 +11,7 @@ interface Dto {
         viewCount: number;
         recommendCount: number;
         commentCount: number;
-        writerId: string;
+        writerUserId: string;
         writerProfileUrl: string | null
         writerNickname: string;
         festivalNumber: number;
