@@ -29,7 +29,7 @@ export default function ReviewBoardUpdateView() {
   const [boardTitle, setBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
   const [festivalNumber, setFestivalNumber] = useState<number>(1);
-  const { freeBoardImgUrl, setFreeBoardImgUrl, onImageUploadButtonHandler, onImageUploadChangeHandler, imageRef } = useImageUploadHook();
+  const { boardImgUrl, setBoardImgUrl, onImageUploadButtonHandler, onImageUploadChangeHandler, imageRef } = useImageUploadHook();
 
   const [show, setShow] = useState<boolean>(false);
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
@@ -55,7 +55,7 @@ export default function ReviewBoardUpdateView() {
       boardNumber: parseInt(reviewBoardNumber as string),
       boardTitle,
       boardContent,
-      boardImgUrl: freeBoardImgUrl
+      boardImgUrl
     };
 
     axios.patch(PATCH_REVIEW_BOARD_URL, data, authorizationHeader(accessToken))
@@ -122,9 +122,9 @@ export default function ReviewBoardUpdateView() {
       alert(message);
       return;
     }
-    const { boardTitle, boardContent, boardImgUrl, writerId, festivalNumber } = data.board;
+    const { boardTitle, boardContent, boardImgUrl, writerUserId ,festivalNumber } = data.board;
 
-    if (writerId !== signInUser?.userId) {
+    if (writerUserId !== signInUser?.userId) {
       alert('권한이 없습니다.');
       navigator('/');
       return;
@@ -132,7 +132,7 @@ export default function ReviewBoardUpdateView() {
     
     setBoardTitle(boardTitle);
     setBoardContent(boardContent);
-    if(boardImgUrl) setFreeBoardImgUrl(boardImgUrl);
+    if(boardImgUrl) setBoardImgUrl(boardImgUrl);
   }
 
   const patchReviewBoardResponseHandler = (response: AxiosResponse<any, any>) => {
@@ -231,7 +231,7 @@ export default function ReviewBoardUpdateView() {
               value = { boardContent }
               onChange={(event) => setBoardContent(event.target.value)}
               onKeyPress={(event) => onContentKeyPressHandler(event)} />
-            <Box sx = {{ width : '100%'}} component = 'img' src = {freeBoardImgUrl}></Box>
+            <Box sx = {{ width : '100%'}} component = 'img' src = {boardImgUrl}></Box>
           </Typography>
         </Box>
 

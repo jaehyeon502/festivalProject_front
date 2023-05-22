@@ -21,7 +21,7 @@ import { useImageUploadHook } from 'src/hooks';
 
 export default function ReviewBoardWriteView() {
 
-  const { freeBoardImgUrl, setFreeBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
+  const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
   const [boardTitle, setBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
   
@@ -51,7 +51,7 @@ export default function ReviewBoardWriteView() {
   //? 글 작성
   const postBoard = () => {
     //? requestDto에 정의된 변수명과 state명들이 일치해야한다.
-    const data : PostReviewBoardRequestDto = { festivalNumber, boardTitle, boardContent, boardImgUrl : freeBoardImgUrl};
+    const data : PostReviewBoardRequestDto = { festivalNumber, boardTitle, boardContent, boardImgUrl};
 
     axios.post(POST_REVIEW_BOARD_URL, data, authorizationHeader(accessToken))
     .then((response) => postBoardResponseHandler(response))
@@ -196,7 +196,7 @@ export default function ReviewBoardWriteView() {
                 sx={{ fontSize: '18px', fontWeight: 600 }}
                 onChange={(event) => setBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
-              <Box sx={{ width: '50%' }} component='img' src={freeBoardImgUrl}></Box>
+              <Box sx={{ width: '50%' }} component='img' src={boardImgUrl}></Box>
             </Typography>
           </Box>
       </Box>
