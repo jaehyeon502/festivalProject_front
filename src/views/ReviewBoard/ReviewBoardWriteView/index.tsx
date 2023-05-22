@@ -12,24 +12,26 @@ import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import ClearIcon from '@mui/icons-material/Clear';
 import axios, { AxiosResponse } from 'axios';
-import { FILE_UPLOAD_URL, POST_REVIEW_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
+import { POST_REVIEW_BOARD_URL, authorizationHeader} from 'src/constants/api';
 import { PostReviewBoardRequestDto } from 'src/apis/request/board';
 import { useCookies } from 'react-cookie';
 import { PostReviewBoardResponseDto } from 'src/apis/response/board';
 import ResponseDto from 'src/apis/response';
+import { useImageUploadHook } from 'src/hooks';
 
 export default function ReviewBoardWriteView() {
 
-  const imageRef = useRef<HTMLInputElement | null>(null);
+  const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
   const [boardTitle, setBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
-  const [boardImgUrl, setBoardImgUrl] = useState<string>('');
+  
   const [festivalNumber, setFestivalNumber] = useState<number>(1);
-  const [show, setShow] = useState<boolean>(false);
   const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
+  
+  const [show, setShow] = useState<boolean>(false);
   const [selectedFestivalName, setSelectedFestivalName] = useState<string>('');
+  
   const [cookies] = useCookies();
-
   const accessToken = cookies.accessToken;
 
   let buttonClick = false;
@@ -38,29 +40,12 @@ export default function ReviewBoardWriteView() {
 
   //          Event Handler          //
   const onClickFestivalSearchButton = (event: MouseEvent<HTMLButtonElement>) => {
-
     buttonClick = true;
     setShow(true);
   };
 
   const onClickFestivalSearchBox = (event : MouseEvent<HTMLDivElement>) => {
     buttonClick = true;
-  }
-
-  const onImageUploadButtonHandler = () => {
-    if(!imageRef.current) return;
-    imageRef.current.click();
-  }
-  
-  //? 이미지 파일 업로드
-  const onImageUploadChangeHandler = (event : ChangeEvent<HTMLInputElement>) => {
-    if(!event.target.files) return;
-    const data = new FormData();
-    data.append('file', event.target.files[0]);
-
-    axios.post(FILE_UPLOAD_URL, data, multipartHeader())
-    .then((response) => imageUploadResponseHandler(response))
-    .catch((error) => imageUploadErrorHandler(error));
   }
 
   //? 글 작성
@@ -121,12 +106,6 @@ export default function ReviewBoardWriteView() {
   }
 
   //          Response Handler          //
-  const imageUploadResponseHandler = (response : AxiosResponse<any, any>) => {
-    const imageUrl = response.data as string;
-    if(!imageUrl) return;
-    setBoardImgUrl(imageUrl);
-  }
-
   const postBoardResponseHandler = (response : AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<PostReviewBoardResponseDto>;
     if(!result || !data){
@@ -138,7 +117,6 @@ export default function ReviewBoardWriteView() {
   }
 
   //          Error Handler          //
-  const imageUploadErrorHandler = (error : any) => console.log(error.message);
   const postBoardErrorHandler = (error : any) => console.log(error.message);
 
   useEffect(() => {
@@ -173,7 +151,6 @@ export default function ReviewBoardWriteView() {
                     <Grid onClick = {() => onClickFestivalNameHandler(nameItem.festivalNumber, nameItem.festivalName)}> 
                       <FestivalNameItemList item={nameItem}/>
                     </Grid>))}
-                    {'스크롤 내리기'}
                   </Box>
                 ) : (<></>)} 
               </FormControl>
