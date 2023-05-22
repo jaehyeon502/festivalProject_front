@@ -30,6 +30,7 @@ export default function ReviewBoardDetailView() {
 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [recommendList, setRecommendList] = useState<Recommend[]>([])
+  const [errorMessage,setErrorMessage]=useState<string>('');
 
   const [commentContent, setCommentContent] = useState<string>('');
   const [commentList, setCommentList] = useState<Comment[]>([]);
@@ -73,8 +74,8 @@ export default function ReviewBoardDetailView() {
     const data : PostCommentRequestDto = { boardNumber : parseInt(reviewBoardNumber as string), commentContent}
   
     axios.post(POST_REVIEW_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
-    .then((response) => (postCommentReponseHandler))
-    .catch((error) => (postCommentErrorHandler))
+    .then((response) => (postCommentReponseHandler)(response))
+    .catch((error) => (postCommentErrorHandler)(error))
   }
 
   const onClickNextBoardHandler = () => {
@@ -122,7 +123,7 @@ export default function ReviewBoardDetailView() {
     const { result, message, data} = response.data as ResponseDto<PostCommentResponseDto>
 
     if(!result || !data) return;
-
+  
     setReviewBoardResponse(data);
   }
 
@@ -248,6 +249,7 @@ export default function ReviewBoardDetailView() {
               minRows={3} 
               multiline disableUnderline fullWidth
               onChange={(event) => setCommentContent(event.target.value)}/>
+              {errorMessage}
               <Box sx={{ display: 'flex', justifyContent: 'end'}}>
                 <Button
                   onClick = {() => onPostCommentHandler()} 

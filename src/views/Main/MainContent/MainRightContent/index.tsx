@@ -6,9 +6,9 @@ import OneLineReviewListItem from "src/components/OneLineReviewListItem";
 import axios, { AxiosResponse } from "axios";
 import ResponseDto from "src/apis/response";
 import { usePagingHook } from "src/hooks";
-import { GetOneLineReviewResponseDto, GetTop1OneLineReviewResponseDto } from "src/apis/response/festival";
+import { GetFestivalNameResponseDto, GetOneLineReviewResponseDto, GetTop1OneLineReviewResponseDto } from "src/apis/response/festival";
 import { useFestivalNumberStore } from "src/stores";
-import { GET_ONELINE_REVIEW_URL, GET_TOP1_ONELINEREVIEW_URL } from "src/constants/api";
+import { GET_ONELINE_REVIEW_FETIVALNAME, GET_ONELINE_REVIEW_URL, GET_TOP1_ONELINEREVIEW_URL } from "src/constants/api";
 import { getpagecount } from "src/utils";
 
 interface Props {
@@ -18,10 +18,11 @@ interface Props {
 export default function MainRightContent({ clickPage }: Props) {
   const [oneLineReviewList, setOneLineReviewList] =
     useState<OneLineReview[]>();
-  const [festivalName, setFestivalName] = useState<Festival[]>();
+  const [festivalName, setFestivalName] = useState<GetFestivalNameResponseDto | null>(null);
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const {festivalNumber}=useFestivalNumberStore();
   const [selectedFestivalReviewList, setSelectedFestivalReviewList] = useState<any[]>([]);
+
 
   
   //         Event Handler         //
@@ -38,6 +39,13 @@ export default function MainRightContent({ clickPage }: Props) {
     .get(GET_TOP1_ONELINEREVIEW_URL)
     .then((response)=>getTop1OneLineReviewResponseHandler(response))
     .catch((error)=>getTop1OneLineReviewErrorHandler(error))
+  }
+
+  const getFestivalName = () => {
+    axios
+    .get(GET_ONELINE_REVIEW_FETIVALNAME(festivalNumber as number))
+    .then((response)=>getFestivalNameResponseHandler(response))
+    .catch((error)=>getFestivalNameErrorHandler(error))
   }
 
 
@@ -58,6 +66,13 @@ export default function MainRightContent({ clickPage }: Props) {
     console.log("data"+data)
   }
 
+  const getFestivalNameResponseHandler = (response:AxiosResponse<any,any>)=>{
+    const {result,message,data} = response.data as ResponseDto<GetFestivalNameResponseDto>
+    if(!result || data === null) return;
+    setFestivalName(data);
+
+  }
+
   
 
  
@@ -70,12 +85,15 @@ export default function MainRightContent({ clickPage }: Props) {
   const getTop1OneLineReviewErrorHandler = (error: any) => {
     console.log(error.message);
   }
+  const getFestivalNameErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
 
 
 
   //          use Effect             //
   useEffect(() => {
-   
+    getFestivalName();
     getOneLineReview();
   }, [festivalNumber]);
 
@@ -101,7 +119,7 @@ export default function MainRightContent({ clickPage }: Props) {
   return (
     <Box sx={{ width: "40%", height: "100%" }}>
       <Typography
-        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> 한줄평</Typography>
+        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> 한줄평 {festivalName?.festivalName}</Typography>
       <Box sx={{ mt: "15px", ml: "30px", mr: "30px", overflow: "hidden" }}>
           {viewList.map((item) => (
             <Grid sx={{ border: "1px solid #dedede", borderRadius: "10px", mt: "15px" }}>

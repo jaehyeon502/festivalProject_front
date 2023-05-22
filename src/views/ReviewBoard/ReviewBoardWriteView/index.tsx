@@ -12,11 +12,12 @@ import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import ClearIcon from '@mui/icons-material/Clear';
 import axios, { AxiosResponse } from 'axios';
-import { FILE_UPLOAD_URL, POST_REVIEW_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
+import { FILE_UPLOAD_URL, GET_FESTIVALNAME_LIST, GET_FESTIVALNAME_SEARCH_LIST, POST_REVIEW_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
 import { PostReviewBoardRequestDto } from 'src/apis/request/board';
 import { useCookies } from 'react-cookie';
 import { PostReviewBoardResponseDto } from 'src/apis/response/board';
 import ResponseDto from 'src/apis/response';
+import { GetFestivalNameListResponseDto, GetFestivalSearchNameResposneDto } from 'src/apis/response/festival';
 
 export default function ReviewBoardWriteView() {
 
@@ -26,9 +27,10 @@ export default function ReviewBoardWriteView() {
   const [boardImgUrl, setBoardImgUrl] = useState<string>('');
   const [festivalNumber, setFestivalNumber] = useState<number>(1);
   const [show, setShow] = useState<boolean>(false);
-  const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
+  const [festivalNameList, setFestivalNameList] = useState<GetFestivalNameListResponseDto[]>([]);
   const [selectedFestivalName, setSelectedFestivalName] = useState<string>('');
   const [cookies] = useCookies();
+  const [searchName,setSearchName]=useState<string>('');
 
   const accessToken = cookies.accessToken;
 
@@ -94,6 +96,7 @@ export default function ReviewBoardWriteView() {
   }
 
   const onClickFestivalNameHandler = (festivalNumber: number, festivalName : string ) => {
+
     setFestivalNumber(festivalNumber);
     setSelectedFestivalName(festivalName);
     setShow(false);
@@ -120,6 +123,21 @@ export default function ReviewBoardWriteView() {
     postBoard();
   }
 
+  const getFestivalNameList = () => {
+    axios
+    .get(GET_FESTIVALNAME_LIST)
+    .then((response)=>getFestivalNameListResponseHandler(response))
+    .catch((error)=>getFestivalNameListErrorHandler(error))
+  }
+
+  const getFestivalSearchName = () =>{
+    axios
+    .get(GET_FESTIVALNAME_SEARCH_LIST(searchName as string))
+    .then((response)=>getSearchFestivalNameResponseHandler(response))
+    .catch((error)=>getSearchFestivalNameErrorHandler(error))
+
+  }
+
   //          Response Handler          //
   const imageUploadResponseHandler = (response : AxiosResponse<any, any>) => {
     const imageUrl = response.data as string;
@@ -137,14 +155,32 @@ export default function ReviewBoardWriteView() {
     navigator('/reviewBoard/list')
   }
 
+  const getFestivalNameListResponseHandler = (response:AxiosResponse<any,any>)=>{
+    const {result,message,data} = response.data as ResponseDto<GetFestivalNameListResponseDto[]>
+      if(!result || data === null) return;
+      setFestivalNameList(data);
+  }
+
+  const getSearchFestivalNameResponseHandler = (response:AxiosResponse<any,any>)=>{
+    const {result,message,data} = response.data as ResponseDto<GetFestivalSearchNameResposneDto[]>
+     if(!result || data === null) return;
+     setFestivalNameList(data);
+
+    }
+  
+
   //          Error Handler          //
   const imageUploadErrorHandler = (error : any) => console.log(error.message);
   const postBoardErrorHandler = (error : any) => console.log(error.message);
+  const getFestivalNameListErrorHandler = (error : any) => console.log(error.message);
+  const getSearchFestivalNameErrorHandler = (error : any) => console.log(error.message);
 
-  useEffect(() => {
-    setFestivalNameList(SIMPLELIST);
-  }, [])
-
+ useEffect(()=>{
+  if(searchName){
+    getFestivalSearchName();
+  }
+  getFestivalNameList();
+ },[searchName])
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0' }} onClick = {onCloseFestivalSearchHandler}>
@@ -154,7 +190,7 @@ export default function ReviewBoardWriteView() {
           <Box sx={{ mb: '220px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
             <Box onClick = {onClickFestivalSearchBox}>
               <FormControl sx={{ width: '280px', ml: '20px', mb: '20px' }} variant="outlined">
-                <OutlinedInput placeholder='검색어 관련 축제명은 연동 후에' onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}
+                <OutlinedInput placeholder='축제 이름을 검색해 주세요' onChange={(event)=>setSearchName(event.target.value)} onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}
                   endAdornment={
                     <InputAdornment position='end'>
                       <IconButton edge='end' onClick={onClickFestivalSearchButton}>
@@ -179,12 +215,12 @@ export default function ReviewBoardWriteView() {
               </FormControl>
             </Box>
 
-            <Box sx={{ width: '320px', height : '30px', display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{width: '340px', height : '30px', display: 'flex', justifyContent: 'space-between' }}>
               <Box>
                 <Typography sx={{ fontSize: '18px' }}>축제 이름 : </Typography> 
               </Box>
 
-              <Box sx={{ width: '220px', height : '100%', border : '1px solid', display : 'flex', justifyContent : 'space-between' }}>
+              <Box sx={{ width: '240px', height : '30px', border : '1px solid', display : 'flex', justifyContent : 'space-between' ,whiteSpace:'nowrap'}}>
                 <Typography sx = {{ fontSize : '18px' }}>{selectedFestivalName}</Typography>
                 <IconButton onClick = {onDeleteFestivallNameHandler}>
                   <ClearIcon/>
