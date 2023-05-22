@@ -1,12 +1,10 @@
-import { FreeBoardComment, FreeBoardRecommend } from "src/interfaces";
-
 interface Dto{
     freeBoard :{
-        freeBoardNumber: number;
-        freeBoardTitle: string;
-        freeBoardContent: string;
-        freeBoardImgUrl: string;
-        freeBoardWriteDatetime: string;
+        boardNumber: number;
+        boardTitle: string;
+        boardContent: string;
+        boardImgUrl: string;
+        boardWriteDatetime: string;
         viewCount: number;
         recommendCount: number;
         commentCount: number;
@@ -19,7 +17,7 @@ interface Dto{
             commentNumber: number;
             commentContent: string;
             boardNumber: number;
-            writerId: string;
+            writerUserId: string;
             writeDatetime: string;
             writerProfileUrl: string | null;
             writerNickname: string;
@@ -28,7 +26,7 @@ interface Dto{
     freeBoardRecommendList:[
         {
             userId: String;
-            freeBoardNumber: number;
+            boardNumber: number;
             userProfileUrl: String | null;
             userNickname: String;
         }

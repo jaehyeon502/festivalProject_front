@@ -12,7 +12,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { PatchCommentRequestDto } from 'src/apis/request/board';
 
 interface Props {
-  item: FreeBoardComment;
+  item: FreeBoardComment | Comment;
   // freeBoardCommentUpdate: boolean;
   // setFreeBoardCommentUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -28,8 +28,8 @@ export default function CommentListItem({ item }: Props) {
 
   const navigator = useNavigate();
   const accessToken = cookies.accessToken;
-  const commentNumber : number  = item.freeBoardCommentNumber;
-  const commentContent = item.freeBoardCommentContent;
+  const commentNumber : number  = item.commentNumber;
+  const commentContent = item.commentContent;
 
   const path = useLocation();
   const { boardNumber } = useParams();
@@ -87,7 +87,7 @@ export default function CommentListItem({ item }: Props) {
   }
 
   useEffect(() => {
-    const owner = signInUser !== null && item?.writerId === signInUser.userId;
+    const owner = signInUser !== null && item?.writerUserId === signInUser.userId;
     if (owner) setFlag(true);
 
   }, [])
@@ -125,7 +125,7 @@ export default function CommentListItem({ item }: Props) {
 
         </Box>
       </Box>
-      <Typography sx={{ fontSize: '17px', ml: '20px', mb: '8px', mt: '8px', mr: '20px' }}>{item?.freeBoardCommentContent}</Typography>
+      <Typography sx={{ fontSize: '17px', ml: '20px', mb: '8px', mt: '8px', mr: '20px' }}>{item?.commentContent}</Typography>
       {freeBoardCommentUpdate ? (<Box sx={{ pt: '20px', pb: '15px', pl: '50px', pr: '50px' }}>
         <Card variant='outlined' sx={{ p: '20px' }}>
           <Input minRows={3} multiline disableUnderline fullWidth />

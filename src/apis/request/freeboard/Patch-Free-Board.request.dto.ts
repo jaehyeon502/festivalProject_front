@@ -1,8 +1,8 @@
 interface Dto {
-    freeBoardNumber: number;
-    freeBoardTitle: string;
-    freeBoardContent: string;
-    freeBoardImgUrl: string;
+    boardNumber: number;
+    boardTitle: string;
+    boardContent: string;
+    boardImgUrl: string;
 }
 
 export default Dto;

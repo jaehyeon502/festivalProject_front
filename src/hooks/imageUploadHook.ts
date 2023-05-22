@@ -5,7 +5,7 @@ import { FILE_UPLOAD_URL, multipartHeader } from "src/constants/api";
 const useImageUploadHook = () => {
     
     const imageRef = useRef<HTMLInputElement | null>(null);
-    const [freeBoardImgUrl, setFreeBoardImgUrl] = useState<string>('');
+    const [boardImgUrl, setBoardImgUrl] = useState<string>('');
     
     
     const onImageUploadChangeHandler = (event : ChangeEvent<HTMLInputElement>) => {
@@ -26,12 +26,12 @@ const useImageUploadHook = () => {
     const imageUploadResponseHandler = (response : AxiosResponse<any, any>) => {
         const imageUrl = response.data as string;
         if(!imageUrl) return;
-        setFreeBoardImgUrl(imageUrl);
+        setBoardImgUrl(imageUrl);
         console.log(imageUrl);
     }
     
     const imageUploadErrorHandler = (error: any) => console.log(error.message);
-    return { onImageUploadChangeHandler, onImageUploadButtonHandler, setFreeBoardImgUrl, freeBoardImgUrl, imageRef };
+    return { onImageUploadChangeHandler, onImageUploadButtonHandler, setBoardImgUrl, boardImgUrl, imageRef };
 }
 
 export default useImageUploadHook;
