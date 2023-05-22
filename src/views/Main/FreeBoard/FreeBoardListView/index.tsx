@@ -3,7 +3,6 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
-import { FreeBoard } from 'src/interfaces';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +11,7 @@ import axios, { AxiosResponse } from 'axios';
 import { GET_FREE_BOARD_LIST, GET_SEARCH_REVIEWBOARD_LIST } from 'src/constants/api';
 import { GetFreeBoardListResponseDto } from 'src/apis/response/freeboard';
 import ResponseDto from 'src/apis/response';
-import { GetReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
+import { GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
 
 export default function FreeBoardListView() {
 
