@@ -24,9 +24,9 @@ export default function FreeBoardDetailView() {
 
   //          Hook          //
   const {signInUser} = useSignInStore();
-  const [freeBoard, setFreeBoard] = useState<FreeBoard>(); 
-  const [freeBoardCommentList, setFreeBoardCommentList] = useState<FreeBoardComment[]>([]);
-  const [freeBoardrecommendList, setFreeBoardRecommendList] = useState<FreeBoardRecommend[]>([]);
+  const [freeBoard, setFreeBoard] = useState<FreeBoard>();
+  const [commentList, setCommentList] = useState<FreeBoardComment[]>([]);
+  const [recommendList, setRecommendList] = useState<FreeBoardRecommend[]>([]);
 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [ menuFlag, setMenuFlag] = useState<boolean>(false);
@@ -43,10 +43,10 @@ export default function FreeBoardDetailView() {
 
   const setFreeBoardResponse = (data : GetFreeBoardResponseDto | PostFreeBoardCommentResponseDto) =>{
     
-    const { freeBoard, freeBoardCommentList, freeBoardRecommendList } = data;
+    const { freeBoard, commentList, recommendList } = data;
     setFreeBoard(freeBoard);
-    setFreeBoardCommentList(freeBoardCommentList);
-    setFreeBoardRecommendList(freeBoardRecommendList);
+    setFestivalList(commentList);
+    setRecommendList(recommendList);
 
     const boardOwner = signInUser !== null && freeBoard?.writerUserId === signInUser.userId;
     setMenuFlag(boardOwner);
@@ -97,7 +97,6 @@ export default function FreeBoardDetailView() {
     }
     setFreeBoardResponse(data);
     setCommentContent('');
-    alert('작성되었습니다.');
   }
 
   const onPostFreeBoardCommentErrorHandler = (error: any) => {
@@ -133,49 +132,29 @@ export default function FreeBoardDetailView() {
   const getFreeBoardError = (error: any) => {
     console.log(error.message);
   }
+  //? 다음 글
+  const onClickNextBoardHandler = () => {
+    let freeBoardNumber: number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);
+    while(!boardNumber) freeBoardNumber += 1;
 
-  const patchFreeBoardCommentHandler = () => {
-    if (!accessToken) {
-      alert('로그인이 필요합니다.');
+    if (freeBoardNumber > 1000) {
+      alert('다음 글이 없습니다.');
       return;
     }
-
-    const data: PatchFreeBoardCommentRequestDto = {  boardNumber: parseInt(boardNumber as string), commentNumber: parseInt(commentNumber as string), commentContent } 
-    axios.patch(PATCH_FREE_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
-        .then((response) => patchFreeBoardCommentResponseHandler(response))
-        .catch((error) => patchFreeBoardCommentErrorHandler(error))
+    navigator(`/freeBoard/detail/${freeBoardNumber}`);
   }
 
-  const patchFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<PatchFreeBoardCommentResponseDto>
-    if (!result || data === null) {
-      alert(message);
+  //? 이전 글
+  const onClickPreviousBoardHandler = () => {
+    let freeBoardNumber: number = boardNumber ? Number(boardNumber) - 1 : Number(boardNumber);
+    while(!boardNumber) freeBoardNumber -= 1;
+
+    if (freeBoardNumber < 1) {
+      alert('이전 글이 없습니다.');
       return;
     }
-
+    navigator(`/freeBoard/detail/${freeBoardNumber}`);
   }
-
-  const patchFreeBoardCommentErrorHandler = (error: any) => {
-
-  }
-
-  // const onClickNextBoardHandler = () => {
-  //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) + 1 : Number(freeBoardNumber);
-  //   if (boardNumber > FREE_BOARD_LIST.length) {
-  //     alert('다음 글이 없습니다.');
-  //     return;
-  //   }
-  //   navigator(`/freeBoard/detail/${boardNumber}`)
-  // }
-
-  // const onClickPreviousBoardHandler = () => {
-  //   const boardNumber: number = freeBoardNumber ? Number(freeBoardNumber) - 1 : Number(freeBoardNumber);
-  //   if (boardNumber < 1) {
-  //     alert('이전 글이 없습니다.');
-  //     return;
-  //   }
-  //   navigator(`/freeBoard/detail/${boardNumber}`) 
-  // }
 
   useEffect(() => {
 
@@ -187,6 +166,7 @@ export default function FreeBoardDetailView() {
     }
     isLoad = true;
     getFreeBoard();
+    console.log(freeBoard);
   }, [])
 
   return (
@@ -238,14 +218,14 @@ export default function FreeBoardDetailView() {
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
-              <Box sx={{ display: 'inline', ml: '25px' }} >
+              <Box sx={{ display: 'inline', ml: '25px' }}  onClick={onClickNextBoardHandler}>
                 <IconButton sx={{ color: 'black' }}>
                   <ArrowUpwardIcon />
                 </IconButton>
                 다음 글
               </Box>
 
-              <Box sx={{ display: 'inline', ml: '25px' }} >
+              <Box sx={{ display: 'inline', ml: '25px' }}  onClick={onClickPreviousBoardHandler}>
                 <IconButton sx={{ color: 'black' }}>
                   <ArrowDownwardIcon />
                 </IconButton>
@@ -260,7 +240,6 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              
               {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
             </Stack>
           </Box>

@@ -12,7 +12,7 @@ export const GET_ALL_REVIEWBOARD_LIST_URL=`${HOST}api/board/all-review-board`
 export const GET_USER_URL = `${HOST}api/user/`;
 export const POST_FREE_BOARD_URL = `${HOST}api/free-board`;
 export const PATCH_FREE_BOARD_URL = `${HOST}api/free-board`;
-export const PATCH_FREE_BOARD_COMMENT_URL = `${HOST}api/free-board`;
+export const PATCH_FREE_BOARD_COMMENT_URL = `${HOST}api/free-board/comment`;
 export const POST_FREE_BOARD_COMMENT_URL = `${HOST}api/free-board/comment`;
 
 
@@ -47,3 +47,4 @@ export const GET_TOP1_ONELINEREVIEW_URL=`${HOST}api/festival/top1-onelinereview`
 export const GET_SEARCH_REVIEWBOARD_LIST=(searchWord:string)=>`${HOST}api/board/search-reviewboard/${searchWord}`
 
 export const DELETE_FREE_BOARD = (boardNumber: string) => `${HOST}api/free-board/${boardNumber}`
+export const DELETE_FREE_BOARD_COMMENT = (commentNumber : number) => `${HOST}api/free-board/comment/${commentNumber}`

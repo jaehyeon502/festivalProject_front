@@ -1,5 +1,4 @@
 interface FreeBoardRecommend {
-    
     userId: String;
     boardNumber: number;
     userProfileUrl: String | null;

@@ -12,21 +12,21 @@ interface ResponseDto {
         writerProfileUrl: string;
         writerNickname: string;
     };
-    freeBoardCommentList:[
+    commentList:[
         {
-            freeBoardCommentNumber: number;
-            freeBoardCommentContent: string;
-            freeBoardNumber: number;
+            commentNumber: number;
+            commentContent: string;
+            boardNumber: number;
             writerUserId: string;
             writeDatetime: string;
             writerProfileUrl: string | null;
             writerNickname: string;
         }
     ];
-    freeBoardRecommendList:[
+    recommendList:[
         {
             userId: String;
-            freeBoardNumber: number;
+            boardNumber: number;
             userProfileUrl: String | null;
             userNickname: String;
         }
