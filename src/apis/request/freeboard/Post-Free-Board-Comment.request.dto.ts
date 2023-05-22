@@ -1,5 +1,5 @@
 interface Dto {
-    freeBoardNumber: number;
-    freeBoardCommentContent: string;
+    boardNumber: number;
+    commentContent: string;
 }
 export default Dto;

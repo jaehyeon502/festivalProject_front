@@ -8,7 +8,7 @@ interface Dto {
     festivalNumber: number;
     recommendCount: number;
     viewCount: number;
-    writerId: string;
+    writerUserId: string;
     writerNickname: string;
     writerProfileUrl: string | null
 

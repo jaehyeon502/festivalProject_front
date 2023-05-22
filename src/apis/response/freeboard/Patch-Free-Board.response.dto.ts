@@ -2,11 +2,11 @@ import { FreeBoardComment, FreeBoardRecommend } from "src/interfaces";
 
 interface ResponseDto {
     freeBoard :{
-        freeBoardNumber: number;
-        freeBoardTitle: string;
-        freeBoardContent: string;
-        freeBoardImgUrl: string;
-        freeBoardWriteDatetime: string;
+        boardNumber: number;
+        boardTitle: string;
+        boardContent: string;
+        boardImgUrl: string;
+        boardWriteDatetime: string;
         viewCount: number;
         recommendCount: number;
         commentCount: number;
@@ -19,7 +19,7 @@ interface ResponseDto {
             freeBoardCommentNumber: number;
             freeBoardCommentContent: string;
             freeBoardNumber: number;
-            writerId: string;
+            writerUserId: string;
             writeDatetime: string;
             writerProfileUrl: string | null;
             writerNickname: string;

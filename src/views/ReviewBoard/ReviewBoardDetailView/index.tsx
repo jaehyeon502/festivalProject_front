@@ -26,7 +26,7 @@ export default function ReviewBoardDetailView() {
   //          Hook          //
   const path = useLocation();
 
-  const { reviewBoardNumber } = useParams();
+  const { boardNumber } = useParams();
   const [reviewBoard, setReviewBoard] = useState<ReviewBoard>();
 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
@@ -57,7 +57,7 @@ export default function ReviewBoardDetailView() {
 
   //? 후기 게시물 조회
   const getBoard = () => {
-    axios.get(GET_REVIEW_BOARD_URL(reviewBoardNumber as string))
+    axios.get(GET_REVIEW_BOARD_URL(boardNumber as string))
       .then((response) => getBoardResponseHandler(response))
       .catch((error) => getBoardErrorHandler(error));
   }
@@ -67,7 +67,7 @@ export default function ReviewBoardDetailView() {
     if (!accessToken) return;
 
     //? 해당 게시물임을 누르는 것임을 알기 위해 data에 현재 url에 있는 번호 넣어주기
-    const data: RecommendReviewBoardRequestDto = { boardNumber: parseInt(reviewBoardNumber as string) };
+    const data: RecommendReviewBoardRequestDto = { boardNumber: parseInt(boardNumber as string) };
 
     axios.post(POST_REVIEW_BOARD_RECOMMEND_URL, data, authorizationHeader(accessToken))
       .then((response) => recommendResponseHandler(response))
@@ -78,7 +78,7 @@ export default function ReviewBoardDetailView() {
   const onPostCommentHandler = () => {
     if (!accessToken) return;
 
-    const data: PostCommentRequestDto = { boardNumber: parseInt(reviewBoardNumber as string), commentContent }
+    const data: PostCommentRequestDto = { boardNumber: parseInt(boardNumber as string), commentContent }
 
     axios.post(POST_REVIEW_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
       .then((response) => postCommentReponseHandler(response))
@@ -87,8 +87,8 @@ export default function ReviewBoardDetailView() {
 
   //? 다음 글
   const onClickNextBoardHandler = () => {
-    let boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) + 1 : Number(reviewBoardNumber);
-    while(!reviewBoardNumber) boardNumber += 1;
+    let nextboardNumber: number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);
+    while(!boardNumber) nextboardNumber += 1;
 
     // getReviewBoardList();
     // console.log(boardNumber);
@@ -97,23 +97,23 @@ export default function ReviewBoardDetailView() {
     //Todo 게시물 전체 갯수를 가져와도 현재 삭제 후 갯수랑 이전에 삭제 전 게시물 총 갯수랑 다름
     //Todo 아니면 DB board 테이블의 마지막 인덱스를 가져올 수 있을까?
 
-    if (boardNumber > 1000) {
+    if (nextboardNumber > 1000) {
       alert('다음 글이 없습니다.');
       return;
     }
-    navigator(`/reviewBoard/detail/${boardNumber}`)
+    navigator(`/reviewBoard/detail/${nextboardNumber}`)
   }
 
   //? 이전 글
   const onClickPreviousBoardHandler = () => {
-    let boardNumber: number = reviewBoardNumber ? Number(reviewBoardNumber) - 1 : Number(reviewBoardNumber);
-    while(!reviewBoardNumber) boardNumber -= 1;
+    let pboardNumber: number = boardNumber ? Number(boardNumber) - 1 : Number(boardNumber);
+    while(!boardNumber) pboardNumber -= 1;
 
-    if (boardNumber < 1) {
+    if (pboardNumber < 1) {
       alert('이전 글이 없습니다.');
       return;
     }
-    navigator(`/reviewBoard/detail/${boardNumber}`)
+    navigator(`/reviewBoard/detail/${pboardNumber}`)
   }
 
   //? 수정, 삭제 메뉴 클릭
@@ -131,9 +131,9 @@ export default function ReviewBoardDetailView() {
   //? 후기 게시물 삭제
   const onDeleteBoardHandler = () => {
     if(!accessToken)  return;
-    if(reviewBoard?.writerId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
+    if(reviewBoard?.writerUserId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
 
-    axios.delete(DELETE_REVIEW_BOARD_URL(reviewBoardNumber as string), authorizationHeader(accessToken))
+    axios.delete(DELETE_REVIEW_BOARD_URL(boardNumber as string), authorizationHeader(accessToken))
     .then((response) => deleteBoardResponseHandler(response))
     .catch((error) => deleteBoardErrorHandler(error))
   }
@@ -229,7 +229,7 @@ export default function ReviewBoardDetailView() {
   useEffect(() => {
     if (!signInUser) return;
 
-    const boardOwner = signInUser !== null && reviewBoard?.writerId === signInUser.userId;
+    const boardOwner = signInUser !== null && reviewBoard?.writerUserId === signInUser.userId;
     setMenuFlag(boardOwner);
 
     const recommend = recommendList.find((recommend) => recommend.userId === signInUser.userId);
@@ -320,7 +320,7 @@ export default function ReviewBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px', display : 'flex', justifyContent : 'space-between'}}>
             <Stack>
-              {/* {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)} */}
+              {viewList.map((commentItem) => <CommentListItem item={commentItem as Comment} />)}
             </Stack>
           </Box>
 

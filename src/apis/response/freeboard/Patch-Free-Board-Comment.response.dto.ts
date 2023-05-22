@@ -1,10 +1,10 @@
 interface ResponseDto {
     freeBoard :{
-        freeBoardNumber: number;
-        freeBoardTitle: string;
-        freeBoardContent: string;
-        freeBoardImgUrl: string;
-        freeBoardWriteDatetime: string;
+        boardNumber: number;
+        boardTitle: string;
+        boardContent: string;
+        boardImgUrl: string;
+        boardWriteDatetime: string;
         viewCount: number;
         recommendCount: number;
         commentCount: number;
@@ -12,21 +12,21 @@ interface ResponseDto {
         writerProfileUrl: string;
         writerNickname: string;
     };
-    freeBoardCommentList:[
+    commentList:[
         {
-            freeBoardCommentNumber: number;
-            freeBoardCommentContent: string;
-            freeBoardNumber: number;
-            writerId: string;
+            commentNumber: number;
+            commentContent: string;
+            boardNumber: number;
+            writerUserId: string;
             writeDatetime: string;
             writerProfileUrl: string | null;
             writerNickname: string;
         }
     ];
-    freeBoardRecommendList:[
+    recommendList:[
         {
             userId: String;
-            freeBoardNumber: number;
+            boardNumber: number;
             userProfileUrl: String | null;
             userNickname: String;
         }

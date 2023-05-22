@@ -1,9 +1,9 @@
 interface FreeBoard {
-    freeBoardNumber: number;
-    freeBoardTitle: string;
-    freeBoardContent: string;
-    freeBoardImgUrl: string | null;
-    freeBoardWriteDatetime: string;
+    boardNumber: number;
+    boardTitle: string;
+    boardContent: string;
+    boardImgUrl: string | null;
+    boardWriteDatetime: string;
     viewCount: number;
     recommendCount: number;
     commentCount: number;

@@ -8,7 +8,7 @@ interface Dto {
         viewCount: number;
         recommendCount: number;
         commentCount: number;
-        writerId: string;
+        writerUserId: string;
         writerProfileUrl: string | null
         writerNickname: string;
         festivalNumber: number;
@@ -28,7 +28,7 @@ interface Dto {
             commentNumber: number
             commentContent: String
             boardNumber: number
-            writerId: String
+            writerUserId: String
             writeDatetime: String
             writerProfileUrl: String | null;
             writerNickname: String
