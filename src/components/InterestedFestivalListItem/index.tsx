@@ -1,12 +1,13 @@
 import React from 'react'
 import { Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
 import { useFestivalNumberStore } from 'src/stores';
+import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
+
 
 interface Props {
     onClick: () => void;
-    festivalList: GetInterstFestivalListResponseDto
+    festivalList: GetInterstFestivalListResponseDto   
 }
 
 export default function InterestedFestivalListItem({ onClick, festivalList }: Props) {
