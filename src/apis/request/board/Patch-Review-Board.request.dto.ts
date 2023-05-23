@@ -1,7 +1,7 @@
 interface RequestDto {
    boardNumber : number;
    festivalNumber : number;
-   boardtitle : string;
+   boardTitle : string;
    boardContent : string;
    boardImgUrl : string;   
 }

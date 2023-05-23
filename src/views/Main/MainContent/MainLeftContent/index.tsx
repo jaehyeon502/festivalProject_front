@@ -86,7 +86,6 @@ export default function MainLeftContent({ setClickPage, clickPage }: Props) {
       if (clickPage) setClickPage(false);
     };
 
-
   }, [festivalNumber, clickPage, festivalArea]);
 
   return (
