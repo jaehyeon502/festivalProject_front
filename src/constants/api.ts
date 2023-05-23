@@ -16,6 +16,7 @@ export const VALIDATE_USER_ID_URL = `${HOST}api/user/check/userid`
 export const VALIDATE_NICKNAME_URL = `${HOST}api/user/check/nickname`
 export const VALIDATE_TELNUMBER_URL = `${HOST}api/user/check/telnumber`
 export const PATCH_USER_PROFILE = `${HOST}api/user/profile`
+export const FREE_BOARD_RECOMMEND_URL =  `${HOST}api/free-board/recommend`;
 
 //? Board
 export const GET_ALL_REVIEWBOARD_LIST_URL=`${HOST}api/board/all-review-board`
