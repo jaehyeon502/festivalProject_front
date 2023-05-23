@@ -140,30 +140,10 @@ export default function ReviewBoardDetailView() {
   }
 
   //          Response Handler          //
-  const patchCommentResponseHandler = (response : AxiosResponse<any, any>) => {
-
-    const { result, message, data } = response.data as ResponseDto<PatchCommentResponseDto>;
-    if(!result || !data){
-      alert(message);
-      return;
-    }
-  }
-
-  const deleteCommentResponseHandler = (response : AxiosResponse<any, any>) => {
-
-    const { result, message, data } = response.data as ResponseDto<DeleteCommentResponseDto>;
-    // if(!result || !data){
-    //   alert(message);
-    //   return;
-    // }
-    // navigator(`/reviewBoard/detail/${boardNumber}`)
-  }
-
   const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>)=> {
     const { result, message, data } = response.data as ResponseDto<GetReviewBoardListResponseDto[]>
     if (!result || data === null) return;
     setFestivalList(data);
-
   }
   
   const getBoardResponseHandler = (response: AxiosResponse<any, any>) => {

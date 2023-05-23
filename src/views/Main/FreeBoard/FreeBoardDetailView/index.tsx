@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Divider, Typography, Pagination, Avatar, Stack, IconButton, Input, Card, Button } from '@mui/material';
+import React, { MouseEvent, useEffect, useState } from 'react';
+import { Box, Divider, Typography, Pagination, Avatar, Stack, IconButton, Input, Card, Button, Menu, MenuItem } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import DragHandleIcon from '@mui/icons-material/DragHandle';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
-import { DELETE_FREE_BOARD, GET_FREE_BOARD_URL, PATCH_FREE_BOARD_COMMENT_URL, POST_FREE_BOARD_COMMENT_URL, authorizationHeader } from 'src/constants/api';
+import { DELETE_FREE_BOARD, GET_FREE_BOARD_URL, POST_FREE_BOARD_COMMENT_URL, authorizationHeader } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { DeleteFreeBoardResponseDto, GetFreeBoardResponseDto, PatchFreeBoardCommentResponseDto, PostFreeBoardCommentResponseDto } from 'src/apis/response/freeboard';
+import { DeleteFreeBoardResponseDto, GetFreeBoardResponseDto, PostFreeBoardCommentResponseDto } from 'src/apis/response/freeboard';
 import { useSignInStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
-import { PatchFreeBoardCommentRequestDto, PatchFreeBoardRequestDto, PostFreeBoardCommentRequestDto } from 'src/apis/request/freeboard';
+import { PostFreeBoardCommentRequestDto } from 'src/apis/request/freeboard';
 import CommentListItem from 'src/components/CommentListItem';
 
 export default function FreeBoardDetailView() {
@@ -24,20 +25,24 @@ export default function FreeBoardDetailView() {
 
   //          Hook          //
   const {signInUser} = useSignInStore();
-  const [freeBoard, setFreeBoard] = useState<FreeBoard>();
-  const [commentList, setCommentList] = useState<FreeBoardComment[]>([]);
-  const [recommendList, setRecommendList] = useState<FreeBoardRecommend[]>([]);
 
+  const [freeBoard, setFreeBoard] = useState<FreeBoard>();
+
+  const [recommendList, setRecommendList] = useState<FreeBoardRecommend[]>([]);
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
+
   const [ menuFlag, setMenuFlag] = useState<boolean>(false);
+  const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
   const [ commentContent, setCommentContent ] = useState<string>('');
   const { boardNumber } = useParams();
-  const { commentNumber } = useParams();
+
   const navigator = useNavigate();
+
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
 
   const [cookies] = useCookies();
-
   const accessToken = cookies.accessToken;
   let isLoad = false;
 
@@ -89,50 +94,12 @@ export default function FreeBoardDetailView() {
         .catch((error) => onPostFreeBoardCommentErrorHandler(error))
   }
 
-  const onPostFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<PostFreeBoardCommentResponseDto>
-    if (!result || data === null) {
-      alert(message);
-      return;
-    }
-    setFreeBoardResponse(data);
-    setCommentContent('');
-  }
-
-  const onPostFreeBoardCommentErrorHandler = (error: any) => {
-    console.log(error.message);
-  }
-
-  const onDeleteFreeBoardResponseHandler = (response: AxiosResponse<any, any>) => {
-    const {result, message, data} = response.data as ResponseDto<DeleteFreeBoardResponseDto>
-    if (!result || !data || !data.resultStatus) {
-      alert(message);
-      return;
-    }
-    alert('삭제되었습니다.');
-    navigator('/freeboard/list');
-  }
-
-  const onDeleteFreeBoardErrorHandler = (error: any) => {
-    console.log(error.message);
-  }
-
   const getFreeBoard = () => {
     axios.get(GET_FREE_BOARD_URL(boardNumber as string))
         .then((response) => getFreeBoardResponse(response))
         .catch((error) => getFreeBoardError(error))
   }
 
-  const getFreeBoardResponse = (response: AxiosResponse<any, any>) => {
-    const {result, message, data } = response.data as ResponseDto<GetFreeBoardResponseDto>
-    if(!result || !data) return;
-    setFreeBoardResponse(data);
-  }
-
-  const getFreeBoardError = (error: any) => {
-    console.log(error.message);
-  }
-  
   //? 다음 글
   const onClickNextBoardHandler = () => {
     let freeBoardNumber: number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);
@@ -157,6 +124,52 @@ export default function FreeBoardDetailView() {
     navigator(`/freeBoard/detail/${freeBoardNumber}`);
   }
 
+  const onMenuClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorElement(null);
+    setMenuOpen(true);
+  }
+
+  const onMenuCloseHandler = () => {
+    setAnchorElement(null);
+    setMenuOpen(false);
+  }
+
+  //          Response Handler          //
+  const onPostFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<PostFreeBoardCommentResponseDto>
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    setFreeBoardResponse(data);
+    setCommentContent('');
+  }
+  const onDeleteFreeBoardResponseHandler = (response: AxiosResponse<any, any>) => {
+    const {result, message, data} = response.data as ResponseDto<DeleteFreeBoardResponseDto>
+    if (!result || !data || !data.resultStatus) {
+      alert(message);
+      return;
+    }
+    alert('삭제되었습니다.');
+    navigator('/freeboard/list');
+  }
+  const getFreeBoardResponse = (response: AxiosResponse<any, any>) => {
+    const {result, message, data } = response.data as ResponseDto<GetFreeBoardResponseDto>
+    if(!result || !data) return;
+    setFreeBoardResponse(data);
+  }
+  //          Error Handler          //
+  const onPostFreeBoardCommentErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+  const onDeleteFreeBoardErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+  const getFreeBoardError = (error: any) => {
+    console.log(error.message);
+  }
+
+  //          use Effect          //
   useEffect(() => {
 
     if (isLoad) return;
@@ -190,6 +203,20 @@ export default function FreeBoardDetailView() {
           </Box>
         </Box>
 
+        {menuFlag && (
+          <Box sx={{ mr: '50px' }} display='flex' justifyContent='flex-end'>
+            <IconButton onClick={(event) => onMenuClickHandler(event)}>
+              <DragHandleIcon />
+            </IconButton>
+      
+        </Box>
+        )}
+        <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+          <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/reviewboard/update/${freeBoard?.boardNumber}`)}>게시글 수정</MenuItem>
+          <Divider />
+          <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>
+        </Menu>
+
         <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%' }}>
           <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{freeBoard?.boardTitle}</Typography>
           <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{freeBoard?.boardWriteDatetime}</Typography>
@@ -214,8 +241,6 @@ export default function FreeBoardDetailView() {
                 추천 {freeBoard?.recommendCount}</Box>
               <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {freeBoard?.commentCount} </Box>
               <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {freeBoard?.viewCount}</Box>
-              <Button onClick={() => navigator(`/freeboard/update/${freeBoard?.boardNumber}`)}>수정</Button>
-              <Button onClick={() => onDeleteFreeBoardHandler()}>삭제</Button>
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
