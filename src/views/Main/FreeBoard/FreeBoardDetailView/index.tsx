@@ -167,7 +167,11 @@ export default function FreeBoardDetailView() {
     isLoad = true;
     getFreeBoard();
     console.log(freeBoard);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    getFreeBoard();
+  }, [setFestivalList])
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0' }}>

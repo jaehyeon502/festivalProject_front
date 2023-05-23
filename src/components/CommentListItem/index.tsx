@@ -23,7 +23,7 @@ export default function CommentListItem({ item }: Props) {
   const [cookies] = useCookies();
 
   const [freeBoard, setFreeBoard] = useState<FreeBoard>(); 
-  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
+  const { setFestivalList } = usePagingHook(4);
   const [recommendList, setRecommendList] = useState<(FreeBoardRecommend | Recommend)[]>([]);
 
   const { signInUser } = useSignInStore();
@@ -92,6 +92,7 @@ export default function CommentListItem({ item }: Props) {
       alert(message);
       return;
     }
+    setFestivalList(data.commentList);
     navigator(`/freeBoard/detail/${boardNumber}`);
   }
 
@@ -122,9 +123,6 @@ export default function CommentListItem({ item }: Props) {
 
   }, [])
 
-  useEffect (() => {
-    
-  },[commentNumber])
   return (
     <Box>
       <Box sx={{  width : '1455px', display: 'flex', justifyContent:'space-between', ml: '20px', mb: '12px' }}>
