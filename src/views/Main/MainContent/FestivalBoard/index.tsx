@@ -85,13 +85,10 @@ const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>
     <Box sx={{ width: '100%', height: '100%' }}>
       <Box sx={{ pt: '20px', pb: '80px' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mb: '50px' }}>
-        {!clickPage ?
-                  (<>    <Typography sx={{ fontSize: '36px', fontWeight: 900, color: '#222' }}>관심있는 축제</Typography></>)
-                  :
-                  (<>   <Typography sx={{ fontSize: '36px', fontWeight: 900, color: '#222' }}>후기 게시글</Typography></>)
-                }
-       
-        
+          {!clickPage ?
+            (<>    <Typography sx={{ fontSize: '36px', fontWeight: 900, color: '#222' }}>관심있는 축제</Typography></>) :
+            (<>   <Typography sx={{ fontSize: '36px', fontWeight: 900, color: '#222' }}>후기 게시글</Typography></>)}
+
           <Box sx={{ width: '30px', height: '4px', backgroundColor: '#ff9f40', mt: '5px' }}></Box>
         </Box>
         <Box>
