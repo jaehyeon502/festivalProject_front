@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Box, Divider, Typography, Pagination, Avatar, Stack, IconButton, Input, Card, Button, Menu, MenuItem } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
@@ -10,13 +10,13 @@ import { FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces'
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
-import { DELETE_FREE_BOARD, GET_FREE_BOARD_URL, POST_FREE_BOARD_COMMENT_URL, authorizationHeader } from 'src/constants/api';
+import { DELETE_FREE_BOARD, FREE_BOARD_RECOMMEND_URL, GET_FREE_BOARD_URL, POST_FREE_BOARD_COMMENT_URL, authorizationHeader } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { DeleteFreeBoardResponseDto, GetFreeBoardResponseDto, PostFreeBoardCommentResponseDto } from 'src/apis/response/freeboard';
+import { DeleteFreeBoardResponseDto, FreeBoardRecommendResponseDto, GetFreeBoardResponseDto, PostFreeBoardCommentResponseDto } from 'src/apis/response/freeboard';
 import { useSignInStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
-import { PostFreeBoardCommentRequestDto } from 'src/apis/request/freeboard';
+import { FreeBoardRecommendRequestDto, PostFreeBoardCommentRequestDto } from 'src/apis/request/freeboard';
 import CommentListItem from 'src/components/CommentListItem';
 
 export default function FreeBoardDetailView() {
@@ -46,24 +46,36 @@ export default function FreeBoardDetailView() {
   const accessToken = cookies.accessToken;
   let isLoad = false;
 
-  const setFreeBoardResponse = (data : GetFreeBoardResponseDto | PostFreeBoardCommentResponseDto) =>{
-    
+  const setFreeBoardResponse = (data : GetFreeBoardResponseDto | PostFreeBoardCommentResponseDto | FreeBoardRecommendResponseDto) =>{
     const { freeBoard, commentList, recommendList } = data;
     setFreeBoard(freeBoard);
     setFestivalList(commentList);
     setRecommendList(recommendList);
-
-    const boardOwner = signInUser !== null && freeBoard?.writerUserId === signInUser.userId;
-    setMenuFlag(boardOwner);
   }
 
   //          Event Handler          //
   const onClickRecommendHandler = () => {
-    if (recommendStatus === true) {
-      setRecommendStatus(false);
+    onRecommendHandler();
+  }
+
+  const onRecommendHandler = () => {
+    const data: FreeBoardRecommendRequestDto = { boardNumber: parseInt(boardNumber as string) };
+    axios.post(FREE_BOARD_RECOMMEND_URL, data, authorizationHeader(accessToken))
+        .then((response) => onRecommendResponseHandler(response))
+        .catch((error) => onRecommendErrorHandler(error))
+  }
+
+  const onRecommendResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<FreeBoardRecommendResponseDto>
+    if (!result || data === null) {
+      alert(message);
       return;
     }
-    setRecommendStatus(true);
+    setFreeBoardResponse(data);
+  }
+
+  const onRecommendErrorHandler = (error: any) => {
+    console.log(error.message);
   }
 
   const onDeleteFreeBoardHandler = () => {
@@ -181,7 +193,17 @@ export default function FreeBoardDetailView() {
     isLoad = true;
     getFreeBoard();
     console.log(freeBoard);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (!signInUser) return;
+
+    const boardOwner = signInUser !== null && freeBoard?.writerUserId === signInUser.userId;
+    setMenuFlag(boardOwner);
+
+    const recommend = recommendList.find((recommend) => recommend.userId === signInUser.userId);
+    setRecommendStatus(recommend !== undefined);
+  }, [recommendList])
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0' }}>
@@ -232,7 +254,7 @@ export default function FreeBoardDetailView() {
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
               <Box sx={{ display: 'inline', ml: '25px' }}>
-                <IconButton onClick={onClickRecommendHandler} >
+                <IconButton onClick={() => onClickRecommendHandler()} >
                   {recommendStatus ?
                     <ThumbUpIcon sx={{ width: '20px', height: '20px', color: 'blue' }} />
                     :
@@ -266,7 +288,7 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
+              {viewList.map((commentItem) => <CommentListItem types='freeBoard' setCommentList={setFestivalList} item={commentItem as FreeBoardComment} />)}
             </Stack>
           </Box>
 

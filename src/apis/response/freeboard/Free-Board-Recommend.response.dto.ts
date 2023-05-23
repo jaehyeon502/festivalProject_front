@@ -23,7 +23,7 @@ interface ResponseDto {
             writerNickname: string;
         }
     ];
-    recommendList:[
+        recommendList:[
         {
             userId: String;
             boardNumber: number;
