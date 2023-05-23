@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Box, Divider, Typography, Pagination, Avatar, Stack, IconButton, Input, Card, Button, Menu, MenuItem } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
@@ -183,9 +183,9 @@ export default function FreeBoardDetailView() {
     console.log(freeBoard);
   }, []);
 
-  useEffect(() => {
-    getFreeBoard();
-  }, [setFestivalList])
+  // useEffect(() => {
+  //   getFreeBoard();
+  // }, [setFestivalList])
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0' }}>
@@ -270,7 +270,7 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem item={commentItem as FreeBoardComment} />)}
+              {viewList.map((commentItem) => <CommentListItem types='freeBoard' setCommentList={setFestivalList} item={commentItem as FreeBoardComment} />)}
             </Stack>
           </Box>
 
