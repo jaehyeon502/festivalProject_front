@@ -149,7 +149,7 @@ export default function ReviewBoardUpdateView() {
 
   useEffect(() => {
     setFestivalNameList(SIMPLELIST);
-    if (!reviewBoardNumber) navigator('/reivewBoard/list');
+    if (!reviewBoardNumber) navigator('/reviewBoard/list');
     if (!accessToken) navigator('/auth/sign-in');
 
     getReivewBoard();
