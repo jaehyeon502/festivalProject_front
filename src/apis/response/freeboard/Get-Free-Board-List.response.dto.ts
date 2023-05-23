@@ -8,7 +8,7 @@ interface Dto{
     recommendCount: number;
     commentCount: number;
     writerUserId: string;
-    writerProfileUrl: string;
+    writerProfileUrl: string | null;
     writerNickname: string;
 }
 

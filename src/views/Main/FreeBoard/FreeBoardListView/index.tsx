@@ -3,16 +3,15 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { usePagingHook } from 'src/hooks';
-import { FreeBoard } from 'src/interfaces';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState, KeyboardEvent } from 'react';
 import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
 import FreeBoardListITem from 'src/components/FreeBoardListItem';
 import axios, { AxiosResponse } from 'axios';
-import { GET_FREE_BOARD_LIST, GET_SEARCH_REVIEWBOARD_LIST } from 'src/constants/api';
-import { GetFreeBoardListResponseDto } from 'src/apis/response/freeboard';
+import { GET_FREE_BOARD_LIST, GET_SEARCH_FREE_BOARD_LIST_URL} from 'src/constants/api';
+import { GetFreeBoardListResponseDto, GetSearchFreeBoardListResponseDto } from 'src/apis/response/freeboard';
 import ResponseDto from 'src/apis/response';
-import { GetReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
+import {GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
 
 export default function FreeBoardListView() {
 
@@ -40,6 +39,14 @@ export default function FreeBoardListView() {
     return;
   }
 
+  const onSearchKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
+    if(event.key !== 'Enter') return;
+    setSearchView(true);
+    setSearchWordValue(searchWord);
+    getSearchFreeBoardList();
+    setSearchWord('');
+  }
+
   const onSearchHandler = () => {
     setSearchView(true);
     setSearchWordValue(searchWord);
@@ -54,7 +61,7 @@ export default function FreeBoardListView() {
   }
 
   const getSearchFreeBoardList = () => {
-    axios.get(GET_SEARCH_REVIEWBOARD_LIST(searchWord as string))
+    axios.get(GET_SEARCH_FREE_BOARD_LIST_URL(searchWord as string))
       .then((response) => getSearchFreeBoardListResponsHandler(response))
       .catch((error) => getSEarchFreeBoardListErrorHandelr(error))
   }
@@ -110,6 +117,7 @@ export default function FreeBoardListView() {
             <OutlinedInput sx={{ width: '300px' }}
               value={searchWord}
               onChange={(event) => setSearchWordHandler(event)}
+              onKeyPress={(event) => onSearchKeyPressHandler(event)}
               placeholder='검색명을 입력해 주세요.'
               endAdornment={
                 <IconButton edge='end'>
@@ -146,7 +154,7 @@ export default function FreeBoardListView() {
       <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
         <Stack sx={{ p: '10px' }}>
           {!searchView ?
-            (<>{viewList.map((searchView) => (<FreeBoardListITem item={searchView as GetSearchReviewBoardListResponseDto} />))}</>) :
+            (<>{viewList.map((searchView) => (<FreeBoardListITem item={searchView as GetSearchFreeBoardListResponseDto} />))}</>) :
             viewList.length === 0 ? (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '416px' }}>
                 <Typography sx={{ fontSize: '24px', fontWeight: 500, color: 'rgba(0,0,0,0.4)' }}>{errorMessage}</Typography>

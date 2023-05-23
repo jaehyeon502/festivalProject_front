@@ -9,8 +9,6 @@ interface Props{
     item :GetOneFestivalResponseDto;
 }
 
-
-
 export default function FestivalSimpleListItem({ onClick, item }: Props) {
     const {setFestivalNumber}=useFestivalNumberStore();
 

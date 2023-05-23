@@ -1,4 +1,5 @@
 import DeleteCommentResponseDto from './Delete-Comment.response.dto'
+import DeleteReviewBaordResponseDto from './Delete-Review-Board.response.dto'
 import DeleteReviewBoardResponseDto from './Delete-Review-Board.response.dto'
 import GetReviewBoardListResponseDto from './Get-ReviewBoard-List.response.dto'
 import GetFestivalReveiwBoardListResponseDto from "./Get-FestivalReveiwBoard-List.response.dto"
@@ -15,6 +16,7 @@ import PatchReviewBoardResponseDto from './Patch-Review-Board.response.dto'
 
 export type {
     DeleteCommentResponseDto,
+    DeleteReviewBaordResponseDto,
     DeleteReviewBoardResponseDto,
     GetReviewBoardListResponseDto,
     GetFestivalReveiwBoardListResponseDto,
