@@ -23,18 +23,12 @@ export default function CommentListItem({ item, setCommentList, types }: Props) 
 
   const [cookies] = useCookies();
 
-  const [freeBoard, setFreeBoard] = useState<FreeBoard>(); 
-  const [recommendList, setRecommendList] = useState<(FreeBoardRecommend | Recommend)[]>([]);
-
   const { signInUser } = useSignInStore();
   const [flag, setFlag] = useState<boolean>(false);
-  const [comment, setComment] = useState<Comment>();
   const [drag, setDrag] = useState<boolean>(false);
   const [ freeBoardCommentUpdate, setFreeBoardCommentUpdate ] = useState<boolean>(false);
   const [ commentContent, setCommentUpdateContent ] = useState<string>('');
-  const [ menuFlag, setMenuFlag] = useState<boolean>(false);
 
-  const navigator = useNavigate();
   const accessToken = cookies.accessToken;
   const commentNumber : number = item.commentNumber;
 
@@ -82,20 +76,24 @@ export default function CommentListItem({ item, setCommentList, types }: Props) 
       return;
     }
     setCommentList(data.commentList);
-  }
-
-  const deleteCommentResponseHandler = (response : AxiosResponse<any, any>) => {
-    const { result, message, data } = response.data as ResponseDto<DeleteCommentResponseDto>;
-    if(!result || !data){
-      alert(message);
-      return;
-    }
-    setCommentList(data.commentList);
+    setCommentUpdateContent('');
+    setFreeBoardCommentUpdate(false);
   }
 
   const patchFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<PatchFreeBoardCommentResponseDto>
     if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    setCommentList(data.commentList);
+    setCommentUpdateContent('');
+    setFreeBoardCommentUpdate(false);
+  }
+
+  const deleteCommentResponseHandler = (response : AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<DeleteCommentResponseDto>;
+    if(!result || !data){
       alert(message);
       return;
     }
@@ -167,7 +165,7 @@ export default function CommentListItem({ item, setCommentList, types }: Props) 
       <Typography sx={{ fontSize: '17px', ml: '20px', mb: '8px', mt: '8px', mr: '20px' }}>{item?.commentContent}</Typography>
       {freeBoardCommentUpdate ? (<Box sx={{ pt: '20px', pb: '15px', pl: '50px', pr: '50px' }}>
         <Card variant='outlined' sx={{ p: '20px' }}>
-          <Input minRows={3} multiline disableUnderline fullWidth onChange={(event) => setCommentUpdateContent(event.target.value)}/>
+          <Input minRows={3} multiline disableUnderline fullWidth value={commentContent} onChange={(event) => setCommentUpdateContent(event.target.value)}/>
           <Box sx={{ display: 'flex', justifyContent: 'end'}}>
             <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }} onClick={() => onPatchCommentHandler()}>댓글 수정</Button>
           </Box>

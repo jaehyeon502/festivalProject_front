@@ -234,7 +234,7 @@ export default function FreeBoardDetailView() {
         </Box>
         )}
         <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
-          <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/reviewboard/update/${freeBoard?.boardNumber}`)}>게시글 수정</MenuItem>
+          <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${freeBoard?.boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>
         </Menu>
@@ -298,7 +298,7 @@ export default function FreeBoardDetailView() {
 
           <Box sx={{ pt: '20px', pb: '15px', pl: '50px', pr: '50px' }}>
             <Card variant='outlined' sx={{ p: '20px' }}>
-              <Input minRows={3} multiline disableUnderline fullWidth onChange={(event) => setCommentContent(event.target.value)} />
+              <Input minRows={3} multiline disableUnderline fullWidth value={commentContent} onChange={(event) => setCommentContent(event.target.value)} />
               <Box sx={{ display: 'flex', justifyContent: 'end'}}>
                 <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }} onClick={() => onPostFreeBoardCommentHandler()}>댓글 작성</Button>
               </Box>

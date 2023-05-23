@@ -88,10 +88,11 @@ function FirstPage() {
     imageRef.current.click();
   }
 
-  const onProfileUploadChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onProfileUploadChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     const data = new FormData();
     data.append('file', event.target.files[0]);
+
     axios.post(FILE_UPLOAD_URL, data, multipartHeader())
         .then((response) => onProfileUploadChangeResponseHandler(response))
         .catch((error) => onProfileUploadChangeErrorHandler(error))
@@ -161,6 +162,15 @@ function FirstPage() {
   const onTelNumberValidateButtonErrorHandler = (error: any) => {
     alert(error.message);
   }
+
+  useEffect (() => {
+    setUserId('');
+    setPassword('');
+    setPasswordCheck('');
+    setNickname('');
+    setProfileUrl('');
+    setTelNumber('');
+  }, [])
 
   return (
     <Box>
@@ -249,7 +259,7 @@ function FirstPage() {
                               (<FormHelperText sx={{ color:'green' }}>사용 가능한 닉네임입니다.<div className=""></div></FormHelperText>)
             }
         </FormControl>
-        <Avatar sx={{ width: "80px", height: "80px", cursor: "pointer" }} onClick={() => onProfileUploadButtonHandler()}/>
+        <Avatar sx={{ width: "80px", height: "80px", cursor: "pointer" }} src={profileUrl} onClick={() => onProfileUploadButtonHandler()}/>
           <input ref={imageRef} hidden type='file' accept="image/*" onChange={(event) => onProfileUploadChangeHandler(event)} />
       </Box>
 
