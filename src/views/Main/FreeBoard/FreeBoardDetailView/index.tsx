@@ -132,6 +132,7 @@ export default function FreeBoardDetailView() {
   const getFreeBoardError = (error: any) => {
     console.log(error.message);
   }
+  
   //? 다음 글
   const onClickNextBoardHandler = () => {
     let freeBoardNumber: number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);

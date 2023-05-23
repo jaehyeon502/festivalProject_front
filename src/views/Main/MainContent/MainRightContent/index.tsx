@@ -10,7 +10,7 @@ import { useFestivalNumberStore } from "src/stores";
 import { GET_ONELINE_REVIEW_URL, GET_TOP1_ONELINEREVIEW_URL, POST_ONE_LINE_COMMENT_REVIEW, authorizationHeader} from "src/constants/api";
 import { getpagecount } from "src/utils";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { PostOneLineCommentRequestDto } from "src/apis/request/festival";
 
 interface Props {
@@ -18,8 +18,10 @@ interface Props {
 }
 
 export default function MainRightContent({ clickPage }: Props) {
-  const [oneLineReviewList, setOneLineReviewList] =
-    useState<OneLineReview[]>();
+
+  const path = useLocation();
+
+  const [oneLineReviewList, setOneLineReviewList] = useState<OneLineReview[]>();
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const {festivalNumber}=useFestivalNumberStore();
 
@@ -88,17 +90,12 @@ export default function MainRightContent({ clickPage }: Props) {
       alert(message);
       return;
     }
-    setOneLineCommentResponse(data);
+    const { oneLineReviewList } = data;
+    setFestivalList(oneLineReviewList);
   }
 
   const postOneLineCommentErrorHandler = (error: any) => {
     console.log(error.message)
-  }
-
-  const setOneLineCommentResponse = (data: PostOneLineCommentReviewResponseDto) => {
-
-    const { commentList } = data;
-    setOneLineCommentList(commentList);
   }
 
   //          use Effect             //
@@ -113,7 +110,7 @@ export default function MainRightContent({ clickPage }: Props) {
 
   return (
     <Box sx={{ width: "40%", height: "100%" }}>
-     <Box>
+    <Box>
       <Typography
         sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> 한줄평</Typography>
         <Box sx={{ mt: "15px", ml: "30px", mr: "30px", overflow: "hidden" }}>

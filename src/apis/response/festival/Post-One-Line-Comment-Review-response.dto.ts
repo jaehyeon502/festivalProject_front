@@ -12,7 +12,7 @@ interface Dto {
         writeDatetime:string;
     };
     
-    commentList: Comment[]
+    oneLineReviewList: Comment[]
 }
 
 export default Dto
