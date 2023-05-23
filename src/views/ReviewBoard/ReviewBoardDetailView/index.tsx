@@ -34,7 +34,6 @@ export default function ReviewBoardDetailView() {
   const [errorMessage,setErrorMessage]=useState<string>('');
 
   const [commentContent, setCommentContent] = useState<string>('');
-  const commentNumber : number = 1;
   const [comment, setComment] = useState<Comment[]>([]);
 
   const [menuFlag, setMenuFlag] = useState<boolean>(false);
@@ -173,7 +172,7 @@ export default function ReviewBoardDetailView() {
     if (!result || !data) {
       alert(message);
       //navigator('/');
-       return;
+      return;
     }
     setReviewBoardResponse(data);
 
@@ -208,8 +207,6 @@ export default function ReviewBoardDetailView() {
   const recommendErrorHandler = (error: any) => console.log(error.message);
   const postCommentErrorHandler = (error: any) => console.log(error.message);
   const deleteBoardErrorHandler = (error: any) => console.log(error.message);
-  const patchCommentErrorHandler = (error : any) => console.log(error.message);
-  const deleteCommentErrorHandler = (error : any) => console.log(error.message);
 
   //^ Function
   //? 글 조회는 Dto 1개에 집합 객체가 3개 묶여있어서 하나 바뀔 때 마다 이 함수에서 한 개 씩 바꿔주는 듯

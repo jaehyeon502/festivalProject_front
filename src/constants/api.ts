@@ -26,9 +26,9 @@ export const POST_REVIEW_BOARD_COMMENT_URL = `${HOST}api/board/post-comment`
 export const PATCH_REVIEW_BOARD_COMMENT_URL = `${HOST}api/board/patch-comment`
 export const DELETE_REVIEW_BOARD_COMMENT_URL = (commentNumber : number) => `${HOST}api/board/delete-comment/${commentNumber}`
 export const POST_REVIEW_BOARD_RECOMMEND_URL = `${HOST}api/board/recommend`
+
 export const GET_FREE_BOARD_LIST = `${HOST}api/free-board`
 export const GET_FREE_BOARD_URL = (boardNumber: string) => `${HOST}api/free-board/${boardNumber}`
-
 
 export const GET_INTERESTED_FESTIVAL_LIST_URL =`${HOST}api/festival/festival/interested-list`
 export const GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL = `${HOST}api/festival/type-list`
@@ -43,9 +43,14 @@ export const PATCH_USER_PROFILE = `${HOST}api/user/profile`
 export const GET_ONELINE_REVIEW_URL=(festivalNumber:number)=>`${HOST}api/festival/oneLineReview/${festivalNumber}`
 export const GET_ONE_FESTIVAL_URL=(festivalNumber:number)=>`${HOST}api/festival/festival/${festivalNumber}`
 export const GET_TOP1_ONELINEREVIEW_URL=`${HOST}api/festival/top1-onelinereview`
+
 export const GET_ONELINE_REVIEW_FETIVALNAME=(festivalNumber:number)=>`${HOST}api/festival/festivalname/${festivalNumber}`
 export const GET_FESTIVALNAME_LIST=`${HOST}api/festival/festivalname-list`
 export const GET_FESTIVALNAME_SEARCH_LIST=(searchName:string)=>`${HOST}api/festival/namesearch/${searchName}`
+
+export const POST_ONE_LINE_COMMENT_REVIEW = `${HOST}api/festival/one-line-review`
+
+
 
 export const GET_SEARCH_REVIEWBOARD_LIST=(searchWord:string)=>`${HOST}api/board/search-reviewboard/${searchWord}`
 
