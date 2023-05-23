@@ -11,7 +11,6 @@ interface Dto {
     writerUserId: string;
     writerNickname: string;
     writerProfileUrl: string | null
-
 }
 
 

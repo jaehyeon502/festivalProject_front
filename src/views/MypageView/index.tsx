@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import ResponseDto from 'src/apis/response';
 import { GetMyReviewBoardListResponseDto } from 'src/apis/response/board';
-import FestivalReviewBoardList from 'src/components/FestivalReiviewBoardList'
+import FestivalReviewBoardList from 'src/components/FestivalReviewBoardList'
 import { FILE_UPLOAD_URL, GET_ALL_REVIEWBOARD_LIST_URL, GET_MY_REVIEW_BOARD_LIST_URL, PATCH_USER_PROFILE, authorizationHeader, multipartHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
 import { useSignInStore } from 'src/stores';
