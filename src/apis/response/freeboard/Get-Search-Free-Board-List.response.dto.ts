@@ -1,5 +1,5 @@
-interface Dto{
-    boardNumber: number;
+interface Dto {
+    boardNumber: number
     boardTitle: string;
     boardContent: string;
     boardImgUrl: string;
@@ -8,8 +8,8 @@ interface Dto{
     recommendCount: number;
     commentCount: number;
     writerUserId: string;
-    writerProfileUrl: string | null;
+    writerProfileUrl: string | null
     writerNickname: string;
 }
 
-export default Dto;
+export default Dto

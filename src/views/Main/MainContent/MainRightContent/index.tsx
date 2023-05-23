@@ -5,9 +5,11 @@ import OneLineReviewListItem from "src/components/OneLineReviewListItem";
 import axios, { AxiosResponse } from "axios";
 import ResponseDto from "src/apis/response";
 import { usePagingHook } from "src/hooks";
-import { GetOneLineReviewResponseDto, GetTop1OneLineReviewResponseDto, PostOneLineCommentReviewResponseDto } from "src/apis/response/festival";
+
+import { GetFestivalNameResponseDto, GetOneLineReviewResponseDto, GetTop1OneLineReviewResponseDto, PostOneLineCommentReviewResponseDto } from "src/apis/response/festival";
 import { useFestivalNumberStore } from "src/stores";
-import { GET_ONELINE_REVIEW_URL, GET_TOP1_ONELINEREVIEW_URL, POST_ONE_LINE_COMMENT_REVIEW, authorizationHeader} from "src/constants/api";
+import { GET_ONELINE_REVIEW_FESTIVALNAME, GET_ONELINE_REVIEW_URL, GET_TOP1_ONELINEREVIEW_URL, POST_ONE_LINE_COMMENT_REVIEW, authorizationHeader} from "src/constants/api";
+
 import { getpagecount } from "src/utils";
 import { useCookies } from "react-cookie";
 import { useLocation, useParams } from "react-router-dom";
@@ -19,18 +21,16 @@ interface Props {
 
 export default function MainRightContent({ clickPage }: Props) {
 
-  const path = useLocation();
-
-  const [oneLineReviewList, setOneLineReviewList] = useState<OneLineReview[]>();
+  const [festivalName, setFestivalName] = useState<GetFestivalNameResponseDto | null>(null);
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const {festivalNumber}=useFestivalNumberStore();
 
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
 
-  const [ oneLineCommentList, setOneLineCommentList] = useState<Comment[]>([]);
   const [oneLineReviewContent, setOneLineReviewContent] = useState<string>('');
   const [ average, setAverage] = useState<number>(0);
+
   
   //         Event Handler         //
   const getOneLineReview=()=>{
@@ -47,7 +47,14 @@ export default function MainRightContent({ clickPage }: Props) {
     .catch((error)=>getTop1OneLineReviewErrorHandler(error))
   }
 
-  //             Response Handler               ///
+  const getFestivalName = () => {
+    axios
+    .get(GET_ONELINE_REVIEW_FESTIVALNAME(festivalNumber as number))
+    .then((response)=>getFestivalNameResponseHandler(response))
+    .catch((error)=>getFestivalNameErrorHandler(error))
+  }
+
+   //             Response Handler               ///
   const getOneLineReviewResponseHandler=(response:AxiosResponse<any,any>)=>{
     const {result,message,data}=response.data as ResponseDto<GetOneLineReviewResponseDto[]>
     if(!result || data === null)return;
@@ -60,11 +67,21 @@ export default function MainRightContent({ clickPage }: Props) {
     setFestivalList(data)
   }
 
+  const getFestivalNameResponseHandler = (response:AxiosResponse<any,any>)=>{
+    const {result,message,data} = response.data as ResponseDto<GetFestivalNameResponseDto>
+    if(!result || data === null) return;
+    setFestivalName(data);
+
+  }
+
   //        Error handler              //
   const getOneLineReviewErrorHandler = (error: any) => {
     console.log(error.message);
   }
   const getTop1OneLineReviewErrorHandler = (error: any) => {
+    console.log(error.message);
+  }
+  const getFestivalNameErrorHandler = (error: any) => {
     console.log(error.message);
   }
 
@@ -100,6 +117,7 @@ export default function MainRightContent({ clickPage }: Props) {
 
   //          use Effect             //
   useEffect(() => {
+    getFestivalName();
   
     getOneLineReview();
   }, [festivalNumber]);
@@ -112,8 +130,10 @@ export default function MainRightContent({ clickPage }: Props) {
     <Box sx={{ width: "40%", height: "100%" }}>
     <Box>
       <Typography
-        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> 한줄평</Typography>
-        <Box sx={{ mt: "15px", ml: "30px", mr: "30px", overflow: "hidden" }}>
+
+        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> 한줄평 {festivalName?.festivalName}</Typography>
+      <Box sx={{ mt: "15px", ml: "30px", mr: "30px", overflow: "hidden" }}>
+
           {viewList.map((item) => (
             <Box>
             <Grid sx={{ border: "1px solid #dedede", borderRadius: "10px", mt: "15px" }}>
