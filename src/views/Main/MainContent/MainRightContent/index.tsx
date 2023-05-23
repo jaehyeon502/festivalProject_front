@@ -6,9 +6,9 @@ import axios, { AxiosResponse } from "axios";
 import ResponseDto from "src/apis/response";
 import { usePagingHook } from "src/hooks";
 
-import { GetOneLineReviewResponseDto, GetTop1OneLineReviewResponseDto, PostOneLineCommentReviewResponseDto } from "src/apis/response/festival";
+import { GetFestivalNameResponseDto, GetOneLineReviewResponseDto, GetTop1OneLineReviewResponseDto, PostOneLineCommentReviewResponseDto } from "src/apis/response/festival";
 import { useFestivalNumberStore } from "src/stores";
-import { GET_ONELINE_REVIEW_URL, GET_TOP1_ONELINEREVIEW_URL, POST_ONE_LINE_COMMENT_REVIEW, authorizationHeader} from "src/constants/api";
+import { GET_ONELINE_REVIEW_FESTIVALNAME, GET_ONELINE_REVIEW_URL, GET_TOP1_ONELINEREVIEW_URL, POST_ONE_LINE_COMMENT_REVIEW, authorizationHeader} from "src/constants/api";
 
 import { getpagecount } from "src/utils";
 import { useCookies } from "react-cookie";
@@ -53,7 +53,7 @@ export default function MainRightContent({ clickPage }: Props) {
 
   const getFestivalName = () => {
     axios
-    .get(GET_ONELINE_REVIEW_FETIVALNAME(festivalNumber as number))
+    .get(GET_ONELINE_REVIEW_FESTIVALNAME(festivalNumber as number))
     .then((response)=>getFestivalNameResponseHandler(response))
     .catch((error)=>getFestivalNameErrorHandler(error))
   }

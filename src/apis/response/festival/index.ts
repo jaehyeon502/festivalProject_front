@@ -12,11 +12,16 @@ import GetFestivalSearchNameResposneDto from './Get-FestivalSearchName.resposne.
 
 import PostOneLineCommentReviewResponseDto from './Post-One-Line-Comment-Review-response.dto'
 
-export type {GetTop1OneLineReviewResponseDto,
+export type {
+    GetTop1OneLineReviewResponseDto,
     GetInterstFestivalListResponseDto, 
     GetAllFestivalListResponseDto, 
     GetOneLineReviewResponseDto, 
     GetFestivalTypeListResponseDto,
     GetOneFestivalResponseDto,
-    PostOneLineCommentReviewResponseDto};
+    PostOneLineCommentReviewResponseDto,
+    GetFestivalNameResponseDto,
+    GetFestivalNameListResponseDto,
+    GetFestivalSearchNameResposneDto
+};
 
