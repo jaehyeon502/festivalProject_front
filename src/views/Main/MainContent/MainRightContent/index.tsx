@@ -12,7 +12,7 @@ import { GET_ONELINE_REVIEW_FESTIVALNAME, GET_ONELINE_REVIEW_URL, GET_TOP1_ONELI
 
 import { getpagecount } from "src/utils";
 import { useCookies } from "react-cookie";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { PostOneLineCommentRequestDto } from "src/apis/request/festival";
 
 interface Props {
@@ -20,18 +20,14 @@ interface Props {
 }
 
 export default function MainRightContent({ clickPage }: Props) {
-  const [oneLineReviewList, setOneLineReviewList] =
-    useState<OneLineReview[]>();
+
   const [festivalName, setFestivalName] = useState<GetFestivalNameResponseDto | null>(null);
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const {festivalNumber}=useFestivalNumberStore();
 
-
-
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
 
-  const [ oneLineCommentList, setOneLineCommentList] = useState<Comment[]>([]);
   const [oneLineReviewContent, setOneLineReviewContent] = useState<string>('');
   const [ average, setAverage] = useState<number>(0);
 
@@ -58,11 +54,7 @@ export default function MainRightContent({ clickPage }: Props) {
     .catch((error)=>getFestivalNameErrorHandler(error))
   }
 
-
-
    //             Response Handler               ///
-
-
   const getOneLineReviewResponseHandler=(response:AxiosResponse<any,any>)=>{
     const {result,message,data}=response.data as ResponseDto<GetOneLineReviewResponseDto[]>
     if(!result || data === null)return;
@@ -81,10 +73,6 @@ export default function MainRightContent({ clickPage }: Props) {
     setFestivalName(data);
 
   }
-
-  
-
- 
 
   //        Error handler              //
   const getOneLineReviewErrorHandler = (error: any) => {
@@ -119,17 +107,12 @@ export default function MainRightContent({ clickPage }: Props) {
       alert(message);
       return;
     }
-    setOneLineCommentResponse(data);
+    const { oneLineReviewList } = data;
+    setFestivalList(oneLineReviewList);
   }
 
   const postOneLineCommentErrorHandler = (error: any) => {
     console.log(error.message)
-  }
-
-  const setOneLineCommentResponse = (data: PostOneLineCommentReviewResponseDto) => {
-
-    const { commentList } = data;
-    setOneLineCommentList(commentList);
   }
 
   //          use Effect             //
@@ -145,7 +128,7 @@ export default function MainRightContent({ clickPage }: Props) {
 
   return (
     <Box sx={{ width: "40%", height: "100%" }}>
-     <Box>
+    <Box>
       <Typography
 
         sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> 한줄평 {festivalName?.festivalName}</Typography>
