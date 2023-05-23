@@ -156,6 +156,7 @@ export default function ReviewBoardDetailView() {
     setReviewBoardResponse(data);
 
   }
+
   const recommendResponseHandler = (response: AxiosResponse<any, any>) => {
 
     const { result, message, data } = response.data as ResponseDto<RecommendReviewBoardResponseDto>

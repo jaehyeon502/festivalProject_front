@@ -114,7 +114,7 @@ export default function FreeBoardDetailView() {
 
   //? 다음 글
   const onClickNextBoardHandler = () => {
-    let freeBoardNumber: number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);
+    let freeBoardNumber : number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);
     while(!boardNumber) freeBoardNumber += 1;
 
     if (freeBoardNumber > 1000) {
@@ -193,7 +193,7 @@ export default function FreeBoardDetailView() {
     isLoad = true;
     getFreeBoard();
     console.log(freeBoard);
-  }, []);
+  }, [path]);
 
   useEffect(() => {
     if (!signInUser) return;

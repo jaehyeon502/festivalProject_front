@@ -5,7 +5,6 @@ import GetReviewBoardListResponseDto from './Get-ReviewBoard-List.response.dto'
 import GetFestivalReviewBoardListResponseDto from "./Get-FestivalReviewBoard-List.response.dto"
 import GetInterstedFestivalListResponseDto from './Get-Interested-Festival-List.response.dto'
 import GetMyReviewBoardListResponseDto from './Get-MyReviewBoard-List.response.dto'
-import GetOneReviewBoardListResponseDto from './Get-One-Review-Board-List.response.dto'
 import GetReviewBoardResponseDto from './Get-ReviewBoard.response.dto'
 import GetSearchReviewBoardListResponseDto from './Get-Search-Review-Board-List.response.dto'
 import PatchCommentResponseDto from './Patch-Comment.response.dto'
@@ -22,7 +21,6 @@ export type {
     GetFestivalReviewBoardListResponseDto,
     GetInterstedFestivalListResponseDto,
     GetMyReviewBoardListResponseDto,
-    GetOneReviewBoardListResponseDto,
     GetReviewBoardResponseDto,
     GetSearchReviewBoardListResponseDto,
     PatchCommentResponseDto,
