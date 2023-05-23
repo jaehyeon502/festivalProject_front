@@ -7,17 +7,9 @@ import PatchFreeBoardResponseDto from './Patch-Free-Board.response.dto';
 import PatchFreeBoardCommentResponseDto from './Patch-Free-Board-Comment.response.dto';
 import DeleteFreeBoardResponseDto from './Delete-Free-Board.response.dto';
 import DeleteFreeBoardCommentResponseDto from './Delete-Free-Board-Comment.response.dto';
+import FreeBoardRecommendResponseDto from './Free-Board-Recommend.response.dto';
 
 
 
 export type { 
-    PostFreeBoardCommentResponseDto, 
-    GetFreeBoardListResponseDto, 
-    GetFreeBoardResponseDto, 
-    GetSearchFreeBoardListResponseDto,
-    PostFreeBoardResponseDto, 
-    PatchFreeBoardResponseDto, 
-    PatchFreeBoardCommentResponseDto,
-    DeleteFreeBoardResponseDto, 
-    DeleteFreeBoardCommentResponseDto,
- };
+    PostFreeBoardCommentResponseDto, FreeBoardRecommendResponseDto, GetFreeBoardListResponseDto, GetFreeBoardResponseDto, GetSearchFreeBoardListResponseDto, PostFreeBoardResponseDto, PatchFreeBoardResponseDto, PatchFreeBoardCommentResponseDto, DeleteFreeBoardResponseDto, DeleteFreeBoardCommentResponseDto };
