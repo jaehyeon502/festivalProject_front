@@ -122,6 +122,9 @@ export default function CommentListItem({ item }: Props) {
 
   }, [])
 
+  useEffect (() => {
+    
+  },[commentNumber])
   return (
     <Box>
       <Box sx={{  width : '1455px', display: 'flex', justifyContent:'space-between', ml: '20px', mb: '12px' }}>
@@ -147,7 +150,7 @@ export default function CommentListItem({ item }: Props) {
             <Box sx = {{position : 'absolute'}}>
               <Typography onClick = {() => setFreeBoardCommentUpdate(true)}>댓글 수정</Typography>
               <Divider />
-              <Typography onClick = {onDeleteFreeBoardCommentHandler}>댓글 삭제</Typography>
+              <Typography onClick = {() => onDeleteFreeBoardCommentHandler()}>댓글 삭제</Typography>
             </Box>
             : 
             <></>
@@ -160,7 +163,7 @@ export default function CommentListItem({ item }: Props) {
         <Card variant='outlined' sx={{ p: '20px' }}>
           <Input minRows={3} multiline disableUnderline fullWidth onChange={(event) => setCommentUpdateContent(event.target.value)}/>
           <Box sx={{ display: 'flex', justifyContent: 'end'}}>
-            <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }} onClick={patchFreeBoardCommentHandler}>댓글 수정</Button>
+            <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }} onClick={() => patchFreeBoardCommentHandler()}>댓글 수정</Button>
           </Box>
         </Card>
       </Box>) : (<></>)}
