@@ -53,6 +53,7 @@ export const GET_ALL_FESTIVAL_LIST = `${HOST}api/festival`
 export const GET_ONELINE_REVIEW_URL=(festivalNumber:number)=>`${HOST}api/festival/oneLineReview/${festivalNumber}`
 export const GET_ONE_FESTIVAL_URL=(festivalNumber:number)=>`${HOST}api/festival/festival/${festivalNumber}`
 export const GET_TOP1_ONELINEREVIEW_URL=`${HOST}api/festival/top1-onelinereview`
-
-
-
+export const GET_FESTIVALNAME_LIST=`${HOST}api/festival/festivalname-list`
+export const GET_FESTIVALNAME_SEARCH_LIST=(searchName:string)=>`${HOST}api/festival/namesearch/${searchName}`
+export const GET_ONELINE_REVIEW_FESTIVALNAME=(festivalNumber:number)=>`${HOST}api/festival/festivalname/${festivalNumber}`
+export const POST_ONE_LINE_COMMENT_REVIEW = `${HOST}api/festival/one-line-review`

@@ -31,6 +31,7 @@ export default function ReviewBoardDetailView() {
 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [recommendList, setRecommendList] = useState<Recommend[]>([])
+  const [errorMessage,setErrorMessage]=useState<string>('');
 
   const [commentContent, setCommentContent] = useState<string>('');
   const [comment, setComment] = useState<Comment[]>([]);
@@ -171,7 +172,7 @@ export default function ReviewBoardDetailView() {
     if (!result || !data) {
       alert(message);
       //navigator('/');
-       return;
+      return;
     }
     setReviewBoardResponse(data);
 
