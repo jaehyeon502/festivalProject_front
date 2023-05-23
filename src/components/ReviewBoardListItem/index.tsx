@@ -16,7 +16,6 @@ export default function ReviewBoardListItem({ item }: Props) {
             <CardActionArea sx ={{ display : 'flex', justifyContent : 'start', p : '10px'}} onClick = {() => navigator(`/reviewBoard/detail/${item.boardNumber}`)}>
                 <Box>
                 <Box component={'img'} src = {item.boardImgUrl ? item.boardImgUrl : ''} sx = {{ height : '200px', width : '220px', borderRadius : '12px'}} />
-                <Avatar sx={{ width: '70px', height: '70px', mb: '10px', justifyContent: 'center' }} src={item?.writerProfileUrl ? item?.writerProfileUrl : ''} />
                 </Box>
                 <Box sx = {{ ml : '12px', border : '1px solid', width : '1020px', height : '190px', borderRadius : '22px'}}>
                     <Box display='flex' sx = {{ ml : '10px', mt : '25px'}}>

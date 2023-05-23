@@ -131,7 +131,7 @@ export default function MainRightContent({ clickPage }: Props) {
     <Box>
       <Typography
 
-        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> 한줄평 {festivalName?.festivalName}</Typography>
+        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> {festivalName?.festivalName} 한 줄 평</Typography>
       <Box sx={{ mt: "15px", ml: "30px", mr: "30px", overflow: "hidden" }}>
 
           {viewList.map((item) => (

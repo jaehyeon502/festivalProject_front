@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { GetReviewBoardListResponseDto, GetFestivalReviewBoardListResponseDto, GetMyReviewBoardListResponseDto, GetReviewBoardResponseDto, PostCommentResponseDto, RecommendReviewBoardResponseDto } from "src/apis/response/board";
-import { GetInterstFestivalListResponseDto, GetOneLineReviewResponseDto } from "src/apis/response/festival";
-import { GetFreeBoardListResponseDto,  } from "src/apis/response/freeboard";
+import { GetInterstFestivalListResponseDto, GetOneFestivalResponseDto, GetOneLineReviewResponseDto } from "src/apis/response/festival";
+import { DeleteFreeBoardCommentResponseDto, GetFreeBoardListResponseDto, GetFreeBoardResponseDto } from "src/apis/response/freeboard";
 import { Comment, Festival, FreeBoard, FreeBoardComment, ReviewBoard } from "src/interfaces";
 
 const usePagingHook = (COUNT: number) => {
 
     const [festivalList, setFestivalList] = useState<(GetReviewBoardListResponseDto | GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReviewBoardListResponseDto | GetMyReviewBoardListResponseDto | GetReviewBoardResponseDto | ReviewBoard | GetFreeBoardListResponseDto | FreeBoard | FreeBoardComment)[]>([]);
     const [viewList, setViewList] = useState<(  GetReviewBoardListResponseDto | GetOneLineReviewResponseDto | Comment | GetInterstFestivalListResponseDto | Festival | GetFestivalReviewBoardListResponseDto | GetMyReviewBoardListResponseDto | GetReviewBoardResponseDto | ReviewBoard | GetFreeBoardListResponseDto | FreeBoard | FreeBoardComment)[]>([]);
+
     const [pageNumber, setPageNumber] = useState<number>(1);
     
 

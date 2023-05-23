@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Card, Divider, IconButton, Input, Typography } from '@mui/material'
-import { useState, useEffect, Dispatch } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useSignInStore } from 'src/stores';
@@ -17,13 +17,14 @@ import { usePagingHook } from 'src/hooks';
 
 interface Props {
   item: FreeBoardComment | Comment;
+  setCommentList: any;
+  types: string;
 }
-export default function CommentListItem({ item }: Props) {
+export default function CommentListItem({ item, setCommentList, types }: Props) {
 
   const [cookies] = useCookies();
 
   const [freeBoard, setFreeBoard] = useState<FreeBoard>(); 
-  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
   const [recommendList, setRecommendList] = useState<(FreeBoardRecommend | Recommend)[]>([]);
 
   const { signInUser } = useSignInStore();
@@ -42,20 +43,31 @@ export default function CommentListItem({ item }: Props) {
   const { boardNumber } = useParams();
 
   //          Event Handler          //
+  // const onPatchCommentHandler = () => {
+    
+  //   const data : PatchCommentRequestDto = { boardNumber : parseInt(boardNumber as string), commentNumber, commentContent }
+
+  //   axios.patch(PATCH_REVIEW_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
+  //   .then((response) => patchCommentResponseHandler(response))
+  //   .catch((error) => patchCommentErrorHandler(error));
+  // }
+
   const onPatchCommentHandler = () => {
-    const data : PatchCommentRequestDto = { boardNumber : parseInt(boardNumber as string), commentNumber, commentContent }
+    if (types === 'freeBoard') {
+      const data: PatchFreeBoardCommentRequestDto = { boardNumber: parseInt(boardNumber as string), commentNumber, commentContent } 
 
-    axios.patch(PATCH_REVIEW_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
-    .then((response) => patchCommentResponseHandler(response))
-    .catch((error) => patchCommentErrorHandler(error));
-  }
+      axios.patch(PATCH_FREE_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
+          .then((response) => patchFreeBoardCommentResponseHandler(response))
+          .catch((error) => patchFreeBoardCommentErrorHandler(error))
+    }
+    if (types === 'board') {
+      const data : PatchCommentRequestDto = { boardNumber : parseInt(boardNumber as string), commentNumber, commentContent }
 
-  const patchFreeBoardCommentHandler = () => {
-    const data: PatchFreeBoardCommentRequestDto = { boardNumber: parseInt(boardNumber as string), commentNumber, commentContent } 
-    axios.patch(PATCH_FREE_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
-        .then((response) => patchFreeBoardCommentResponseHandler(response))
-        .catch((error) => patchFreeBoardCommentErrorHandler(error))
-  }
+      axios.patch(PATCH_REVIEW_BOARD_COMMENT_URL, data, authorizationHeader(accessToken))
+      .then((response) => patchCommentResponseHandler(response))
+      .catch((error) => patchCommentErrorHandler(error));
+    }
+    }
 
   const onDeleteFreeBoardCommentHandler = () => {
     axios.delete(DELETE_FREE_BOARD_COMMENT(commentNumber), authorizationHeader(accessToken))
@@ -68,6 +80,7 @@ export default function CommentListItem({ item }: Props) {
     .then((response) => deleteCommentResponseHandler(response))
     .catch((error) => deleteCommentErrorHandler(error))
   }
+
   //           Response Handler          //
   const patchCommentResponseHandler = (response : AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<PatchCommentResponseDto>;
@@ -75,6 +88,7 @@ export default function CommentListItem({ item }: Props) {
       alert(message);
       return;
     }
+    setCommentList(data.commentList);
   }
 
   const deleteCommentResponseHandler = (response : AxiosResponse<any, any>) => {
@@ -92,7 +106,7 @@ export default function CommentListItem({ item }: Props) {
       alert(message);
       return;
     }
-    navigator(`/freeBoard/detail/${boardNumber}`);
+    setCommentList(data.commentList);
   }
 
   const onDeleteFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
@@ -147,7 +161,7 @@ export default function CommentListItem({ item }: Props) {
             <Box sx = {{position : 'absolute'}}>
               <Typography onClick = {() => setFreeBoardCommentUpdate(true)}>댓글 수정</Typography>
               <Divider />
-              <Typography onClick = {onDeleteFreeBoardCommentHandler}>댓글 삭제</Typography>
+              <Typography onClick = {() => onDeleteFreeBoardCommentHandler()}>댓글 삭제</Typography>
             </Box>
             : 
             <></>
@@ -160,7 +174,7 @@ export default function CommentListItem({ item }: Props) {
         <Card variant='outlined' sx={{ p: '20px' }}>
           <Input minRows={3} multiline disableUnderline fullWidth onChange={(event) => setCommentUpdateContent(event.target.value)}/>
           <Box sx={{ display: 'flex', justifyContent: 'end'}}>
-            <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }} onClick={patchFreeBoardCommentHandler}>댓글 수정</Button>
+            <Button sx={{ p : '4px 20px', backgroundColor : '#00ffff', color : 'black', fontSize: '16px', fontWeight : 700, borderRadius: '42px' }} onClick={() => onPatchCommentHandler()}>댓글 수정</Button>
           </Box>
         </Card>
       </Box>) : (<></>)}
