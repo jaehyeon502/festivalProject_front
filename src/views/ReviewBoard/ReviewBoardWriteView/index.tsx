@@ -1,33 +1,27 @@
-import React, { KeyboardEvent, MouseEvent, useEffect, useState, ChangeEvent, useRef } from 'react'
-import {
-  Box, Divider, Fab, FormControl,
-  Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography
-} from '@mui/material'
+import { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
+import { Box, Divider, Fab, FormControl, Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography } from '@mui/material'
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate } from 'react-router-dom';
-import { Festival, } from 'src/interfaces';
-import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import ClearIcon from '@mui/icons-material/Clear';
 import axios, { AxiosResponse } from 'axios';
 
-import { FILE_UPLOAD_URL, GET_FESTIVALNAME_LIST, GET_FESTIVALNAME_SEARCH_LIST, POST_REVIEW_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
-
+import { GET_FESTIVALNAME_LIST, GET_FESTIVALNAME_SEARCH_LIST, POST_REVIEW_BOARD_URL, authorizationHeader } from 'src/constants/api';
 import { PostReviewBoardRequestDto } from 'src/apis/request/board';
 import { useCookies } from 'react-cookie';
 import { PostReviewBoardResponseDto } from 'src/apis/response/board';
 import ResponseDto from 'src/apis/response';
 
 import { GetFestivalNameListResponseDto, GetFestivalSearchNameResposneDto } from 'src/apis/response/festival';
-
 import { useImageUploadHook } from 'src/hooks';
 
 
 export default function ReviewBoardWriteView() {
 
-  const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
+  //          Hook          //
+  const { boardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
   const [boardTitle, setBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
 
@@ -58,9 +52,7 @@ export default function ReviewBoardWriteView() {
     buttonClick = true;
   }
 
-  //? 글 작성
   const postBoard = () => {
-    //? requestDto에 정의된 변수명과 state명들이 일치해야한다.
     const data: PostReviewBoardRequestDto = { festivalNumber, boardTitle, boardContent, boardImgUrl };
 
     axios.post(POST_REVIEW_BOARD_URL, data, authorizationHeader(accessToken))
@@ -68,7 +60,6 @@ export default function ReviewBoardWriteView() {
       .catch((error) => postBoardErrorHandler(error))
   }
 
-  //? 검색창 외 화면 아무 곳이나 누를 경우 검색창 사라지게
   const onCloseFestivalSearchHandler = () => {
     if (buttonClick) {
       buttonClick = false;
@@ -112,7 +103,6 @@ export default function ReviewBoardWriteView() {
       alert('축제명이 선택되지 않았습니다.')
       return;
     }
-
     postBoard();
   }
 
@@ -153,12 +143,12 @@ export default function ReviewBoardWriteView() {
     setFestivalNameList(data);
   }
 
-
   //          Error Handler          //
   const postBoardErrorHandler = (error: any) => console.log(error.message);
   const getFestivalNameListErrorHandler = (error: any) => console.log(error.message);
   const getSearchFestivalNameErrorHandler = (error: any) => console.log(error.message);
 
+  //          Use Effect          //
   useEffect(() => {
     if (searchName) {
       getFestivalSearchName();

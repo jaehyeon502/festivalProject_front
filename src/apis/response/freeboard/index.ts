@@ -9,7 +9,15 @@ import DeleteFreeBoardResponseDto from './Delete-Free-Board.response.dto';
 import DeleteFreeBoardCommentResponseDto from './Delete-Free-Board-Comment.response.dto';
 import FreeBoardRecommendResponseDto from './Free-Board-Recommend.response.dto';
 
-
-
-export type { 
-    PostFreeBoardCommentResponseDto, FreeBoardRecommendResponseDto, GetFreeBoardListResponseDto, GetFreeBoardResponseDto, GetSearchFreeBoardListResponseDto, PostFreeBoardResponseDto, PatchFreeBoardResponseDto, PatchFreeBoardCommentResponseDto, DeleteFreeBoardResponseDto, DeleteFreeBoardCommentResponseDto };
+export type {
+    PostFreeBoardCommentResponseDto,
+    FreeBoardRecommendResponseDto,
+    GetFreeBoardListResponseDto,
+    GetFreeBoardResponseDto,
+    GetSearchFreeBoardListResponseDto,
+    PostFreeBoardResponseDto,
+    PatchFreeBoardResponseDto,
+    PatchFreeBoardCommentResponseDto,
+    DeleteFreeBoardResponseDto,
+    DeleteFreeBoardCommentResponseDto
+};

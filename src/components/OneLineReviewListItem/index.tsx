@@ -1,26 +1,10 @@
-import React, { useEffect } from 'react'
-import { OneLineReview } from '../../interfaces'
 import { Avatar, Box, Divider, Typography } from '@mui/material';
 import { GetOneLineReviewResponseDto } from 'src/apis/response/festival';
-import { useFestivalNumberStore } from 'src/stores';
-
 interface Props{
-
     oneLineReviewItem : GetOneLineReviewResponseDto
-
 }
 
 export default function OneLineReviewListItem({ oneLineReviewItem } : Props) {
-const {setFestivalNumber} = useFestivalNumberStore();
-    const dateGap = Date.now() - Date.parse(oneLineReviewItem?.writeDatetime);
-
-const usefestivalNumer = ()=>{
-  setFestivalNumber(oneLineReviewItem.festivalNumber);
-}
-
-// useEffect(()=>{
-//   usefestivalNumer();
-// },[])
 
   return (
     <Box>

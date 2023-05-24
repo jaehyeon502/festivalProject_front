@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Input, OutlinedInput, Pagination, Stack, Typography } from '@mui/material'
+import { Box, Button, IconButton, OutlinedInput, Pagination, Stack, Typography } from '@mui/material'
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
@@ -8,10 +8,10 @@ import { getpagecount } from 'src/utils';
 import { useNavigate } from 'react-router-dom';
 import FreeBoardListITem from 'src/components/FreeBoardListItem';
 import axios, { AxiosResponse } from 'axios';
-import { GET_FREE_BOARD_LIST, GET_SEARCH_FREE_BOARD_LIST_URL} from 'src/constants/api';
+import { GET_FREE_BOARD_LIST, GET_SEARCH_FREE_BOARD_LIST_URL } from 'src/constants/api';
 import { GetFreeBoardListResponseDto, GetSearchFreeBoardListResponseDto } from 'src/apis/response/freeboard';
 import ResponseDto from 'src/apis/response';
-import {GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
+import { GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
 
 export default function FreeBoardListView() {
 
@@ -25,7 +25,7 @@ export default function FreeBoardListView() {
   const [searchWord, setSearchWord] = useState<string>('');
   const [searchWordValue, setSearchWordValue] = useState<string>('');
 
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage] = useState<string>('');
 
   const searchType = ['최신순', '조회수', '제목 + 내용'];
 
@@ -39,8 +39,8 @@ export default function FreeBoardListView() {
     return;
   }
 
-  const onSearchKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
-    if(event.key !== 'Enter') return;
+  const onSearchKeyPressHandler = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Enter') return;
     setSearchView(true);
     setSearchWordValue(searchWord);
     getSearchFreeBoardList();
@@ -103,9 +103,11 @@ export default function FreeBoardListView() {
     return;
   }
 
+  //          Use Effect          //
   useEffect(() => {
     getFreeBoardList();
   }, [])
+  
   return (
     <Box>
       <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>

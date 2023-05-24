@@ -5,13 +5,13 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useFestivalNumberStore, useSignInStore } from 'src/stores';
-import PowerOffIcon from '@mui/icons-material/PowerOff';
 import { useCookies } from 'react-cookie';
-import { AppBar, IconButton } from '@mui/material';
+import { AppBar } from '@mui/material';
 
 const pages = ['축제 후기 게시판', '자유 게시판'];
 
 function NavigationBar() {
+
   //             HOOK               //
   const navigator = useNavigate();
   const {signInUser,resetSignInUser}=useSignInStore();
@@ -20,13 +20,13 @@ function NavigationBar() {
   const accessToken=cookies.accessToken;
 
   
-//        Response Handler        //////
+//        Event Handler        //
   const logOutClickHandler=()=>{
     setCookie('accessToken',' ',{expires:new Date(),path:'/'})
     resetSignInUser();
     navigator('/')
-
   }
+  
   const onClickBoardListNameHandler = (boardName : string) => {
     setFestivalNumber(null);
     if(boardName === '축제 후기 게시판') navigator('/reviewBoard/list');

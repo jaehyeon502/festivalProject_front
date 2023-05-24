@@ -7,7 +7,6 @@ const useImageUploadHook = () => {
     const imageRef = useRef<HTMLInputElement | null>(null);
     const [boardImgUrl, setBoardImgUrl] = useState<string>('');
     
-    
     const onImageUploadChangeHandler = (event : ChangeEvent<HTMLInputElement>) => {
         if(!event.target.files) return;
         const data = new FormData();

@@ -7,8 +7,6 @@ import GetTop1OneLineReviewResponseDto from './Get-Top1OneLineReview.response.dt
 import GetFestivalNameResponseDto from './Get-FestivalName.response.dto'
 import GetFestivalNameListResponseDto from './Get-FestivalName-List.response.dto'
 import GetFestivalSearchNameResposneDto from './Get-FestivalSearchName.resposne.dto'
-
-
 import PostOneLineCommentReviewResponseDto from './Post-One-Line-Comment-Review-response.dto'
 
 export type {
