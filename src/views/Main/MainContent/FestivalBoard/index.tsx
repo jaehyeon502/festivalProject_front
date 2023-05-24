@@ -15,16 +15,14 @@ import { getpagecount } from 'src/utils';
 interface Props {
   clickPage: boolean;
   setClickPage: React.Dispatch<React.SetStateAction<boolean>>
-
 }
 export default function FestivalBoard({ setClickPage, clickPage }: Props) {
+
   //              HOOK              //
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(2);
-  const { signInUser } = useSignInStore();
   const { festivalNumber } = useFestivalNumberStore();
-
 
   //          EVENT HANDLER           //
   const getInterestedFestivalList = (accessToken: string) => {
@@ -43,29 +41,22 @@ export default function FestivalBoard({ setClickPage, clickPage }: Props) {
 
 
   //           Response Handler           //
-const getInterestedFestivalListResponseHandler =(response:AxiosResponse<any,any>)=>{
-  const {result,message,data} = response.data as ResponseDto<GetInterstFestivalListResponseDto[]>
-  if(!result || data === null) return;
-  setFestivalList(data);
-}
-
-
+  const getInterestedFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetInterstFestivalListResponseDto[]>
+    if (!result || data === null) return;
+    setFestivalList(data);
+  }
 
   const getFestivalReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetFestivalReviewBoardListResponseDto[]>
     if (!result || data === null) return;
     setFestivalList(data);
     setClickPage(true);
-
   }
 
   //          Error Handler          //
-  const getInterestedFestivalErrorHandler = (error: any) => {
-    console.log(error.message);
-  }
-  const getFestivalReivewBoardListErrorHandler = (error: any) => {
-    console.log(error.message);
-  }
+  const getInterestedFestivalErrorHandler = (error: any) => console.log(error.message);
+  const getFestivalReivewBoardListErrorHandler = (error: any) => console.log(error.message);
 
   //          Use effect        //
   useEffect(() => {

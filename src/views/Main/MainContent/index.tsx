@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import Box from '@mui/material/Box';
 import MainLeftContent from './MainLeftContent';
 import MainRightContent from './MainRightContent';
@@ -7,11 +7,14 @@ import { useLocation } from 'react-router-dom';
 import { GetOneFestivalResponseDto } from 'src/apis/response/festival';
 
 export default function MainContent() {
+  
+  //          Hook           //
   const [clickPage, setClickPage] = useState<boolean>(false);
   
   const [selectedFestival, setSelectedFestival] = useState<GetOneFestivalResponseDto | null>(null);
   const path = useLocation();
 
+  //          use Effect           //
   useEffect(() => {
     setClickPage(false);
   }, [path])

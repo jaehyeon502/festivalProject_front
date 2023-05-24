@@ -2,13 +2,9 @@ import React from 'react'
 import { Avatar, Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
 import { GetFestivalReviewBoardListResponseDto } from 'src/apis/response/board';
 import { useNavigate } from 'react-router-dom';
-
-
 interface Props {
     festivalBoardList: GetFestivalReviewBoardListResponseDto
 }
-
-
 export default function FestivalReviewBoardList({ festivalBoardList }: Props) {
 
     //    HOOk         //

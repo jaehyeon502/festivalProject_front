@@ -6,7 +6,7 @@ import { usePagingHook } from 'src/hooks';
 import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
 import { ChangeEvent, useEffect, useState, KeyboardEvent } from 'react';
 import { getpagecount } from 'src/utils';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { GET_ALL_REVIEWBOARD_LIST_URL, GET_SEARCH_REVIEWBOARD_LIST } from 'src/constants/api';
@@ -16,14 +16,18 @@ export default function ReviewBoardListView() {
 
   //          HOOK          //
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
+
   const navigator = useNavigate();
+
   const [searchTypeButton, setSearchTypeButton] = useState<boolean>(false);
   const [searchTypeName, setSearchTypeName] = useState<string>('최신순');
   const [searchView, setSearchView] = useState<boolean>(false);
   const [searchWord, setSearchWord] = useState<string>('');
   const [searchWordValue, setSearchWordValue] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>('');
   const searchType = ['최신순', '조회수'];
+
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
   const path = useLocation();
 
   //          Event Handler          //
@@ -36,8 +40,8 @@ export default function ReviewBoardListView() {
     return;
   }
 
-  const onSearchKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
-    if(event.key !== 'Enter') return;
+  const onSearchKeyPressHandler = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Enter') return;
     setSearchView(true);
     setSearchWordValue(searchWord);
     getSearchReviewBoardList();
@@ -64,7 +68,6 @@ export default function ReviewBoardListView() {
       .get(GET_ALL_REVIEWBOARD_LIST_URL)
       .then((response) => getReviewBoardListResponseHandler(response))
       .catch((error) => getReviewBoardErrorHandler(error))
-
   }
 
   const setSearchWordHandler = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -74,12 +77,12 @@ export default function ReviewBoardListView() {
 
   const getSearchReviewBoardList = () => {
     axios
-    .get(GET_SEARCH_REVIEWBOARD_LIST(searchWord as string))
-    .then((response) => getSearchReviewBoardListResponseHandler(response))
-    .catch((error) => getSearchReviewBoardListErrorHandler(error))
+      .get(GET_SEARCH_REVIEWBOARD_LIST(searchWord as string))
+      .then((response) => getSearchReviewBoardListResponseHandler(response))
+      .catch((error) => getSearchReviewBoardListErrorHandler(error))
   }
-  
-  //         Response Handler            //
+
+  //         Response Handler           //
   const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetReviewBoardListResponseDto[]>
     if (!result || data === null) return;
@@ -101,13 +104,8 @@ export default function ReviewBoardListView() {
   }
 
   //          Error Handler          //
-  const getReviewBoardErrorHandler = (error: any) => {
-    console.log(error.message);
-  }
-
-  const getSearchReviewBoardListErrorHandler = (error: any) => {
-    return console.log(error.message);
-  }
+  const getReviewBoardErrorHandler = (error: any) => console.log(error.message);
+  const getSearchReviewBoardListErrorHandler = (error: any) => console.log(error.message);
 
   //         Use Effect          //
   useEffect(() => {

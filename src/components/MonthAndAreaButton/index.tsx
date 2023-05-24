@@ -3,9 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import ResponseDto from "src/apis/response";
-import { GetAllFestivalListResponseDto, GetOneFestivalResponseDto } from "src/apis/response/festival";
-import { GET_ALL_FESTIVAL_LIST, GET_ONE_FESTIVAL_URL } from "src/constants/api";
-import { useFestivalNumberStore } from "src/stores";
+import { GetAllFestivalListResponseDto, } from "src/apis/response/festival";
+import { GET_ALL_FESTIVAL_LIST, } from "src/constants/api";
 
 interface Props {
   setFestivalList: any;
@@ -16,16 +15,9 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   const [areaAndMonth, setAreaAndMonth] = useState<string>('');
   const [month, setMonth] = useState<string>('');
   const [festivalArea, setFestivalArea] = useState<string>('');
-  const {festivalNumber}=useFestivalNumberStore();
 
   const [selector, setSelector] = useState<number>(0);
 
-  //? const selectedValue를 만들어 Number로 설정해주고
-  //? 위의 setSelector에서 selectedValue를 받아주고
-  //? setAreaAndMonth에서 String(selecetdValue)를 받아주었다.
-  //? 앞에 String을 한 이유는 저렇게 하지 않으면 Number로 처리되기 때문에
-  //? 월별, 지역별이 뜨지 않는다.
-  
   //       EVENT HANDLER       //
   const areaAndMonthChange = (event: SelectChangeEvent) => {
     const selectedValue = Number(event.target.value);
@@ -59,44 +51,34 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   }
 
   //           RESPONSE HANDLER         //
-  //? 이것은 back-end에서 그냥 Response를 받아왔기 때문에 data.festivalList로 받아왔다.
   const getFestivalMonthListResponse = (response: AxiosResponse<any, any>) => {
     setFestivalList(response.data.data.festivalList);
   }
 
-  //? 이것은 back엔드에서 List로 받았기 때문에 festivalList가 아닌 data에서 끝난다.
   const getFestivalAreaListResponse = (response: AxiosResponse<any, any>) => {
     setFestivalList(response.data.data);
   }
 
   const getAllFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
-    const {result, message, data} = response.data as ResponseDto<GetAllFestivalListResponseDto[]>
-    if(!result || data === null) return;
+    const { result, message, data } = response.data as ResponseDto<GetAllFestivalListResponseDto[]>
+    if (!result || data === null) return;
     const now = dayjs().format('YYYY-MM-DD');
     const filteredData = data.filter((item) => item.festivalDurationEnd >= now);
     setFestivalList(filteredData);
   }
 
-  const getAllFestivalListErrorHandler = (error : any) => {
+  const getAllFestivalListErrorHandler = (error: any) => {
     console.log(error.message);
   }
 
-  
-
-  //            Error Handler        //
-
-
   //              Use Effect           //
-
   useEffect(() => {
     allFestivalList();
   }, []);
 
-
   return (
     <Box sx={{ pt: '20px', pl: '20px', display: 'flex' }}>
       <Box>
-        {/* //? 월별 & 지역별 */}
         <FormControl sx={{ width: '150px', height: '70px' }}>
           <InputLabel>월별 & 지역별</InputLabel>
           <Select
@@ -110,10 +92,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
           </Select>
         </FormControl>
       </Box>
-      {/* //? 월별과 지역별을 합쳤음. 
-            //? selector를 const로 만들고 useState로 number 지정.
-            //? 삼항연산자를 사용해서 1번이면 월별, 2번이라면 지역별 
-            //? 아무것도 클릭하지 않았을 시 아무것도 뜨지 않게 함.*/}
       {
         selector === 1 ? (
           <Box>

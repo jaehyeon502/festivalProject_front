@@ -1,15 +1,10 @@
-import React, { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
-import {
-  Box, Divider, Fab, FormControl,
-  Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography
-} from '@mui/material'
+import { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
+import { Box, Divider, Fab, FormControl, Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography } from '@mui/material'
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ClearIcon from '@mui/icons-material/Clear';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Festival } from 'src/interfaces';
-import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import { useSignInStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
@@ -23,6 +18,7 @@ import { GetFestivalNameListResponseDto, GetFestivalSearchNameResposneDto } from
 
 export default function ReviewBoardUpdateView() {
 
+  //          Hook          //
   const { signInUser } = useSignInStore();
   const { boardNumber } = useParams();
   const [cookies] = useCookies();
@@ -34,7 +30,7 @@ export default function ReviewBoardUpdateView() {
 
   const [show, setShow] = useState<boolean>(false);
   const [festivalNameList, setFestivalNameList] = useState<GetFestivalNameListResponseDto[]>([]);
-  
+
   const [searchName, setSearchName] = useState<string>('');
   const [selectedFestivalName, setSelectedFestivalName] = useState<string>('');
   const accessToken = cookies.accessToken;
@@ -69,7 +65,6 @@ export default function ReviewBoardUpdateView() {
     setShow(true);
   };
 
-  //? 검색창 외 화면 아무 곳이나 누를 경우 검색창 사라지게
   const onCloseFestivalSearchHandler = () => {
     if (buttonClick) {
       buttonClick = false;
@@ -129,7 +124,6 @@ export default function ReviewBoardUpdateView() {
       .catch((error) => getSearchFestivalNameErrorHandler(error))
   }
 
-  
   //          Response Handler          //
   const getReviewBoardResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetReviewBoardResponseDto>
@@ -137,17 +131,17 @@ export default function ReviewBoardUpdateView() {
       alert(message);
       return;
     }
-    const { boardTitle, boardContent, boardImgUrl, writerUserId ,festivalNumber } = data.board;
+    const { boardTitle, boardContent, boardImgUrl, writerUserId, festivalNumber } = data.board;
 
     if (writerUserId !== signInUser?.userId) {
       alert('권한이 없습니다.');
       navigator('/');
       return;
     }
-    
+
     setBoardTitle(boardTitle);
     setBoardContent(boardContent);
-    if(boardImgUrl) setBoardImgUrl(boardImgUrl);
+    if (boardImgUrl) setBoardImgUrl(boardImgUrl);
   }
 
   const patchReviewBoardResponseHandler = (response: AxiosResponse<any, any>) => {
@@ -176,6 +170,7 @@ export default function ReviewBoardUpdateView() {
   const getFestivalNameListErrorHandler = (error: any) => console.log(error.message);
   const getSearchFestivalNameErrorHandler = (error: any) => console.log(error.message);
 
+  //          Use Effect          //
   useEffect(() => {
     if (searchName) {
       getFestivalSearchName();
@@ -207,7 +202,7 @@ export default function ReviewBoardUpdateView() {
                   sx={{ borderRadius: '20px' }} />
 
                 {show ? (
-                  <Box sx={{ width: '100%', height: '200px', border: '1px solid', fontSize: '15px', overflow : 'scroll', position : 'absolute', top : '56px' }}>
+                  <Box sx={{ width: '100%', height: '200px', border: '1px solid', fontSize: '15px', overflow: 'scroll', position: 'absolute', top: '56px' }}>
                     {festivalNameList.map((nameItem) => (
                       <Grid onClick={() => onClickFestivalNameHandler(nameItem.festivalNumber, nameItem.festivalName)}>
                         <FestivalNameItemList item={nameItem} />
@@ -223,7 +218,7 @@ export default function ReviewBoardUpdateView() {
                 <Typography sx={{ fontSize: '18px' }}>축제 이름 : </Typography>
               </Box>
 
-              <Box sx={{ width: '210px', height: '100%', border: '1px solid', display : 'flex', justifyContent : 'space-between' }}>
+              <Box sx={{ width: '210px', height: '100%', border: '1px solid', display: 'flex', justifyContent: 'space-between' }}>
                 <Typography sx={{ fontSize: '18px' }}>{selectedFestivalName}</Typography>
                 <IconButton onClick={onDeleteFestivallNameHandler}>
                   <ClearIcon />
@@ -249,8 +244,8 @@ export default function ReviewBoardUpdateView() {
 
         <Box>
           <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
-            sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}}
-            value = { boardTitle }
+            sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f' }}
+            value={boardTitle}
             onChange={(event) => setBoardTitle(event.target.value)} />
         </Box>
         <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
@@ -260,10 +255,10 @@ export default function ReviewBoardUpdateView() {
               fullWidth disableUnderline placeholder='본문을 작성해주세요.'
               multiline minRows={10}
               sx={{ fontSize: '18px', fontWeight: 600 }}
-              value = { boardContent }
+              value={boardContent}
               onChange={(event) => setBoardContent(event.target.value)}
               onKeyPress={(event) => onContentKeyPressHandler(event)} />
-            <Box sx = {{ width : '100%'}} component = 'img' src = {boardImgUrl}></Box>
+            <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
           </Typography>
         </Box>
 

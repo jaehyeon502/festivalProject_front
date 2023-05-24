@@ -4,4 +4,10 @@ import PatchFreeBoardCommentRequestDto from './Patch-Free-Board-Comment.request.
 import PostFreeBoardCommentRequestDto from './Post-Free-Board-Comment.request.dto';
 import FreeBoardRecommendRequestDto from './Free-Board-Recommend.request.dto'
 
-export type { PostFreeBoardRequestDto, PostFreeBoardCommentRequestDto, PatchFreeBoardRequestDto, FreeBoardRecommendRequestDto, PatchFreeBoardCommentRequestDto };
+export type {
+    PostFreeBoardRequestDto,
+    PostFreeBoardCommentRequestDto,
+    PatchFreeBoardRequestDto,
+    FreeBoardRecommendRequestDto,
+    PatchFreeBoardCommentRequestDto
+};
