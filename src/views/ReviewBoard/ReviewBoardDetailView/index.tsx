@@ -285,7 +285,7 @@ export default function ReviewBoardDetailView() {
         <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box sx={{ pb: '20px' }}>
-          <Box sx={{ ml: '30px', display : 'flex', justifyContent : 'space-between'}}>
+          <Box sx={{ ml: '30px'}}>
             <Stack>
               {viewList.map((commentItem) => <CommentListItem types='board' setCommentList={setFestivalList} item={commentItem as Comment} setBoard={setBoard} />)}
             </Stack>

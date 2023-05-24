@@ -80,6 +80,7 @@ export default function CommentListItem({ item, setCommentList, types, setBoard 
     setCommentList(data.commentList);
     setCommentUpdateContent('');
     setFreeBoardCommentUpdate(false);
+    setDrag(false);
   }
 
   const patchFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
@@ -91,6 +92,7 @@ export default function CommentListItem({ item, setCommentList, types, setBoard 
     setCommentList(data.commentList);
     setCommentUpdateContent('');
     setFreeBoardCommentUpdate(false);
+    setDrag(false);
   }
 
   const deleteCommentResponseHandler = (response : AxiosResponse<any, any>) => {
@@ -101,6 +103,7 @@ export default function CommentListItem({ item, setCommentList, types, setBoard 
     }
     setBoard(data.board);
     setCommentList(data.commentList);
+    setDrag(false);
   }
 
   const onDeleteFreeBoardCommentResponseHandler = (response: AxiosResponse<any, any>) => {
@@ -111,6 +114,7 @@ export default function CommentListItem({ item, setCommentList, types, setBoard 
     }
     setBoard(data.freeBoard);
     setCommentList(data.commentList);
+    setDrag(false);
   }
   //          Error Handler          //
   const patchCommentErrorHandler = (error : any) => console.log(error.message);
