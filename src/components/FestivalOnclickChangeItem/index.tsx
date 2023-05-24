@@ -5,9 +5,10 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Box, Card, CardContent, CardHeader, CardMedia, Collapse, IconButton, IconButtonProps, Link, Typography, styled } from "@mui/material";
 import { Festival } from "src/interfaces";
 
+
 interface Props{
-    setClickPage: React.Dispatch<React.SetStateAction<boolean>>
-    item: Festival;
+  setClickPage: React.Dispatch<React.SetStateAction<boolean>>;
+  item: Festival;
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -27,61 +28,60 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function FestivalOnclickChangeItem({ setClickPage, item }: Props) {
 
-    const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    }
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  }
 
-
-    return (
-        <Card sx={{ maxWidth: "100%" }}>
+  return (
+    <Card sx={{ maxWidth: "100%" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Box sx={{ width: '40px', ml : '5px' }}></Box>
+        <CardHeader sx={{ display: 'block'}}
+            title={item.festivalName}  
+        />
+        <Box sx={{ mt : '12px', mr: '5px'}}>
+          <IconButton onClick={() => setClickPage(false)}>
+            <RestartAltIcon />
+          </IconButton>
+        </Box>
+      </Box>
+      <CardMedia sx={{ margin: 'auto', height: '50%', width: '50%' }}
+        component="img"
+        src={item.festivalInformationUrl as string}
+      />
+      <CardContent>
+        <Box>
+          <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>기간 : {item.festivalDurationStart} ~ {item.festivalDurationEnd}</Typography>
+          <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>장소 : {item.festivalArea}</Typography>
+          <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>요금 : {item.festivalCost}</Typography>
+          <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>평점 : {item.onelineReviewAverage}</Typography>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Box sx={{ width: '40px', ml : '5px' }}></Box>
-            <CardHeader sx={{ display: 'block'}}
-                title={item.festivalName}  
-            />
-            <Box sx={{ mt : '12px', mr: '5px'}}>
-              <IconButton onClick={() => setClickPage(false)}>
-                <RestartAltIcon />
-              </IconButton>
+              <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>정보 : <Link href={item.festivalHomepage}>{`홈페이지`}</Link></Typography>
+              <Box>
+                <Box sx={{ fontSize:'14px'}} display='inline'> 축제정보 </Box>
+                <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more">
+                <ExpandMoreIcon />
+                </ExpandMore>
+              </Box>
             </Box>
           </Box>
-          <CardMedia sx={{ margin: 'auto', height: '50%', width: '50%' }}
-            component="img"
-            src={item.festivalInformationUrl as string}
-          />
-          <CardContent>
-            <Box>
-              <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>기간 : {item.festivalDurationStart} ~ {item.festivalDurationEnd}</Typography>
-              <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>장소 : {item.festivalArea}</Typography>
-              <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>요금 : {item.festivalCost}</Typography>
-              <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>평점 : {item.onelineReviewAverage}</Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>정보 : <Link href={item.festivalHomepage}>{`홈페이지`}</Link></Typography>
-                  <Box>
-                    <Box sx={{ fontSize:'14px'}} display='inline'> 축제정보 </Box>
-                    <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more">
-                    <ExpandMoreIcon />
-                    </ExpandMore>
-                  </Box>
-                </Box>
-              </Box>
-            </CardContent>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Box sx={{whiteSpace: 'pre-wrap'}}>
-                <Typography paragraph>
-                  {item.festivalInformation}
-                </Typography>
-              </Box>
-              
-            </CardContent>
-          </Collapse>
-        </Card>
-    )
+        </CardContent>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Box sx={{whiteSpace: 'pre-wrap'}}>
+            <Typography paragraph>
+              {item.festivalInformation}
+            </Typography>
+          </Box>
+          
+        </CardContent>
+      </Collapse>
+    </Card>
+  )
 }

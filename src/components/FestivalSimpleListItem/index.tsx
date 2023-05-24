@@ -10,7 +10,7 @@ interface Props{
 export default function FestivalSimpleListItem({ onClick, item }: Props) {
     const {setFestivalNumber}=useFestivalNumberStore();
 
-    const onClickHandler=()=>{
+    const onClickHandler = () => {
         onClick();
         setFestivalNumber(item.festivalNumber);
     }

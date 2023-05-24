@@ -53,9 +53,7 @@ export default function MainLeftContent({ setClickPage, clickPage, selectedFesti
 
   //         Use Effect          //
   useEffect(() => {
-
     if (clickPage && festivalNumber) getOneFestival();
-
     return () => {
       setSelectedFestival(null);
       if (clickPage) setClickPage(false);

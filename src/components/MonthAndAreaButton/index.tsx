@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import ResponseDto from "src/apis/response";
-import { GetAllFestivalListResponseDto, } from "src/apis/response/festival";
-import { GET_ALL_FESTIVAL_LIST, } from "src/constants/api";
+import { GetAllFestivalListResponseDto } from "src/apis/response/festival";
+import { GET_ALL_FESTIVAL_LIST } from "src/constants/api";
 
 interface Props {
   setFestivalList: any;
