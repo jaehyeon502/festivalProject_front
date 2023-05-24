@@ -139,6 +139,7 @@ export default function ReviewBoardDetailView() {
     const { result, message, data } = response.data as ResponseDto<PostCommentResponseDto>
     if (!result || !data) return;
     setReviewBoardResponse(data);
+    setCommentContent('');
   }
 
   const deleteBoardResponseHandler = (response: AxiosResponse<any, any>) => {
@@ -187,17 +188,11 @@ export default function ReviewBoardDetailView() {
       <Box sx={{ backgroundColor: '#FFFFFF', height: '80%', ml: '200px', mr: '200px' }}>
 
         <Box display='flex' justifyContent='flex-end'>
-          <Box sx={{ mb: '30px', width: '400px', display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ mt: '30px', width: '400px', display: 'flex', flexDirection: 'column', alignItems:'center' }}>
             <Box sx={{ display: 'flex' }}>
               <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={board?.writerProfileUrl ? board.writerProfileUrl : ''} />
 
-              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {board?.writerNickname}</Typography>
-            </Box>
-            <Box sx={{ mt: '40px', ml: '10px', fontWeight: 600 }}>
-              <IconButton sx={{ color: 'red' }}>
-                <WarningIcon />
-              </IconButton>
-              신고
+              <Typography sx={{ mt: '30px', mr: '10px', color:'#444', fontSize:'14px' }}>작성자 명 : {board?.writerNickname}</Typography>
             </Box>
           </Box>
         </Box>
@@ -217,30 +212,30 @@ export default function ReviewBoardDetailView() {
         </Menu>
 
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%' }}>
-          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{board?.boardTitle}</Typography>
-          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{board?.boardWriteDatetime}</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%', alignItems:'center' }}>
+          <Typography sx={{ ml: '50px', fontSize: '18px' }}>{board?.boardTitle}</Typography>
+          <Typography sx={{ mr: '50px', fontSize: '12px', color:'#666' }}>{board?.boardWriteDatetime}</Typography>
         </Box>
 
-        <Divider sx={{ mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
+        <Divider sx={{ mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box>
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
+            <Typography sx={{ fontSize: '16px', mt: '10px', color:'#222' }}>{board?.boardContent}</Typography>
             <img src={board?.boardImgUrl ? board.boardImgUrl : ''} />
-            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{board?.boardContent}</Typography>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>
+              <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>
                 <IconButton onClick={onClickRecommendHandler} >
                   {recommendStatus ?
-                    <ThumbUpIcon sx={{ width: '20px', height: '20px', color: 'blue' }} />
+                    <ThumbUpIcon sx={{ width: '15px', height: '15px', color: 'blue' }} />
                     :
-                    <ThumbUpOutlinedIcon sx={{ width: '20px', height: '20px' }} />}
+                    <ThumbUpOutlinedIcon sx={{ width: '15px', height: '15px'}} />}
                 </IconButton>
                 추천 {board?.recommendCount}</Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {board?.commentCount} </Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {board?.viewCount}</Box>
+              <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>댓글 수 {board?.commentCount} </Box>
+              <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>조회수 {board?.viewCount}</Box>
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
@@ -285,10 +280,9 @@ export default function ReviewBoardDetailView() {
                   onClick={() => onPostCommentHandler()}
                   sx={{
                     p: '4px 20px',
-                    backgroundColor: '#00ffff',
-                    color: 'black',
-                    fontSize: '16px',
-                    fontWeight: 700,
+                    backgroundColor: '#dedede',
+                    color: '#444',
+                    fontSize: '12px',
                     borderRadius: '42px'
                   }}>댓글 작성</Button>
               </Box>
