@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import ResponseDto from "src/apis/response";
 import { GetAllFestivalListResponseDto } from "src/apis/response/festival";
 import { GET_ALL_FESTIVAL_LIST } from "src/constants/api";
-import { useFestivalNumberStore } from "src/stores";
 
 interface Props {
   setFestivalList: any;
@@ -16,10 +15,9 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   const [areaAndMonth, setAreaAndMonth] = useState<string>('');
   const [month, setMonth] = useState<string>('');
   const [festivalArea, setFestivalArea] = useState<string>('');
-  const {festivalNumber}=useFestivalNumberStore();
 
   const [selector, setSelector] = useState<number>(0);
-  
+
   //       EVENT HANDLER       //
   const areaAndMonthChange = (event: SelectChangeEvent) => {
     const selectedValue = Number(event.target.value);
@@ -53,39 +51,30 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   }
 
   //           RESPONSE HANDLER         //
-  //? 이것은 back-end에서 그냥 Response를 받아왔기 때문에 data.festivalList로 받아왔다.
   const getFestivalMonthListResponse = (response: AxiosResponse<any, any>) => {
     setFestivalList(response.data.data.festivalList);
   }
 
-  //? 이것은 back엔드에서 List로 받았기 때문에 festivalList가 아닌 data에서 끝난다.
   const getFestivalAreaListResponse = (response: AxiosResponse<any, any>) => {
     setFestivalList(response.data.data);
   }
 
   const getAllFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
-    const {result, message, data} = response.data as ResponseDto<GetAllFestivalListResponseDto[]>
-    if(!result || data === null) return;
+    const { result, message, data } = response.data as ResponseDto<GetAllFestivalListResponseDto[]>
+    if (!result || data === null) return;
     const now = dayjs().format('YYYY-MM-DD');
     const filteredData = data.filter((item) => item.festivalDurationEnd >= now);
     setFestivalList(filteredData);
   }
 
-  const getAllFestivalListErrorHandler = (error : any) => {
+  const getAllFestivalListErrorHandler = (error: any) => {
     console.log(error.message);
   }
 
-  
-
-  //            Error Handler        //
-
-
   //              Use Effect           //
-
   useEffect(() => {
     allFestivalList();
   }, []);
-
 
   return (
     <Box sx={{ pt: '20px', pl: '20px', display: 'flex' }}>

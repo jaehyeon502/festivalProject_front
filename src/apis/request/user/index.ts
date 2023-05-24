@@ -4,4 +4,10 @@ import CheckUserTelNumberRequestDto from "./Check-User-Tel-Number.request.dto";
 import PatchUserNicknameRequestDto from "./Patch-User-Nickname.request.dto";
 import PatchUserProfileRequestDto from "./Patch-User-Profile.request.dto";
 
-export type { CheckUserIdRequestDto, CheckUserNicknameRequestDto, CheckUserTelNumberRequestDto, PatchUserNicknameRequestDto, PatchUserProfileRequestDto }
+export type {
+    CheckUserIdRequestDto,
+    CheckUserNicknameRequestDto,
+    CheckUserTelNumberRequestDto,
+    PatchUserNicknameRequestDto,
+    PatchUserProfileRequestDto
+}

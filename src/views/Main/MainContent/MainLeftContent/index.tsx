@@ -1,7 +1,7 @@
 import { Box, Grid, Pagination, SelectChangeEvent } from '@mui/material'
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import FestivalSimpleListItem from 'src/components/FestivalSimpleListItem';
-import MonthAndAreaButton from 'src/components/MonthAndAreaIButton';
+import MonthAndAreaButton from 'src/components/MonthAndAreaButton';
 import { usePagingHook } from 'src/hooks';
 import { Festival } from 'src/interfaces';
 import { getpagecount } from 'src/utils';
@@ -21,6 +21,8 @@ interface Props {
 
 export default function MainLeftContent({ setClickPage, clickPage, selectedFestival, setSelectedFestival }: Props) {
 
+  //         Hook         //
+  const [showSameFestival, setShowSameFestival] = useState<string>('');
   const [festivalArea, setFestivalArea] = useState<string>('');
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
@@ -31,7 +33,7 @@ export default function MainLeftContent({ setClickPage, clickPage, selectedFesti
     setClickPage(true);
   }
 
-//         Event Handler         //
+  //         Event Handler         //
   const getOneFestival = () => {
     axios
       .get(GET_ONE_FESTIVAL_URL(festivalNumber as number))
@@ -47,10 +49,7 @@ export default function MainLeftContent({ setClickPage, clickPage, selectedFesti
   }
 
   //         Error Handler        //
-  
-  const getOnefestivalErrorHandler = (error: any) => {
-    console.log(error.message);
-  }
+  const getOnefestivalErrorHandler = (error: any) => console.log(error.message);
 
   //         Use Effect          //
   useEffect(() => {
@@ -75,7 +74,6 @@ export default function MainLeftContent({ setClickPage, clickPage, selectedFesti
             <Box sx={{ m: '10px', backgroundColor: '#FFFFFF' }}>
               <Box sx={{ pt: '10px', pb: '10px', m: '10px' }}>
                 <Grid container spacing={1}>
-                  {/* //? Grid에 xs={6}을 넣어서 2행 2열을 만듦. */}
                   {viewList.map((item) => (<Grid item xs={6}><FestivalSimpleListItem item={item as GetOneFestivalResponseDto} onClick={() => onFestivalItemClick()} /></Grid>))}
                 </Grid>
               </Box>

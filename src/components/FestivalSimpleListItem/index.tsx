@@ -3,7 +3,6 @@ import { GetOneFestivalResponseDto } from "src/apis/response/festival";
 import { useFestivalNumberStore } from "src/stores";
 
 interface Props{
-    //? onClick을 누르면 card 클릭했을때 변경이 됨.
     onClick: () => void;
     item :GetOneFestivalResponseDto;
 }

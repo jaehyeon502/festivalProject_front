@@ -1,16 +1,13 @@
 import { Avatar, Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Typography, FormHelperText } from "@mui/material";
 import React, { useState, useEffect, useRef, ChangeEvent } from "react";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
+import { VisibilityOff, Visibility } from "@mui/icons-material/";
 import SignUpCheckboxListItem from "src/components/SignUpCheckboxListItem";
 import { Festival } from "src/interfaces";
-import { usePagingHook } from "src/hooks";
-import { SIGN_UP_CHECKBOX_LIST } from "src/mock";
 import { useNavigate } from "react-router-dom";
 import { useSignUpStore } from "src/stores";
 import { CheckUserIdRequestDto, CheckUserNicknameRequestDto, CheckUserTelNumberRequestDto } from "src/apis/request/user";
 import axios, { AxiosResponse } from "axios";
-import { FILE_UPLOAD_URL, GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL, GET_INTERESTED_FESTIVAL_LIST_URL, SIGN_UP_URL, VALIDATE_NICKNAME_URL, VALIDATE_TELNUMBER_URL, VALIDATE_USER_ID_URL, multipartHeader } from "src/constants/api";
+import { FILE_UPLOAD_URL, GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL, SIGN_UP_URL, VALIDATE_NICKNAME_URL, VALIDATE_TELNUMBER_URL, VALIDATE_USER_ID_URL, multipartHeader } from "src/constants/api";
 import { CheckUserIdResponseDto, CheckUserNicknameResponseDto, CheckUserTelNumberResponseDto } from "src/apis/response/user";
 import ResponseDto from "src/apis/response";
 import CheckIcon from '@mui/icons-material/Check';
@@ -47,25 +44,25 @@ function FirstPage() {
   const onUserIdValidateButtonHandler = () => {
     if (!setUserIdPatternCheck) return;
     const data: CheckUserIdRequestDto = { userId };
-    
+
     axios.post(VALIDATE_USER_ID_URL, data)
-        .then((response) => onUserIdValidateButtonResponseHandler(response))
-        .catch((error) => onUserIdValidateButtonErrorHandler(error))
+      .then((response) => onUserIdValidateButtonResponseHandler(response))
+      .catch((error) => onUserIdValidateButtonErrorHandler(error))
   }
-  
-    const onPasswordChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      const value = event.target.value;
-      const isMatched = passwordValidator.test(value);
-      setPasswordPatternCheck(isMatched);
-      setPassword(value);
-    }
-  
-    const onPasswordCheckChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      const value = event.target.value;
-      const isMatched = password === value;
-      setPasswordValidate(isMatched);
-      setPasswordCheck(value);
-    }
+
+  const onPasswordChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const value = event.target.value;
+    const isMatched = passwordValidator.test(value);
+    setPasswordPatternCheck(isMatched);
+    setPassword(value);
+  }
+
+  const onPasswordCheckChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const value = event.target.value;
+    const isMatched = password === value;
+    setPasswordValidate(isMatched);
+    setPasswordCheck(value);
+  }
 
   const onNicknameChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
@@ -79,22 +76,23 @@ function FirstPage() {
     const data: CheckUserNicknameRequestDto = { nickname };
 
     axios.post(VALIDATE_NICKNAME_URL, data)
-        .then((response) => onNicknameValidateButtonResponseHandler(response))
-        .catch((error) => onNicknameValidateButtonErrorHandler(error))
+      .then((response) => onNicknameValidateButtonResponseHandler(response))
+      .catch((error) => onNicknameValidateButtonErrorHandler(error))
   }
 
   const onProfileUploadButtonHandler = () => {
-    if(!imageRef.current) return;
+    if (!imageRef.current) return;
     imageRef.current.click();
   }
 
-  const onProfileUploadChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onProfileUploadChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     const data = new FormData();
     data.append('file', event.target.files[0]);
+
     axios.post(FILE_UPLOAD_URL, data, multipartHeader())
-        .then((response) => onProfileUploadChangeResponseHandler(response))
-        .catch((error) => onProfileUploadChangeErrorHandler(error))
+      .then((response) => onProfileUploadChangeResponseHandler(response))
+      .catch((error) => onProfileUploadChangeErrorHandler(error))
   }
 
   const onTelNumberChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -105,12 +103,12 @@ function FirstPage() {
   }
 
   const onTelNumberValidateButtonHandler = () => {
-    if (!setTelNumberPatternCheck)return;
+    if (!setTelNumberPatternCheck) return;
     const data: CheckUserTelNumberRequestDto = { telNumber };
 
     axios.post(VALIDATE_TELNUMBER_URL, data)
-        .then((response) => onTelNumberValidateButtonResponseHandler(response))
-        .catch((error) => onTelNumberValidateButtonErrorHandler(error))
+      .then((response) => onTelNumberValidateButtonResponseHandler(response))
+      .catch((error) => onTelNumberValidateButtonErrorHandler(error))
   }
 
   //          Response Handler          //
@@ -147,20 +145,20 @@ function FirstPage() {
   }
 
   //          Error Handler          //
-  const onUserIdValidateButtonErrorHandler = (error: any) => {
-    alert(error.message);
-  }
+  const onUserIdValidateButtonErrorHandler = (error: any) => alert(error.message);
+  const onNicknameValidateButtonErrorHandler = (error: any) => alert(error.message);
+  const onProfileUploadChangeErrorHandler = (error: any) => alert(error.message);
+  const onTelNumberValidateButtonErrorHandler = (error: any) => alert(error.message);
 
-  const onNicknameValidateButtonErrorHandler = (error: any) => {
-    alert(error.message);
-  }
-  const onProfileUploadChangeErrorHandler = (error: any) => {
-    alert(error.message);
-  }
-
-  const onTelNumberValidateButtonErrorHandler = (error: any) => {
-    alert(error.message);
-  }
+  //          Use Effect          //
+  useEffect(() => {
+    setUserId('');
+    setPassword('');
+    setPasswordCheck('');
+    setNickname('');
+    setProfileUrl('');
+    setTelNumber('');
+  }, [])
 
   return (
     <Box>
@@ -171,52 +169,52 @@ function FirstPage() {
             <IconButton onClick={() => onUserIdValidateButtonHandler()}>
               <CheckIcon />
             </IconButton>
-          </InputAdornment>} 
-          value={userId} 
+          </InputAdornment>}
+          value={userId}
           onChange={(event) => onUserIdChangeHandler(event)} />
-          {
+        {
           userIdPatternCheck === null ? (<></>) :
-          !userIdPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>아이디 형식이 맞지 않습니다.</FormHelperText>) :
-          userIdValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>아이디 중복체크를 해주세요.</FormHelperText>) :
-          userIdValidate ? (<FormHelperText sx={{ color:'red' }}>이미사용중인 아이디입니다.</FormHelperText>) : 
-                          (<FormHelperText sx={{ color:'green' }}>사용 가능한 아이디입니다<div className=""></div></FormHelperText>)
-          }
+            !userIdPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>아이디 형식이 맞지 않습니다.</FormHelperText>) :
+              userIdValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>아이디 중복체크를 해주세요.</FormHelperText>) :
+                userIdValidate ? (<FormHelperText sx={{ color: 'red' }}>이미사용중인 아이디입니다.</FormHelperText>) :
+                  (<FormHelperText sx={{ color: 'green' }}>사용 가능한 아이디입니다<div className=""></div></FormHelperText>)
+        }
       </FormControl>
-          <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
-            <InputLabel>비밀번호*</InputLabel>
-            <Input
-              type={showPassword ? "text" : "password"}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              value={password}
-              onChange={(event) => onPasswordChangeHandler(event)}
-            />
-            {
-              passwordPatternCheck === false ? (<FormHelperText sx={{ color:'red' }}>{'영문자 + 숫자 + 특수문자(!?@_)를 포함한 8-20자를 입력해주세요.'}</FormHelperText>) : (<></>)
-            }
-          </FormControl>
-          <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
-            <InputLabel>비밀번호 확인*</InputLabel>
-            <Input
-              type={showPasswordCheck ? "text" : "password"}
-              endAdornment={
-              <InputAdornment position="end">
-                <IconButton
+      <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
+        <InputLabel>비밀번호*</InputLabel>
+        <Input
+          type={showPassword ? "text" : "password"}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          value={password}
+          onChange={(event) => onPasswordChangeHandler(event)}
+        />
+        {
+          passwordPatternCheck === false ? (<FormHelperText sx={{ color: 'red' }}>{'영문자 + 숫자 + 특수문자(!?@_)를 포함한 8-20자를 입력해주세요.'}</FormHelperText>) : (<></>)
+        }
+      </FormControl>
+      <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
+        <InputLabel>비밀번호 확인*</InputLabel>
+        <Input
+          type={showPasswordCheck ? "text" : "password"}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
                 onClick={() => setShowPasswordCheck(!showPasswordCheck)}>
-                  {showPasswordCheck ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-              }
-              value={passwordCheck}
-              onChange={(event) => onPasswordCheckChangeHandler(event)}
-            />
-            { passwordValidate === false ? (<FormHelperText sx={{ color: 'red' }}>비밀번호가 서로 일치하지 않습니다.</FormHelperText>) : (<></>) }
-          </FormControl>
+                {showPasswordCheck ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          value={passwordCheck}
+          onChange={(event) => onPasswordCheckChangeHandler(event)}
+        />
+        {passwordValidate === false ? (<FormHelperText sx={{ color: 'red' }}>비밀번호가 서로 일치하지 않습니다.</FormHelperText>) : (<></>)}
+      </FormControl>
       <Box
         sx={{
           display: "flex",
@@ -239,18 +237,18 @@ function FirstPage() {
                 <CheckIcon />
               </IconButton>
             </InputAdornment>}
-            value={nickname} 
-            onChange={(event) => onNicknameChangeHandler(event)}/>
-            {
+            value={nickname}
+            onChange={(event) => onNicknameChangeHandler(event)} />
+          {
             nicknamePatternCheck === null ? (<></>) :
-            !nicknamePatternCheck ? (<FormHelperText sx={{ color: 'red' }}>닉네임 형식이 맞지 않습니다.</FormHelperText>) :
-            nicknameValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>닉네임 중복체크를 해주세요.</FormHelperText>) :
-            nicknameValidate ? (<FormHelperText sx={{ color:'red' }}>이미사용중인 닉네임입니다.</FormHelperText>) : 
-                              (<FormHelperText sx={{ color:'green' }}>사용 가능한 닉네임입니다.<div className=""></div></FormHelperText>)
-            }
+              !nicknamePatternCheck ? (<FormHelperText sx={{ color: 'red' }}>닉네임 형식이 맞지 않습니다.</FormHelperText>) :
+                nicknameValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>닉네임 중복체크를 해주세요.</FormHelperText>) :
+                  nicknameValidate ? (<FormHelperText sx={{ color: 'red' }}>이미사용중인 닉네임입니다.</FormHelperText>) :
+                    (<FormHelperText sx={{ color: 'green' }}>사용 가능한 닉네임입니다.<div className=""></div></FormHelperText>)
+          }
         </FormControl>
-        <Avatar sx={{ width: "80px", height: "80px", cursor: "pointer" }} onClick={() => onProfileUploadButtonHandler()}/>
-          <input ref={imageRef} hidden type='file' accept="image/*" onChange={(event) => onProfileUploadChangeHandler(event)} />
+        <Avatar sx={{ width: "80px", height: "80px", cursor: "pointer" }} src={profileUrl} onClick={() => onProfileUploadButtonHandler()} />
+        <input ref={imageRef} hidden type='file' accept="image/*" onChange={(event) => onProfileUploadChangeHandler(event)} />
       </Box>
 
       <FormControl
@@ -260,19 +258,19 @@ function FirstPage() {
         variant="standard"
       >
         <InputLabel>휴대전화번호*</InputLabel>
-        <Input type="text"endAdornment={
+        <Input type="text" endAdornment={
           <InputAdornment position="end">
             <IconButton onClick={() => onTelNumberValidateButtonHandler()}>
               <CheckIcon />
             </IconButton>
           </InputAdornment>}
-        onChange={(event) => onTelNumberChangeHandler(event)}/>
+          onChange={(event) => onTelNumberChangeHandler(event)} />
         {
-        telNumberPatternCheck === null ? (<></>) :
-        !telNumberPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>휴대전화번호 형식이 맞지 않습니다.</FormHelperText>) :
-        telNumberValidate === null ? (<FormHelperText sx={{ color:'orange' }}>휴대전화번호 중복체크를 해주세요.</FormHelperText>) : 
-        telNumberValidate ? (<FormHelperText sx={{ color: 'red' }}>중복된 휴대전화번호입니다.</FormHelperText>) : 
-                            (<FormHelperText sx={{ color: 'green' }}>사용 가능한 휴대전화번호입니다.</FormHelperText>)
+          telNumberPatternCheck === null ? (<></>) :
+            !telNumberPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>휴대전화번호 형식이 맞지 않습니다.</FormHelperText>) :
+              telNumberValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>휴대전화번호 중복체크를 해주세요.</FormHelperText>) :
+                telNumberValidate ? (<FormHelperText sx={{ color: 'red' }}>중복된 휴대전화번호입니다.</FormHelperText>) :
+                  (<FormHelperText sx={{ color: 'green' }}>사용 가능한 휴대전화번호입니다.</FormHelperText>)
         }
       </FormControl>
     </Box>
@@ -280,25 +278,29 @@ function FirstPage() {
 }
 
 function SecondPage() {
-  const { interestedFestival, setInterestedFestival } = useSignUpStore();
-  const [ signUpCheckboxList, setSignUpCheckboxList ] = useState<GetFestivalTypeListResponseDto[]>([]);
   
+  //          Hook          //
+  const [signUpCheckboxList, setSignUpCheckboxList] = useState<GetFestivalTypeListResponseDto[]>([]);
+
+  //          Event Handler          //
   const onSignUpCheckboxList = () => {
     axios.get(GET_FESTIVAL_TYPE_CHECKBOX_LIST_URL)
-        .then((response) => onSignUpCheckboxListResponse(response))
-        .catch((error) => onSignUpCheckboxListError(error))
-  } 
+      .then((response) => onSignUpCheckboxListResponse(response))
+      .catch((error) => onSignUpCheckboxListError(error))
+  }
 
+  //          Response Handler          //
   const onSignUpCheckboxListResponse = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetFestivalTypeListResponseDto[]>
-    
-    if(!result || data === null ) return;
+
+    if (!result || data === null) return;
     setSignUpCheckboxList(data);
   }
-  const onSignUpCheckboxListError = (error: any) => {
-    alert(error.message);
-  }
 
+  //          Error Handler          //
+  const onSignUpCheckboxListError = (error: any) => alert(error.message);
+
+  //          Use Effect          //
   useEffect(() => {
     onSignUpCheckboxList();
   }, []);
@@ -318,22 +320,24 @@ function SecondPage() {
 }
 
 export default function SignUpView() {
+
+  //          Hook          //
   const { userId, password, passwordCheck, nickname, telNumber, profileUrl, interestedFestival, setInterestedFestival } = useSignUpStore();
   const { userIdPatternCheck, passwordPatternCheck, nicknamePatternCheck, telNumberPatternCheck } = useSignUpStore();
   const { userIdValidate, passwordValidate, nicknameValidate, telNumberValidate } = useSignUpStore();
-  const {setSignUpError} = useSignUpStore();
+  const { setSignUpError } = useSignUpStore();
 
   const [page, setPage] = useState<number>(1);
   const navigator = useNavigate();
 
-    //          Event Handler          //
+  //          Event Handler          //
   const onNextPageButtonHandler = () => {
-    if (!userId || !password || !passwordCheck || !nickname || !telNumber ) {
+    if (!userId || !password || !passwordCheck || !nickname || !telNumber) {
       setSignUpError(true);
       return;
     }
 
-    if (!userIdPatternCheck || !passwordPatternCheck || !nicknamePatternCheck || !telNumberPatternCheck ) return;
+    if (!userIdPatternCheck || !passwordPatternCheck || !nicknamePatternCheck || !telNumberPatternCheck) return;
 
     if (userIdValidate || !passwordValidate || nicknameValidate || telNumberValidate) return;
     setSignUpError(false);
@@ -341,15 +345,15 @@ export default function SignUpView() {
   }
 
   const onSignUpHandler = () => {
-    const data: SignUpRequestDto = { userId, password, nickname, profileUrl, telNumber, interestedFestival};
+    const data: SignUpRequestDto = { userId, password, nickname, profileUrl, telNumber, interestedFestival };
     axios.post(SIGN_UP_URL, data)
-        .then((response) => signUpResponseHandler(response))
-        .catch((error) => signUpErrorHandler(error))
+      .then((response) => signUpResponseHandler(response))
+      .catch((error) => signUpErrorHandler(error))
   }
 
   //          Response Handler          //
   const signUpResponseHandler = (response: AxiosResponse<any, any>) => {
-    if (!userId || !password || !passwordCheck || !nickname || !telNumber){
+    if (!userId || !password || !passwordCheck || !nickname || !telNumber) {
       setSignUpError(true);
       setPage(1);
       return;
@@ -360,7 +364,7 @@ export default function SignUpView() {
       return;
     }
 
-    if(userIdValidate || !passwordValidate || nicknameValidate || telNumberValidate) {
+    if (userIdValidate || !passwordValidate || nicknameValidate || telNumberValidate) {
       setPage(1);
       return;
     }
@@ -369,13 +373,13 @@ export default function SignUpView() {
     if (result) navigator('/auth/sign-in');
     else alert(message);
   }
+
   //          Error Handler          //
-  const signUpErrorHandler = (error: any) => {
-    alert(error.message);
-  }
+  const signUpErrorHandler = (error: any) => alert(error.message);
+  
   return (
     <Box sx={{ padding: "85px 250px" }}>
-      <Box sx={{ width:'100%', height:'700px', display:'flex', justifyContent:'center' }}>
+      <Box sx={{ width: '100%', height: '700px', display: 'flex', justifyContent: 'center' }}>
         <Box
           sx={{
             width: "50vw",
@@ -395,11 +399,11 @@ export default function SignUpView() {
           </Box>
 
           <Box sx={{ display: "flex", justifyContent: "end" }}>
-            {page === 1 && <Button sx={{ color:'#222' }} onClick={() => onNextPageButtonHandler()}>다음</Button>}
+            {page === 1 && <Button sx={{ color: '#222' }} onClick={() => onNextPageButtonHandler()}>다음</Button>}
             {page === 2 && (
               <Box>
-                <Button sx={{ color:'#222' }} onClick={() => setPage(1)}>이전</Button>
-                <Button sx={{ color:'#222' }} onClick={() => onSignUpHandler()}>회원가입</Button>
+                <Button sx={{ color: '#222' }} onClick={() => setPage(1)}>이전</Button>
+                <Button sx={{ color: '#222' }} onClick={() => onSignUpHandler()}>회원가입</Button>
               </Box>
             )}
           </Box>

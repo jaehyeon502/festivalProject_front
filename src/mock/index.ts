@@ -1,5 +1,22 @@
 import { Festival, Comment,OneLineReview,User,ReviewBoard } from "src/interfaces";
 
+export const SIMPLELIST: Festival[] = [ //? 타입 통일
+    {
+        festivalNumber: 11,
+        festivalName: '부산가족축제',
+        festivalType: "들어가지 않는 내용",
+        festivalDurationStart: '2023-01-05',
+        festivalDurationEnd: '2023-02-05',
+        festivalArea: '일본',
+        festivalTime: "들어가지 않는 내용",
+        onelineReviewAverage: 10,
+        festivalCost: "무료",
+        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
+        festivalInformation: '들어가지 않는 내용',
+        festivalHomepage: 'http'
+    }
+]
+
 export const ONELINEREVIEW_LIST: OneLineReview[] = [
     {
         festivalNumber: 1,
@@ -71,7 +88,7 @@ export const SIGN_UP_CHECKBOX_LIST: Festival[] = [
         festivalInformation: null,
         festivalInformationUrl: null,
         festivalHomepage: 'http'
-    },{
+    }, {
         festivalNumber: 1,
         festivalName: '테스트축제이름',
         festivalType: '테스트축제타입5',
@@ -84,7 +101,7 @@ export const SIGN_UP_CHECKBOX_LIST: Festival[] = [
         festivalInformation: null,
         festivalInformationUrl: null,
         festivalHomepage: 'http'
-    },{
+    }, {
         festivalNumber: 1,
         festivalName: '테스트축제이름',
         festivalType: '테스트축제타입5',
@@ -97,7 +114,7 @@ export const SIGN_UP_CHECKBOX_LIST: Festival[] = [
         festivalInformation: null,
         festivalInformationUrl: null,
         festivalHomepage: 'http'
-    },{
+    }, {
         festivalNumber: 1,
         festivalName: '테스트축제이름',
         festivalType: '테스트축제타입5',
@@ -110,7 +127,7 @@ export const SIGN_UP_CHECKBOX_LIST: Festival[] = [
         festivalInformation: null,
         festivalInformationUrl: null,
         festivalHomepage: 'http'
-    },{
+    }, {
         festivalNumber: 1,
         festivalName: '테스트축제이름',
         festivalType: '테스트축제타입5',
@@ -123,7 +140,7 @@ export const SIGN_UP_CHECKBOX_LIST: Festival[] = [
         festivalInformation: null,
         festivalInformationUrl: null,
         festivalHomepage: 'http'
-    },{
+    }, {
         festivalNumber: 1,
         festivalName: '테스트축제이름',
         festivalType: '테스트축제타입5',
@@ -136,7 +153,7 @@ export const SIGN_UP_CHECKBOX_LIST: Festival[] = [
         festivalInformation: null,
         festivalInformationUrl: null,
         festivalHomepage: 'http'
-    },{
+    }, {
         festivalNumber: 1,
         festivalName: '테스트축제이름',
         festivalType: '테스트축제타입5',
@@ -171,14 +188,14 @@ export const FESTIVALLIST: Festival[] =
         ,
     ]
 
-export const USER:User = {
-    userId:"qwer1234",
-    nickname:"a",
-    telNumber:"000-0000-0000",
-    profileUrl:"",
-    }
+export const USER: User = {
+    userId: "qwer1234",
+    nickname: "a",
+    telNumber: "000-0000-0000",
+    profileUrl: "",
+}
 
-export const REVIEW_BOARD_LIST : ReviewBoard[] = [
+export const REVIEW_BOARD_LIST: ReviewBoard[] = [
     {
         boardNumber: 1,
         boardTitle: '야호 신나는 축제',
@@ -251,7 +268,7 @@ export const REVIEW_BOARD_LIST : ReviewBoard[] = [
     }
 ]
 
-export const COMMENT_LIST : Comment[] = [
+export const COMMENT_LIST: Comment[] = [
     {
         commentNumber: 1,
         commentContent: '놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 놀러가는 건 언제나 좋아요 ',
