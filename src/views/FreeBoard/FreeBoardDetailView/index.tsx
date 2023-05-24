@@ -26,7 +26,7 @@ export default function FreeBoardDetailView() {
   //          Hook          //
   const { signInUser } = useSignInStore();
 
-  const [freeBoard, setFreeBoard] = useState<FreeBoard>();
+  const [board, setBoard] = useState<FreeBoard>();
 
   const [recommendList, setRecommendList] = useState<FreeBoardRecommend[]>([]);
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
@@ -48,7 +48,7 @@ export default function FreeBoardDetailView() {
 
   const setFreeBoardResponse = (data: GetFreeBoardResponseDto | PostFreeBoardCommentResponseDto | FreeBoardRecommendResponseDto) => {
     const { freeBoard, commentList, recommendList } = data;
-    setFreeBoard(freeBoard);
+    setBoard(freeBoard);
     setFestivalList(commentList);
     setRecommendList(recommendList);
   }
@@ -71,7 +71,7 @@ export default function FreeBoardDetailView() {
       return;
     }
 
-    if (freeBoard?.writerUserId !== signInUser?.userId) {
+    if(board?.writerUserId !== signInUser?.userId) {
       alert('권한이 없습니다.');
       return;
     }
@@ -189,7 +189,7 @@ export default function FreeBoardDetailView() {
   useEffect(() => {
     if (!signInUser) return;
 
-    const boardOwner = signInUser !== null && freeBoard?.writerUserId === signInUser.userId;
+    const boardOwner = signInUser !== null && board?.writerUserId === signInUser.userId;
     setMenuFlag(boardOwner);
 
     const recommend = recommendList.find((recommend) => recommend.userId === signInUser.userId);
@@ -203,9 +203,9 @@ export default function FreeBoardDetailView() {
         <Box display='flex' justifyContent='flex-end'>
           <Box sx={{ mb: '30px', width: '400px', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex' }}>
-              <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={freeBoard?.writerProfileUrl ? freeBoard.writerProfileUrl : ''} />
+              <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={board?.writerProfileUrl ? board.writerProfileUrl : ''} />
 
-              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {freeBoard?.writerNickname}</Typography>
+              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {board?.writerNickname}</Typography>
             </Box>
             <Box sx={{ mt: '40px', ml: '10px', fontWeight: 600 }}>
               <IconButton sx={{ color: 'red' }}>
@@ -224,23 +224,23 @@ export default function FreeBoardDetailView() {
 
           </Box>
         )}
-        <Menu sx={{ position: 'absolute', top: '-490px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
-          <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${freeBoard?.boardNumber}`)}>게시글 수정</MenuItem>
+        <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+          <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${board?.boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>
         </Menu>
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%' }}>
-          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{freeBoard?.boardTitle}</Typography>
-          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{freeBoard?.boardWriteDatetime}</Typography>
+          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{board?.boardTitle}</Typography>
+          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{board?.boardWriteDatetime}</Typography>
         </Box>
 
         <Divider sx={{ mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box>
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
-            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{freeBoard?.boardContent}</Typography>
-            {freeBoard?.boardImgUrl && (<Box sx={{ width: '100%', mt: '20px' }} component='img' src={freeBoard?.boardImgUrl} />)}
+            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{board?.boardContent}</Typography>
+            {board?.boardImgUrl && (<Box sx={{ width: '100%', mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
@@ -251,9 +251,9 @@ export default function FreeBoardDetailView() {
                     :
                     <ThumbUpOutlinedIcon sx={{ width: '20px', height: '20px' }} />}
                 </IconButton>
-                추천 {freeBoard?.recommendCount}</Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {freeBoard?.commentCount} </Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {freeBoard?.viewCount}</Box>
+                추천 {board?.recommendCount}</Box>
+              <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {board?.commentCount} </Box>
+              <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {board?.viewCount}</Box>
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
@@ -279,7 +279,7 @@ export default function FreeBoardDetailView() {
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem types='freeBoard' setCommentList={setFestivalList} item={commentItem as FreeBoardComment} />)}
+              {viewList.map((commentItem) => <CommentListItem types='freeBoard' setCommentList={setFestivalList} item={commentItem as FreeBoardComment} setBoard={setBoard} />)}
             </Stack>
           </Box>
 

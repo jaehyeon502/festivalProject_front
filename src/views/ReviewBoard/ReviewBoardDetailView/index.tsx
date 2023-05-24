@@ -26,7 +26,7 @@ export default function ReviewBoardDetailView() {
   const path = useLocation();
 
   const { boardNumber } = useParams();
-  const [reviewBoard, setReviewBoard] = useState<ReviewBoard>();
+  const [board, setBoard] = useState<ReviewBoard>();
 
   const [recommendStatus, setRecommendStatus] = useState<boolean>(false);
   const [recommendList, setRecommendList] = useState<Recommend[]>([])
@@ -105,8 +105,8 @@ export default function ReviewBoardDetailView() {
   }
 
   const onDeleteBoardHandler = () => {
-    if (!accessToken) return;
-    if (reviewBoard?.writerUserId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
+    if(!accessToken)  return;
+    if(board?.writerUserId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
 
     axios.delete(DELETE_REVIEW_BOARD_URL(boardNumber as string), authorizationHeader(accessToken))
       .then((response) => deleteBoardResponseHandler(response))
@@ -158,7 +158,7 @@ export default function ReviewBoardDetailView() {
   const setReviewBoardResponse = (data: GetReviewBoardResponseDto | RecommendReviewBoardResponseDto | PostCommentResponseDto) => {
 
     const { board, commentList, recommendList } = data;
-    setReviewBoard(board);
+    setBoard(board);
     setFestivalList(commentList);
     setRecommendList(recommendList);
     setComment(commentList);
@@ -175,7 +175,7 @@ export default function ReviewBoardDetailView() {
   useEffect(() => {
     if (!signInUser) return;
 
-    const boardOwner = signInUser !== null && reviewBoard?.writerUserId === signInUser.userId;
+    const boardOwner = signInUser !== null && board?.writerUserId === signInUser.userId;
     setMenuFlag(boardOwner);
 
     const recommend = recommendList.find((recommend) => recommend.userId === signInUser.userId);
@@ -189,9 +189,9 @@ export default function ReviewBoardDetailView() {
         <Box display='flex' justifyContent='flex-end'>
           <Box sx={{ mb: '30px', width: '400px', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex' }}>
-              <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={reviewBoard?.writerProfileUrl ? reviewBoard.writerProfileUrl : ''} />
+              <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={board?.writerProfileUrl ? board.writerProfileUrl : ''} />
 
-              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {reviewBoard?.writerNickname}</Typography>
+              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {board?.writerNickname}</Typography>
             </Box>
             <Box sx={{ mt: '40px', ml: '10px', fontWeight: 600 }}>
               <IconButton sx={{ color: 'red' }}>
@@ -218,16 +218,16 @@ export default function ReviewBoardDetailView() {
 
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%' }}>
-          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{reviewBoard?.boardTitle}</Typography>
-          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{reviewBoard?.boardWriteDatetime}</Typography>
+          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{board?.boardTitle}</Typography>
+          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{board?.boardWriteDatetime}</Typography>
         </Box>
 
         <Divider sx={{ mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box>
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
-            <img src={reviewBoard?.boardImgUrl ? reviewBoard.boardImgUrl : ''} />
-            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{reviewBoard?.boardContent}</Typography>
+            <img src={board?.boardImgUrl ? board.boardImgUrl : ''} />
+            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{board?.boardContent}</Typography>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
@@ -238,9 +238,9 @@ export default function ReviewBoardDetailView() {
                     :
                     <ThumbUpOutlinedIcon sx={{ width: '20px', height: '20px' }} />}
                 </IconButton>
-                추천 {reviewBoard?.recommendCount}</Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {reviewBoard?.commentCount} </Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {reviewBoard?.viewCount}</Box>
+                추천 {board?.recommendCount}</Box>
+              <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {board?.commentCount} </Box>
+              <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {board?.viewCount}</Box>
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
@@ -264,9 +264,9 @@ export default function ReviewBoardDetailView() {
         <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box sx={{ pb: '20px' }}>
-          <Box sx={{ ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ ml: '30px'}}>
             <Stack>
-              {viewList.map((commentItem) => <CommentListItem types='board' setCommentList={setFestivalList} item={commentItem as Comment} />)}
+              {viewList.map((commentItem) => <CommentListItem types='board' setCommentList={setFestivalList} item={commentItem as Comment} setBoard={setBoard} />)}
             </Stack>
           </Box>
 
