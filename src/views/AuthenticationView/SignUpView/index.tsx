@@ -27,9 +27,10 @@ function FirstPage() {
   const { userId, password, passwordCheck, nickname, profileUrl, telNumber, signUpError } = useSignUpStore();
   const { setUserId, setPassword, setPasswordCheck, setNickname, setProfileUrl, setTelNumber } = useSignUpStore();
   const { setUserIdPatternCheck, setNicknamePatternCheck, setPasswordPatternCheck, setTelNumberPatternCheck } = useSignUpStore();
-  const { setUserIdValidate, setNicknameValidate, setPasswordValidate, setTelNumberValidate } = useSignUpStore();
+  const { setUserIdValidate, setNicknameValidate, setPasswordValidate, setTelNumberValidate, setSignUpError } = useSignUpStore();
   const { userIdValidate, nicknameValidate, passwordValidate, telNumberValidate } = useSignUpStore();
   const { userIdPatternCheck, nicknamePatternCheck, passwordPatternCheck, telNumberPatternCheck } = useSignUpStore();
+  const [ userInputValue, setUserInputValue ] = useState<string>('');
 
   const userIdValidator = /^[A-Za-z0-9]{8,25}$/;
   const passwordValidator = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!?@_]).{8,20}$/;
@@ -42,6 +43,7 @@ function FirstPage() {
     const isMatched = userIdValidator.test(value);
     setUserIdPatternCheck(isMatched);
     setUserId(value);
+    setUserIdValidate(null);
   }
 
   const onUserIdValidateButtonHandler = () => {
@@ -72,6 +74,7 @@ function FirstPage() {
     const isMatched = nicknameValidator.test(value);
     setNicknamePatternCheck(isMatched);
     setNickname(value);
+    setNicknameValidate(null);
   }
 
   const onNicknameValidateButtonHandler = () => {
@@ -103,6 +106,7 @@ function FirstPage() {
     const isMatched = telNumberVaildator.test(value);
     setTelNumberPatternCheck(isMatched);
     setTelNumber(value);
+    setTelNumberValidate(null);
   }
 
   const onTelNumberValidateButtonHandler = () => {
@@ -172,6 +176,13 @@ function FirstPage() {
     setTelNumber('');
     setUserIdPatternCheck(null);
     setUserIdValidate(null);
+    setPasswordPatternCheck(null);
+    setPasswordValidate(null);
+    setNicknamePatternCheck(null);
+    setNicknameValidate(null);
+    setTelNumberPatternCheck(null);
+    setTelNumberValidate(null);
+    setSignUpError(false);
   }, [])
 
   return (
@@ -185,7 +196,7 @@ function FirstPage() {
             </IconButton>
           </InputAdornment>} 
           value={userId} 
-          onChange={(event) => onUserIdChangeHandler(event)} />
+          onChange={(event) => {onUserIdChangeHandler(event)}} />
           {
           userIdPatternCheck === null ? (<></>) :
           !userIdPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>아이디 형식이 맞지 않습니다.</FormHelperText>) :

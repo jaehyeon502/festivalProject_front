@@ -231,7 +231,7 @@ export default function ReviewBoardWriteView() {
           <Typography >
             <Input
               fullWidth disableUnderline placeholder='본문을 작성해주세요.'
-              multiline minRows={1}
+              multiline minRows={10}
               sx={{ fontSize: '18px', fontWeight: 600 }}
               onChange={(event) => setBoardContent(event.target.value)}
               onKeyPress={(event) => onContentKeyPressHandler(event)} />

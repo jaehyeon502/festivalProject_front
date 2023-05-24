@@ -258,7 +258,7 @@ export default function ReviewBoardUpdateView() {
           <Typography>
             <Input
               fullWidth disableUnderline placeholder='본문을 작성해주세요.'
-              multiline minRows={1}
+              multiline minRows={10}
               sx={{ fontSize: '18px', fontWeight: 600 }}
               value = { boardContent }
               onChange={(event) => setBoardContent(event.target.value)}

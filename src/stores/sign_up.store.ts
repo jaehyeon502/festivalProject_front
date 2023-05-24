@@ -26,19 +26,19 @@ interface ISignUpStore{
     setUserIdValidate: (userIdValidate: boolean | null) => void;
 
     passwordPatternCheck: boolean | null;
-    setPasswordPatternCheck: (passwordPatternCheck: boolean) => void;
+    setPasswordPatternCheck: (passwordPatternCheck: boolean | null) => void;
     passwordValidate: boolean | null;
-    setPasswordValidate: (passwordValidate: boolean) => void;
+    setPasswordValidate: (passwordValidate: boolean | null) => void;
 
     nicknamePatternCheck : boolean | null;
-    setNicknamePatternCheck: (nicknamePatternCheck: boolean) => void;
+    setNicknamePatternCheck: (nicknamePatternCheck: boolean | null) => void;
     nicknameValidate: boolean | null;
-    setNicknameValidate: (nicknameValidate: boolean) => void;
+    setNicknameValidate: (nicknameValidate: boolean | null) => void;
 
     telNumberPatternCheck: boolean | null;
-    setTelNumberPatternCheck: (telNumberPatternCheck: boolean) => void;
+    setTelNumberPatternCheck: (telNumberPatternCheck: boolean | null) => void;
     telNumberValidate: boolean | null;
-    setTelNumberValidate: (telNumberValidate: boolean) => void
+    setTelNumberValidate: (telNumberValidate: boolean | null) => void
 
 }
 

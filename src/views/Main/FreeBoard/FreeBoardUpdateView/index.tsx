@@ -1,15 +1,11 @@
 import React, { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
 import {
   Box, Divider, Fab, FormControl,
-  Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography
+  Grid, IconButton, Input, Typography
 } from '@mui/material'
-import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Festival } from 'src/interfaces';
-import { SIMPLELIST } from 'src/mock';
-import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import { PatchFreeBoardRequestDto } from 'src/apis/request/freeboard';
 import axios, { AxiosResponse } from 'axios';
 import { GET_FREE_BOARD_URL, PATCH_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
@@ -31,7 +27,6 @@ export default function FreeBoardUpdateView() {
   const [boardTitle, setBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
 
-  const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
   const accessToken = cookies.accessToken;
 
   //          Event Handler          //
@@ -153,7 +148,7 @@ export default function FreeBoardUpdateView() {
             <Typography>
               <Input
                 fullWidth disableUnderline placeholder='본문을 작성해주세요.'
-                multiline minRows={1} value={boardContent}
+                multiline minRows={10} value={boardContent}
                 sx={{ fontSize: '18px', fontWeight: 600 }}
                 onChange={(event) => setBoardContent(event.target.value)}
                 onKeyPress={(event) => onContentKeyPressHandler(event)}/>
