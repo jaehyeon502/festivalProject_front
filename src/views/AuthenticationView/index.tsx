@@ -1,7 +1,7 @@
 import { Box, Card, Grid, Typography } from '@mui/material'
 import { useEffect } from 'react'
 
-import SigninView from './SignInView'
+import SigninView from './SigninView'
 import { FESTIVALLIST } from 'src/mock';
 import { usePagingHook } from 'src/hooks';
 
