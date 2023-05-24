@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import AuthenticationView from './views/AuthenticationView'
 import ReviewBoardWriteView from './views/ReviewBoard/ReviewBoardWriteView';
 import ReviewBoardDetailView from './views/ReviewBoard/ReviewBoardDetailView';
 import ReviewBoardUpdateView from './views/ReviewBoard/ReviewBoardUpdateView';
-import MypageView from './views/MypageView';
+import MypageView from './views/MyPageView';
 import ReviewBoardListView from './views/ReviewBoard/ReviewBoardListView';
 import SignUpView from './views/AuthenticationView/SignUpView';
 import FreeBoardWriteView from './views/Main/FreeBoard/FreeBoardWriteView';
@@ -25,57 +25,59 @@ import { GetUserResponseDto } from './apis/response/user';
 
 function App() {
 
-  const { signInUser }=useSignInStore();
+  //          Hook            //
   const path = useLocation();
   const { setSignInUser } = useSignInStore();
-  const [ cookies ] = useCookies();
+  const [cookies] = useCookies();
 
-  const getUser = (accessToken : string) => {
+  //          Event Handler            //
+  const getUser = (accessToken: string) => {
     axios.get(GET_USER_URL, authorizationHeader(accessToken))
-    .then((response) => getUserResponseHandler(response))
-    .catch((error) => getUserErrorHandler(error))
+      .then((response) => getUserResponseHandler(response))
+      .catch((error) => getUserErrorHandler(error))
   }
 
-  const getUserResponseHandler = (response : AxiosResponse<any, any>) => {
-    const { result, message, data} = response.data as ResponseDto<any>;
+  //         Response Handler             //
+  const getUserResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<any>;
 
-    if(!result || !data) return;
+    if (!result || !data) return;
 
     const user = data as GetUserResponseDto;
     setSignInUser(user);
   }
 
-  const getUserErrorHandler = (error : any) => console.log(error.message);
+  //          Error Handler          //
+  const getUserErrorHandler = (error: any) => console.log(error.message);
 
-  useEffect( () => {
+  //          Use Effect          //
+  useEffect(() => {
     const accessToken = cookies.accessToken;
-    if(accessToken) getUser(accessToken);
+    if (accessToken) getUser(accessToken);
   }, [path])
-
-
 
   return (
     <>
-      <NavigationBar/>
+      <NavigationBar />
       <Routes>
         <Route path="/" element={(<Main />)} />
         <Route path="/auth" element={(<AuthenticationView />)} />
-        <Route path="/mypage" element={(<MypageView />)}/>
+        <Route path="/mypage" element={(<MypageView />)} />
         <Route path="/auth">
-          <Route path="sign-in" element={(<AuthenticationView />)}/>
-          <Route path="sign-up" element={(<SignUpView />)}/>
+          <Route path="sign-in" element={(<AuthenticationView />)} />
+          <Route path="sign-up" element={(<SignUpView />)} />
         </Route>
-        <Route path = "/reviewboard">
-          <Route path = 'write' element = {(<ReviewBoardWriteView/>)}/>
-          <Route path = 'detail/:boardNumber' element = {(<ReviewBoardDetailView/>)}/>
-          <Route path = 'update/:boardNumber' element = {(<ReviewBoardUpdateView/>)}/>
-          <Route path = 'list' element = {(<ReviewBoardListView/>)}/>
+        <Route path="/reviewboard">
+          <Route path='write' element={(<ReviewBoardWriteView />)} />
+          <Route path='detail/:boardNumber' element={(<ReviewBoardDetailView />)} />
+          <Route path='update/:boardNumber' element={(<ReviewBoardUpdateView />)} />
+          <Route path='list' element={(<ReviewBoardListView />)} />
         </Route>
-        <Route path = "/freeboard">
-          <Route path = 'write' element = {(<FreeBoardWriteView/>)}/> 
-          <Route path = 'detail/:boardNumber' element = {(<FreeBoardDetailView/>)}/> 
-          <Route path = 'update/:boardNumber' element = {(<FreeBoardUpdateView/>)}/> 
-          <Route path = 'list' element = {(<FreeBoardListView/>)}/> 
+        <Route path="/freeboard">
+          <Route path='write' element={(<FreeBoardWriteView />)} />
+          <Route path='detail/:boardNumber' element={(<FreeBoardDetailView />)} />
+          <Route path='update/:boardNumber' element={(<FreeBoardUpdateView />)} />
+          <Route path='list' element={(<FreeBoardListView />)} />
         </Route>
       </Routes>
       {path.pathname !== "/auth/sign-in" && path.pathname !== "/auth/sign-up" && <Footer />}

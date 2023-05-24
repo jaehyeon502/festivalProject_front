@@ -1,25 +1,22 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react'
-import { Box, Divider, Fab,IconButton, Input, Typography } from '@mui/material'
+import { KeyboardEvent, useState } from 'react'
+import { Box, Divider, Fab, IconButton, Input, Typography } from '@mui/material'
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate } from 'react-router-dom';
-import { Festival} from 'src/interfaces';
-import { SIMPLELIST } from 'src/mock';
-import FestivalNameItemList from 'src/components/FestivalNameItemList';
-import ClearIcon from '@mui/icons-material/Clear';
 import axios, { AxiosResponse } from 'axios';
 import { PostFreeBoardRequestDto } from 'src/apis/request/freeboard';
-import { FILE_UPLOAD_URL, POST_FREE_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
+import { POST_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';
 import ResponseDto from 'src/apis/response';
 import { PostFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useCookies } from 'react-cookie';
 import { useImageUploadHook } from 'src/hooks';
 
 export default function FreeBoardWriteView() {
+
+  //          Hook          //
   const [boardTitle, setFreeBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
-  const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
-  const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
+  const { boardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
 
   const navigator = useNavigate();
 
@@ -28,30 +25,17 @@ export default function FreeBoardWriteView() {
   const accessToken = cookies.accessToken;
 
   //          Event Handler          //
-  const onContentKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
+  const onContentKeyPressHandler = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Enter') return;
     setBoardContent(boardContent + '\n');
   }
 
   const PostFreeBoard = () => {
-    const data: PostFreeBoardRequestDto = {boardTitle, boardContent, boardImgUrl};
+    const data: PostFreeBoardRequestDto = { boardTitle, boardContent, boardImgUrl };
 
     axios.post(POST_FREE_BOARD_URL, data, authorizationHeader(accessToken))
-        .then((response) => PostFreeBoardResponse(response))
-        .catch((error) => PostFreeBoardError(error))
-  }
-
-  const PostFreeBoardResponse = (response: AxiosResponse<any, any>) => {
-    const {result, message, data} = response.data as ResponseDto<PostFreeBoardResponseDto>
-    if (!result || data === null) {
-      alert(message);
-      return;
-    }
-    navigator('/freeboard/list');
-  }
-
-  const PostFreeBoardError = (error: any) => {
-    console.log(error.message);
+      .then((response) => PostFreeBoardResponse(response))
+      .catch((error) => PostFreeBoardError(error))
   }
 
   const onBoardWriteHandler = () => {
@@ -68,8 +52,21 @@ export default function FreeBoardWriteView() {
     PostFreeBoard();
   }
 
+  //          Response Handler          //
+  const PostFreeBoardResponse = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<PostFreeBoardResponseDto>
+    if (!result || data === null) {
+      alert(message);
+      return;
+    }
+    navigator('/freeboard/list');
+  }
+
+  //          Error Handler          //
+  const PostFreeBoardError = (error: any) => console.log(error.message);
+
   return (
-    <Box sx={{ backgroundColor: '#c0c0c0', height : '100%' }}>
+    <Box sx={{ backgroundColor: '#c0c0c0', height: '100%' }}>
       <Divider />
       <Box sx={{ ml: '200px', mr: '200px', p: '100px 50px', backgroundColor: '#ffffff' }}>
         <Box>
@@ -84,24 +81,24 @@ export default function FreeBoardWriteView() {
             <Box>
               <IconButton onClick={() => onImageUploadButtonHandler()}>
                 <InsertPhotoOutlinedIcon />
-                <input 
-                ref = {imageRef}
-                hidden type = 'file'
-                accept = 'image/*'
-                onChange={(event) => onImageUploadChangeHandler(event)}
-                onKeyDown={(event) => onContentKeyPressHandler(event)}
+                <input
+                  ref={imageRef}
+                  hidden type='file'
+                  accept='image/*'
+                  onChange={(event) => onImageUploadChangeHandler(event)}
+                  onKeyDown={(event) => onContentKeyPressHandler(event)}
                 />
               </IconButton>
             </Box>
           </Box>
         </Box>
-        
+
         <Box>
           <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
-            sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}}
+            sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f' }}
             onChange={(event) => setFreeBoardTitle(event.target.value)} />
         </Box>
-          <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
+        <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
         <Box>
           <Typography>
             <Input
@@ -109,7 +106,7 @@ export default function FreeBoardWriteView() {
               multiline minRows={1}
               sx={{ fontSize: '18px', fontWeight: 600 }}
               onChange={(event) => setBoardContent(event.target.value)}
-              onKeyPress={(event) => onContentKeyPressHandler(event)}/>
+              onKeyPress={(event) => onContentKeyPressHandler(event)} />
             <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
           </Typography>
         </Box>

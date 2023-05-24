@@ -1,5 +1,4 @@
 import User from "./User.interface";
-
 import Comment from "./Comment.interface";
 import OneLineReview from "./OneLineReview.interface";
 import Festival from "./Festival.interface";

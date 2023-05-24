@@ -1,9 +1,9 @@
-import { Box, Card, CardContent, CardHeader, CardMedia, Collapse, IconButton, IconButtonProps, Link, Typography, styled } from "@mui/material";
-import { Festival } from "src/interfaces";
-
+import React from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import React, { useState } from "react";
+
+import { Box, Card, CardContent, CardHeader, CardMedia, Collapse, IconButton, IconButtonProps, Link, Typography, styled } from "@mui/material";
+import { Festival } from "src/interfaces";
 
 interface Props{
     setClickPage: React.Dispatch<React.SetStateAction<boolean>>

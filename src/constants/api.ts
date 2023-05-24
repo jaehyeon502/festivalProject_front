@@ -16,7 +16,6 @@ export const VALIDATE_USER_ID_URL = `${HOST}api/user/check/userid`
 export const VALIDATE_NICKNAME_URL = `${HOST}api/user/check/nickname`
 export const VALIDATE_TELNUMBER_URL = `${HOST}api/user/check/telnumber`
 export const PATCH_USER_PROFILE = `${HOST}api/user/profile`
-export const FREE_BOARD_RECOMMEND_URL =  `${HOST}api/free-board/recommend`;
 
 //? Board
 export const GET_ALL_REVIEWBOARD_LIST_URL=`${HOST}api/board/all-review-board`
@@ -43,6 +42,7 @@ export const POST_FREE_BOARD_COMMENT_URL = `${HOST}api/free-board/comment`;
 export const DELETE_FREE_BOARD = (boardNumber: string) => `${HOST}api/free-board/${boardNumber}`
 export const DELETE_FREE_BOARD_COMMENT = (commentNumber : number) => `${HOST}api/free-board/comment/${commentNumber}`
 export const GET_SEARCH_FREE_BOARD_LIST_URL = (searchWord : string) => `${HOST}api/free-board/search-free-board/${searchWord}`;
+export const FREE_BOARD_RECOMMEND_URL =  `${HOST}api/free-board/recommend`;
 
 //? File
 export const FILE_UPLOAD_URL=`${HOST}file/upload`

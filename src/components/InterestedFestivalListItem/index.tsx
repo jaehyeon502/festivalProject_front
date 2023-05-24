@@ -3,8 +3,6 @@ import { Box, Card, CardActionArea, Divider, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useFestivalNumberStore } from 'src/stores';
 import { GetInterstFestivalListResponseDto } from 'src/apis/response/festival';
-
-
 interface Props {
     onClick: () => void;
     festivalList: GetInterstFestivalListResponseDto   

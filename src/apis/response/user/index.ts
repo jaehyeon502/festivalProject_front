@@ -4,4 +4,10 @@ import CheckUserTelNumberResponseDto from './Check-User-Tel-Number.response.dto'
 import GetUserResponseDto from './Get-User.response.dto'
 import PatchUserProfileResponseDto from './Patch-User-Profile.response.dto'
 
-export type { CheckUserIdResponseDto, CheckUserNicknameResponseDto, CheckUserTelNumberResponseDto, GetUserResponseDto, PatchUserProfileResponseDto }
+export type {
+    CheckUserIdResponseDto,
+    CheckUserNicknameResponseDto,
+    CheckUserTelNumberResponseDto,
+    GetUserResponseDto,
+    PatchUserProfileResponseDto
+}

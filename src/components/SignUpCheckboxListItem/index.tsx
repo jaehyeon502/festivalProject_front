@@ -4,7 +4,6 @@ import { Box, Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/ma
 import { Festival } from 'src/interfaces';
 import { useSignUpStore } from 'src/stores';
 
-
 interface Props {
     festivalCheckboxList: Festival;
 }

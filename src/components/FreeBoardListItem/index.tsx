@@ -1,7 +1,6 @@
 import { Box, Card, CardActionArea, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import { GetFreeBoardListResponseDto } from 'src/apis/response/freeboard';
-
 interface Props {
     item : GetFreeBoardListResponseDto;
 }
