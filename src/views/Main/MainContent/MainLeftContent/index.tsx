@@ -1,6 +1,5 @@
 import { Box, Grid, Pagination, SelectChangeEvent } from '@mui/material'
-import React, { useEffect } from 'react';
-import { useState } from 'react'
+import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import FestivalSimpleListItem from 'src/components/FestivalSimpleListItem';
 import MonthAndAreaButton from 'src/components/MonthAndAreaIButton';
 import { usePagingHook } from 'src/hooks';
@@ -16,16 +15,17 @@ import ResponseDto from 'src/apis/response';
 import { useLocation } from 'react-router-dom';
 interface Props {
   clickPage: boolean;
-  setClickPage: React.Dispatch<React.SetStateAction<boolean>>
+  setClickPage: Dispatch<SetStateAction<boolean>>
+  selectedFestival: GetOneFestivalResponseDto | null;
+  setSelectedFestival: Dispatch<SetStateAction<GetOneFestivalResponseDto | null>>
 }
 
-export default function MainLeftContent({ setClickPage, clickPage }: Props) {
+export default function MainLeftContent({ setClickPage, clickPage, selectedFestival, setSelectedFestival }: Props) {
 
   const [ showSameFestival, setShowSameFestival] = useState<string>('');
   const [festivalArea, setFestivalArea] = useState<string>('');
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-  const [selectedFestival, setSelectedFestival] = useState<GetOneFestivalResponseDto | null>(null);
 
   const { festivalNumber, setFestivalNumber } = useFestivalNumberStore();
 

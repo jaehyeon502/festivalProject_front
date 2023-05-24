@@ -1,14 +1,14 @@
 import { Box, Button, Card, Grid, Input, Pagination, Rating, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Comment, OneLineReview } from "src/interfaces";
 import OneLineReviewListItem from "src/components/OneLineReviewListItem";
 import axios, { AxiosResponse } from "axios";
 import ResponseDto from "src/apis/response";
 import { usePagingHook } from "src/hooks";
 
-import { GetFestivalNameResponseDto, GetOneLineReviewResponseDto, GetTop1OneLineReviewResponseDto, PostOneLineCommentReviewResponseDto } from "src/apis/response/festival";
+import { GetFestivalNameResponseDto, GetOneFestivalResponseDto, GetOneLineReviewResponseDto, GetTop1OneLineReviewResponseDto, PostOneLineCommentReviewResponseDto } from "src/apis/response/festival";
 import { useFestivalNumberStore } from "src/stores";
-import { GET_ONELINE_REVIEW_FESTIVALNAME, GET_ONELINE_REVIEW_URL, GET_TOP1_ONELINEREVIEW_URL, POST_ONE_LINE_COMMENT_REVIEW, authorizationHeader} from "src/constants/api";
+import { GET_ONELINE_REVIEW_FESTIVALNAME, GET_ONELINE_REVIEW_URL, GET_ONE_FESTIVAL_URL, GET_TOP1_ONELINEREVIEW_URL, POST_ONE_LINE_COMMENT_REVIEW, authorizationHeader} from "src/constants/api";
 
 import { getpagecount } from "src/utils";
 import { useCookies } from "react-cookie";
@@ -17,13 +17,14 @@ import { PostOneLineCommentRequestDto } from "src/apis/request/festival";
 
 interface Props {
   clickPage: boolean;
+  setSelectedFestival: Dispatch<SetStateAction<GetOneFestivalResponseDto | null>>
 }
 
-export default function MainRightContent({ clickPage }: Props) {
+export default function MainRightContent({ clickPage, setSelectedFestival }: Props) {
 
   const [festivalName, setFestivalName] = useState<GetFestivalNameResponseDto | null>(null);
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
-  const {festivalNumber}=useFestivalNumberStore();
+  const {festivalNumber,setFestivalNumber}=useFestivalNumberStore();
 
   const [cookies] = useCookies();
   const accessToken = cookies.accessToken;
@@ -107,12 +108,32 @@ export default function MainRightContent({ clickPage }: Props) {
       alert(message);
       return;
     }
-    const { oneLineReviewList } = data;
+    const { oneLineReviewList, festival } = data;
+    getOneFestival(festival.festivalNumber)
     setFestivalList(oneLineReviewList);
+  }
+
+  const getOneFestival = (festivalNumber: number) => {
+    axios
+      .get(GET_ONE_FESTIVAL_URL(festivalNumber))
+      .then((response) => getOneFestivalResponseHandler(response))
+      .catch((error) => getOnefestivalErrorHandler(error))
   }
 
   const postOneLineCommentErrorHandler = (error: any) => {
     console.log(error.message)
+  }
+
+  //         Response Handler         //
+  const getOneFestivalResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetOneFestivalResponseDto>
+    if (!result || !data) return;
+    setSelectedFestival(data);
+  }
+
+  //         Error Handler        //
+  const getOnefestivalErrorHandler = (error: any) => {
+    console.log(error.message);
   }
 
   //          use Effect             //
@@ -131,7 +152,7 @@ export default function MainRightContent({ clickPage }: Props) {
     <Box>
       <Typography
 
-        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> 한줄평 {festivalName?.festivalName}</Typography>
+        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> {festivalName?.festivalName} 한 줄 평</Typography>
       <Box sx={{ mt: "15px", ml: "30px", mr: "30px", overflow: "hidden" }}>
 
           {viewList.map((item) => (
