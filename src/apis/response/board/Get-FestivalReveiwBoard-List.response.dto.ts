@@ -1,16 +1,16 @@
-interface Dto{
-    boardNumber: number
-    boardTitle: string;
+interface Dto {
     boardContent: string;
     boardImgUrl: string;
+    boardNumber: number
+    boardTitle: string;
     boardWriteDatetime: string;
-    viewCount: number;
-    recommendCount: number;
     commentCount: number;
-    writerUserId: string;
-    writerProfileUrl: string | null
-    writerNickname: string;
     festivalNumber: number;
+    recommendCount: number;
+    viewCount: number;
+    writerUserId: string;
+    writerNickname: string;
+    writerProfileUrl: string | null
 }
 
 export default Dto;
