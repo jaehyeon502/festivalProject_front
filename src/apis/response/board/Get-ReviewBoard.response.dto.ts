@@ -20,7 +20,6 @@ interface Dto {
 
     recommendList : Recommend[]
     commentList: Comment[]
-
 }
 
 export default Dto

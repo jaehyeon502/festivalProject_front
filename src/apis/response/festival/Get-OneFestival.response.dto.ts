@@ -1,5 +1,5 @@
 interface Dto{
-    festivalNumber:number;
+    festivalNumber: number;
     festivalName: string;
     festivalType: string;
     festivalDurationStart:string;
@@ -11,9 +11,6 @@ interface Dto{
     festivalInformationUrl:string | null;
     onelineReviewAverage:number;
     festivalHomepage: string;
-
-    
-
 }
 
 export default Dto

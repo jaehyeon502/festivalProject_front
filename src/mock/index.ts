@@ -1,4 +1,4 @@
-import { Festival, Comment, OneLineReview, User, ReviewBoard, FreeBoard } from "src/interfaces";
+import { Festival, Comment,OneLineReview,User,ReviewBoard } from "src/interfaces";
 
 export const SIMPLELIST: Festival[] = [ //? 타입 통일
     {

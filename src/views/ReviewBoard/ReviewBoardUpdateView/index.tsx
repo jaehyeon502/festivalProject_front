@@ -175,6 +175,7 @@ export default function ReviewBoardUpdateView() {
     if (searchName) {
       getFestivalSearchName();
     }
+    
     getFestivalNameList();
     if (!boardNumber) navigator('/reviewBoard/list');
     if (!accessToken) navigator('/auth/sign-in');
