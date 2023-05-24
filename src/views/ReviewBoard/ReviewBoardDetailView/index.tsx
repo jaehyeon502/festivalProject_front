@@ -49,12 +49,6 @@ export default function ReviewBoardDetailView() {
   //          Event Handler          //
   const onClickRecommendHandler = () => onRecommendHandler()
 
-  const getReviewBoardList = () => {
-    axios.get(GET_ALL_REVIEWBOARD_LIST_URL)
-    .then((response) => getReviewBoardListResponseHandler(response))
-    .catch((error) => getReviewBoardErrorHandler(error))
-  }
-
   //? 후기 게시물 조회
   const getBoard = () => {
     axios.get(GET_REVIEW_BOARD_URL(boardNumber as string))
@@ -139,18 +133,12 @@ export default function ReviewBoardDetailView() {
   }
 
   //          Response Handler          //
-  const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>)=> {
-    const { result, message, data } = response.data as ResponseDto<GetReviewBoardListResponseDto[]>
-    if (!result || data === null) return;
-    setFestivalList(data);
-  }
-  
   const getBoardResponseHandler = (response: AxiosResponse<any, any>) => {
 
     const { result, message, data } = response.data as ResponseDto<GetReviewBoardResponseDto>
     if (!result || !data) {
       alert(message);
-      //navigator('/');
+      // navigator('/');
       return;
     }
     setReviewBoardResponse(data);
@@ -177,13 +165,12 @@ export default function ReviewBoardDetailView() {
   const deleteBoardResponseHandler = (response : AxiosResponse<any, any>) => {
 
     const { result, message, data} = response.data as ResponseDto<DeleteReviewBoardResponseDto>;
-    // if(!result || !data || data.resultStatus) return;
+    if(!result || !data || !data.resultStatus) return;
     navigator('/reviewBoard/list');
   }
 
   //          Error Handler          //
   const getBoardErrorHandler = (error: any) => console.log(error.message);
-  const getReviewBoardErrorHandler = (error : any) => console.log(error.message);
   const recommendErrorHandler = (error: any) => console.log(error.message);
   const postCommentErrorHandler = (error: any) => console.log(error.message);
   const deleteBoardErrorHandler = (error: any) => console.log(error.message);
@@ -200,7 +187,6 @@ export default function ReviewBoardDetailView() {
   }
 
   useEffect(() => {
-    
     if (isCheck === true) return;
     getBoard();
     isCheck = true;
@@ -246,7 +232,7 @@ export default function ReviewBoardDetailView() {
         </Box>
         )}
         <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
-          <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/reviewboard/update/${reviewBoard?.boardNumber}`)}>게시글 수정</MenuItem>
+          <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/reviewboard/update/${boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteBoardHandler()}>게시글 삭제</MenuItem>
         </Menu>
