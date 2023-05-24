@@ -1,10 +1,6 @@
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField, Typography } from '@mui/material'
 import axios, { AxiosResponse } from 'axios';
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react'
-=======
 import React, { useState } from 'react'
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { SignInRequestDto } from 'src/apis/request/auth';

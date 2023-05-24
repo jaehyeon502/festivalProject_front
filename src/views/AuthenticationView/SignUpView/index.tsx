@@ -182,17 +182,10 @@ function FirstPage() {
             <IconButton onClick={() => onUserIdValidateButtonHandler()}>
               <CheckIcon />
             </IconButton>
-<<<<<<< HEAD
-          </InputAdornment>} 
-          value={userId} 
-          onChange={(event) => {onUserIdChangeHandler(event)}} />
-          {
-=======
           </InputAdornment>}
           value={userId}
           onChange={(event) => onUserIdChangeHandler(event)} />
         {
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
           userIdPatternCheck === null ? (<></>) :
             !userIdPatternCheck ? (<FormHelperText sx={{ color: 'red' }}>아이디 형식이 맞지 않습니다.</FormHelperText>) :
               userIdValidate === null ? (<FormHelperText sx={{ color: 'orange' }}>아이디 중복체크를 해주세요.</FormHelperText>) :

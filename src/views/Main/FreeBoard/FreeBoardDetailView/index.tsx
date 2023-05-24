@@ -71,11 +71,7 @@ export default function FreeBoardDetailView() {
       return;
     }
 
-<<<<<<< HEAD
     if(board?.writerUserId !== signInUser?.userId) {
-=======
-    if (freeBoard?.writerUserId !== signInUser?.userId) {
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
       alert('권한이 없습니다.');
       return;
     }
@@ -228,13 +224,8 @@ export default function FreeBoardDetailView() {
 
           </Box>
         )}
-<<<<<<< HEAD
         <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${board?.boardNumber}`)}>게시글 수정</MenuItem>
-=======
-        <Menu sx={{ position: 'absolute', top: '-490px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
-          <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${freeBoard?.boardNumber}`)}>게시글 수정</MenuItem>
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>
         </Menu>

@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-import { Avatar, Box, Button, Card, Divider, IconButton, Input, Typography } from '@mui/material'
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend, ReviewBoard } from 'src/interfaces'
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import { useSignInStore } from 'src/stores';
-=======
 import { useState, useEffect } from 'react';
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
 import axios, { AxiosResponse } from 'axios';
 import { useCookies } from 'react-cookie';
 import { useParams } from 'react-router-dom';
@@ -125,11 +117,7 @@ export default function CommentListItem({ item, setCommentList, types, setBoard 
       alert(message);
       return;
     }
-<<<<<<< HEAD
     setBoard(data.freeBoard);
-=======
-
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
     setCommentList(data.commentList);
     setDrag(false);
   }
@@ -148,23 +136,14 @@ export default function CommentListItem({ item, setCommentList, types, setBoard 
 
   return (
     <Box>
-<<<<<<< HEAD
       <Box sx={{  width : '100%', display: 'flex', justifyContent:'space-between', ml: '20px', mb: '12px' }}>
-=======
-      <Box sx={{ width: '1455px', display: 'flex', justifyContent: 'space-between', ml: '20px', mb: '12px' }}>
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
         <Box sx={{ display: 'flex' }}>
           <Avatar sx={{ mr: '10px', width: '50px', height: '50px' }} src={item?.writerProfileUrl ? item?.writerProfileUrl : ''} />
           <Typography sx={{ mr: '10px' }}>{item?.writerNickname + ' | '}</Typography>
           <Typography sx={{ mr: '10px' }}>{item?.writeDatetime}</Typography>
 
-<<<<<<< HEAD
           </Box>
         <Box sx={{ mr: '40px'}}>
-=======
-        <Box sx={{ mr: '40px' }}>
-
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
           {flag
             ?
             <IconButton onClick={onClickCommentDragButton}>
