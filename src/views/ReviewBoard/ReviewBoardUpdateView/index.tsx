@@ -15,15 +15,16 @@ import { useSignInStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
 import { useImageUploadHook } from 'src/hooks';
 import axios, { AxiosResponse } from 'axios';
-import { GET_REVIEW_BOARD_URL, PATCH_REVIEW_BOARD_URL, authorizationHeader } from 'src/constants/api';
+import { GET_FESTIVALNAME_LIST, GET_FESTIVALNAME_SEARCH_LIST, GET_REVIEW_BOARD_URL, PATCH_REVIEW_BOARD_URL, authorizationHeader } from 'src/constants/api';
 import ResponseDto from 'src/apis/response';
 import { GetReviewBoardResponseDto, PatchReviewBoardResponseDto } from 'src/apis/response/board';
 import { PatchReviewBoardRequestDto } from 'src/apis/request/board';
+import { GetFestivalNameListResponseDto, GetFestivalSearchNameResposneDto } from 'src/apis/response/festival';
 
 export default function ReviewBoardUpdateView() {
 
   const { signInUser } = useSignInStore();
-  const { reviewBoardNumber } = useParams();
+  const { boardNumber } = useParams();
   const [cookies] = useCookies();
 
   const [boardTitle, setBoardTitle] = useState<string>('');
@@ -32,9 +33,9 @@ export default function ReviewBoardUpdateView() {
   const { boardImgUrl, setBoardImgUrl, onImageUploadButtonHandler, onImageUploadChangeHandler, imageRef } = useImageUploadHook();
 
   const [show, setShow] = useState<boolean>(false);
-  const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
+  const [festivalNameList, setFestivalNameList] = useState<GetFestivalNameListResponseDto[]>([]);
   
-  //Todo selectedFestivalName을 반환해주는 api가 없다, festivalNumber만 반환
+  const [searchName, setSearchName] = useState<string>('');
   const [selectedFestivalName, setSelectedFestivalName] = useState<string>('');
   const accessToken = cookies.accessToken;
 
@@ -43,16 +44,16 @@ export default function ReviewBoardUpdateView() {
   let buttonClick = false;
 
   //          Event Handler          //
-  const getReivewBoard = () => {
-    axios.get(GET_REVIEW_BOARD_URL(reviewBoardNumber as string))
+  const getReviewBoard = () => {
+    axios.get(GET_REVIEW_BOARD_URL(boardNumber as string))
       .then((response) => getReviewBoardResponseHandler(response))
-      .catch((error) => getReivewBoardErrorHandler(error))
+      .catch((error) => getReviewBoardErrorHandler(error))
   }
 
   const patchReviewBoard = () => {
     const data: PatchReviewBoardRequestDto = {
       festivalNumber,
-      boardNumber: parseInt(reviewBoardNumber as string),
+      boardNumber: parseInt(boardNumber as string),
       boardTitle,
       boardContent,
       boardImgUrl
@@ -111,7 +112,21 @@ export default function ReviewBoardUpdateView() {
       return;
     }
     patchReviewBoard();
-    navigator(`/reviewBoard/detail/${reviewBoardNumber}`);
+    navigator(`/reviewBoard/detail/${boardNumber}`);
+  }
+
+  const getFestivalNameList = () => {
+    axios
+      .get(GET_FESTIVALNAME_LIST)
+      .then((response) => getFestivalNameListResponseHandler(response))
+      .catch((error) => getFestivalNameListErrorHandler(error))
+  }
+
+  const getFestivalSearchName = () => {
+    axios
+      .get(GET_FESTIVALNAME_SEARCH_LIST(searchName as string))
+      .then((response) => getSearchFestivalNameResponseHandler(response))
+      .catch((error) => getSearchFestivalNameErrorHandler(error))
   }
 
   
@@ -141,19 +156,36 @@ export default function ReviewBoardUpdateView() {
       alert(message);
       return;
     }
-    navigator(`/reviewBoard/detail/${reviewBoardNumber}`);
+    navigator(`/reviewBoard/detail/${boardNumber}`);
+  }
+
+  const getFestivalNameListResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetFestivalNameListResponseDto[]>
+    if (!result || data === null) return;
+    setFestivalNameList(data);
+  }
+
+  const getSearchFestivalNameResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetFestivalSearchNameResposneDto[]>
+    if (!result || data === null) return;
+    setFestivalNameList(data);
   }
   //          Error Handler          //
-  const getReivewBoardErrorHandler = (error: any) => console.log(error.message);
+  const getReviewBoardErrorHandler = (error: any) => console.log(error.message);
   const patchReviewBoardErrorHandler = (error: any) => console.log(error.message);
+  const getFestivalNameListErrorHandler = (error: any) => console.log(error.message);
+  const getSearchFestivalNameErrorHandler = (error: any) => console.log(error.message);
 
   useEffect(() => {
-    setFestivalNameList(SIMPLELIST);
-    if (!reviewBoardNumber) navigator('/reviewBoard/list');
+    if (searchName) {
+      getFestivalSearchName();
+    }
+    getFestivalNameList();
+    if (!boardNumber) navigator('/reviewBoard/list');
     if (!accessToken) navigator('/auth/sign-in');
 
-    getReivewBoard();
-  }, [])
+    getReviewBoard();
+  }, [searchName])
 
   return (
     <Box sx={{ backgroundColor: '#c0c0c0' }} onClick={onCloseFestivalSearchHandler}>
@@ -164,7 +196,7 @@ export default function ReviewBoardUpdateView() {
 
             <Box>
               <FormControl sx={{ width: '280px', ml: '20px', mb: '20px' }} variant="outlined">
-                <OutlinedInput placeholder='검색어 관련 축제명은 연동 후에' onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}
+                <OutlinedInput placeholder='축제 이름을 검색해 주세요' onChange={(event) => setSearchName(event.target.value)} onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}
                   endAdornment={
                     <InputAdornment position='end'>
                       <IconButton edge='end' onClick={onClickFestivalSearchButton}>

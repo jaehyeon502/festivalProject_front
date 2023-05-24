@@ -30,18 +30,17 @@ export default function ReviewBoardWriteView() {
   const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
   const [boardTitle, setBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
-  
+
   const [festivalNumber, setFestivalNumber] = useState<number>(1);
 
   const [show, setShow] = useState<boolean>(false);
   const [festivalNameList, setFestivalNameList] = useState<GetFestivalNameListResponseDto[]>([]);
 
   const [selectedFestivalName, setSelectedFestivalName] = useState<string>('');
-  
+
   const [cookies] = useCookies();
 
-  const [searchName,setSearchName]=useState<string>('');
-
+  const [searchName, setSearchName] = useState<string>('');
 
   const accessToken = cookies.accessToken;
 
@@ -55,24 +54,24 @@ export default function ReviewBoardWriteView() {
     setShow(true);
   };
 
-  const onClickFestivalSearchBox = (event : MouseEvent<HTMLDivElement>) => {
+  const onClickFestivalSearchBox = (event: MouseEvent<HTMLDivElement>) => {
     buttonClick = true;
   }
 
   //? 글 작성
   const postBoard = () => {
     //? requestDto에 정의된 변수명과 state명들이 일치해야한다.
-    const data : PostReviewBoardRequestDto = { festivalNumber, boardTitle, boardContent, boardImgUrl};
+    const data: PostReviewBoardRequestDto = { festivalNumber, boardTitle, boardContent, boardImgUrl };
 
     axios.post(POST_REVIEW_BOARD_URL, data, authorizationHeader(accessToken))
-    .then((response) => postBoardResponseHandler(response))
-    .catch((error) => postBoardErrorHandler(error))
+      .then((response) => postBoardResponseHandler(response))
+      .catch((error) => postBoardErrorHandler(error))
   }
 
   //? 검색창 외 화면 아무 곳이나 누를 경우 검색창 사라지게
   const onCloseFestivalSearchHandler = () => {
-    if(buttonClick) {
-      buttonClick = false; 
+    if (buttonClick) {
+      buttonClick = false;
       return;
     };
     setShow(false);
@@ -84,12 +83,12 @@ export default function ReviewBoardWriteView() {
     setShow(true);
   };
 
-  const onContentKeyPressHandler = (event : KeyboardEvent<HTMLDivElement>) => {
+  const onContentKeyPressHandler = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Enter') return;
     setBoardContent(boardContent + '\n');
   }
 
-  const onClickFestivalNameHandler = (festivalNumber: number, festivalName : string ) => {
+  const onClickFestivalNameHandler = (festivalNumber: number, festivalName: string) => {
 
     setFestivalNumber(festivalNumber);
     setSelectedFestivalName(festivalName);
@@ -109,7 +108,7 @@ export default function ReviewBoardWriteView() {
       alert('내용이 입력되지 않았습니다.')
       return;
     }
-    if(!selectedFestivalName.trim()){
+    if (!selectedFestivalName.trim()) {
       alert('축제명이 선택되지 않았습니다.')
       return;
     }
@@ -119,23 +118,22 @@ export default function ReviewBoardWriteView() {
 
   const getFestivalNameList = () => {
     axios
-    .get(GET_FESTIVALNAME_LIST)
-    .then((response)=>getFestivalNameListResponseHandler(response))
-    .catch((error)=>getFestivalNameListErrorHandler(error))
+      .get(GET_FESTIVALNAME_LIST)
+      .then((response) => getFestivalNameListResponseHandler(response))
+      .catch((error) => getFestivalNameListErrorHandler(error))
   }
 
-  const getFestivalSearchName = () =>{
+  const getFestivalSearchName = () => {
     axios
-    .get(GET_FESTIVALNAME_SEARCH_LIST(searchName as string))
-    .then((response)=>getSearchFestivalNameResponseHandler(response))
-    .catch((error)=>getSearchFestivalNameErrorHandler(error))
-
+      .get(GET_FESTIVALNAME_SEARCH_LIST(searchName as string))
+      .then((response) => getSearchFestivalNameResponseHandler(response))
+      .catch((error) => getSearchFestivalNameErrorHandler(error))
   }
 
   //          Response Handler          //
-  const postBoardResponseHandler = (response : AxiosResponse<any, any>) => {
+  const postBoardResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<PostReviewBoardResponseDto>;
-    if(!result || !data){
+    if (!result || !data) {
       alert(message);
       return;
     }
@@ -143,41 +141,40 @@ export default function ReviewBoardWriteView() {
     navigator('/reviewBoard/list')
   }
 
-  const getFestivalNameListResponseHandler = (response:AxiosResponse<any,any>)=>{
-    const {result,message,data} = response.data as ResponseDto<GetFestivalNameListResponseDto[]>
-      if(!result || data === null) return;
-      setFestivalNameList(data);
+  const getFestivalNameListResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetFestivalNameListResponseDto[]>
+    if (!result || data === null) return;
+    setFestivalNameList(data);
   }
 
-  const getSearchFestivalNameResponseHandler = (response:AxiosResponse<any,any>)=>{
-    const {result,message,data} = response.data as ResponseDto<GetFestivalSearchNameResposneDto[]>
-     if(!result || data === null) return;
-     setFestivalNameList(data);
+  const getSearchFestivalNameResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetFestivalSearchNameResposneDto[]>
+    if (!result || data === null) return;
+    setFestivalNameList(data);
+  }
 
-    }
-  
 
   //          Error Handler          //
-  const postBoardErrorHandler = (error : any) => console.log(error.message);
-  const getFestivalNameListErrorHandler = (error : any) => console.log(error.message);
-  const getSearchFestivalNameErrorHandler = (error : any) => console.log(error.message);
+  const postBoardErrorHandler = (error: any) => console.log(error.message);
+  const getFestivalNameListErrorHandler = (error: any) => console.log(error.message);
+  const getSearchFestivalNameErrorHandler = (error: any) => console.log(error.message);
 
- useEffect(()=>{
-  if(searchName){
-    getFestivalSearchName();
-  }
-  getFestivalNameList();
- },[searchName])
+  useEffect(() => {
+    if (searchName) {
+      getFestivalSearchName();
+    }
+    getFestivalNameList();
+  }, [searchName])
 
   return (
-    <Box sx={{ backgroundColor: '#c0c0c0' }} onClick = {onCloseFestivalSearchHandler}>
+    <Box sx={{ backgroundColor: '#c0c0c0' }} onClick={onCloseFestivalSearchHandler}>
       <Divider />
       <Box sx={{ ml: '200px', mr: '200px', p: '100px 50px', backgroundColor: '#ffffff' }}>
         <Box>
           <Box sx={{ mb: '220px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
-            <Box onClick = {onClickFestivalSearchBox}>
+            <Box onClick={onClickFestivalSearchBox}>
               <FormControl sx={{ width: '280px', ml: '20px', mb: '20px' }} variant="outlined">
-                <OutlinedInput placeholder='축제 이름을 검색해 주세요' onChange={(event)=>setSearchName(event.target.value)} onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}
+                <OutlinedInput placeholder='축제 이름을 검색해 주세요' onChange={(event) => setSearchName(event.target.value)} onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}
                   endAdornment={
                     <InputAdornment position='end'>
                       <IconButton edge='end' onClick={onClickFestivalSearchButton}>
@@ -188,62 +185,59 @@ export default function ReviewBoardWriteView() {
                   sx={{ borderRadius: '20px' }} />
 
                 {show ? (
-                  <Box sx={{ width : '100%', height : '200px', border: '1px solid', fontSize: '15px', overflow : 'scroll', position : 'absolute', top : '56px' }}>
-                    {/*//? 첫줄 nameItem은 객체, useEffect로 mock데이터에 festival의 전체 값을 일단 들고왔음
-                    //? 클릭하면 nameItem 객체의 festivalName값을 매개변수로 전달
-                    //? 셋째 줄 nameItem은 FestivalNameItemList(component)에서 선언된 festivalName, 2, 3줄은 같은 map 순서의 mock를 갖고있는 것 */}
-                    {festivalNameList.map((nameItem) => ( 
-                    <Grid onClick = {() => onClickFestivalNameHandler(nameItem.festivalNumber, nameItem.festivalName)}> 
-                      <FestivalNameItemList item={nameItem}/>
-                    </Grid>))}
+                  <Box sx={{ width: '100%', height: '200px', border: '1px solid', fontSize: '15px', overflow: 'scroll', position: 'absolute', top: '56px' }}>
+                    {festivalNameList.map((nameItem) => (
+                      <Grid onClick={() => onClickFestivalNameHandler(nameItem.festivalNumber, nameItem.festivalName)}>
+                        <FestivalNameItemList item={nameItem} />
+                      </Grid>))}
                   </Box>
-                ) : (<></>)} 
+                ) : (<></>)}
               </FormControl>
             </Box>
 
-            <Box sx={{width: '340px', height : '30px', display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ width: '340px', height: '30px', display: 'flex', justifyContent: 'space-between' }}>
               <Box>
-                <Typography sx={{ fontSize: '18px' }}>축제 이름 : </Typography> 
+                <Typography sx={{ fontSize: '18px' }}>축제 이름 : </Typography>
               </Box>
 
-              <Box sx={{ width: '240px', height : '30px', border : '1px solid', display : 'flex', justifyContent : 'space-between' ,whiteSpace:'nowrap'}}>
-                <Typography sx = {{ fontSize : '18px' }}>{selectedFestivalName}</Typography>
-                <IconButton onClick = {onDeleteFestivallNameHandler}>
-                  <ClearIcon/>
+              <Box sx={{ width: '240px', height: '30px', border: '1px solid', display: 'flex', justifyContent: 'space-between', whiteSpace: 'nowrap' }}>
+                <Typography sx={{ fontSize: '18px' }}>{selectedFestivalName}</Typography>
+                <IconButton onClick={onDeleteFestivallNameHandler}>
+                  <ClearIcon />
                 </IconButton>
               </Box>
             </Box>
             <Box>
-            <IconButton onClick={() => onImageUploadButtonHandler()}>
+              <IconButton onClick={() => onImageUploadButtonHandler()}>
                 <InsertPhotoOutlinedIcon />
-                <input 
-                ref = {imageRef} 
-                hidden type = 'file'
-                accept = 'image/*' 
-                onChange = {(event) => onImageUploadChangeHandler(event)}
-                onKeyDown = {(event) => onContentKeyPressHandler(event)}/>
+                <input
+                  ref={imageRef}
+                  hidden type='file'
+                  accept='image/*'
+                  onChange={(event) => onImageUploadChangeHandler(event)}
+                  onKeyDown={(event) => onContentKeyPressHandler(event)} />
               </IconButton>
             </Box>
           </Box>
         </Box>
-          <Box>
-            <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
-              sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f'}}
-              onChange={(event) => setBoardTitle(event.target.value)} />
-          </Box>
-          <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
-          <Box>
-            <Box sx={{ display: 'flex', alignItems: 'start' }}></Box>
-            <Typography >
-              <Input
-                fullWidth disableUnderline placeholder='본문을 작성해주세요.'
-                multiline minRows={1}
-                sx={{ fontSize: '18px', fontWeight: 600 }}
-                onChange={(event) => setBoardContent(event.target.value)}
-                onKeyPress={(event) => onContentKeyPressHandler(event)}/>
-              <Box sx={{ width: '50%' }} component='img' src={boardImgUrl}></Box>
-            </Typography>
-          </Box>
+        <Box>
+          <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
+            sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f' }}
+            onChange={(event) => setBoardTitle(event.target.value)} />
+        </Box>
+        <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
+        <Box>
+          <Box sx={{ display: 'flex', alignItems: 'start' }}></Box>
+          <Typography >
+            <Input
+              fullWidth disableUnderline placeholder='본문을 작성해주세요.'
+              multiline minRows={1}
+              sx={{ fontSize: '18px', fontWeight: 600 }}
+              onChange={(event) => setBoardContent(event.target.value)}
+              onKeyPress={(event) => onContentKeyPressHandler(event)} />
+            <Box sx={{ width: '50%' }} component='img' src={boardImgUrl}></Box>
+          </Typography>
+        </Box>
       </Box>
 
       <Fab sx={{ position: 'fixed', zIndex: 999, bottom: '200px', right: '240px', backgroundColor: '#f0fff0' }}

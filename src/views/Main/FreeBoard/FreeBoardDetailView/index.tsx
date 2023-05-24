@@ -192,7 +192,7 @@ export default function FreeBoardDetailView() {
     }
     isLoad = true;
     getFreeBoard();
-    console.log(freeBoard);
+    console.log(boardNumber);
   }, [path]);
 
   useEffect(() => {
