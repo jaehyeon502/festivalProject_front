@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-import React, { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
-import {
-  Box, Divider, Fab, FormControl,
-  Grid, IconButton, Input, Typography
-} from '@mui/material'
-=======
 import { KeyboardEvent, useEffect, useState } from 'react'
 import { Box, Divider, Fab, IconButton, Input, Typography } from '@mui/material'
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -142,7 +134,6 @@ export default function FreeBoardUpdateView() {
             </Box>
           </Box>
         </Box>
-<<<<<<< HEAD
         
             <Box>
             <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
@@ -162,27 +153,6 @@ export default function FreeBoardUpdateView() {
             </Typography>
             </Box>
           
-=======
-
-        <Box>
-          <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
-            sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f' }} value={boardTitle}
-            onChange={(event) => setBoardTitle(event.target.value)} />
-        </Box>
-        <Divider sx={{ mt: '35px', mb: '45px', ml: '20px', mr: '20px' }} />
-        <Box>
-          <Typography>
-            <Input
-              fullWidth disableUnderline placeholder='본문을 작성해주세요.'
-              multiline minRows={1} value={boardContent}
-              sx={{ fontSize: '18px', fontWeight: 600 }}
-              onChange={(event) => setBoardContent(event.target.value)}
-              onKeyPress={(event) => onContentKeyPressHandler(event)} />
-            <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
-          </Typography>
-        </Box>
-
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
       </Box>
 
       <Fab sx={{ position: 'fixed', zIndex: 999, bottom: '200px', right: '240px', backgroundColor: '#f0fff0' }}

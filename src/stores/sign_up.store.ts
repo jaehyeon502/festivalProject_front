@@ -28,13 +28,8 @@ interface ISignUpStore {
     passwordValidate: boolean | null;
     setPasswordValidate: (passwordValidate: boolean | null) => void;
 
-<<<<<<< HEAD
     nicknamePatternCheck : boolean | null;
     setNicknamePatternCheck: (nicknamePatternCheck: boolean | null) => void;
-=======
-    nicknamePatternCheck: boolean | null;
-    setNicknamePatternCheck: (nicknamePatternCheck: boolean) => void;
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
     nicknameValidate: boolean | null;
     setNicknameValidate: (nicknameValidate: boolean | null) => void;
 

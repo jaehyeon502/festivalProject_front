@@ -105,13 +105,8 @@ export default function ReviewBoardDetailView() {
   }
 
   const onDeleteBoardHandler = () => {
-<<<<<<< HEAD
     if(!accessToken)  return;
     if(board?.writerUserId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
-=======
-    if (!accessToken) return;
-    if (reviewBoard?.writerUserId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
 
     axios.delete(DELETE_REVIEW_BOARD_URL(boardNumber as string), authorizationHeader(accessToken))
       .then((response) => deleteBoardResponseHandler(response))
@@ -269,11 +264,7 @@ export default function ReviewBoardDetailView() {
         <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box sx={{ pb: '20px' }}>
-<<<<<<< HEAD
           <Box sx={{ ml: '30px'}}>
-=======
-          <Box sx={{ ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
->>>>>>> e31f8416f59ec7f03579583634145d164ab3929c
             <Stack>
               {viewList.map((commentItem) => <CommentListItem types='board' setCommentList={setFestivalList} item={commentItem as Comment} setBoard={setBoard} />)}
             </Stack>
