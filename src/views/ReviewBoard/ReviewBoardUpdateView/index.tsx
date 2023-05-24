@@ -23,7 +23,7 @@ import { PatchReviewBoardRequestDto } from 'src/apis/request/board';
 export default function ReviewBoardUpdateView() {
 
   const { signInUser } = useSignInStore();
-  const { reviewBoardNumber } = useParams();
+  const { boardNumber } = useParams();
   const [cookies] = useCookies();
 
   const [boardTitle, setBoardTitle] = useState<string>('');
@@ -44,7 +44,7 @@ export default function ReviewBoardUpdateView() {
 
   //          Event Handler          //
   const getReivewBoard = () => {
-    axios.get(GET_REVIEW_BOARD_URL(reviewBoardNumber as string))
+    axios.get(GET_REVIEW_BOARD_URL(boardNumber as string))
       .then((response) => getReviewBoardResponseHandler(response))
       .catch((error) => getReivewBoardErrorHandler(error))
   }
@@ -52,7 +52,7 @@ export default function ReviewBoardUpdateView() {
   const patchReviewBoard = () => {
     const data: PatchReviewBoardRequestDto = {
       festivalNumber,
-      boardNumber: parseInt(reviewBoardNumber as string),
+      boardNumber: parseInt(boardNumber as string),
       boardTitle,
       boardContent,
       boardImgUrl

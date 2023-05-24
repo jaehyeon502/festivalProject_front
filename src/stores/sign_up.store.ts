@@ -21,9 +21,9 @@ interface ISignUpStore{
     setSignUpError:(setSignUpError:boolean)=>void;
 
     userIdPatternCheck: boolean | null;
-    setUserIdPatternCheck: (userIdPatternCheck: boolean) => void;
+    setUserIdPatternCheck: (userIdPatternCheck: boolean | null) => void;
     userIdValidate: boolean | null;
-    setUserIdValidate: (userIdValidate: boolean) => void;
+    setUserIdValidate: (userIdValidate: boolean | null) => void;
 
     passwordPatternCheck: boolean | null;
     setPasswordPatternCheck: (passwordPatternCheck: boolean) => void;

@@ -170,6 +170,8 @@ function FirstPage() {
     setNickname('');
     setProfileUrl('');
     setTelNumber('');
+    setUserIdPatternCheck(null);
+    setUserIdValidate(null);
   }, [])
 
   return (
