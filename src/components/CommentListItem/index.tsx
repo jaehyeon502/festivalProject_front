@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Card, Divider, IconButton, Input, Typography } from '@mui/material'
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces'
+import { Comment, FreeBoard, FreeBoardComment, FreeBoardRecommend, ReviewBoard } from 'src/interfaces'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useSignInStore } from 'src/stores';
 import axios, { AxiosResponse } from 'axios';
@@ -18,8 +18,10 @@ interface Props {
   item: FreeBoardComment | Comment;
   setCommentList: any;
   types: string;
+  setBoard: any;
+
 }
-export default function CommentListItem({ item, setCommentList, types }: Props) {
+export default function CommentListItem({ item, setCommentList, types, setBoard }: Props) {
 
   const [cookies] = useCookies();
 
@@ -97,6 +99,7 @@ export default function CommentListItem({ item, setCommentList, types }: Props) 
       alert(message);
       return;
     }
+    setBoard(data.board);
     setCommentList(data.commentList);
   }
 
@@ -106,7 +109,7 @@ export default function CommentListItem({ item, setCommentList, types }: Props) 
       alert(message);
       return;
     }
-    
+    setBoard(data.freeBoard);
     setCommentList(data.commentList);
   }
   //          Error Handler          //
@@ -131,15 +134,14 @@ export default function CommentListItem({ item, setCommentList, types }: Props) 
 
   return (
     <Box>
-      <Box sx={{  width : '1455px', display: 'flex', justifyContent:'space-between', ml: '20px', mb: '12px' }}>
+      <Box sx={{  width : '100%', display: 'flex', justifyContent:'space-between', ml: '20px', mb: '12px' }}>
         <Box sx={{ display: 'flex' }}>
           <Avatar sx={{ mr: '10px', width: '50px', height: '50px' }} src={item?.writerProfileUrl ? item?.writerProfileUrl : ''} />
           <Typography sx={{ mr: '10px' }}>{item?.writerNickname + ' | '}</Typography>
           <Typography sx={{ mr: '10px' }}>{item?.writeDatetime}</Typography>
-        </Box>
 
+          </Box>
         <Box sx={{ mr: '40px'}}>
-
           {flag
             ?
             <IconButton onClick={onClickCommentDragButton}>
@@ -148,7 +150,6 @@ export default function CommentListItem({ item, setCommentList, types }: Props) 
             :
             <></>
           }
-
           {drag
             ?
             <Box sx = {{position : 'absolute'}}>
@@ -160,7 +161,9 @@ export default function CommentListItem({ item, setCommentList, types }: Props) 
             <></>
           }
 
+
         </Box>
+
       </Box>
       <Typography sx={{ fontSize: '17px', ml: '20px', mb: '8px', mt: '8px', mr: '20px' }}>{item?.commentContent}</Typography>
       {freeBoardCommentUpdate ? (<Box sx={{ pt: '20px', pb: '15px', pl: '50px', pr: '50px' }}>
