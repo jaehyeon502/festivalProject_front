@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import ResponseDto from "src/apis/response";
-import { GetAllFestivalListResponseDto, GetOneFestivalResponseDto } from "src/apis/response/festival";
-import { GET_ALL_FESTIVAL_LIST, GET_ONE_FESTIVAL_URL } from "src/constants/api";
+import { GetAllFestivalListResponseDto } from "src/apis/response/festival";
+import { GET_ALL_FESTIVAL_LIST } from "src/constants/api";
 import { useFestivalNumberStore } from "src/stores";
 
 interface Props {
@@ -19,12 +19,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   const {festivalNumber}=useFestivalNumberStore();
 
   const [selector, setSelector] = useState<number>(0);
-
-  //? const selectedValue를 만들어 Number로 설정해주고
-  //? 위의 setSelector에서 selectedValue를 받아주고
-  //? setAreaAndMonth에서 String(selecetdValue)를 받아주었다.
-  //? 앞에 String을 한 이유는 저렇게 하지 않으면 Number로 처리되기 때문에
-  //? 월별, 지역별이 뜨지 않는다.
   
   //       EVENT HANDLER       //
   const areaAndMonthChange = (event: SelectChangeEvent) => {
@@ -96,7 +90,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   return (
     <Box sx={{ pt: '20px', pl: '20px', display: 'flex' }}>
       <Box>
-        {/* //? 월별 & 지역별 */}
         <FormControl sx={{ width: '150px', height: '70px' }}>
           <InputLabel>월별 & 지역별</InputLabel>
           <Select
@@ -110,10 +103,6 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
           </Select>
         </FormControl>
       </Box>
-      {/* //? 월별과 지역별을 합쳤음. 
-            //? selector를 const로 만들고 useState로 number 지정.
-            //? 삼항연산자를 사용해서 1번이면 월별, 2번이라면 지역별 
-            //? 아무것도 클릭하지 않았을 시 아무것도 뜨지 않게 함.*/}
       {
         selector === 1 ? (
           <Box>

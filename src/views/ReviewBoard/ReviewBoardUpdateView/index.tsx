@@ -9,7 +9,6 @@ import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Festival } from 'src/interfaces';
-import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import { useSignInStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
@@ -148,7 +147,6 @@ export default function ReviewBoardUpdateView() {
   const patchReviewBoardErrorHandler = (error: any) => console.log(error.message);
 
   useEffect(() => {
-    setFestivalNameList(SIMPLELIST);
     if (!reviewBoardNumber) navigator('/reivewBoard/list');
     if (!accessToken) navigator('/auth/sign-in');
 

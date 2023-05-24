@@ -150,40 +150,37 @@ export default function MainRightContent({ clickPage, setSelectedFestival }: Pro
   return (
     <Box sx={{ width: "40%", height: "100%" }}>
     <Box>
-      <Typography
-
-        sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> {festivalName?.festivalName} 한줄평 </Typography>
+      <Typography sx={{ ml: "30px", mt: "15px", fontSize: "24px", fontWeight: 900, color: "#222" }}> {festivalName?.festivalName} 한줄평 </Typography>
       <Box sx={{ mt: "15px", ml: "30px", mr: "30px", overflow: "hidden" }}>
-
-          {viewList.map((item) => (
-            <Box>
-            <Grid sx={{ border: "1px solid #dedede", borderRadius: "10px", mt: "15px" }}>
-              <OneLineReviewListItem oneLineReviewItem={item as GetOneLineReviewResponseDto} />
-            </Grid>
-            </Box>
-          ))}
+        {viewList.map((item) => (
+          <Box>
+          <Grid sx={{ border: "1px solid #dedede", borderRadius: "10px", mt: "15px" }}>
+            <OneLineReviewListItem oneLineReviewItem={item as GetOneLineReviewResponseDto} />
+          </Grid>
+          </Box>
+        ))}
           {clickPage ? 
-            (<Box sx={{ pt: '20px', pb: '15px' }}>
-            <Card variant='outlined' sx={{ p: '20px' }}>
-            <Card sx={{ border: '1px solid', display: 'flex', justifyContent: 'center'}}>
-              <Typography sx={{ ml: '10px'}}>평점 : </Typography>
-              <Rating sx={{ ml: '5px'}} name="customized-10" max={10} onChange={(event, value) => setAverage(Number(value))} />
-            </Card>
-              <Input sx={{ mt : '10px' }} minRows={3} multiline disableUnderline fullWidth onChange={(event) => setOneLineReviewContent(event.target.value)}/>
-              <Box sx={{ display: 'flex', justifyContent: 'end'}}>
-              <Button 
-                onClick={() => onPostOneLineCommentHandler()}
-                sx={{ p : '4px 20px',
-                      backgroundColor : '#00ffff',
-                      color : 'black', 
-                      fontSize: '16px', 
-                      fontWeight : 700, 
-                      borderRadius: '42px'
-                }} >댓글 작성</Button>
-              </Box>
-            </Card>
-          </Box>) : (<></>)
-          }
+          (<Box sx={{ pt: '20px', pb: '15px' }}>
+          <Card variant='outlined' sx={{ p: '20px' }}>
+          <Card sx={{ border: '1px solid', display: 'flex', justifyContent: 'center'}}>
+            <Typography sx={{ ml: '10px'}}>평점 : </Typography>
+            <Rating sx={{ ml: '5px'}} name="customized-10" max={10} onChange={(event, value) => setAverage(Number(value))} />
+          </Card>
+            <Input sx={{ mt : '10px' }} minRows={3} multiline disableUnderline fullWidth onChange={(event) => setOneLineReviewContent(event.target.value)}/>
+            <Box sx={{ display: 'flex', justifyContent: 'end'}}>
+            <Button 
+              onClick={() => onPostOneLineCommentHandler()}
+              sx={{ p : '4px 20px',
+                    backgroundColor : '#00ffff',
+                    color : 'black', 
+                    fontSize: '16px', 
+                    fontWeight : 700, 
+                    borderRadius: '42px'
+              }} >댓글 작성</Button>
+            </Box>
+          </Card>
+        </Box>) : (<></>)
+        }
         </Box>
         <Box sx={{ pt: '20px', display: 'flex', justifyContent: 'center' }}>
           <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)} />

@@ -1,15 +1,11 @@
-import React, { KeyboardEvent, MouseEvent, useEffect, useState } from 'react'
+import React, { KeyboardEvent, useEffect, useState } from 'react'
 import {
-  Box, Divider, Fab, FormControl,
-  Grid, IconButton, Input, InputAdornment, OutlinedInput, Typography
+  Box, Divider, Fab, IconButton, Input, Typography
 } from '@mui/material'
-import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Festival } from 'src/interfaces';
-import { SIMPLELIST } from 'src/mock';
-import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import { PatchFreeBoardRequestDto } from 'src/apis/request/freeboard';
 import axios, { AxiosResponse } from 'axios';
 import { GET_FREE_BOARD_URL, PATCH_FREE_BOARD_URL, authorizationHeader } from 'src/constants/api';

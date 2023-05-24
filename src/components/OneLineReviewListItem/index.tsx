@@ -14,14 +14,6 @@ export default function OneLineReviewListItem({ oneLineReviewItem } : Props) {
 const {setFestivalNumber} = useFestivalNumberStore();
     const dateGap = Date.now() - Date.parse(oneLineReviewItem?.writeDatetime);
 
-const usefestivalNumer = ()=>{
-  setFestivalNumber(oneLineReviewItem.festivalNumber);
-}
-
-// useEffect(()=>{
-//   usefestivalNumer();
-// },[])
-
   return (
     <Box>
       <Box sx={{ padding:'10px' }}>

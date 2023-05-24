@@ -1,6 +1,5 @@
 import { Box, Card, CardActionArea, Divider, Typography } from "@mui/material"
 import { GetOneFestivalResponseDto } from "src/apis/response/festival";
-import { Festival } from "src/interfaces"
 import { useFestivalNumberStore } from "src/stores";
 
 interface Props{
@@ -12,11 +11,10 @@ interface Props{
 export default function FestivalSimpleListItem({ onClick, item }: Props) {
     const {setFestivalNumber}=useFestivalNumberStore();
 
-    const onClickHandler=()=>{
+    const onClickHandler = () => {
         onClick();
         setFestivalNumber(item.festivalNumber);
     }
-
 
     return (
         <Card variant='outlined' onClick={()=>onClickHandler()}>

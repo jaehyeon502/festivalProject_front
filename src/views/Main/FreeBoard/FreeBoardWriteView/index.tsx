@@ -4,12 +4,9 @@ import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate } from 'react-router-dom';
 import { Festival} from 'src/interfaces';
-import { SIMPLELIST } from 'src/mock';
-import FestivalNameItemList from 'src/components/FestivalNameItemList';
-import ClearIcon from '@mui/icons-material/Clear';
 import axios, { AxiosResponse } from 'axios';
 import { PostFreeBoardRequestDto } from 'src/apis/request/freeboard';
-import { FILE_UPLOAD_URL, POST_FREE_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
+import { POST_FREE_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
 import ResponseDto from 'src/apis/response';
 import { PostFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useCookies } from 'react-cookie';
@@ -18,7 +15,6 @@ import { useImageUploadHook } from 'src/hooks';
 export default function FreeBoardWriteView() {
   const [boardTitle, setFreeBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
-  const [festivalNameList, setFestivalNameList] = useState<Festival[]>([]);
   const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
 
   const navigator = useNavigate();

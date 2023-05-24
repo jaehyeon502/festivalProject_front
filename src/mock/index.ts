@@ -1,21 +1,4 @@
-import { Festival, Comment,OneLineReview,User,ReviewBoard, FreeBoard} from "src/interfaces";
-
-export const SIMPLELIST: Festival[] = [ //? 타입 통일
-    {
-        festivalNumber: 11,
-        festivalName: '부산가족축제',
-        festivalType: "들어가지 않는 내용",
-        festivalDurationStart: '2023-01-05',
-        festivalDurationEnd: '2023-02-05',
-        festivalArea: '일본',
-        festivalTime: "들어가지 않는 내용",
-        onelineReviewAverage: 10,
-        festivalCost: "무료",
-        festivalInformationUrl: 'https://dimg04.c-ctrip.com/images/1mj1g12000an36ieh3923.png',
-        festivalInformation: '들어가지 않는 내용',
-        festivalHomepage: 'http'
-    }
-]
+import { Festival, Comment,OneLineReview,User,ReviewBoard } from "src/interfaces";
 
 export const ONELINEREVIEW_LIST: OneLineReview[] = [
     {

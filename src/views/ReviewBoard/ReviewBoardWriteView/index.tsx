@@ -7,13 +7,11 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { useNavigate } from 'react-router-dom';
-import { Festival, } from 'src/interfaces';
-import { SIMPLELIST } from 'src/mock';
 import FestivalNameItemList from 'src/components/FestivalNameItemList';
 import ClearIcon from '@mui/icons-material/Clear';
 import axios, { AxiosResponse } from 'axios';
 
-import { FILE_UPLOAD_URL, GET_FESTIVALNAME_LIST, GET_FESTIVALNAME_SEARCH_LIST, POST_REVIEW_BOARD_URL, authorizationHeader, multipartHeader } from 'src/constants/api';
+import { GET_FESTIVALNAME_LIST, GET_FESTIVALNAME_SEARCH_LIST, POST_REVIEW_BOARD_URL, authorizationHeader } from 'src/constants/api';
 
 import { PostReviewBoardRequestDto } from 'src/apis/request/board';
 import { useCookies } from 'react-cookie';
@@ -27,7 +25,7 @@ import { useImageUploadHook } from 'src/hooks';
 
 export default function ReviewBoardWriteView() {
 
-  const { boardImgUrl, setBoardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
+  const { boardImgUrl, onImageUploadChangeHandler, onImageUploadButtonHandler, imageRef } = useImageUploadHook();
   const [boardTitle, setBoardTitle] = useState<string>('');
   const [boardContent, setBoardContent] = useState<string>('');
   
