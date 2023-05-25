@@ -39,7 +39,7 @@ export default function FestivalReviewBoardList({ festivalBoardList }: Props) {
                 </Box>
                 <Box>
                     <Box sx={{ height: '120px', width: '120px', borderRadius: '5%' }}>
-                        <img src={festivalBoardList?.boardImgUrl ? festivalBoardList?.boardImgUrl : ''} />
+                        <img style={{'width': '100%'}} src={festivalBoardList?.boardImgUrl ? festivalBoardList?.boardImgUrl : ''} />
                     </Box>
                 </Box>
             </CardActionArea>
