@@ -228,7 +228,7 @@ export default function FreeBoardDetailView() {
           <Typography sx={{ ml: '50px', fontSize: '18px' }}>{board?.boardTitle}</Typography>
           <Typography sx={{ mr: '50px', fontSize: '12px', color:'#666' }}>{board?.boardWriteDatetime}</Typography>
         </Box>
-
+        
         <Divider sx={{ mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box>
