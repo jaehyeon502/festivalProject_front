@@ -16,7 +16,7 @@ import { useReviewBoardStore } from 'src/stores';
 export default function ReviewBoardListView() {
 
   //          HOOK          //
-  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);
+  const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(10);
 
   const navigator = useNavigate();
 
@@ -126,8 +126,8 @@ export default function ReviewBoardListView() {
       <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
 
         {!searchView ?
-          (<> <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) :
-          (<> <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>{searchWordValue}에 대한 검색 결과 입니다.</Typography></>)}
+          (<> <Typography sx={{ fontSize: '36px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) :
+          (<> <Typography sx={{ display:'flex', alignItems:'center', fontSize: '36px', fontWeight: '700', color:'#333' }}><Typography sx={{ fontSize:'28px', fontWeight:700, color:'#222' }}>'{searchWordValue}'</Typography>에 검색 결과 입니다.</Typography></>)}
         <Box display='flex'>
           <Box>
             <OutlinedInput sx={{ width: '300px' }} value={searchWord} onChange={(event) => setSearchWordHandler(event)}
@@ -166,7 +166,7 @@ export default function ReviewBoardListView() {
         </Box>
       </Box>
 
-      <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: 'skyblue' }}>
+      <Box sx={{ mb: '10px', ml: '300px', mr: '300px', backgroundColor: '#dedede' }}>
         <Stack sx={{ p: '10px' }}>
           {!searchView ?
             (<>{viewList.map((searchView) => (<ReviewBoardListItem item={searchView as GetSearchReviewBoardListResponseDto} />))}</>) :
@@ -188,7 +188,7 @@ export default function ReviewBoardListView() {
         </Box>
         <Box sx={{ width: '120px', height: '50px', mt: '12px' }}>
           <Button onClick={() => navigator('/reviewBoard/write')}
-            sx={{ backgroundColor: 'skyblue', color: 'white', fontSize: '18px', fontWeight: 550 }}>게시물 작성</Button>
+            sx={{ backgroundColor: '#fff', color: '#222', fontSize: '14px', fontWeight: 550 }}>게시물 작성</Button>
         </Box>
       </Box>
     </Box>

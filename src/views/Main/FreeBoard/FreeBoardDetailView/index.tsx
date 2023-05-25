@@ -14,7 +14,7 @@ import { DELETE_FREE_BOARD, FREE_BOARD_RECOMMEND_URL, GET_FREE_BOARD_URL, POST_F
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { DeleteFreeBoardResponseDto, FreeBoardRecommendResponseDto, GetFreeBoardResponseDto, PostFreeBoardCommentResponseDto } from 'src/apis/response/freeboard';
-import { useSignInStore, useFreeBoardStore } from 'src/stores';
+import { useSignInStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
 import { FreeBoardRecommendRequestDto, PostFreeBoardCommentRequestDto } from 'src/apis/request/freeboard';
 import CommentListItem from 'src/components/CommentListItem';
@@ -37,7 +37,6 @@ export default function FreeBoardDetailView() {
 
   const [commentContent, setCommentContent] = useState<string>('');
   const { boardNumber } = useParams();
-  const { freeBoardList } = useFreeBoardStore();
 
   const navigator = useNavigate();
 
@@ -72,7 +71,7 @@ export default function FreeBoardDetailView() {
       return;
     }
 
-    if(board?.writerUserId !== signInUser?.userId) {
+    if (board?.writerUserId !== signInUser?.userId) {
       alert('권한이 없습니다.');
       return;
     }
@@ -100,29 +99,28 @@ export default function FreeBoardDetailView() {
       .catch((error) => getFreeBoardError(error))
   }
 
+  //? 다음 글
   const onClickNextBoardHandler = () => {
+    let freeBoardNumber: number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);
+    while (!boardNumber) freeBoardNumber += 1;
 
-    const nextBoardNumberIndex = freeBoardList.findIndex((freeNumber) => freeNumber === Number(boardNumber as string)) - 1;
-
-    if (nextBoardNumberIndex < 0) {
+    if (freeBoardNumber > 1000) {
       alert('다음 글이 없습니다.');
       return;
     }
-    const nextBoardNumber = freeBoardList[nextBoardNumberIndex];
-
-    navigator(`/freeBoard/detail/${nextBoardNumber}`);
+    navigator(`/freeBoard/detail/${freeBoardNumber}`);
   }
 
+  //? 이전 글
   const onClickPreviousBoardHandler = () => {
-    const previousBoardNumberIndex = freeBoardList.findIndex((freeNumber) => freeNumber === Number(boardNumber as string)) + 1;
+    let freeBoardNumber: number = boardNumber ? Number(boardNumber) - 1 : Number(boardNumber);
+    while (!boardNumber) freeBoardNumber -= 1;
 
-    if (previousBoardNumberIndex >= freeBoardList.length) {
-      alert('이전 글이 없습니다.')
+    if (freeBoardNumber < 1) {
+      alert('이전 글이 없습니다.');
       return;
     }
-    const previousBoardNumber = freeBoardList[previousBoardNumberIndex];
-
-    navigator(`/freeBoard/detail/${previousBoardNumber}`);
+    navigator(`/freeBoard/detail/${freeBoardNumber}`);
   }
 
   const onMenuClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
@@ -185,6 +183,7 @@ export default function FreeBoardDetailView() {
     }
     isLoad = true;
     getFreeBoard();
+    console.log(boardNumber);
   }, [path]);
 
   useEffect(() => {
@@ -202,10 +201,17 @@ export default function FreeBoardDetailView() {
       <Box sx={{ backgroundColor: '#FFFFFF', height: '80%', ml: '200px', mr: '200px' }}>
 
         <Box display='flex' justifyContent='flex-end'>
-          <Box sx={{ mt: '30px', width: '400px', display: 'flex', flexDirection: 'column', alignItems:'center' }}>
+          <Box sx={{ mb: '30px', width: '400px', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex' }}>
               <Avatar sx={{ width: '80px', height: '80px', m: '10px' }} src={board?.writerProfileUrl ? board.writerProfileUrl : ''} />
-              <Typography sx={{ mt: '30px', mr: '10px', color:'#444', fontSize:'14px' }}>작성자 명 : {board?.writerNickname}</Typography>
+
+              <Typography sx={{ mt: '10px', mr: '10px', fontWeight: 550 }}>작성자 명 : {board?.writerNickname}</Typography>
+            </Box>
+            <Box sx={{ mt: '40px', ml: '10px', fontWeight: 600 }}>
+              <IconButton sx={{ color: 'red' }}>
+                <WarningIcon />
+              </IconButton>
+              신고
             </Box>
           </Box>
         </Box>
@@ -218,36 +224,36 @@ export default function FreeBoardDetailView() {
 
           </Box>
         )}
-        <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+        <Menu sx={{ position: 'absolute', top: '-490px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${board?.boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>
         </Menu>
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '40px', alignItems:'center' }}>
-          <Typography sx={{ ml: '50px', fontSize: '18px' }}>{board?.boardTitle}</Typography>
-          <Typography sx={{ mr: '50px', fontSize: '12px', color:'#666' }}>{board?.boardWriteDatetime}</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%' }}>
+          <Typography sx={{ ml: '50px', fontSize: '34px', fontWeight: 600 }}>{board?.boardTitle}</Typography>
+          <Typography sx={{ mt: '10px', mr: '50px', fontSize: '20px' }}>{board?.boardWriteDatetime}</Typography>
         </Box>
 
-        <Divider sx={{ mr: '50px', ml: '50px', borderColor: '#000000' }} />
+        <Divider sx={{ mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box>
-          <Box sx={{ ml: '60px', mr: '60px', mt: '30px', minHeight:'400px' }}>
-            <Typography sx={{ fontSize: '16px', mt: '10px', color:'#222' }}>{board?.boardContent}</Typography>
-            {board?.boardImgUrl && (<Box sx={{mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
+          <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
+            <Typography sx={{ fontSize: '18px', mt: '10px' }}>{board?.boardContent}</Typography>
+            {board?.boardImgUrl && (<Box sx={{ width: '50%', mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
-              <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>
+              <Box sx={{ display: 'inline', ml: '25px' }}>
                 <IconButton onClick={() => onClickRecommendHandler()} >
                   {recommendStatus ?
-                    <ThumbUpIcon sx={{ width: '15px', height: '15px', color: 'blue' }} />
+                    <ThumbUpIcon sx={{ width: '20px', height: '20px', color: 'blue' }} />
                     :
-                    <ThumbUpOutlinedIcon sx={{ width: '15px', height: '15px' }} />}
+                    <ThumbUpOutlinedIcon sx={{ width: '20px', height: '20px' }} />}
                 </IconButton>
                 추천 {board?.recommendCount}</Box>
-              <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>댓글 수 {board?.commentCount} </Box>
-              <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>조회수 {board?.viewCount}</Box>
+              <Box sx={{ display: 'inline', ml: '25px' }}>댓글 수 {board?.commentCount} </Box>
+              <Box sx={{ display: 'inline', ml: '25px' }}>조회수 {board?.viewCount}</Box>
             </Box>
 
             <Box sx={{ mr: '40px', fontWeight: 550 }}>
@@ -268,7 +274,7 @@ export default function FreeBoardDetailView() {
           </Box>
         </Box>
 
-        <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderColor: '#000000' }} />
+        <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
@@ -285,11 +291,13 @@ export default function FreeBoardDetailView() {
             <Card variant='outlined' sx={{ p: '20px' }}>
               <Input minRows={3} multiline disableUnderline fullWidth value={commentContent} onChange={(event) => setCommentContent(event.target.value)} />
               <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button sx={{ p: '4px 20px', backgroundColor: '#dedede', color: '#444', fontSize: '12px', fontWeight: 700, borderRadius: '42px' }} onClick={() => onPostFreeBoardCommentHandler()}>댓글 작성</Button>
+                <Button sx={{ p: '4px 20px', backgroundColor: '#00ffff', color: 'black', fontSize: '16px', fontWeight: 700, borderRadius: '42px' }} onClick={() => onPostFreeBoardCommentHandler()}>댓글 작성</Button>
               </Box>
             </Card>
           </Box>
+
         </Box>
+
       </Box>
     </Box>
 
