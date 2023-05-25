@@ -9,7 +9,7 @@ import AuthenticationView from './views/AuthenticationView'
 import ReviewBoardWriteView from './views/ReviewBoard/ReviewBoardWriteView';
 import ReviewBoardDetailView from './views/ReviewBoard/ReviewBoardDetailView';
 import ReviewBoardUpdateView from './views/ReviewBoard/ReviewBoardUpdateView';
-import MypageView from './views/MypageView';
+import MypageView from './views/MyPageView';
 import ReviewBoardListView from './views/ReviewBoard/ReviewBoardListView';
 import SignUpView from './views/AuthenticationView/SignUpView';
 import FreeBoardWriteView from './views/FreeBoard/FreeBoardWriteView';

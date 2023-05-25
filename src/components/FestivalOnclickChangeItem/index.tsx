@@ -36,11 +36,9 @@ export default function FestivalOnclickChangeItem({ setClickPage, item }: Props)
 
   return (
     <Card sx={{ maxWidth: "100%" }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ width: '40px', ml : '5px' }}></Box>
-        <CardHeader sx={{ display: 'block'}}
-            title={item.festivalName}  
-        />
+        <CardHeader sx={{ display: 'block'}} title={item.festivalName} />
         <Box sx={{ mt : '12px', mr: '5px'}}>
           <IconButton onClick={() => setClickPage(false)}>
             <RestartAltIcon />
