@@ -230,7 +230,7 @@ export default function ReviewBoardUpdateView() {
 
             <Box>
               <IconButton onClick={() => onImageUploadButtonHandler()}>
-                <InsertPhotoOutlinedIcon />
+              <Typography sx={{ fontSize:'14px' }}>이미지첨부</Typography><InsertPhotoOutlinedIcon />
                 <input
                   ref={imageRef}
                   hidden type='file'
@@ -245,7 +245,7 @@ export default function ReviewBoardUpdateView() {
 
         <Box>
           <Input fullWidth disableUnderline placeholder='제목을 작성해주세요.'
-            sx={{ fontSize: '34px', fontWeight: 600, color: '#2f4f4f' }}
+            sx={{ fontSize: '18px', color: '#2f4f4f' }}
             value={boardTitle}
             onChange={(event) => setBoardTitle(event.target.value)} />
         </Box>
@@ -255,11 +255,11 @@ export default function ReviewBoardUpdateView() {
             <Input
               fullWidth disableUnderline placeholder='본문을 작성해주세요.'
               multiline minRows={10}
-              sx={{ fontSize: '18px', fontWeight: 600 }}
+              sx={{ fontSize: '16px' }}
               value={boardContent}
               onChange={(event) => setBoardContent(event.target.value)}
               onKeyPress={(event) => onContentKeyPressHandler(event)} />
-            <Box sx={{ width: '50%' }} component='img' src={boardImgUrl}></Box>
+            <Box component='img' src={boardImgUrl}></Box>
           </Typography>
         </Box>
 

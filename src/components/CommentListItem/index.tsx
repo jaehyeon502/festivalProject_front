@@ -138,9 +138,9 @@ export default function CommentListItem({ item, setCommentList, types, setBoard 
     <Box>
       <Box sx={{  width : '100%', display: 'flex', justifyContent:'space-between', ml: '20px', mb: '12px' }}>
         <Box sx={{ display: 'flex' }}>
-          <Avatar sx={{ mr: '10px', width: '50px', height: '50px' }} src={item?.writerProfileUrl ? item?.writerProfileUrl : ''} />
-          <Typography sx={{ mr: '10px' }}>{item?.writerNickname + ' | '}</Typography>
-          <Typography sx={{ mr: '10px' }}>{item?.writeDatetime}</Typography>
+          <Avatar sx={{ mr: '10px', width: '30px', height: '30px' }} src={item?.writerProfileUrl ? item?.writerProfileUrl : ''} />
+          <Typography sx={{ mr: '10px', fontSize:'12px', color:'#444' }}>{item?.writerNickname + ' | '}</Typography>
+          <Typography sx={{ mr: '10px', fontSize:'12px', color:'#444' }}>{item?.writeDatetime}</Typography>
 
           </Box>
         <Box sx={{ mr: '40px'}}>
@@ -167,7 +167,7 @@ export default function CommentListItem({ item, setCommentList, types, setBoard 
         </Box>
 
       </Box>
-      <Typography sx={{ fontSize: '17px', ml: '20px', mb: '8px', mt: '8px', mr: '20px' }}>{item?.commentContent}</Typography>
+      <Typography sx={{ fontSize: '14px', ml: '20px', mb: '8px', mt: '8px', mr: '20px', color:'#222' }}>{item?.commentContent}</Typography>
       {freeBoardCommentUpdate ? (<Box sx={{ pt: '20px', pb: '15px', pl: '50px', pr: '50px' }}>
         <Card variant='outlined' sx={{ p: '20px' }}>
           <Input minRows={3} multiline disableUnderline fullWidth value={commentContent} onChange={(event) => setCommentUpdateContent(event.target.value)} />

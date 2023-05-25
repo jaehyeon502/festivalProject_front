@@ -12,6 +12,7 @@ import { GET_FREE_BOARD_LIST, GET_SEARCH_FREE_BOARD_LIST_URL } from 'src/constan
 import { GetFreeBoardListResponseDto, GetSearchFreeBoardListResponseDto } from 'src/apis/response/freeboard';
 import ResponseDto from 'src/apis/response';
 import { GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
+import { useFreeBoardStore } from 'src/stores';
 
 export default function FreeBoardListView() {
 
@@ -24,6 +25,8 @@ export default function FreeBoardListView() {
   const [searchView, setSearchView] = useState<boolean>(false);
   const [searchWord, setSearchWord] = useState<string>('');
   const [searchWordValue, setSearchWordValue] = useState<string>('');
+
+  const { setFreeBoardList } = useFreeBoardStore();
 
   const [errorMessage] = useState<string>('');
 
@@ -77,6 +80,9 @@ export default function FreeBoardListView() {
     const { result, message, data } = response.data as ResponseDto<GetFreeBoardListResponseDto[]>
     if (!result || data === null) return;
     setFestivalList(data);
+
+    const freeBoardList = data.map((freeBoard) => freeBoard.boardNumber);
+    setFreeBoardList(freeBoardList);
   }
 
   const getSearchFreeBoardListResponsHandler = (response: AxiosResponse<any, any>) => {
@@ -109,11 +115,11 @@ export default function FreeBoardListView() {
   }, [])
   
   return (
-    <Box>
+    <Box sx={{ minHeight:'700px'}}>
       <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
         {!searchView ?
-          (<> <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>자유 게시판</Typography></>) :
-          (<> <Typography sx={{ fontSize: '44px', fontWeight: '700' }}>{searchWordValue}에 검색 결과 입니다.</Typography></>)}
+          (<> <Typography sx={{ fontSize: '36px', fontWeight: '700' }}>자유 게시판</Typography></>) :
+          (<> <Typography sx={{ display:'flex', alignItems:'center', fontSize: '36px', fontWeight: '700', color:'#333' }}><Typography sx={{ fontSize:'28px', fontWeight:700, color:'#222' }}>'{searchWordValue}'</Typography>에 검색 결과 입니다.</Typography></>)}
         <Box display='flex'>
           <Box>
             <OutlinedInput sx={{ width: '300px' }}
