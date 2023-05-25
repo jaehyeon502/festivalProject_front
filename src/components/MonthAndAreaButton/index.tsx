@@ -54,9 +54,10 @@ export default function MonthAndAreaButton({ setFestivalList }: Props) {
   const getFestivalMonthListResponse = (response: AxiosResponse<any, any>) => {
     setFestivalList(response.data.data.festivalList);
   }
-
+  
   const getFestivalAreaListResponse = (response: AxiosResponse<any, any>) => {
     setFestivalList(response.data.data);
+    console.log(response.data.data);
   }
 
   const getAllFestivalListResponseHandler = (response: AxiosResponse<any, any>) => {
