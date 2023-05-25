@@ -93,7 +93,6 @@ export default function ReviewBoardListView() {
 
     const reviewBoardList = data.map((reviewBoard) => reviewBoard.boardNumber);
     setReviewBoardList(reviewBoardList);
-    
   }
 
   const getSearchReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
