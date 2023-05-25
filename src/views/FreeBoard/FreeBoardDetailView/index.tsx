@@ -223,7 +223,7 @@ export default function FreeBoardDetailView() {
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>
         </Menu>
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%', alignItems:'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '40px', alignItems:'center' }}>
           <Typography sx={{ ml: '50px', fontSize: '18px' }}>{board?.boardTitle}</Typography>
           <Typography sx={{ mr: '50px', fontSize: '12px', color:'#666' }}>{board?.boardWriteDatetime}</Typography>
         </Box>
@@ -231,13 +231,13 @@ export default function FreeBoardDetailView() {
         <Divider sx={{ mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box>
-          <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
+          <Box sx={{ ml: '60px', mr: '60px', mt: '30px', minHeight:'400px' }}>
             <Typography sx={{ fontSize: '16px', mt: '10px', color:'#222' }}>{board?.boardContent}</Typography>
             {board?.boardImgUrl && (<Box sx={{mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
           </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px', fontSize:'11px', color:'#888' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
-              <Box sx={{ display: 'inline', ml: '25px' }}>
+              <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>
                 <IconButton onClick={() => onClickRecommendHandler()} >
                   {recommendStatus ?
                     <ThumbUpIcon sx={{ width: '15px', height: '15px', color: 'blue' }} />
@@ -267,7 +267,7 @@ export default function FreeBoardDetailView() {
           </Box>
         </Box>
 
-        <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
+        <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px' }}>
