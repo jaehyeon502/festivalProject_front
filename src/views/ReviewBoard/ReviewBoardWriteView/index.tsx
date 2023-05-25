@@ -161,7 +161,7 @@ export default function ReviewBoardWriteView() {
       <Divider />
       <Box sx={{ ml: '200px', mr: '200px', p: '100px 50px', backgroundColor: '#ffffff' }}>
         <Box>
-          <Box sx={{ mb: '220px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ mb: '200px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
             <Box onClick={onClickFestivalSearchBox}>
               <FormControl sx={{ width: '280px', ml: '20px', mb: '20px' }} variant="outlined">
                 <OutlinedInput placeholder='축제 이름을 검색해 주세요' onChange={(event) => setSearchName(event.target.value)} onKeyPress={(event) => onFestivalSearchKeyPressHandler(event)}

@@ -14,7 +14,7 @@ import { DELETE_FREE_BOARD, FREE_BOARD_RECOMMEND_URL, GET_FREE_BOARD_URL, POST_F
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { DeleteFreeBoardResponseDto, FreeBoardRecommendResponseDto, GetFreeBoardResponseDto, PostFreeBoardCommentResponseDto } from 'src/apis/response/freeboard';
-import { useSignInStore } from 'src/stores';
+import { useSignInStore, useFreeBoardStore } from 'src/stores';
 import { useCookies } from 'react-cookie';
 import { FreeBoardRecommendRequestDto, PostFreeBoardCommentRequestDto } from 'src/apis/request/freeboard';
 import CommentListItem from 'src/components/CommentListItem';
@@ -37,6 +37,7 @@ export default function FreeBoardDetailView() {
 
   const [commentContent, setCommentContent] = useState<string>('');
   const { boardNumber } = useParams();
+  const { freeBoardList } = useFreeBoardStore();
 
   const navigator = useNavigate();
 
@@ -99,28 +100,29 @@ export default function FreeBoardDetailView() {
       .catch((error) => getFreeBoardError(error))
   }
 
-  //? 다음 글
   const onClickNextBoardHandler = () => {
-    let freeBoardNumber: number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);
-    while (!boardNumber) freeBoardNumber += 1;
 
-    if (freeBoardNumber > 1000) {
+    const nextBoardNumberIndex = freeBoardList.findIndex((freeNumber) => freeNumber === Number(boardNumber as string)) - 1;
+
+    if (nextBoardNumberIndex < 0) {
       alert('다음 글이 없습니다.');
       return;
     }
-    navigator(`/freeBoard/detail/${freeBoardNumber}`);
+    const nextBoardNumber = freeBoardList[nextBoardNumberIndex];
+
+    navigator(`/freeBoard/detail/${nextBoardNumber}`);
   }
 
-  //? 이전 글
   const onClickPreviousBoardHandler = () => {
-    let freeBoardNumber: number = boardNumber ? Number(boardNumber) - 1 : Number(boardNumber);
-    while (!boardNumber) freeBoardNumber -= 1;
+    const previousBoardNumberIndex = freeBoardList.findIndex((freeNumber) => freeNumber === Number(boardNumber as string)) + 1;
 
-    if (freeBoardNumber < 1) {
-      alert('이전 글이 없습니다.');
+    if (previousBoardNumberIndex >= freeBoardList.length) {
+      alert('이전 글이 없습니다.')
       return;
     }
-    navigator(`/freeBoard/detail/${freeBoardNumber}`);
+    const previousBoardNumber = freeBoardList[previousBoardNumberIndex];
+
+    navigator(`/freeBoard/detail/${previousBoardNumber}`);
   }
 
   const onMenuClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
@@ -216,7 +218,7 @@ export default function FreeBoardDetailView() {
 
           </Box>
         )}
-        <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+        <Menu sx ={{ position : 'absolute', top : '-570px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${board?.boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>
@@ -226,7 +228,7 @@ export default function FreeBoardDetailView() {
           <Typography sx={{ ml: '50px', fontSize: '18px' }}>{board?.boardTitle}</Typography>
           <Typography sx={{ mr: '50px', fontSize: '12px', color:'#666' }}>{board?.boardWriteDatetime}</Typography>
         </Box>
-
+        
         <Divider sx={{ mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box>

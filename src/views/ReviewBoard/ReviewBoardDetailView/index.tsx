@@ -12,13 +12,14 @@ import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
 import WarningIcon from '@mui/icons-material/Warning';
 import { useCookies } from 'react-cookie';
-import { DELETE_REVIEW_BOARD_URL, GET_REVIEW_BOARD_URL, POST_REVIEW_BOARD_COMMENT_URL, POST_REVIEW_BOARD_RECOMMEND_URL, authorizationHeader } from 'src/constants/api';
+import { DELETE_REVIEW_BOARD_URL, GET_ALL_REVIEWBOARD_LIST_URL, GET_REVIEW_BOARD_URL, POST_REVIEW_BOARD_COMMENT_URL, POST_REVIEW_BOARD_RECOMMEND_URL, authorizationHeader } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { DeleteReviewBoardResponseDto, GetReviewBoardResponseDto, PostCommentResponseDto, RecommendReviewBoardResponseDto } from 'src/apis/response/board';
+import { DeleteReviewBoardResponseDto, GetReviewBoardListResponseDto, GetReviewBoardResponseDto, GetSearchReviewBoardListResponseDto, PostCommentResponseDto, RecommendReviewBoardResponseDto } from 'src/apis/response/board';
 import { PostCommentRequestDto, RecommendReviewBoardRequestDto } from 'src/apis/request/board';
 import Recommend from 'src/interfaces/Recommend.interface';
-import { useSignInStore } from 'src/stores';
+import { useReviewBoardStore, useSignInStore } from 'src/stores';
+import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
 
 export default function ReviewBoardDetailView() {
 
@@ -42,6 +43,7 @@ export default function ReviewBoardDetailView() {
   const navigator = useNavigate();
   const [cookies] = useCookies();
   const { signInUser } = useSignInStore();
+  const { reviewBoardList } = useReviewBoardStore();
   const accessToken = cookies.accessToken;
   let isCheck = false;
 
@@ -52,6 +54,12 @@ export default function ReviewBoardDetailView() {
     axios.get(GET_REVIEW_BOARD_URL(boardNumber as string))
       .then((response) => getBoardResponseHandler(response))
       .catch((error) => getBoardErrorHandler(error));
+  }
+
+  const getReviewBoardList = () => {
+    axios.get(GET_ALL_REVIEWBOARD_LIST_URL)
+      .then((response) => getReviewBoardListResponseHandler(response))
+      .catch((error) => getReviewBoardErrorHandler(error))
   }
 
   const onRecommendHandler = () => {
@@ -73,25 +81,28 @@ export default function ReviewBoardDetailView() {
   }
 
   const onClickNextBoardHandler = () => {
-    let nextboardNumber: number = boardNumber ? Number(boardNumber) + 1 : Number(boardNumber);
-    while (!boardNumber) nextboardNumber += 1;
 
-    if (nextboardNumber > 1000) {
+    const nextBoardNumberIndex = reviewBoardList.findIndex((reviewNumber) => reviewNumber === Number(boardNumber as string)) - 1;
+
+    if (nextBoardNumberIndex < 0) {
       alert('다음 글이 없습니다.');
       return;
     }
-    navigator(`/reviewBoard/detail/${nextboardNumber}`)
+    const nextBoardNumber = reviewBoardList[nextBoardNumberIndex];
+
+    navigator(`/reviewBoard/detail/${nextBoardNumber}`);
   }
 
   const onClickPreviousBoardHandler = () => {
-    let pboardNumber: number = boardNumber ? Number(boardNumber) - 1 : Number(boardNumber);
-    while (!boardNumber) pboardNumber -= 1;
+    const previousBoardNumberIndex = reviewBoardList.findIndex((reviewNumber) => reviewNumber === Number(boardNumber as string)) + 1;
 
-    if (pboardNumber < 1) {
-      alert('이전 글이 없습니다.');
+    if (previousBoardNumberIndex >= reviewBoardList.length) {
+      alert('이전 글이 없습니다.')
       return;
     }
-    navigator(`/reviewBoard/detail/${pboardNumber}`)
+    const previousBoardNumber = reviewBoardList[previousBoardNumberIndex];
+
+    navigator(`/reviewBoard/detail/${previousBoardNumber}`);
   }
 
   const onMenuClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
@@ -105,8 +116,8 @@ export default function ReviewBoardDetailView() {
   }
 
   const onDeleteBoardHandler = () => {
-    if(!accessToken)  return;
-    if(board?.writerUserId !== signInUser?.userId) return; //? 애초에 작성자가 다르면 메뉴바 자체가 안보인다.
+    if (!accessToken) return;
+    if (board?.writerUserId !== signInUser?.userId) return;
 
     axios.delete(DELETE_REVIEW_BOARD_URL(boardNumber as string), authorizationHeader(accessToken))
       .then((response) => deleteBoardResponseHandler(response))
@@ -118,10 +129,16 @@ export default function ReviewBoardDetailView() {
 
     const { result, message, data } = response.data as ResponseDto<GetReviewBoardResponseDto>
     if (!result || !data) {
-      alert(message);
+      //alert(message);
       return;
     }
     setReviewBoardResponse(data);
+  }
+
+  const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<GetReviewBoardResponseDto[]>
+    if (!result || data === null) return;
+    setFestivalList(data);
   }
 
   const recommendResponseHandler = (response: AxiosResponse<any, any>) => {
@@ -154,6 +171,7 @@ export default function ReviewBoardDetailView() {
   const recommendErrorHandler = (error: any) => console.log(error.message);
   const postCommentErrorHandler = (error: any) => console.log(error.message);
   const deleteBoardErrorHandler = (error: any) => console.log(error.message);
+  const getReviewBoardErrorHandler = (error: any) => console.log(error.message);
 
   //^ Function
   const setReviewBoardResponse = (data: GetReviewBoardResponseDto | RecommendReviewBoardResponseDto | PostCommentResponseDto) => {
@@ -162,7 +180,7 @@ export default function ReviewBoardDetailView() {
     setBoard(board);
     setFestivalList(commentList);
     setRecommendList(recommendList);
-    setComment(commentList);
+    // setComment(commentList);
   }
 
   //          Use Effect          //
@@ -205,7 +223,7 @@ export default function ReviewBoardDetailView() {
 
           </Box>
         )}
-        <Menu sx={{ position: 'absolute', top: '-490px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+        <Menu sx={{ position: 'absolute', top: '-570px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/reviewboard/update/${boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteBoardHandler()}>게시글 삭제</MenuItem>
@@ -227,7 +245,7 @@ export default function ReviewBoardDetailView() {
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
               <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>
-                <IconButton onClick={onClickRecommendHandler} >
+                <IconButton onClick={() => onClickRecommendHandler()} >
                   {recommendStatus ?
                     <ThumbUpIcon sx={{ width: '15px', height: '15px', color: 'blue' }} />
                     :
@@ -259,7 +277,7 @@ export default function ReviewBoardDetailView() {
         <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box sx={{ pb: '20px' }}>
-          <Box sx={{ ml: '30px'}}>
+          <Box sx={{ ml: '30px' }}>
             <Stack>
               {viewList.map((commentItem) => <CommentListItem types='board' setCommentList={setFestivalList} item={commentItem as Comment} setBoard={setBoard} />)}
             </Stack>
