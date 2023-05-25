@@ -218,7 +218,7 @@ export default function FreeBoardDetailView() {
 
           </Box>
         )}
-        <Menu sx ={{ position : 'absolute', top : '-490px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+        <Menu sx ={{ position : 'absolute', top : '-570px', left : '1425px'}} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${board?.boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>

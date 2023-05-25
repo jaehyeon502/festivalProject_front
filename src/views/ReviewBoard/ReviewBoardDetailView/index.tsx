@@ -95,7 +95,6 @@ export default function ReviewBoardDetailView() {
 
   const onClickPreviousBoardHandler = () => {
     const previousBoardNumberIndex = reviewBoardList.findIndex((reviewNumber) => reviewNumber === Number(boardNumber as string)) + 1;
-    console.log(previousBoardNumberIndex)
 
     if (previousBoardNumberIndex >= reviewBoardList.length) {
       alert('이전 글이 없습니다.')
@@ -224,7 +223,7 @@ export default function ReviewBoardDetailView() {
 
           </Box>
         )}
-        <Menu sx={{ position: 'absolute', top: '-490px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+        <Menu sx={{ position: 'absolute', top: '-570px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/reviewboard/update/${boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteBoardHandler()}>게시글 삭제</MenuItem>
@@ -242,7 +241,6 @@ export default function ReviewBoardDetailView() {
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px', minHeight:'400px' }}>
             <Typography sx={{ fontSize: '16px', mt: '10px', color:'#222' }}>{board?.boardContent}</Typography>
             <img src={board?.boardImgUrl ? board.boardImgUrl : ''} />
-            {board?.boardImgUrl && (<Box sx={{mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
