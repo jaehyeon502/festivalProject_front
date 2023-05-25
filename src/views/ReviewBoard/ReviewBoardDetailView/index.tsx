@@ -212,7 +212,7 @@ export default function ReviewBoardDetailView() {
         </Menu>
 
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '20%', alignItems:'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', height: '40px', alignItems:'center' }}>
           <Typography sx={{ ml: '50px', fontSize: '18px' }}>{board?.boardTitle}</Typography>
           <Typography sx={{ mr: '50px', fontSize: '12px', color:'#666' }}>{board?.boardWriteDatetime}</Typography>
         </Box>
@@ -220,7 +220,7 @@ export default function ReviewBoardDetailView() {
         <Divider sx={{ mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box>
-          <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
+          <Box sx={{ ml: '60px', mr: '60px', mt: '30px', minHeight:'400px' }}>
             <Typography sx={{ fontSize: '16px', mt: '10px', color:'#222' }}>{board?.boardContent}</Typography>
             <img src={board?.boardImgUrl ? board.boardImgUrl : ''} />
             {board?.boardImgUrl && (<Box sx={{mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
@@ -257,7 +257,7 @@ export default function ReviewBoardDetailView() {
           </Box>
         </Box>
 
-        <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
+        <Divider sx={{ mt: '20px', mb: '30px', mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box sx={{ pb: '20px' }}>
           <Box sx={{ ml: '30px'}}>
@@ -274,7 +274,7 @@ export default function ReviewBoardDetailView() {
             <Card variant='outlined' sx={{ p: '20px' }}>
               <Input
                 minRows={3}
-                multiline disableUnderline fullWidth
+                multiline disableUnderline fullWidth value={commentContent}
                 onChange={(event) => setCommentContent(event.target.value)} />
               <Box sx={{ display: 'flex', justifyContent: 'end' }}>
                 <Button

@@ -51,14 +51,14 @@ export default function FestivalOnclickChangeItem({ setClickPage, item }: Props)
       />
       <CardContent>
         <Box>
-          <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>기간 : {item.festivalDurationStart} ~ {item.festivalDurationEnd}</Typography>
-          <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>장소 : {item.festivalArea}</Typography>
-          <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>요금 : {item.festivalCost}</Typography>
-          <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>평점 : {item.onelineReviewAverage}</Typography>
+          <Typography sx={{ fontSize:'12px', ml: '20px', mt: '10px', color: '#444' }}>기간 : {item.festivalDurationStart} ~ {item.festivalDurationEnd}</Typography>
+          <Typography sx={{ fontSize:'12px', ml: '20px', mt: '10px', color: '#444' }}>장소 : {item.festivalArea}</Typography>
+          <Typography sx={{ fontSize:'12px', ml: '20px', mt: '10px', color: '#444' }}>요금 : {item.festivalCost}</Typography>
+          <Typography sx={{ fontSize:'12px', ml: '20px', mt: '10px', color: '#444' }}>평점 : {item.onelineReviewAverage}</Typography>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Typography sx={{ fontSize:'14px', ml: '20px', mt: '10px' }}>정보 : <Link href={item.festivalHomepage}>{`홈페이지`}</Link></Typography>
               <Box>
-                <Box sx={{ fontSize:'14px'}} display='inline'> 축제정보 </Box>
+                <Box sx={{ fontSize:'12px', color: '#444'}} display='inline'> 축제정보 </Box>
                 <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}

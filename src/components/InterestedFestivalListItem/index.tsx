@@ -15,16 +15,16 @@ export default function InterestedFestivalListItem({ onClick, festivalList }: Pr
     return (
         <Card variant='outlined' onClick={onClick} >
             <CardActionArea sx={{ m: '20px,0px,20px ', display: 'flex', justifyContent: 'space-between', p: '15px', backgroundColor: '#ffffff' }} onClick={() => setFestivalNumber(festivalList.festivalNumber)}>
-                <Box sx={{ height: '200px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
+                <Box sx={{ height: '120px', display: 'flex', justifyContent: 'start', flexDirection: 'column' }}>
                     <Box  >
-                        <Typography sx={{ fontWeight: 900, fontSize: '14px', m: '10px' }}>{festivalList.festivalName}</Typography>
+                        <Typography sx={{ fontWeight: 900, fontSize: '14px', m: '10px', color:'#222' }}>{festivalList.festivalName}</Typography>
                         <Box>
                             <Divider />
                         </Box>
                     </Box>
                     <Box>
-                        <Typography sx={{m:'10px' ,fontSize:'11px', color:'#333'}}>개요:{festivalList.festivalType}  기간:{festivalList.festivalDurationStart}~{festivalList.festivalDurationEnd} 시간:{festivalList.festivalTime}</Typography>
-                        <Typography sx={{m:'10px' ,fontSize:'11px', color:'#333'}}>장소:{festivalList.festivalArea} 요금:{festivalList.festivalCost} 관광객평점:{festivalList.onelineReviewAverage}</Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'11px', color:'#444'}}>개요:{festivalList.festivalType}  기간:{festivalList.festivalDurationStart}~{festivalList.festivalDurationEnd} 시간:{festivalList.festivalTime}</Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'11px', color:'#444'}}>장소:{festivalList.festivalArea} 요금:{festivalList.festivalCost} 관광객평점:{festivalList.onelineReviewAverage}</Typography>
                         <Box>
                             <Divider />
                         </Box>
@@ -34,7 +34,9 @@ export default function InterestedFestivalListItem({ onClick, festivalList }: Pr
                     </Box>
                 </Box>
                 <Box>
-                    <Box component={'img'} src={festivalList.festivalInformationUrl as string} sx={{ ml: '10px', height: '200px', width: '200px', borderRadius: '5%' }}></Box>
+                    <Box sx={{ ml: '10px', height: '120px', width: '120px', borderRadius: '5%' }}>
+                    <img src={festivalList.festivalInformationUrl ? festivalList.festivalInformationUrl : ''} />
+                    </Box>
                 </Box>
             </CardActionArea>
         </Card>
