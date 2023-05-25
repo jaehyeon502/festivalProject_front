@@ -10,7 +10,6 @@ import ResponseDto from 'src/apis/response';
 import { PostFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useCookies } from 'react-cookie';
 import { useImageUploadHook } from 'src/hooks';
-import React from 'react';
 
 export default function FreeBoardWriteView() {
 
@@ -104,7 +103,7 @@ export default function FreeBoardWriteView() {
           <Typography>
             <Input
               fullWidth disableUnderline placeholder='본문을 작성해주세요.'
-              multiline minRows={1}
+              multiline minRows={10}
               sx={{ fontSize: '18px', fontWeight: 600 }}
               onChange={(event) => setBoardContent(event.target.value)}
               onKeyPress={(event) => onContentKeyPressHandler(event)} />
