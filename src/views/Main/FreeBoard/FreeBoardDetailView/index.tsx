@@ -240,7 +240,7 @@ export default function FreeBoardDetailView() {
         <Box>
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
             <Typography sx={{ fontSize: '18px', mt: '10px' }}>{freeBoard?.boardContent}</Typography>
-            {freeBoard?.boardImgUrl && (<Box sx={{ width: '100%', mt: '20px' }} component='img' src={freeBoard?.boardImgUrl} />)}
+            {freeBoard?.boardImgUrl && (<Box sx={{ width: '50%', mt: '20px' }} component='img' src={freeBoard?.boardImgUrl} />)}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>

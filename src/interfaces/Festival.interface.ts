@@ -11,7 +11,6 @@ interface Festival {
     festivalInformation: string | null;
     festivalInformationUrl: string | null;
     festivalHomepage: string;
-
 }
 
 export default Festival

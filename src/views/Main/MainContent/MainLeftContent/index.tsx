@@ -12,6 +12,7 @@ import { GetOneFestivalResponseDto } from 'src/apis/response/festival';
 import axios, { AxiosResponse } from 'axios';
 import { GET_ONE_FESTIVAL_URL } from 'src/constants/api';
 import ResponseDto from 'src/apis/response';
+
 interface Props {
   clickPage: boolean;
   setClickPage: Dispatch<SetStateAction<boolean>>
@@ -54,6 +55,7 @@ export default function MainLeftContent({ setClickPage, clickPage, selectedFesti
   //         Use Effect          //
   useEffect(() => {
     if (clickPage && festivalNumber) getOneFestival();
+    console.log(viewList);
     return () => {
       setSelectedFestival(null);
       if (clickPage) setClickPage(false);
