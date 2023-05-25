@@ -15,7 +15,6 @@ export default function FreeBoardListITem({ item } : Props) {
             <CardActionArea sx ={{ display : 'flex', justifyContent : 'start', p : '10px'}} onClick = {() => navigator(`/freeBoard/detail/${item.boardNumber}`)}>
                 <Box>
                     {item.boardImgUrl ? (<Box component={'img'} src = {item.boardImgUrl} sx = {{ height : '50px', width : '50px', borderRadius : '10%'}} />): (<></>)}
-                
                 </Box>
                 <Box sx = {{ ml : '12px', width : '100%', height : '50px'}}>
                     <Box display='flex' sx = {{ ml : '10px'}}>
