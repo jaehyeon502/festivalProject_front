@@ -9,7 +9,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FreeBoard, FreeBoardComment, FreeBoardRecommend } from 'src/interfaces';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
-import WarningIcon from '@mui/icons-material/Warning';
 import { DELETE_FREE_BOARD, FREE_BOARD_RECOMMEND_URL, GET_FREE_BOARD_URL, POST_FREE_BOARD_COMMENT_URL, authorizationHeader } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
@@ -285,7 +284,7 @@ export default function FreeBoardDetailView() {
             <Card variant='outlined' sx={{ p: '20px' }}>
               <Input minRows={3} multiline disableUnderline fullWidth value={commentContent} onChange={(event) => setCommentContent(event.target.value)} />
               <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button sx={{ p: '4px 20px', backgroundColor: '#dedede', color: '#444', fontSize: '12px', fontWeight: 700, borderRadius: '42px' }} onClick={() => onPostFreeBoardCommentHandler()}>댓글 작성</Button>
+                <Button sx={{ p: '4px 20px', backgroundColor: '#dedede', color: '#444', fontSize: '14px', borderRadius: '42px' }} onClick={() => onPostFreeBoardCommentHandler()}>댓글 작성</Button>
               </Box>
             </Card>
           </Box>

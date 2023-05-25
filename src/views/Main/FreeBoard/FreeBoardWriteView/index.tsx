@@ -10,7 +10,6 @@ import ResponseDto from 'src/apis/response';
 import { PostFreeBoardResponseDto } from 'src/apis/response/freeboard';
 import { useCookies } from 'react-cookie';
 import { useImageUploadHook } from 'src/hooks';
-import React from 'react';
 
 export default function FreeBoardWriteView() {
 

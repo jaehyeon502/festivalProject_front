@@ -117,7 +117,7 @@ export default function MypageView() {
   }, []);
 
   return (
-    <Box sx={{ p: '40px 120px' }} >
+    <Box sx={{ p: '40px 120px', minHeight:'650px' }} >
       <Box>
         <Typography sx={{ fontSize: '20px', fontWeight: 900 }}>내가 작성한 후기 게시글</Typography>
       </Box>

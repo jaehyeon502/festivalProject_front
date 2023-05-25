@@ -10,16 +10,14 @@ import { Comment, ReviewBoard } from 'src/interfaces';
 import CommentListItem from 'src/components/CommentListItem';
 import { usePagingHook } from 'src/hooks';
 import { getpagecount } from 'src/utils';
-import WarningIcon from '@mui/icons-material/Warning';
 import { useCookies } from 'react-cookie';
 import { DELETE_REVIEW_BOARD_URL, GET_ALL_REVIEWBOARD_LIST_URL, GET_REVIEW_BOARD_URL, POST_REVIEW_BOARD_COMMENT_URL, POST_REVIEW_BOARD_RECOMMEND_URL, authorizationHeader } from 'src/constants/api';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
-import { DeleteReviewBoardResponseDto, GetReviewBoardListResponseDto, GetReviewBoardResponseDto, GetSearchReviewBoardListResponseDto, PostCommentResponseDto, RecommendReviewBoardResponseDto } from 'src/apis/response/board';
+import { DeleteReviewBoardResponseDto, GetReviewBoardResponseDto, PostCommentResponseDto, RecommendReviewBoardResponseDto } from 'src/apis/response/board';
 import { PostCommentRequestDto, RecommendReviewBoardRequestDto } from 'src/apis/request/board';
 import Recommend from 'src/interfaces/Recommend.interface';
 import { useReviewBoardStore, useSignInStore } from 'src/stores';
-import ReviewBoardListItem from 'src/components/ReviewBoardListItem';
 
 export default function ReviewBoardDetailView() {
 

@@ -17,7 +17,6 @@ import ResponseDto from 'src/apis/response';
 import { GetFestivalNameListResponseDto, GetFestivalSearchNameResposneDto } from 'src/apis/response/festival';
 import { useImageUploadHook } from 'src/hooks';
 
-
 export default function ReviewBoardWriteView() {
 
   //          Hook          //

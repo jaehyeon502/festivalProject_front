@@ -159,12 +159,11 @@ export default function MainRightContent({ clickPage, setSelectedFestival }: Pro
                     onClick={() => onPostOneLineCommentHandler()}
                     sx={{
                       p: '4px 20px',
-                      backgroundColor: '#00ffff',
+                      backgroundColor: '#ffffff',
                       color: 'black',
-                      fontSize: '16px',
-                      fontWeight: 700,
+                      fontSize: '14px',
                       borderRadius: '42px'
-                    }} >댓글 작성</Button>
+                    }} >한줄평 작성</Button>
                 </Box>
               </Card>
             </Box>) : (<></>)
