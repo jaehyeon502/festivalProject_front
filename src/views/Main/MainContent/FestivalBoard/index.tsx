@@ -9,7 +9,7 @@ import InterestedFestivalListItem from 'src/components/InterestedFestivalListIte
 import FestivalReviewBoardList from 'src/components/FestivalReviewBoardList';
 import { GET_FESTIVAL_REVIEWBOARD_LIST_URL, GET_INTERESTED_FESTIVAL_LIST_URL, authorizationHeader } from 'src/constants/api';
 import { usePagingHook } from 'src/hooks';
-import { useFestivalNumberStore, useSignInStore } from 'src/stores';
+import { useFestivalNumberStore } from 'src/stores';
 import { getpagecount } from 'src/utils';
 
 interface Props {

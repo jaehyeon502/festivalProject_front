@@ -291,15 +291,12 @@ export default function FreeBoardDetailView() {
             <Card variant='outlined' sx={{ p: '20px' }}>
               <Input minRows={3} multiline disableUnderline fullWidth value={commentContent} onChange={(event) => setCommentContent(event.target.value)} />
               <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button sx={{ p: '4px 20px', backgroundColor: '#00ffff', color: 'black', fontSize: '16px', fontWeight: 700, borderRadius: '42px' }} onClick={() => onPostFreeBoardCommentHandler()}>댓글 작성</Button>
+                <Button sx={{ p: '4px 20px', backgroundColor: '#dedede', color: '#444', fontSize: '14px', borderRadius: '42px' }} onClick={() => onPostFreeBoardCommentHandler()}>댓글 작성</Button>
               </Box>
             </Card>
           </Box>
-
         </Box>
-
       </Box>
     </Box>
-
   )
 }

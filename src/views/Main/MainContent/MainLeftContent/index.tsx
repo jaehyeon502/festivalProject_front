@@ -23,7 +23,6 @@ interface Props {
 export default function MainLeftContent({ setClickPage, clickPage, selectedFestival, setSelectedFestival }: Props) {
 
   //         Hook         //
-  const [showSameFestival, setShowSameFestival] = useState<string>('');
   const [festivalArea, setFestivalArea] = useState<string>('');
 
   const { festivalList, viewList, pageNumber, onPageHandler, COUNT, setFestivalList } = usePagingHook(4);

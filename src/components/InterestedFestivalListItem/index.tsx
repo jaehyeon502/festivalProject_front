@@ -35,7 +35,7 @@ export default function InterestedFestivalListItem({ onClick, festivalList }: Pr
                 </Box>
                 <Box>
                     <Box sx={{ ml: '10px', height: '120px', width: '120px', borderRadius: '5%' }}>
-                    <img src={festivalList.festivalInformationUrl ? festivalList.festivalInformationUrl : ''} />
+                    <img style={{ 'width':'100%', 'height':'100%' }} src={festivalList.festivalInformationUrl ? festivalList.festivalInformationUrl : ''} />
                     </Box>
                 </Box>
             </CardActionArea>
