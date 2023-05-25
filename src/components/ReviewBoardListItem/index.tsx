@@ -1,4 +1,4 @@
-import { Box, Card, CardActionArea, Typography, Avatar } from '@mui/material'
+import { Box, Card, CardActionArea, Typography} from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import { GetReviewBoardListResponseDto } from 'src/apis/response/board';
 interface Props {
