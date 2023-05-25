@@ -224,7 +224,7 @@ export default function FreeBoardDetailView() {
 
           </Box>
         )}
-        <Menu sx={{ position: 'absolute', top: '-490px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+        <Menu sx={{ position: 'absolute', top: '-600px', left: '16px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/freeboard/update/${board?.boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteFreeBoardHandler()}>게시글 삭제</MenuItem>
@@ -238,7 +238,7 @@ export default function FreeBoardDetailView() {
         <Divider sx={{ mr: '50px', ml: '50px', borderBottomWidth: 2, borderColor: '#000000' }} />
 
         <Box>
-          <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
+          <Box sx={{ ml: '60px', mr: '60px', mt: '30px', height:'200px' }}>
             <Typography sx={{ fontSize: '18px', mt: '10px' }}>{board?.boardContent}</Typography>
             {board?.boardImgUrl && (<Box sx={{ width: '50%', mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
           </Box>

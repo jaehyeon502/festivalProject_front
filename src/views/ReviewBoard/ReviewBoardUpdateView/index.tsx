@@ -259,7 +259,7 @@ export default function ReviewBoardUpdateView() {
               value={boardContent}
               onChange={(event) => setBoardContent(event.target.value)}
               onKeyPress={(event) => onContentKeyPressHandler(event)} />
-            <Box sx={{ width: '100%' }} component='img' src={boardImgUrl}></Box>
+            <Box sx={{ width: '50%' }} component='img' src={boardImgUrl}></Box>
           </Typography>
         </Box>
 

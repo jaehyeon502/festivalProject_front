@@ -205,7 +205,7 @@ export default function ReviewBoardDetailView() {
 
           </Box>
         )}
-        <Menu sx={{ position: 'absolute', top: '-490px', left: '1425px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
+        <Menu sx={{ position: 'absolute', top: '-600px', left: '1625px' }} anchorEl={anchorElement} open={menuOpen} onClose={onMenuCloseHandler}>
           <MenuItem sx={{ p: '10px 59px', opacity: 0.5 }} onClick={() => navigator(`/reviewboard/update/${boardNumber}`)}>게시글 수정</MenuItem>
           <Divider />
           <MenuItem sx={{ p: '10px 59px', color: '#ff0000', opacity: 0.5 }} onClick={() => onDeleteBoardHandler()}>게시글 삭제</MenuItem>
@@ -220,15 +220,14 @@ export default function ReviewBoardDetailView() {
         <Divider sx={{ mr: '50px', ml: '50px', borderColor: '#000000' }} />
 
         <Box>
-          <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
+          <Box sx={{ ml: '60px', mr: '60px', mt: '30px', height:'200px' }}>
             <Typography sx={{ fontSize: '16px', mt: '10px', color:'#222' }}>{board?.boardContent}</Typography>
             <img src={board?.boardImgUrl ? board.boardImgUrl : ''} />
-            {board?.boardImgUrl && (<Box sx={{mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
               <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>
-                <IconButton onClick={onClickRecommendHandler} >
+                <IconButton onClick={() => onClickRecommendHandler()} >
                   {recommendStatus ?
                     <ThumbUpIcon sx={{ width: '15px', height: '15px', color: 'blue' }} />
                     :
