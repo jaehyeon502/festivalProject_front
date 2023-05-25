@@ -11,6 +11,7 @@ import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { GET_ALL_REVIEWBOARD_LIST_URL, GET_SEARCH_REVIEWBOARD_LIST } from 'src/constants/api';
 import { GetReviewBoardListResponseDto, GetSearchReviewBoardListResponseDto } from 'src/apis/response/board';
+import { useReviewBoardStore } from 'src/stores';
 
 export default function ReviewBoardListView() {
 
@@ -27,6 +28,8 @@ export default function ReviewBoardListView() {
   const searchType = ['최신순', '조회수'];
 
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const { setReviewBoardList } = useReviewBoardStore();
 
   const path = useLocation();
 
@@ -86,7 +89,11 @@ export default function ReviewBoardListView() {
   const getReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
     const { result, message, data } = response.data as ResponseDto<GetReviewBoardListResponseDto[]>
     if (!result || data === null) return;
-    setFestivalList(data)
+    setFestivalList(data);
+
+    const reviewBoardList = data.map((reviewBoard) => reviewBoard.boardNumber);
+    setReviewBoardList(reviewBoardList);
+    
   }
 
   const getSearchReviewBoardListResponseHandler = (response: AxiosResponse<any, any>) => {
