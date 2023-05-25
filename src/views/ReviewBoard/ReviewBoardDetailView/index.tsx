@@ -223,6 +223,7 @@ export default function ReviewBoardDetailView() {
           <Box sx={{ ml: '60px', mr: '60px', mt: '30px' }}>
             <Typography sx={{ fontSize: '16px', mt: '10px', color:'#222' }}>{board?.boardContent}</Typography>
             <img src={board?.boardImgUrl ? board.boardImgUrl : ''} />
+            {board?.boardImgUrl && (<Box sx={{mt: '20px' }} component='img' src={board?.boardImgUrl} />)}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>

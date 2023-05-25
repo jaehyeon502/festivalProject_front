@@ -5,16 +5,18 @@ import { useFestivalNumberStore } from "src/stores";
 interface Props{
     //? onClick을 누르면 card 클릭했을때 변경이 됨.
     onClick: () => void;
-    item :GetOneFestivalResponseDto;
+    item : GetOneFestivalResponseDto;
 }
 
 export default function FestivalSimpleListItem({ onClick, item }: Props) {
-    const {setFestivalNumber}=useFestivalNumberStore();
+    const {setFestivalNumber} = useFestivalNumberStore();
 
     const onClickHandler = () => {
         onClick();
         setFestivalNumber(item.festivalNumber);
     }
+
+    console.log(item.onelineReviewAverage);
 
     return (
         <Card variant='outlined' onClick={() => onClickHandler()}>
@@ -27,9 +29,9 @@ export default function FestivalSimpleListItem({ onClick, item }: Props) {
                         </Box>
                     </Box>
                     <Box>
-                        <Typography sx={{m:'10px' ,fontSize:'13px',fontWeight:400}}>기간 : {item.festivalDurationStart} ~ {item.festivalDurationEnd}</Typography>
-                        <Typography sx={{m:'10px' ,fontSize:'13px',fontWeight:400}}>장소 : {item.festivalArea} </Typography>
-                        <Typography sx={{m:'10px' ,fontSize:'13px',fontWeight:400}}>평점 : {item.onelineReviewAverage}</Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'13px', fontWeight:400}}>기간 : {item.festivalDurationStart} ~ {item.festivalDurationEnd}</Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'13px', fontWeight:400}}>장소 : {item.festivalArea} </Typography>
+                        <Typography sx={{m:'10px' ,fontSize:'13px', fontWeight:400}}>평점 : {item.onelineReviewAverage}</Typography>
                         <Box>
                             <Divider />
                         </Box>
