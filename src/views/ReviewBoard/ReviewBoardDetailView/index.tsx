@@ -245,7 +245,7 @@ export default function ReviewBoardDetailView() {
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '30px' }}>
             <Box>
               <Box sx={{ display: 'inline', ml: '25px', fontSize:'11px', color:'#888' }}>
-                <IconButton onClick={onClickRecommendHandler} >
+                <IconButton onClick={() => onClickRecommendHandler()} >
                   {recommendStatus ?
                     <ThumbUpIcon sx={{ width: '15px', height: '15px', color: 'blue' }} />
                     :

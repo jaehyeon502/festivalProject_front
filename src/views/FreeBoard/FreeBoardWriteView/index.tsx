@@ -70,7 +70,7 @@ export default function FreeBoardWriteView() {
       <Divider />
       <Box sx={{ ml: '200px', mr: '200px', p: '100px 50px', backgroundColor: '#ffffff' }}>
         <Box>
-          <Box sx={{ mb: '220px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ mb: '60px', mr: '30px', ml: '30px', display: 'flex', justifyContent: 'space-between' }}>
 
             <Box>
             </Box>

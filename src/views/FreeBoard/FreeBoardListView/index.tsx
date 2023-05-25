@@ -115,7 +115,7 @@ export default function FreeBoardListView() {
   }, [])
   
   return (
-    <Box>
+    <Box sx={{ minHeight:'700px'}}>
       <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
         {!searchView ?
           (<> <Typography sx={{ fontSize: '36px', fontWeight: '700' }}>자유 게시판</Typography></>) :

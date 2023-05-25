@@ -38,8 +38,8 @@ export default function FestivalSimpleListItem({ onClick, item }: Props) {
                     </Box>
                 </Box>
                 <Box>
-                    <Box sx={{ mt: '22px',height: '90px', width: '90px', borderRadius: '5%' }}>
-                    <img src={item.festivalInformationUrl ? item.festivalInformationUrl : ''} />
+                    <Box sx={{ height: '90px', width: '90px', borderRadius: '5%' }}>
+                    <img style={{ 'width':'100%', 'height':'100%' }} src={item.festivalInformationUrl ? item.festivalInformationUrl : ''} />
                     </Box>
                 </Box>
             </CardActionArea>

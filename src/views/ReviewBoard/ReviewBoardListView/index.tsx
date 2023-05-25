@@ -120,10 +120,8 @@ export default function ReviewBoardListView() {
   }, [path])
 
   return (
-    <Box>
-
-      <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px', display: 'flex', justifyContent: 'space-between' }}>
-
+    <Box sx={{ minHeight:'700px'}}>
+      <Box sx={{ mt: '30px', ml: '60px', mr: '60px', mb: '20px',  display: 'flex', justifyContent: 'space-between' }}>
         {!searchView ?
           (<> <Typography sx={{ fontSize: '36px', fontWeight: '700' }}>축제 후기 게시판</Typography></>) :
           (<> <Typography sx={{ display:'flex', alignItems:'center', fontSize: '36px', fontWeight: '700', color:'#333' }}><Typography sx={{ fontSize:'28px', fontWeight:700, color:'#222' }}>'{searchWordValue}'</Typography>에 검색 결과 입니다.</Typography></>)}
@@ -180,7 +178,7 @@ export default function ReviewBoardListView() {
       </Box>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-        <Box sx={{ width: '120px', height: '50px' }}>
+        <Box sx={{ width: '120px', height: '100px' }}>
         </Box>
         <Box sx={{ mt: '18px', mb: '18px' }}>
           <Pagination page={pageNumber} count={getpagecount(festivalList, COUNT)} onChange={(event, value) => onPageHandler(value)}></Pagination>

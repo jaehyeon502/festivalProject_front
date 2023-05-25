@@ -7,7 +7,7 @@ import GetMyReviewBoardListResponseDto from './Get-MyReviewBoard-List.response.d
 import GetReviewBoardResponseDto from './Get-ReviewBoard.response.dto'
 import GetSearchReviewBoardListResponseDto from './Get-Search-Review-Board-List.response.dto'
 import PatchCommentResponseDto from './Patch-Comment.response.dto'
-import PostCommentResponseDto from './Post-Comment.response.dto'
+import PostCommentResponseDto from './Post-Comment.Response.dto'
 import PostReviewBoardResponseDto from './Post-Review-Board.response.dto'
 import RecommendReviewBoardResponseDto from './Recommend-Review-Board.response.dto'
 import PatchReviewBoardResponseDto from './Patch-Review-Board.response.dto'
