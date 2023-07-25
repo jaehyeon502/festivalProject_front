@@ -3,7 +3,6 @@
 ## 프로젝트 동기
 #### 국내 축제의 정보를 보다 편리하게 알아볼수있고, 축제 경험을 유저간에 소통할 수 있는 커뮤니티를 만들기위해 프로젝트를 시작
 
-
 ## 기술 스택 및 개발 환경
 #### &emsp; React, TypeScript, javaScript, HTML, CSS
 #### &emsp; Git, GitHub
